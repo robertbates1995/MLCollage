@@ -11,7 +11,17 @@ struct InputsView: View {
     var body: some View {
         VStack {
             Text("Inputs View")
+            ZStack {
+                Image("forest")
+                    .resizable()
+                    .scaledToFit()
+                Image("monke")
+                    .resizable()
+                    .scaledToFit()
+                
+            }
         }
+        .padding()
     }
 }
 
