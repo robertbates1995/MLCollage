@@ -17,7 +17,7 @@ struct InputsView: View {
                 Image(nsImage: imageCreator.forestImage)
                     .resizable()
                     .scaledToFit()
-                Image(nsImage: imageCreator.forestImage)
+                Image(nsImage: imageCreator.monkeImage)
                     .resizable()
                     .scaledToFit()
             }

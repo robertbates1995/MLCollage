@@ -10,4 +10,5 @@ import Cocoa
 
 class ImageCreator: NSViewController {
     var forestImage = NSImage(resource: .forest)
+    var monkeImage = NSImage(resource: .monke)
 }
