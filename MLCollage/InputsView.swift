@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct InputsView: View {
+    @State private var imageCreator = ImageCreator()
+    
     var body: some View {
         VStack {
             Text("Inputs View")
             ZStack {
-                Image("forest")
+                Image(nsImage: imageCreator.forestImage)
                     .resizable()
                     .scaledToFit()
-                Image("monke")
+                Image(nsImage: imageCreator.forestImage)
                     .resizable()
                     .scaledToFit()
-                
             }
         }
         .padding()
