@@ -8,24 +8,25 @@
 import Foundation
 import Cocoa
 
+@Observable
 class ImageCreator {
-    var background: NSImage
-    var subject: NSImage
+    var background: CIImage
+    var subject: CIImage
     
     init(background: NSImage, subject: NSImage) {
-        self.background = background
-        self.subject = subject
+        self.background = background.ciImage()!
+        self.subject = subject.ciImage()!
     }
     
     func createImage() -> NSImage {
-        return NSImage.fromCIImage(subject.ciImage()!.composited(over: background.ciImage()!))
+        return NSImage.fromCIImage(subject.composited(over: background))
     }
     
-    func move() {
-        
+    func translate() {
+        subject = subject.transformed(by: .init(translationX: 10, y: 10))
     }
     
-    func changeSize() {
+    func scale() {
         
     }
     

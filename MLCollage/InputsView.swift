@@ -16,10 +16,11 @@ struct InputsView: View {
     var body: some View {
         VStack {
             Text("Inputs View")
-            ZStack {
-                Image(nsImage: imageCreator.createImage())
-                    .resizable()
-                    .scaledToFit()
+            Image(nsImage: imageCreator.createImage())
+                .resizable()
+                .scaledToFit()
+            Button("move") {
+                imageCreator.translate()
             }
         }
         .padding()
