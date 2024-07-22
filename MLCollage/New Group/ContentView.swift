@@ -11,7 +11,7 @@ enum SideBarItem: String, Identifiable, CaseIterable {
     var id: String { rawValue }
     
     case settings
-    case inputs
+    case files
 }
 
 struct ContentView: View {
@@ -27,8 +27,8 @@ struct ContentView: View {
             switch selectedSideBarItem {
             case .settings:
                 SettingsView()
-            case .inputs:
-                InputsView()
+            case .files:
+                FilesView()
             }
         }
     }

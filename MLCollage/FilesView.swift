@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InputsView: View {
+struct FilesView: View {
     @State private var imageCreator = ImageCreator(
         background: NSImage(resource: .forest),
         subject: NSImage(resource: .monke)
@@ -15,25 +15,29 @@ struct InputsView: View {
     
     var body: some View {
         VStack {
-            Text("Inputs View")
+            Text("Files View")
                 .font(.headline)
             Spacer()
             HSplitView {
                 ScrollView {
-                    Image(nsImage: imageCreator.background)
-                        .resizable()
-                        .scaledToFit()
+                    HStack {
+                        Text("subjects")
+                        Spacer()
+                    }
                     Image(nsImage:imageCreator.subject)
                         .resizable()
                         .scaledToFit()
+                        .padding()
                 }
                 ScrollView {
+                    HStack {
+                        Text("backgrounds")
+                        Spacer()
+                    }
                     Image(nsImage: imageCreator.background)
                         .resizable()
                         .scaledToFit()
-                    Image(nsImage:imageCreator.subject)
-                        .resizable()
-                        .scaledToFit()
+                        .padding()
                 }
             }
             .padding()
@@ -45,5 +49,5 @@ struct InputsView: View {
 }
 
 #Preview {
-    InputsView()
+    FilesView()
 }
