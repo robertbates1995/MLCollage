@@ -16,12 +16,29 @@ struct InputsView: View {
     var body: some View {
         VStack {
             Text("Inputs View")
-            Image(nsImage: imageCreator.createImage())
-                .resizable()
-                .scaledToFit()
-            Button("move") {
-                imageCreator.translate()
+                .font(.headline)
+            Spacer()
+            HSplitView {
+                ScrollView {
+                    Image(nsImage: imageCreator.background)
+                        .resizable()
+                        .scaledToFit()
+                    Image(nsImage:imageCreator.subject)
+                        .resizable()
+                        .scaledToFit()
+                }
+                ScrollView {
+                    Image(nsImage: imageCreator.background)
+                        .resizable()
+                        .scaledToFit()
+                    Image(nsImage:imageCreator.subject)
+                        .resizable()
+                        .scaledToFit()
+                }
             }
+            .padding()
+            .background()
+            
         }
         .padding()
     }

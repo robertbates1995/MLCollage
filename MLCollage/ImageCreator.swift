@@ -10,20 +10,33 @@ import Cocoa
 
 @Observable
 class ImageCreator {
-    var background: CIImage
-    var subject: CIImage
+    var background: NSImage { .fromCIImage(_background)}
+    var _background: CIImage
+    var subject: NSImage { .fromCIImage(_subject)}
+    var _subject: CIImage
     
     init(background: NSImage, subject: NSImage) {
-        self.background = background.ciImage()!
-        self.subject = subject.ciImage()!
+        self._background = background.ciImage()!
+        self._subject = subject.ciImage()!
     }
     
     func createImage() -> NSImage {
-        return NSImage.fromCIImage(subject.composited(over: background))
+        return NSImage.fromCIImage(_subject.composited(over: _background))
+    }
+    
+    func createImageSet(population: Int) -> [NSImage] {
+        var images = [NSImage]()
+        var count = population
+        while count > 0 {
+            translate()
+            images.append(createImage())
+            count -= 1
+        }
+        return images
     }
     
     func translate() {
-        subject = subject.transformed(by: .init(translationX: 10, y: 10))
+        _subject = _subject.transformed(by: .init(translationX: 10, y: 10))
     }
     
     func scale() {
