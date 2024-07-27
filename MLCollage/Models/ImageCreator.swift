@@ -28,45 +28,10 @@ class ImageCreator {
         var images = [NSImage]()
         var count = population
         while count > 0 {
-            translate()
+            //translate()
             images.append(createImage())
             count -= 1
         }
         return images
-    }
-    
-    func translate() {
-        _subject = _subject.transformed(by: .init(translationX: 10, y: 10))
-    }
-    
-    func scale() {
-        
-    }
-    
-    func rotate() {
-        
-    }
-}
-
-extension NSImage {
-    /// Generates a CIImage for this NSImage.
-    /// - Returns: A CIImage optional.
-    func ciImage() -> CIImage? {
-        guard let data = self.tiffRepresentation,
-              let bitmap = NSBitmapImageRep(data: data) else {
-            return nil
-        }
-        let ci = CIImage(bitmapImageRep: bitmap)
-        return ci
-    }
-    
-    /// Generates an NSImage from a CIImage.
-    /// - Parameter ciImage: The CIImage
-    /// - Returns: An NSImage optional.
-    static func fromCIImage(_ ciImage: CIImage) -> NSImage {
-        let rep = NSCIImageRep(ciImage: ciImage)
-        let nsImage = NSImage(size: rep.size)
-        nsImage.addRepresentation(rep)
-        return nsImage
     }
 }
