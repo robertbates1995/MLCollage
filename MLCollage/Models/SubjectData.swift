@@ -7,16 +7,26 @@
 
 import Foundation
 
-struct SubjectData {
-    var label: String = ""
-    var x: Double = 0
-    var y: Double = 0
-    var width: Double = 0 //should be calculated based off image
-    var height: Double = 0 //should be calculated based off image
+struct Annotations: Codable {
+    var annotations: [SubjectData]
+    var image: String
     
-    init(label: String) {
-        self.label = label
+    struct SubjectData: Codable {
+        var label: String = ""
+        var coordinates = Coordinates()
+        
+        init(label: String) {
+            self.label = label
+        }
+        
+        struct Coordinates: Codable {
+            var x: Double = 0
+            var y: Double = 0
+            var width: Double = 0 //should be calculated based off image
+            var height: Double = 0 //should be calculated based off image
+        }
+        
     }
-    
-   
 }
+
+

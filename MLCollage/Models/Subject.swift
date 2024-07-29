@@ -11,11 +11,9 @@ import Cocoa
 class Subject {
     var image: NSImage {.fromCIImage(_image)}
     private var _image: CIImage
-    private var subjectData: SubjectData
     
-    init(_image: CIImage, subjectData: SubjectData) {
+    init(_image: CIImage) {
         self._image = _image
-        self.subjectData = subjectData
     }
     
     func translate() {

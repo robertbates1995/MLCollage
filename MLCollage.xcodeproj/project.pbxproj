@@ -13,7 +13,6 @@
 		7AB7E9872C516AFD00609579 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7AB7E9862C516AFD00609579 /* SnapshotTesting */; };
 		7AB7E9892C5183BF00609579 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7E9882C5183BF00609579 /* Subject.swift */; };
 		7AB7E98B2C54933200609579 /* SubjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7E98A2C54933200609579 /* SubjectData.swift */; };
-		7AB7E98D2C5612B200609579 /* JSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB7E98C2C5612B200609579 /* JSONEncoder.swift */; };
 		7AD467E42C3DB29C00B89E47 /* MLCollageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD467E32C3DB29C00B89E47 /* MLCollageApp.swift */; };
 		7AD467E62C3DB29C00B89E47 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD467E52C3DB29C00B89E47 /* ContentView.swift */; };
 		7AD467E82C3DB2A900B89E47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AD467E72C3DB2A900B89E47 /* Assets.xcassets */; };
@@ -38,7 +37,6 @@
 		7AB7E97C2C516A8100609579 /* MLCollageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCollageTests.swift; sourceTree = "<group>"; };
 		7AB7E9882C5183BF00609579 /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
 		7AB7E98A2C54933200609579 /* SubjectData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectData.swift; sourceTree = "<group>"; };
-		7AB7E98C2C5612B200609579 /* JSONEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONEncoder.swift; sourceTree = "<group>"; };
 		7AD467E02C3DB29C00B89E47 /* MLCollage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLCollage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AD467E32C3DB29C00B89E47 /* MLCollageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCollageApp.swift; sourceTree = "<group>"; };
 		7AD467E52C3DB29C00B89E47 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 				7AB7E9722C46F90400609579 /* ImageCreator.swift */,
 				7AB7E9882C5183BF00609579 /* Subject.swift */,
 				7AB7E98A2C54933200609579 /* SubjectData.swift */,
-				7AB7E98C2C5612B200609579 /* JSONEncoder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -258,7 +255,6 @@
 				7AD467E42C3DB29C00B89E47 /* MLCollageApp.swift in Sources */,
 				7AB7E9892C5183BF00609579 /* Subject.swift in Sources */,
 				7AD467F52C3DB86200B89E47 /* FilesView.swift in Sources */,
-				7AB7E98D2C5612B200609579 /* JSONEncoder.swift in Sources */,
 				7AB7E98B2C54933200609579 /* SubjectData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +428,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MLCollage/MLCollage.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -459,6 +456,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MLCollage/MLCollage.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
