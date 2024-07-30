@@ -1,0 +1,8 @@
+server/secrets.py
+.DS_Store
+/.build
+/.swiftpm
+/Packages
+/*.xcodeproj
+xcuserdata/
+*.xcuserstate

@@ -6,26 +6,26 @@
 //
 
 import Foundation
-import Cocoa
+import UIKit
 
 @Observable
 class ImageCreator {
-    var background: NSImage { .fromCIImage(_background)}
+    var background: UIImage { UIImage(ciImage:_background)}
     var _background: CIImage
-    var subject: NSImage { .fromCIImage(_subject)}
+    var subject: UIImage { UIImage(ciImage:_subject)}
     var _subject: CIImage
     
-    init(background: NSImage, subject: NSImage) {
-        self._background = background.ciImage()!
-        self._subject = subject.ciImage()!
+    init(background: UIImage, subject: UIImage) {
+        self._background = background.ciImage!
+        self._subject = subject.ciImage!
     }
     
-    func createImage() -> NSImage {
-        return NSImage.fromCIImage(_subject.composited(over: _background))
+    func createImage() -> UIImage {
+        return UIImage(ciImage:_subject.composited(over: _background))
     }
     
-    func createImageSet(population: Int) -> [NSImage] {
-        var images = [NSImage]()
+    func createImageSet(population: Int) -> [UIImage] {
+        var images = [UIImage]()
         var count = population
         while count > 0 {
             //translate()

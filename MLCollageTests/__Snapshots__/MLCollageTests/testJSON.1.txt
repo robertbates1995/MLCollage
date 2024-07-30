@@ -1,0 +1,1 @@
+- "[\n  {\n    \"annotations\" : [\n      {\n        \"coordinates\" : {\n          \"height\" : 0,\n          \"width\" : 0,\n          \"x\" : 0,\n          \"y\" : 0\n        },\n        \"label\" : \"test foo label\"\n      }\n    ],\n    \"image\" : \"test image string\"\n  }\n]"

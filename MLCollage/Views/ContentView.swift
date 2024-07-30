@@ -20,9 +20,9 @@ struct ContentView: View {
     
     var body: some View {
         NavigationSplitView(columnVisibility: $sideBarVisibility) {
-            List(SideBarItem.allCases, selection: $selectedSideBarItem) { item in
-                NavigationLink(item.rawValue.localizedCapitalized, value: item)
-            }
+//            List(SideBarItem.allCases, selection: $selectedSideBarItem) { item in
+//                NavigationLink(item.rawValue.localizedCapitalized, value: item)
+//            }
         } detail: {
             switch selectedSideBarItem {
             case .settings:

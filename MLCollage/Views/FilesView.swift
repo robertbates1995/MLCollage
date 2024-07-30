@@ -9,8 +9,8 @@ import SwiftUI
 
 struct FilesView: View {
     @State private var imageCreator = ImageCreator(
-        background: NSImage(resource: .forest),
-        subject: NSImage(resource: .monke)
+        background: UIImage(resource: .forest),
+        subject: UIImage(resource: .monke)
     )
     
     var body: some View {
@@ -18,24 +18,24 @@ struct FilesView: View {
             Text("Files View")
                 .font(.headline)
             Spacer()
-            HSplitView {
-                CreateScrollView(
-                    [imageCreator.subject,
-                     imageCreator.subject,
-                     imageCreator.subject,
-                     imageCreator.subject,
-                     imageCreator.subject,
-                     imageCreator.subject],
-                    title: "Subjects")
-                CreateScrollView(
-                    [imageCreator.background,
-                     imageCreator.background,
-                     imageCreator.background,
-                     imageCreator.background,
-                     imageCreator.background,
-                     imageCreator.background],
-                    title: "Backgrounds")
-            }
+//            HSplitView {
+//                CreateScrollView(
+//                    [imageCreator.subject,
+//                     imageCreator.subject,
+//                     imageCreator.subject,
+//                     imageCreator.subject,
+//                     imageCreator.subject,
+//                     imageCreator.subject],
+//                    title: "Subjects")
+//                CreateScrollView(
+//                    [imageCreator.background,
+//                     imageCreator.background,
+//                     imageCreator.background,
+//                     imageCreator.background,
+//                     imageCreator.background,
+//                     imageCreator.background],
+//                    title: "Backgrounds")
+//            }
             .padding()
             .background()
             
@@ -43,14 +43,14 @@ struct FilesView: View {
         .padding()
     }
     
-    func CreateScrollView(_ images: [NSImage], title: String) -> some View {
+    func CreateScrollView(_ images: [UIImage], title: String) -> some View {
         var count = images.count
         return ScrollView {
             HStack {
                 Text(title)
                 Spacer()
             }
-            Image(nsImage: images[count - 1])
+            Image(uiImage: images[count - 1])
                 .resizable()
                 .scaledToFit()
                 .padding()
