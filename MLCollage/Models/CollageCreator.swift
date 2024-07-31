@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 @Observable
-class ImageCreator {
+class CollageCreator {
     var background: UIImage { UIImage(ciImage:_background)}
     var _background: CIImage
     var subject: UIImage { UIImage(ciImage:_subject)}
@@ -21,6 +21,7 @@ class ImageCreator {
     }
     
     func createImage() -> UIImage {
+        //create one annotation and one Collage in this step
         return UIImage(ciImage:_subject.composited(over: _background))
     }
     

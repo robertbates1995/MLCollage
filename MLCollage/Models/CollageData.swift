@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Annotations: Codable {
+struct CollageData: Codable {
     var annotations: [SubjectData]
     var image: String
     

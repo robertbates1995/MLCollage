@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FilesView: View {
-    @State private var imageCreator = ImageCreator(
+    @State private var imageCreator = CollageCreator(
         background: UIImage(resource: .forest),
         subject: UIImage(resource: .monke)
     )
