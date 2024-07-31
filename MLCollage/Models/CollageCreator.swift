@@ -7,32 +7,22 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 @Observable
 class CollageCreator {
-    var background: UIImage { UIImage(ciImage:_background)}
-    var _background: CIImage
-    var subject: UIImage { UIImage(ciImage:_subject)}
-    var _subject: CIImage
-    
-    init(background: UIImage, subject: UIImage) {
-        self._background = background.ciImage!
-        self._subject = subject.ciImage!
-    }
-    
-    func createImage() -> UIImage {
+    func create(subject: CIImage, background: CIImage) -> Collage {
         //create one annotation and one Collage in this step
-        return UIImage(ciImage:_subject.composited(over: _background))
+        return UIImage(ciImage:subject.composited(over: background))
     }
+}
+
+class Collage {
+    var image: UIImage
+    var data: CollageData
     
-    func createImageSet(population: Int) -> [UIImage] {
-        var images = [UIImage]()
-        var count = population
-        while count > 0 {
-            //translate()
-            images.append(createImage())
-            count -= 1
-        }
-        return images
+    init(image: UIImage, data: CollageData) {
+        self.image = image
+        self.data = data
     }
 }

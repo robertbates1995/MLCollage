@@ -25,7 +25,6 @@ struct CollageData: Codable {
             var width: Double = 0 //should be calculated based off image
             var height: Double = 0 //should be calculated based off image
         }
-        
     }
 }
 

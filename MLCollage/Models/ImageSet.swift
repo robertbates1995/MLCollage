@@ -14,7 +14,7 @@ class ImageSet {
         var count = population
         while count > 0 {
             //translate()
-            images.append(createImage())
+            //images.append(createImage())
             count -= 1
         }
         return images
