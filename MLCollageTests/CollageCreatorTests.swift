@@ -16,7 +16,7 @@ final class CollageCreatorTests: XCTestCase {
     
     func testCreateCollage() {
         //create a single collage image
-        let result = sut.create(subject: CIImage(image: .monke)!, background: CIImage(image: .forest)!)
+        let result = sut.create(subject: CIImage(image: .monke)!, background: CIImage(image: .forest)!, title: "Test Collage", numberOfSubjects: 2)
         assertSnapshot(of: result.image, as: .image)
         assertSnapshot(of: result.data, as: .dump)
     }

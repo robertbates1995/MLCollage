@@ -1,3 +1,17 @@
 ▿ CollageData
-  - annotations: 0 elements
-  - image: "image"
+  ▿ annotations: 2 elements
+    ▿ SubjectData
+      ▿ coordinates: Coordinates
+        - height: 0.0
+        - width: 0.0
+        - x: 0.0
+        - y: 0.0
+      - label: "Test Collage"
+    ▿ SubjectData
+      ▿ coordinates: Coordinates
+        - height: 0.0
+        - width: 0.0
+        - x: 0.0
+        - y: 0.0
+      - label: "Test Collage0"
+  - image: "Test Collage"

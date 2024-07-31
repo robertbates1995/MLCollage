@@ -11,11 +11,22 @@ import SwiftUI
 
 @Observable
 class CollageCreator {
-    func create(subject: CIImage, background: CIImage) -> Collage {
-        //will likely need parameters to control subject orientation
+    func create(subject: CIImage, background: CIImage, title: String, numberOfSubjects: Int) -> Collage {
+        //will likely need parameters to control number of subjects and their orientations
         //create one annotation and one Collage in this step
-        let foo = UIImage(ciImage:subject.composited(over: background)) 
-        return .init(image: foo, data: CollageData(annotations: [], image: "image"))
+        var image = subject.composited(over: background)
+        var subjectData = [CollageData.SubjectData(label: title)]
+        var loops = 0
+        while loops < numberOfSubjects - 1 {
+            //change subject data
+            //paste subject with new values
+            subject.composited(over: background)
+            //add new values to collageData
+            subjectData.append(CollageData.SubjectData(label: "\(title)\(loops)"))
+            loops += 1
+        }
+        let data = CollageData(annotations: subjectData, image: title)
+        return Collage(image: UIImage(ciImage: image), data: data)
     }
 }
 
