@@ -22,7 +22,7 @@ class CollageCreator {
             //paste subject with new values
             subject.composited(over: background)
             //add new values to collageData
-            subjectData.append(CollageData.SubjectData(label: "\(title)\(loops)"))
+            subjectData.append(CollageData.SubjectData(label: title))
             loops += 1
         }
         let data = CollageData(annotations: subjectData, image: title)
