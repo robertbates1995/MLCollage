@@ -21,7 +21,7 @@ final class CollageCreatorTests: XCTestCase {
         assertSnapshot(of: result.data, as: .dump)
     }
     
-    func testCreateCollageData() {
+    func testCreateCollageData() {#imageLiteral(resourceName: "testCreateCollage.1.png")
         //create associated data to a single image
     }
 }

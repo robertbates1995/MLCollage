@@ -12,8 +12,10 @@ import SwiftUI
 @Observable
 class CollageCreator {
     func create(subject: CIImage, background: CIImage) -> Collage {
+        //will likely need parameters to control subject orientation
         //create one annotation and one Collage in this step
-        return UIImage(ciImage:subject.composited(over: background))
+        let foo = UIImage(ciImage:subject.composited(over: background)) 
+        return .init(image: foo, data: CollageData(annotations: [], image: "image"))
     }
 }
 

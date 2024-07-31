@@ -1,0 +1,3 @@
+▿ CollageData
+  - annotations: 0 elements
+  - image: "image"
