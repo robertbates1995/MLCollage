@@ -16,8 +16,8 @@ class Subject {
         self._image = _image
     }
     
-    func translate() {
-        _image = _image.transformed(by: .init(translationX: 10, y: 10))
+    func translateBy(_ value: CGFloat) {
+        _image = _image.transformed(by: .init(translationX: value, y: value))
     }
     
     func scale() {

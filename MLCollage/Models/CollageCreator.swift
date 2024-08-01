@@ -15,17 +15,17 @@ class CollageCreator {
         //will likely need parameters to control number of subjects and their orientations
         //create one annotation and one Collage in this step
         var image = subject.composited(over: background)
-        var subjectData = [CollageData.SubjectData(label: title)]
+        var annotations = [CollageData.Annotation(label: title)]
         var loops = 0
         while loops < numberOfSubjects - 1 {
             //change subject data
             //paste subject with new values
             subject.composited(over: background)
             //add new values to collageData
-            subjectData.append(CollageData.SubjectData(label: title))
+            annotations.append(CollageData.Annotation(label: title))
             loops += 1
         }
-        let data = CollageData(annotations: subjectData, image: title)
+        let data = CollageData(annotations: annotations, image: title)
         return Collage(image: UIImage(ciImage: image), data: data)
     }
 }

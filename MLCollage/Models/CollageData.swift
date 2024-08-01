@@ -8,10 +8,10 @@
 import Foundation
 
 struct CollageData: Codable {
-    var annotations: [SubjectData]
+    var annotations: [Annotation]
     var image: String
     
-    struct SubjectData: Codable {
+    struct Annotation: Codable {
         var label: String = ""
         var coordinates = Coordinates()
         
