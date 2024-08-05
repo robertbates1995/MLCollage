@@ -6,3 +6,4 @@ server/secrets.py
 /*.xcodeproj
 xcuserdata/
 *.xcuserstate
+MLCollage.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved

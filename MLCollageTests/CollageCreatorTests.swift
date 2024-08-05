@@ -8,6 +8,7 @@
 import Foundation
 import XCTest
 import SnapshotTesting
+import CustomDump
 @testable import MLCollage
 import SwiftUI
 
@@ -16,18 +17,21 @@ final class CollageCreatorTests: XCTestCase {
     
     func testCreateCollage() {
         //create a single collage image
-        let result = sut.creator.create(subject: CIImage(image: .monke)!, background: CIImage(image: .forest)!, title: "Test Collage", numberOfSubjects: 2)
+        let result = sut.creator.create(subjects: [(CIImage(image: .monke)!, "monke")], background: CIImage(image: .forest)!, title: "Test Title")
         assertSnapshot(of: result.image.toCGImage(), as: .image)
-        assertSnapshot(of: result.data, as: .dump)
+        XCTAssertNoDifference(result.data, .init(annotations: [.init(label: "monke")], title: "Test Title"))
+        //assertSnapshot(of: result.data, as: .dump)
     }
+    
+    
     
     func testCreateCollageSet() {
         //create a set of collage images
         let result = sut.createCollageSet(population: 3, translateX: 5, translateY: 5)
-    }
-    
-    func testCreateCollageData() {#imageLiteral(resourceName: "testCreateCollage.1.png")
-        //create associated data to a single image
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.data, as: .dump)
+        }
     }
 }
 

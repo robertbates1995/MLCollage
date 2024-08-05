@@ -24,7 +24,7 @@ class CollageSetCreator {
     
     func createCollageSet(population: Int, translateX: CGFloat, translateY: CGFloat) -> [Collage] {
         var set = [Collage]()
-        for i in 0...population {
+        for _ in 0...population {
             set.append(creator.create(subject: subject, background: background, title: title, numberOfSubjects: numberOfSubjects))
             if translateX > 0 || translateY > 0 {
                 subject.transformed(by: .init(translationX: translateX, y: translateY))

@@ -14,19 +14,23 @@ class CollageCreator {
     func create(subject: CIImage, background: CIImage, title: String, numberOfSubjects: Int) -> Collage {
         //will likely need parameters to control number of subjects and their orientations
         //create one annotation and one Collage in this step
-        var image = subject.composited(over: background)
-        var annotations = [CollageData.Annotation(label: title)]
-        var loops = 0
-        while loops < numberOfSubjects - 1 {
-            //change subject data
-            //paste subject with new values
-            subject.composited(over: background)
-            //add new values to collageData
-            annotations.append(CollageData.Annotation(label: title))
-            loops += 1
-        }
-        let data = CollageData(annotations: annotations, image: title)
+        let image = subject.composited(over: background)
+        var annotations = CollageData.Annotation(label: title)
+        let data = CollageData(annotations: [annotations], title: title)
         return Collage(image: UIImage(ciImage: image), data: data)
+    }
+    
+    func create(subjects: [(CIImage, String)], background: CIImage, title: String) -> Collage {
+        //will likely need parameters to control number of subjects and their orientations
+        //create one annotation and one Collage in this step
+        var background = background
+        var annotations = [CollageData.Annotation]()
+        for i in subjects {
+            background = i.0.composited(over: background)
+            annotations.append(CollageData.Annotation(label: i.1))
+        }
+        let data = CollageData(annotations: annotations, title: title)
+        return Collage(image: UIImage(ciImage: background), data: data)
     }
 }
 
