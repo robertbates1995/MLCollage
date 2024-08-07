@@ -1,0 +1,10 @@
+▿ CollageData
+  ▿ annotations: 1 element
+    ▿ Annotation
+      ▿ coordinates: Coordinates
+        - height: 152.0
+        - width: 152.0
+        - x: 99.0
+        - y: 99.0
+      - label: "monke"
+  - image: "Test CollageSet_2"

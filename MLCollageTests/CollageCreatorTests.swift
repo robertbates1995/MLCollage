@@ -48,6 +48,14 @@ final class CollageCreatorTests: XCTestCase {
             assertSnapshot(of: i.data, as: .dump, record: false)
         }
     }
+    
+    func testCreateCollageAllVariables() {
+        let result = sut.createCollageSet(population: 3, translateX: 10, translateY: 10, scaleChangeX: 1.1, scaleChangeY: 1.1)
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: false)
+            assertSnapshot(of: i.data, as: .dump, record: false)
+        }
+    }
 }
 
 extension UIImage {
