@@ -13,21 +13,28 @@ import CustomDump
 import SwiftUI
 
 final class CollageCreatorTests: XCTestCase {
-    let sut = CollageSetCreator(subject: CIImage(image: .monke)!, background: CIImage(image: .forest)!, title: "Test CollageSet", numberOfSubjects: 1)
+    let sut = CollageSetCreator(subject: CIImage(image: .monke)!, subjectLabel: "monke", background: CIImage(image: .forest)!, title: "Test CollageSet", numberOfSubjects: 1)
     
-    func testCreateCollage() {
+    func testCreateCollageSingleSubject() {
         //create a single collage image
         let result = sut.creator.create(subjects: [(CIImage(image: .monke)!, "monke")], background: CIImage(image: .forest)!, title: "Test Title")
         assertSnapshot(of: result.image.toCGImage(), as: .image)
-        XCTAssertNoDifference(result.data, .init(annotations: [.init(label: "monke")], title: "Test Title"))
+        expectNoDifference(result.data, .init(annotations: [.init(label: "monke", coordinates: .init(x: 62.5, y: 62.5, width: 125.0, height: 125.0))], title: "Test Title"))
         //assertSnapshot(of: result.data, as: .dump)
     }
     
-    
-    
-    func testCreateCollageSet() {
+    func testCreateCollageSetXTranslate() {
         //create a set of collage images
-        let result = sut.createCollageSet(population: 3, translateX: 5, translateY: 5)
+        let result = sut.createCollageSet(population: 3, translateX: 50, translateY: 0)
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.data, as: .dump)
+        }
+    }
+    
+    func testCreateCollageSetYTranslate() {
+        //create a set of collage images
+        let result = sut.createCollageSet(population: 3, translateX: 0, translateY: 5)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
             assertSnapshot(of: i.data, as: .dump)

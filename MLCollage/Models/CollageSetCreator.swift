@@ -10,13 +10,15 @@ import UIKit
 
 class CollageSetCreator {
     var subject: CIImage
+    var subjectLabel: String
     var background: CIImage
     var title: String
     var numberOfSubjects: Int
     let creator = CollageCreator()
 
-    init(subject: CIImage, background: CIImage, title: String, numberOfSubjects: Int) {
+    init(subject: CIImage, subjectLabel: String, background: CIImage, title: String, numberOfSubjects: Int) {
         self.subject = subject
+        self.subjectLabel = subjectLabel
         self.background = background
         self.title = title
         self.numberOfSubjects = numberOfSubjects
@@ -24,10 +26,10 @@ class CollageSetCreator {
     
     func createCollageSet(population: Int, translateX: CGFloat, translateY: CGFloat) -> [Collage] {
         var set = [Collage]()
-        for _ in 0...population {
-            set.append(creator.create(subject: subject, background: background, title: title, numberOfSubjects: numberOfSubjects))
+        for i in 0...population {
+            set.append(creator.create(subjects: [(subject, subjectLabel)], background: background, title: "\(title)_\(i)"))
             if translateX > 0 || translateY > 0 {
-                subject.transformed(by: .init(translationX: translateX, y: translateY))
+                subject = subject.transformed(by: .init(translationX: translateX, y: translateY))
             }
         }
         return set

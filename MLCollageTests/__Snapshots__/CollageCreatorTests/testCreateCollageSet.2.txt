@@ -1,9 +1,0 @@
-▿ CollageData
-  ▿ annotations: Annotation
-    ▿ coordinates: Coordinates
-      - height: 0.0
-      - width: 0.0
-      - x: 0.0
-      - y: 0.0
-    - label: "Test CollageSet"
-  - image: "Test CollageSet"

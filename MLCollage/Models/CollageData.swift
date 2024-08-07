@@ -20,8 +20,9 @@ struct CollageData: Codable, Equatable {
         var label: String = ""
         var coordinates = Coordinates()
         
-        init(label: String) {
+        init(label: String, coordinates: CollageData.Annotation.Coordinates = Coordinates()) {
             self.label = label
+            self.coordinates = coordinates
         }
         
         struct Coordinates: Codable, Equatable {
@@ -29,8 +30,16 @@ struct CollageData: Codable, Equatable {
             var y: Double = 0
             var width: Double = 0 //should be calculated based off image
             var height: Double = 0 //should be calculated based off image
+            
         }
     }
 }
 
-
+extension CollageData.Annotation.Coordinates {
+    init(_ extent: CGRect) {
+        x = extent.midX
+        y = extent.midY
+        width = extent.width
+        height = extent.height
+    }
+}
