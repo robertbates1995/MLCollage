@@ -19,6 +19,6 @@ final class MLCollageTests: XCTestCase {
         
         let stringPrint = String.init(data: output, encoding: .utf8)!
         
-        assertSnapshot(of: stringPrint, as: .dump)
+        assertSnapshot(of: stringPrint, as: .lines, record: false)
     }
 }

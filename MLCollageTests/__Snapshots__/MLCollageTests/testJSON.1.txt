@@ -1,1 +1,16 @@
-- "[\n  {\n    \"annotations\" : [\n      {\n        \"coordinates\" : {\n          \"height\" : 0,\n          \"width\" : 0,\n          \"x\" : 0,\n          \"y\" : 0\n        },\n        \"label\" : \"test label\"\n      }\n    ],\n    \"image\" : \"test title\"\n  }\n]"
+[
+  {
+    "annotations" : [
+      {
+        "coordinates" : {
+          "height" : 0,
+          "width" : 0,
+          "x" : 0,
+          "y" : 0
+        },
+        "label" : "test label"
+      }
+    ],
+    "image" : "test title"
+  }
+]
