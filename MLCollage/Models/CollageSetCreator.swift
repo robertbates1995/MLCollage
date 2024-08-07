@@ -24,12 +24,15 @@ class CollageSetCreator {
         self.numberOfSubjects = numberOfSubjects
     }
     
-    func createCollageSet(population: Int, translateX: CGFloat, translateY: CGFloat) -> [Collage] {
+    func createCollageSet(population: Int, translateX: CGFloat, translateY: CGFloat, scaleChangeX: CGFloat, scaleChangeY: CGFloat) -> [Collage] {
         var set = [Collage]()
         for i in 0...population {
             set.append(creator.create(subjects: [(subject, subjectLabel)], background: background, title: "\(title)_\(i)"))
             if translateX > 0 || translateY > 0 {
                 subject = subject.transformed(by: .init(translationX: translateX, y: translateY))
+            }
+            if scaleChangeX > 0 || scaleChangeY > 0 {
+                subject = subject.transformed(by: .init(scaleX: scaleChangeX, y: scaleChangeY))
             }
         }
         return set

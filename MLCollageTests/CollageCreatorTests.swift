@@ -25,7 +25,7 @@ final class CollageCreatorTests: XCTestCase {
     
     func testCreateCollageSetXTranslate() {
         //create a set of collage images
-        let result = sut.createCollageSet(population: 3, translateX: 50, translateY: 0)
+        let result = sut.createCollageSet(population: 3, translateX: 50, translateY: 0, scaleChangeX: 0, scaleChangeY: 0)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
             assertSnapshot(of: i.data, as: .dump)
@@ -34,7 +34,15 @@ final class CollageCreatorTests: XCTestCase {
     
     func testCreateCollageSetYTranslate() {
         //create a set of collage images
-        let result = sut.createCollageSet(population: 3, translateX: 0, translateY: 5)
+        let result = sut.createCollageSet(population: 3, translateX: 0, translateY: 5, scaleChangeX: 0, scaleChangeY: 0)
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.data, as: .dump)
+        }
+    }
+    
+    func testCreateCollageSetEnlarge() {
+        let result = sut.createCollageSet(population: 3, translateX: 0, translateY: 0, scaleChangeX: 1, scaleChangeY: 1)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
             assertSnapshot(of: i.data, as: .dump)
