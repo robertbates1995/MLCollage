@@ -42,10 +42,10 @@ final class CollageCreatorTests: XCTestCase {
     }
     
     func testCreateCollageSetEnlarge() {
-        let result = sut.createCollageSet(population: 3, translateX: 0, translateY: 0, scaleChangeX: 1, scaleChangeY: 1)
+        let result = sut.createCollageSet(population: 3, translateX: 0, translateY: 0, scaleChangeX: 1.1, scaleChangeY: 1.1)
         for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image)
-            assertSnapshot(of: i.data, as: .dump)
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: false)
+            assertSnapshot(of: i.data, as: .dump, record: false)
         }
     }
 }

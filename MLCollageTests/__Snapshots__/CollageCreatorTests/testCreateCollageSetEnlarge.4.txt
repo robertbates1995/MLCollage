@@ -2,9 +2,9 @@
   ▿ annotations: 1 element
     ▿ Annotation
       ▿ coordinates: Coordinates
-        - height: 625.0
-        - width: 625.0
-        - x: 312.5
-        - y: 312.5
+        - height: 138.0
+        - width: 138.0
+        - x: 69.0
+        - y: 69.0
       - label: "monke"
   - image: "Test CollageSet_1"
