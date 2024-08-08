@@ -15,7 +15,7 @@ class CollageCreator {
         //will likely need parameters to control number of subjects and their orientations
         //create one annotation and one Collage in this step
         let image = subject.composited(over: background).cropped(to: background.extent)
-        var annotations = CollageData.Annotation(label: title)
+        let annotations = CollageData.Annotation(label: title)
         let data = CollageData(annotations: [annotations], title: title)
         return Collage(image: UIImage(ciImage: image), data: data)
     }
@@ -27,8 +27,6 @@ class CollageCreator {
         var annotations = [CollageData.Annotation]()
         for i in subjects {
             background = i.0.composited(over: background)
-            //is this the right thing to be doing? or do I already 
-            //let newData = CollageData.Annotation(label: i.1, coordinates: <#T##CollageData.Annotation.Coordinates#>)
             annotations.append(CollageData.Annotation(label: i.1, coordinates: .init(i.0.extent)))
         }
         let data = CollageData(annotations: annotations, title: title)
