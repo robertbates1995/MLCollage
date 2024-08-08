@@ -6,8 +6,12 @@
 //
 
 import Foundation
+#if os(macOS)
+import AppKit
+#else
 import UIKit
 import SwiftUI
+#endif
 
 @Observable
 class CollageCreator {
@@ -34,7 +38,25 @@ class CollageCreator {
     }
 }
 
+#if os(OSX)
+import AppKit
+public typealias View = NSView
+public typealias Color = NSColor
+public typealias Label = NSTextField
+
+#else
+import UIKit
+public typealias View = UIView
+public typealias Color = UIColor
+public typealias Label = UILabel
+#endif
+
 class Collage {
+    #if os(macOS)
+    typealias Image = NSImage
+    #else
+    typealias Image = UIImage
+    #endif
     var image: UIImage
     var data: CollageData
     
@@ -43,3 +65,7 @@ class Collage {
         self.data = data
     }
 }
+
+//CIImage for manipulation
+//UIImage for ios
+//NSImage for mac

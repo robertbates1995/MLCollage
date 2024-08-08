@@ -99,8 +99,8 @@
 		7A8E35392C585E8800B386EF /* MLCollage */ = {
 			isa = PBXGroup;
 			children = (
-				7A02F89B2C6545B7006A894B /* ViewModels */,
 				7A8E353A2C585E8800B386EF /* MLCollageApp.swift */,
+				7A02F89B2C6545B7006A894B /* ViewModels */,
 				7A8E356B2C5860D200B386EF /* Models */,
 				7A8E356F2C5860D200B386EF /* Views */,
 				7A8E35402C585E8A00B386EF /* Assets.xcassets */,
