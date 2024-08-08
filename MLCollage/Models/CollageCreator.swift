@@ -27,6 +27,8 @@ class CollageCreator {
         var annotations = [CollageData.Annotation]()
         for i in subjects {
             background = i.0.composited(over: background)
+            //is this the right thing to be doing? or do I already 
+            //let newData = CollageData.Annotation(label: i.1, coordinates: <#T##CollageData.Annotation.Coordinates#>)
             annotations.append(CollageData.Annotation(label: i.1, coordinates: .init(i.0.extent)))
         }
         let data = CollageData(annotations: annotations, title: title)

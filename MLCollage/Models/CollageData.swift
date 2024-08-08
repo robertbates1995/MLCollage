@@ -30,7 +30,6 @@ struct CollageData: Codable, Equatable {
             var y: Double = 0
             var width: Double = 0 //should be calculated based off image
             var height: Double = 0 //should be calculated based off image
-            
         }
     }
 }
