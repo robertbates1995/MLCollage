@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7A02F8612C6141C9006A894B /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = 7A02F8602C6141C9006A894B /* CustomDump */; };
-		7A02F89D2C654606006A894B /* AdaptiveImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A02F89C2C654606006A894B /* AdaptiveImage.swift */; };
 		7A8E353B2C585E8800B386EF /* MLCollageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E353A2C585E8800B386EF /* MLCollageApp.swift */; };
 		7A8E35412C585E8A00B386EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8E35402C585E8A00B386EF /* Assets.xcassets */; };
 		7A8E35462C585E8A00B386EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8E35452C585E8A00B386EF /* Preview Assets.xcassets */; };
@@ -33,7 +32,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7A02F89C2C654606006A894B /* AdaptiveImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveImage.swift; sourceTree = "<group>"; };
 		7A8E35372C585E8800B386EF /* MLCollage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLCollage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8E353A2C585E8800B386EF /* MLCollageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCollageApp.swift; sourceTree = "<group>"; };
 		7A8E35402C585E8A00B386EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,14 +68,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7A02F89B2C6545B7006A894B /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				7A02F89C2C654606006A894B /* AdaptiveImage.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		7A8E352E2C585E8800B386EF = {
 			isa = PBXGroup;
 			children = (
@@ -100,7 +90,6 @@
 			isa = PBXGroup;
 			children = (
 				7A8E353A2C585E8800B386EF /* MLCollageApp.swift */,
-				7A02F89B2C6545B7006A894B /* ViewModels */,
 				7A8E356B2C5860D200B386EF /* Models */,
 				7A8E356F2C5860D200B386EF /* Views */,
 				7A8E35402C585E8A00B386EF /* Assets.xcassets */,
@@ -258,7 +247,6 @@
 				7AEA2EB62C5A9F2F001C6F89 /* CollageSetCreator.swift in Sources */,
 				7A8E35702C5860D200B386EF /* CollageCreator.swift in Sources */,
 				7A8E35732C5860D200B386EF /* ContentView.swift in Sources */,
-				7A02F89D2C654606006A894B /* AdaptiveImage.swift in Sources */,
 				7A8E35722C5860D200B386EF /* CollageData.swift in Sources */,
 				7A8E353B2C585E8800B386EF /* MLCollageApp.swift in Sources */,
 			);
