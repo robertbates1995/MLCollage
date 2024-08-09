@@ -38,26 +38,14 @@ class CollageCreator {
     }
 }
 
-#if os(OSX)
-import AppKit
-public typealias View = NSView
-public typealias Color = NSColor
-public typealias Label = NSTextField
-
+#if os(macOS)
+typealias ImageType = NSImage
 #else
-import UIKit
-public typealias View = UIView
-public typealias Color = UIColor
-public typealias Label = UILabel
+typealias ImageType = UIImage
 #endif
 
 class Collage {
-    #if os(macOS)
-    typealias Image = NSImage
-    #else
-    typealias Image = UIImage
-    #endif
-    var image: UIImage
+    var image: ImageType
     var data: CollageData
     
     init(image: UIImage, data: CollageData) {
