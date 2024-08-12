@@ -9,14 +9,13 @@ import Foundation
 import UIKit
 
 class CollageSetCreator {
-    var subject: CIImage
-    var subjectLabel: String
-    var background: CIImage
-    var title: String
-    var numberOfSubjects: Int
-    let creator = CollageCreator()
-
-    init(subject: CIImage, subjectLabel: String, background: CIImage, title: String, numberOfSubjects: Int) {
+    var subject = CIImage.black
+    var subjectLabel = "Subject Label"
+    var background = CIImage.black
+    var title = "Title"
+    var numberOfSubjects = 0
+    
+    init(subject: CIImage = CIImage.black, subjectLabel: String = "Subject Label", background: CIImage = CIImage.black, title: String = "Title", numberOfSubjects: Int = 0) {
         self.subject = subject
         self.subjectLabel = subjectLabel
         self.background = background
@@ -24,8 +23,10 @@ class CollageSetCreator {
         self.numberOfSubjects = numberOfSubjects
     }
     
-    func createCollageSet(population: Int, translateX: CGFloat, translateY: CGFloat, scaleChangeX: CGFloat, scaleChangeY: CGFloat) -> [Collage] {
+    func createCollageSet(population: Int, translateX: CGFloat = 0, translateY: CGFloat = 0, scaleChangeX: CGFloat = 0, scaleChangeY: CGFloat = 0) -> [Collage] {
         var set = [Collage]()
+        let creator = CollageCreator()
+        
         for i in 0...population {
             set.append(creator.create(subjects: [(subject, subjectLabel)], background: background, title: "\(title)_\(i)"))
             if translateX > 0 || translateY > 0 {
@@ -35,6 +36,7 @@ class CollageSetCreator {
                 subject = subject.transformed(by: .init(scaleX: scaleChangeX, y: scaleChangeY))
             }
         }
+        
         return set
     }
 }
