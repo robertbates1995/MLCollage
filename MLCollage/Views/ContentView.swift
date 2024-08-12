@@ -19,7 +19,22 @@ struct ContentView: View {
     
     var body: some View {
         Text("placeholder")
-        NavigationSplitView(columnVisibility: $visibility, sidebar: {Text("sidebar")}, detail: {Text("detail")})
+        NavigationSplitView(
+            columnVisibility: $visibility,
+            sidebar: { SidebarView() },
+            detail: { DetailView() })
+    }
+    
+    struct SidebarView: View {
+        var body: some View {
+            Text("sidebar")
+        }
+    }
+    
+    struct DetailView: View {
+        var body: some View {
+            Text("detail")
+        }
     }
 }
 
