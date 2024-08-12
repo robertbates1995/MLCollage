@@ -15,10 +15,11 @@ enum SideBarItem: String, Identifiable, CaseIterable {
 }
 
 struct ContentView: View {
-    
+    @State var visibility: NavigationSplitViewVisibility = .all
     
     var body: some View {
         Text("placeholder")
+        NavigationSplitView(columnVisibility: $visibility, sidebar: {Text("sidebar")}, detail: {Text("detail")})
     }
 }
 
