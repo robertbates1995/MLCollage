@@ -13,8 +13,14 @@ import CustomDump
 import SwiftUI
 
 final class CollageCreatorTests: XCTestCase {
-    let sut = CollageSetCreator(subject: CIImage(image: .monke)!, subjectLabel: "monke", background: CIImage(image: .forest)!, title: "Test CollageSet", numberOfSubjects: 1)
+    let sut = ProjectCreator()
     
+    func testProjectCreator() {
+        
+    }
+    
+    
+    //-- Old tests below here --
     func testCreateCollageSingleSubject() {
         //create a single collage image
         let result = sut.creator.create(subjects: [(CIImage(image: .monke)!, "monke")], background: CIImage(image: .forest)!, title: "Test Title")
@@ -56,6 +62,7 @@ final class CollageCreatorTests: XCTestCase {
             assertSnapshot(of: i.data, as: .dump, record: false)
         }
     }
+    //-- Old tests above here --
 }
 
 extension UIImage {

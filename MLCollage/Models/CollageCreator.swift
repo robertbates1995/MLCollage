@@ -24,7 +24,7 @@ class CollageCreator {
         return Collage(image: UIImage(ciImage: image), data: data)
     }
     
-    func create(subjects: [(CIImage, String)], background: CIImage, title: String) -> Collage {
+    func create(subjects: [Subject], background: CIImage, title: String) -> Collage {
         //will likely need parameters to control number of subjects and their orientations
         //create one annotation and one Collage in this step
         var background = background
