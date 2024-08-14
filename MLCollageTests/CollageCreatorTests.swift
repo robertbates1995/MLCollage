@@ -13,7 +13,7 @@ import CustomDump
 import SwiftUI
 
 final class CollageCreatorTests: XCTestCase {
-    let sut = ProjectCreator()
+    let sut = Project()
     
     func testProjectCreator() {
         

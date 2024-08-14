@@ -16,7 +16,7 @@ enum SideBarItem: String, Identifiable, CaseIterable {
 
 struct ContentView: View {
     @State var visibility: NavigationSplitViewVisibility = .all
-    @State var creator = ProjectCreator()
+    @State var creator = Project()
     
     var body: some View {
         Text("placeholder")

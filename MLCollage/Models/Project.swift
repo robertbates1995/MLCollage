@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class ProjectCreator {
+class Project {
+    var projectData: [Collage]
     var subjects: [Subject]
     var subjectLabel: String
     var backgrounds: [CIImage]
@@ -30,19 +31,26 @@ class ProjectCreator {
     func createCollageSet(population: Int, translateX: CGFloat = 0, translateY: CGFloat = 0, scaleChangeX: CGFloat = 0, scaleChangeY: CGFloat = 0) -> [Collage] {
         var set = [Collage]()
         let creator = CollageCreator()
+        //create all permutations for every background
         for x in backgrounds {
-            for i in subjects {
-                set.append(creator.create(subjects: i, background: x, title: "\(title)"))
-                if translateX > 0 || translateY > 0 {
-                    subjects[i] = subjects.transformed(by: .init(translationX: translateX, y: translateY))
-                }
-                if scaleChangeX > 0 || scaleChangeY > 0 {
-                    subjects = subjects.transformed(by: .init(scaleX: scaleChangeX, y: scaleChangeY))
-                }
+            for i in appendableBackgroundSet(x) {
+                set.append(i)
             }
         }
-        
         return set
+    }
+    
+    func appendableBackgroundSet(_ background: CIImage) -> [Subject] {
+        var set = [Collage]()
+        for i in subjects {
+            set.append(creator.create(subjects: i, background: x, title: "\(title)"))
+                            if translateX > 0 || translateY > 0 {
+                                subjects[i] = subjects.transformed(by: .init(translationX: translateX, y: translateY))
+                            }
+                            if scaleChangeX > 0 || scaleChangeY > 0 {
+                                subjects = subjects.transformed(by: .init(scaleX: scaleChangeX, y: scaleChangeY))
+                            }
+        }
     }
 }
 
