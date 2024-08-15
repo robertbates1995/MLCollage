@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class Project {
-    var projectData: [Collage]
+    var projectData = [Collage]()
     var subject: Subject
     var subjectLabel: String
     var backgrounds: [CIImage]
@@ -29,27 +29,28 @@ class Project {
         self.numberOfSubjects = numberOfSubjects
     }
     
-    func createCollageSet(modifacaitions: Modifacations) -> [Collage] {
+    func createCollageSet(modificaitions: Modifications) -> [Collage] {
         var set = [Collage]()
         let creator = CollageCreator()
         //create all permutations for every background
         for x in backgrounds {
-            for i in appendableBackgroundSet(x, modifacaitions: modifacaitions) {
+            for i in appendableBackgroundSet(x, modificaitions: modificaitions) {
                 set.append(i)
             }
         }
         return set
     }
     
-    func appendableBackgroundSet(_ background: CIImage, modifacaitions: Modifacations) -> [Collage] {
+    func appendableBackgroundSet(_ background: CIImage, modificaitions: Modifications) -> [Collage] {
         var set = [Collage]()
-        for i in 0...modifacaitions.population {
+        var changableSubject = subject.image
+        for i in 0...modificaitions.population {
             set.append(creator.create(subject: subject, background: background, title: "\(title)"))
-            if modifacaitions.translateX > 0 || modifacaitions.translateY > 0 {
-                subject = subject.transformed(by: .init(translationX: modifacaitions.translateX, y: modifacaitions.translateY))
+            if modificaitions.translateX > 0 || modificaitions.translateY > 0 {
+                changableSubject = changableSubject.transformed(by: .init(translationX: modificaitions.translateX, y: modificaitions.translateY))
             }
-            if scaleChangeX > 0 || scaleChangeY > 0 {
-                subjects = subjects.transformed(by: .init(scaleX: scaleChangeX, y: scaleChangeY))
+            if modificaitions.scaleChangeX > 0 || modificaitions.scaleChangeY > 0 {
+                changableSubject = changableSubject.transformed(by: .init(scaleX: modificaitions.scaleChangeX, y: modificaitions.scaleChangeY))
             }
         }
         return set
@@ -65,7 +66,7 @@ class Subject {
     }
 }
 
-class Modifacations {
+class Modifications {
     var population: Int = 0
     var translateX: CGFloat = 0
     var translateY: CGFloat = 0
