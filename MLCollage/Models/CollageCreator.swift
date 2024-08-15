@@ -24,17 +24,16 @@ class CollageCreator {
         return Collage(image: UIImage(ciImage: image), data: data)
     }
     
-    func create(subjects: [Subject], background: CIImage, title: String) -> Collage {
+    //TODO: create a function that creates a single collage with multiple subjects in it
+    func create(subject: Subject, background: CIImage, title: String) -> Collage {
         //will likely need parameters to control number of subjects and their orientations
         //create one annotation and one Collage in this step
-        var background = background
+        var collage = background
         var annotations = [CollageData.Annotation]()
-        for i in subjects {
-            background = i.image.composited(over: background)
-            annotations.append(CollageData.Annotation(label: i.label, coordinates: .init(i.image.extent)))
-        }
+        collage = subject.image.composited(over: background)
+        annotations.append(CollageData.Annotation(label: subject.label, coordinates: .init(subject.image.extent)))
         let data = CollageData(annotations: annotations, title: title)
-        return Collage(image: UIImage(ciImage: background), data: data)
+        return Collage(image: UIImage(ciImage: collage), data: data)
     }
 }
 

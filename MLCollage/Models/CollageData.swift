@@ -17,7 +17,9 @@ struct CollageData: Codable, Equatable {
     }
     
     struct Annotation: Codable, Equatable {
+        //this is the same label from the class Subject
         var label: String = ""
+        //this is where the subject is in the collage
         var coordinates = Coordinates()
         
         init(label: String, coordinates: CollageData.Annotation.Coordinates = Coordinates()) {
