@@ -63,7 +63,16 @@ class Project {
             //pass on to do next mod
         }
         if scale {
-            
+            for i in mods {
+                var temp = i
+                temp.scaleChangeX = 2.0
+                mods.append(temp)
+                temp = i
+                temp.scaleChangeY = 2.0
+                mods.append(temp)
+                temp.scaleChangeX = 2.0
+                mods.append(temp)
+            }
         }
         //create all permutations of modificaton
         return mods
@@ -83,8 +92,9 @@ struct Subject {
     //modify must return copy of subject without changing OG
     func modify(_ mod: Modification, size: CGSize) -> Subject {
         var temp = self
-        var extent = temp.image.extent
+        let extent = temp.image.extent
         temp.image = temp.image.transformed(by: .init(translationX: mod.translateX * (size.width - extent.width), y: mod.translateY * (size.height - extent.height)))
+        temp.image = temp.image.transformed(by: .init(scaleX: mod.scaleChangeX, y: mod.scaleChangeY))
         return temp
     }
 }
@@ -94,8 +104,8 @@ struct Modification {
     var population: Int = 0
     var translateX: CGFloat = 0
     var translateY: CGFloat = 0
-    var scaleChangeX: CGFloat = 0
-    var scaleChangeY: CGFloat = 0
+    var scaleChangeX: CGFloat = 1.0
+    var scaleChangeY: CGFloat = 1.0
 }
 
 //create array of modifacations based on params user picks

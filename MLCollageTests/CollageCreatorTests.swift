@@ -37,6 +37,23 @@ final class CollageCreatorTests: XCTestCase {
             assertSnapshot(of: i.data, as: .dump)
         }
     }
+    
+    func testCreateCollageSetScale() {
+        //create a set of collage images
+        sut.scale = true
+        let result = sut.createCollageSet()
+        XCTAssertEqual(result.count, 4)
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.data, as: .dump)
+        }
+    }
+    
+    func testSubjectModify() {
+        let modify = Modification(scaleChangeX: 2.0, scaleChangeY: 2.0)
+        let temp = UIImage(ciImage: subject.modify(modify, size: .init(width: 100.0, height: 100.0)).image)
+        assertSnapshot(of: temp.toCGImage(), as: .image)
+    }
 }
 
 extension UIImage {
