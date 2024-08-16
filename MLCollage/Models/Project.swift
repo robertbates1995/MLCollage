@@ -45,6 +45,7 @@ class Project {
         var set = [Collage]()
         var changableSubject = subject.image
         for i in 0...modificaitions.population {
+            //does this create annotations that arent speciffic enough in refference to subject titile? 
             set.append(creator.create(subject: subject, background: background, title: "\(title)"))
             if modificaitions.translateX > 0 || modificaitions.translateY > 0 {
                 changableSubject = changableSubject.transformed(by: .init(translationX: modificaitions.translateX, y: modificaitions.translateY))
