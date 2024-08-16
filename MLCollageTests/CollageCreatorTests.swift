@@ -13,56 +13,30 @@ import CustomDump
 import SwiftUI
 
 final class CollageCreatorTests: XCTestCase {
-    let sut = Project()
+    let subject = Subject(image: CIImage(image: .monke)!, label: "monke")
+    let background = CIImage(image: .forest)!
+    lazy var sut = Project(subjects: [subject], backgrounds: [background])
     
-    func testProjectCreator() {
-        
-    }
-    
-    
-    //-- Old tests below here --
-    func testCreateCollageSingleSubject() {
-        //create a single collage image
-        let result = sut.creator.create(subjects: [(CIImage(image: .monke)!, "monke")], background: CIImage(image: .forest)!, title: "Test Title")
-        assertSnapshot(of: result.image.toCGImage(), as: .image)
-        expectNoDifference(result.data, .init(annotations: [.init(label: "monke", coordinates: .init(x: 62.5, y: 62.5, width: 125.0, height: 125.0))], title: "Test Title"))
-        //assertSnapshot(of: result.data, as: .dump)
-    }
-    
-    func testCreateCollageSetXTranslate() {
+    func testCreateCollageSetNoMods() {
         //create a set of collage images
-        let result = sut.createCollageSet(population: 3, translateX: 50, translateY: 0, scaleChangeX: 0, scaleChangeY: 0)
+        let result = sut.createCollageSet()
+        XCTAssertEqual(result.count, 1)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
             assertSnapshot(of: i.data, as: .dump)
         }
     }
     
-    func testCreateCollageSetYTranslate() {
+    func testCreateCollageSetTranslate() {
         //create a set of collage images
-        let result = sut.createCollageSet(population: 3, translateX: 0, translateY: 5, scaleChangeX: 0, scaleChangeY: 0)
+        sut.translate = true
+        let result = sut.createCollageSet()
+        XCTAssertEqual(result.count, 4)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
             assertSnapshot(of: i.data, as: .dump)
         }
     }
-    
-    func testCreateCollageSetEnlarge() {
-        let result = sut.createCollageSet(population: 3, translateX: 0, translateY: 0, scaleChangeX: 1.1, scaleChangeY: 1.1)
-        for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image, record: false)
-            assertSnapshot(of: i.data, as: .dump, record: false)
-        }
-    }
-    
-    func testCreateCollageAllVariables() {
-        let result = sut.createCollageSet(population: 3, translateX: 10, translateY: 10, scaleChangeX: 1.1, scaleChangeY: 1.1)
-        for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image, record: false)
-            assertSnapshot(of: i.data, as: .dump, record: false)
-        }
-    }
-    //-- Old tests above here --
 }
 
 extension UIImage {

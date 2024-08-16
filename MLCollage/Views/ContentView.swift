@@ -22,7 +22,7 @@ struct ContentView: View {
         Text("placeholder")
         NavigationSplitView(
             columnVisibility: $visibility,
-            sidebar: {SidebarView(creator.createCollageSet(population: 1))},
+            sidebar: {SidebarView(creator.createCollageSet())},
             detail: { DetailView() })
     }
     
