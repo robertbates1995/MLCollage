@@ -50,7 +50,7 @@ final class CollageCreatorTests: XCTestCase {
     }
     
     func testSubjectModify() {
-        let modify = Modification(scaleChangeX: 2.0, scaleChangeY: 2.0)
+        let modify = Modification(scaleChange: 2.0)
         let temp = UIImage(ciImage: subject.modify(modify, size: .init(width: 100.0, height: 100.0)).image)
         assertSnapshot(of: temp.toCGImage(), as: .image)
     }
