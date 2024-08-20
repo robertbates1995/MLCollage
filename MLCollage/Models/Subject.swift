@@ -21,7 +21,8 @@ struct Subject {
         var temp = self
         let extent = temp.image.extent
         temp.image = temp.image.transformed(by: .init(translationX: mod.translateX * (size.width - extent.width), y: mod.translateY * (size.height - extent.height)))
-        temp.image = temp.image.transformed(by: .init(scaleX: mod.scaleChange, y: mod.scaleChange))
+        temp.image = temp.image.transformed(by: .init(scaleX: mod.scale, y: mod.scale))
+        temp.image = temp.image.transformed(by: .init(rotationAngle: mod.rotate))
         return temp
     }
 }

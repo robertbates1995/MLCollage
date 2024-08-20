@@ -49,10 +49,16 @@ final class CollageCreatorTests: XCTestCase {
         }
     }
     
-    func testSubjectModify() {
-        let modify = Modification(scaleChange: 2.0)
-        let temp = UIImage(ciImage: subject.modify(modify, size: .init(width: 100.0, height: 100.0)).image)
-        assertSnapshot(of: temp.toCGImage(), as: .image)
+    func testApplyAllMods() {
+        sut.scale = true
+        sut.translate = true
+        //sut.rotate = true
+        let result = sut.createCollageSet()
+        XCTAssertEqual(result.count, 2) //will need to be set to a different value based on number of results
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.data, as: .dump)
+        }
     }
 }
 

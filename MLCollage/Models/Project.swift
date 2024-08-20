@@ -17,16 +17,20 @@ class Project {
     var title: String
     var translate: Bool
     var scale: Bool
+    var rotate: Bool
+    var iterations: Int
     let creator = CollageCreator()
     
     
-    init(projectData: [Collage] = [], subjects: [Subject] = [], backgrounds: [CIImage] = [], title: String = "project title", translate: Bool = false, scale: Bool = false) {
+    init(projectData: [Collage] = [], subjects: [Subject] = [], backgrounds: [CIImage] = [], title: String = "project title", translate: Bool = false, scale: Bool = false, rotate: Bool = false, iterations: Int = 1) {
         self.projectData = projectData
         self.subjects = subjects
         self.backgrounds = backgrounds
         self.title = title
         self.translate = translate
         self.scale = scale
+        self.rotate = rotate
+        self.iterations = iterations
     }
     
     func createCollageSet() -> [Collage] {
@@ -53,23 +57,34 @@ class Project {
         return set
     }
     
-    func createModList() -> [Modification] {
-        var mods = [Modification()]
-        if translate {
-            mods.append(Modification(translateX: 1.0))
-            mods.append(Modification(translateY: 1.0))
-            mods.append(Modification(translateX: 1.0, translateY: 1.0))
-            //create mod
-            //pass on to do next mod
-        }
+    func createModList(incomingMods: [Modification] = [Modification()]) -> [Modification] {
+        var mods = incomingMods
         if scale {
-            for i in mods {
+            scale = false
+            for i in incomingMods {
                 var temp = i
-                temp.scaleChange = 2.0
+                temp.scale = 2.0 //critical value
                 mods.append(temp)
             }
+            return createModList(incomingMods: mods)
         }
-        //create all permutations of modificaton
+        if rotate {
+            rotate = false
+            for i in incomingMods {
+                mods.append(Modification(rotate: 90.0)) //critical value
+            }
+            return createModList(incomingMods: mods)
+        }
+        //translate should be applied last
+        if translate {
+            translate = false
+            for i in incomingMods {
+                mods.append(Modification(translateX: 1.0)) //critical value
+                mods.append(Modification(translateY: 1.0)) //critical value
+                mods.append(Modification(translateX: 1.0, translateY: 1.0)) //critical value
+            }
+            return createModList(incomingMods: mods)
+        }
         return mods
     }
 }
@@ -77,5 +92,9 @@ class Project {
 struct Modification {
     var translateX: CGFloat = 0
     var translateY: CGFloat = 0
-    var scaleChange: CGFloat = 1.0
+    var scale: CGFloat = 1.0
+    var rotate: CGFloat = 0.0
+    //var mirrorX: Bool = false
+    //var mirrorY: Bool = false
+    //var blur: CGFloat = 0.0
 }
