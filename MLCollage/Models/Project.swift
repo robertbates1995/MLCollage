@@ -79,40 +79,9 @@ class Project {
     }
 }
 
-
-//--put in seperate files--
-struct Subject {
-    var image: CIImage
-    var label: String
-    init(image: CIImage = CIImage.black, label: String = "subject label") {
-        self.image = image
-        self.label = label
-    }
-    
-    //modify must return copy of subject without changing OG
-    func modify(_ mod: Modification, size: CGSize) -> Subject {
-        var temp = self
-        let extent = temp.image.extent
-        temp.image = temp.image.transformed(by: .init(translationX: mod.translateX * (size.width - extent.width), y: mod.translateY * (size.height - extent.height)))
-        temp.image = temp.image.transformed(by: .init(scaleX: mod.scaleChangeX, y: mod.scaleChangeY))
-        return temp
-    }
-}
-
-//remove population
 struct Modification {
-    var population: Int = 0
     var translateX: CGFloat = 0
     var translateY: CGFloat = 0
     var scaleChangeX: CGFloat = 1.0
     var scaleChangeY: CGFloat = 1.0
 }
-
-//create array of modifacations based on params user picks
-
-//            if modificaitions.translateX > 0 || modificaitions.translateY > 0 {
-//                changableSubject = changableSubject.transformed(by: .init(translationX: modificaitions.translateX, y: modificaitions.translateY))
-//            }
-//            if modificaitions.scaleChangeX > 0 || modificaitions.scaleChangeY > 0 {
-//                changableSubject = changableSubject.transformed(by: .init(scaleX: modificaitions.scaleChangeX, y: modificaitions.scaleChangeY))
-//            }
