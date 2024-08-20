@@ -65,12 +65,7 @@ class Project {
         if scale {
             for i in mods {
                 var temp = i
-                temp.scaleChangeX = 2.0
-                mods.append(temp)
-                temp = i
-                temp.scaleChangeY = 2.0
-                mods.append(temp)
-                temp.scaleChangeX = 2.0
+                temp.scaleChange = 2.0
                 mods.append(temp)
             }
         }
@@ -82,6 +77,5 @@ class Project {
 struct Modification {
     var translateX: CGFloat = 0
     var translateY: CGFloat = 0
-    var scaleChangeX: CGFloat = 1.0
-    var scaleChangeY: CGFloat = 1.0
+    var scaleChange: CGFloat = 1.0
 }
