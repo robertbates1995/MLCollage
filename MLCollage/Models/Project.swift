@@ -58,6 +58,7 @@ class Project {
     }
     
     func createModList(incomingMods: [Modification] = [Modification()]) -> [Modification] {
+        print("scale: \(scale), translate: \(translate), rotate: \(rotate)")
         var mods = incomingMods
         if scale {
             scale = false

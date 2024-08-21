@@ -52,9 +52,9 @@ final class CollageCreatorTests: XCTestCase {
     func testApplyAllMods() {
         sut.scale = true
         sut.translate = true
-        //sut.rotate = true
+        sut.rotate = true
         let result = sut.createCollageSet()
-        XCTAssertEqual(result.count, 2) //will need to be set to a different value based on number of results
+        XCTAssertEqual(result.count, 16) //will need to be set to a different value based on number of results
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
             assertSnapshot(of: i.data, as: .dump)
