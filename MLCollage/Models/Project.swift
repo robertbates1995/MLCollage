@@ -61,20 +61,20 @@ class Project {
         print("scale: \(scale), translate: \(translate), rotate: \(rotate)")
         var mods = incomingMods
         if scale {
-            for i in incomingMods {
+            for i in mods {
                 var temp = i
                 temp.scale = 2.0 //critical value
                 mods.append(temp)
             }
         }
         if rotate {
-            for i in incomingMods {
+            for i in mods {
                 mods.append(Modification(rotate: 90.0)) //critical value
             }
         }
         //translate should be applied last
         if translate {
-            for i in incomingMods {
+            for i in mods {
                 mods.append(Modification(translateX: 1.0)) //critical value
                 mods.append(Modification(translateY: 1.0)) //critical value
                 mods.append(Modification(translateX: 1.0, translateY: 1.0)) //critical value
