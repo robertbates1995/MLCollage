@@ -49,6 +49,17 @@ final class CollageCreatorTests: XCTestCase {
         }
     }
     
+    func testCreateCollageSetRotate() {
+        //create a set of collage images
+        sut.rotate = true
+        let result = sut.createCollageSet()
+        XCTAssertEqual(result.count, 2)
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.data, as: .dump)
+        }
+    }
+    
     func testApplyAllMods() {
         sut.scale = true
         sut.translate = true
@@ -62,15 +73,3 @@ final class CollageCreatorTests: XCTestCase {
     }
 }
 
-extension UIImage {
-    func toCGImage() -> UIImage {
-        guard let ciImage = self.ciImage else {
-            return self
-        }
-        let context = CIContext(options: nil)
-        if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
-            return UIImage(cgImage: cgImage)
-        }
-        return self
-    }
-}
