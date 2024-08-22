@@ -17,6 +17,12 @@ final class CollageCreatorTests: XCTestCase {
     let background = CIImage(image: .forest)!
     lazy var sut = Project(subjects: [subject], backgrounds: [background])
     
+    func testSubject() {
+        let mod = Modification(translateX: 0.5, rotate: .pi)
+        let result = subject.modify(mod, size: .init(width: 200, height: 200))
+        assertSnapshot(of: UIImage(ciImage: result.image).toCGImage(), as: .image, record: true)
+    }
+    
     func testCreateCollageSetNoMods() {
         //create a set of collage images
         let result = sut.createCollageSet()

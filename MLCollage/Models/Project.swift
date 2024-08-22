@@ -62,22 +62,28 @@ class Project {
         var mods = incomingMods
         if scale {
             for i in mods {
-                var temp = i
-                temp.scale = 2.0 //critical value
-                mods.append(temp)
+                var newMod = i
+                newMod.scale = 2.0 //critical value
+                mods.append(newMod)
             }
         }
         if rotate {
             for i in mods {
-                mods.append(Modification(rotate: 90.0)) //critical value
+                var newMod = i
+                newMod.rotate = .pi
+                mods.append(newMod) //critical value
             }
         }
         //translate should be applied last
         if translate {
             for i in mods {
-                mods.append(Modification(translateX: 1.0)) //critical value
-                mods.append(Modification(translateY: 1.0)) //critical value
-                mods.append(Modification(translateX: 1.0, translateY: 1.0)) //critical value
+                var newMod = i
+                newMod.translateX = 1.0 //critical value
+                mods.append(newMod)
+                newMod.translateY = 1.0 //critical value
+                mods.append(newMod)
+                newMod.translateX = 0.0
+                mods.append(newMod)
             }
         }
         return mods
@@ -93,3 +99,7 @@ struct Modification {
     //var mirrorY: Bool = false
     //var blur: CGFloat = 0.0
 }
+
+func degreesToRadians(_ degrees: CGFloat) -> CGFloat{
+        return degrees * .pi / 180.0
+    }

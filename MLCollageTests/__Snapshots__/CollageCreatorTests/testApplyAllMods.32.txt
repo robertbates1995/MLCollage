@@ -2,9 +2,9 @@
   ▿ annotations: 1 element
     ▿ Annotation
       ▿ coordinates: Coordinates
-        - height: 50.0
-        - width: 50.0
-        - x: 225.0
-        - y: 100.0
+        - height: 100.0
+        - width: 100.0
+        - x: 50.0
+        - y: 75.0
       - label: "monke"
   - image: "project title"

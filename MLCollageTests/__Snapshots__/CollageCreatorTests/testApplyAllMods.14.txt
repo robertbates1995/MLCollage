@@ -4,7 +4,7 @@
       ▿ coordinates: Coordinates
         - height: 50.0
         - width: 50.0
-        - x: 225.0
+        - x: 25.0
         - y: 100.0
       - label: "monke"
   - image: "project title"
