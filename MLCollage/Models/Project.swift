@@ -61,30 +61,24 @@ class Project {
         print("scale: \(scale), translate: \(translate), rotate: \(rotate)")
         var mods = incomingMods
         if scale {
-            scale = false
             for i in incomingMods {
                 var temp = i
                 temp.scale = 2.0 //critical value
                 mods.append(temp)
             }
-            return createModList(incomingMods: mods)
         }
         if rotate {
-            rotate = false
             for i in incomingMods {
                 mods.append(Modification(rotate: 90.0)) //critical value
             }
-            return createModList(incomingMods: mods)
         }
         //translate should be applied last
         if translate {
-            translate = false
             for i in incomingMods {
                 mods.append(Modification(translateX: 1.0)) //critical value
                 mods.append(Modification(translateY: 1.0)) //critical value
                 mods.append(Modification(translateX: 1.0, translateY: 1.0)) //critical value
             }
-            return createModList(incomingMods: mods)
         }
         return mods
     }
