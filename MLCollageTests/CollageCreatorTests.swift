@@ -70,7 +70,7 @@ final class CollageCreatorTests: XCTestCase {
         //create a set of collage images
         sut.flip = true
         let result = sut.createCollageSet()
-        XCTAssertEqual(result.count, 3)
+        XCTAssertEqual(result.count, 4)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
             assertSnapshot(of: i.data, as: .dump)

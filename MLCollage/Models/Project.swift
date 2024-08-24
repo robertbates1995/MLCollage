@@ -85,6 +85,19 @@ class Project {
                 mods.append(newMod)
             }
         }
+        if flip {
+            for i in mods {
+                var newMod = i
+                if i.flipX {
+                    if i.flipY {
+                        //both case
+                    }
+                    //x case
+                } else {
+                    //y case
+                }
+            }
+        }
         return mods
     }
 }
