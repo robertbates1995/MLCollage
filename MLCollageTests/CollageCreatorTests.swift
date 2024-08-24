@@ -66,6 +66,17 @@ final class CollageCreatorTests: XCTestCase {
         }
     }
     
+    func testCreateCollageSetFlip() {
+        //create a set of collage images
+        sut.flip = true
+        let result = sut.createCollageSet()
+        XCTAssertEqual(result.count, 3)
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.data, as: .dump)
+        }
+    }
+    
     func testApplyAllMods() {
         sut.scale = true
         sut.translate = true

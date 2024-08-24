@@ -18,11 +18,12 @@ class Project {
     var translate: Bool
     var scale: Bool
     var rotate: Bool
+    var flip: Bool
     var iterations: Int
     let creator = CollageCreator()
     
     
-    init(projectData: [Collage] = [], subjects: [Subject] = [], backgrounds: [CIImage] = [], title: String = "project title", translate: Bool = false, scale: Bool = false, rotate: Bool = false, iterations: Int = 1) {
+    init(projectData: [Collage] = [], subjects: [Subject] = [], backgrounds: [CIImage] = [], title: String = "project title", translate: Bool = false, scale: Bool = false, rotate: Bool = false, flip: Bool = false, iterations: Int = 1) {
         self.projectData = projectData
         self.subjects = subjects
         self.backgrounds = backgrounds
@@ -30,6 +31,7 @@ class Project {
         self.translate = translate
         self.scale = scale
         self.rotate = rotate
+        self.flip = flip
         self.iterations = iterations
     }
     
@@ -92,8 +94,8 @@ struct Modification {
     var translateY: CGFloat = 0
     var scale: CGFloat = 1.0
     var rotate: CGFloat = 0.0
-    //var flipX: Bool = false
-    //var flipY: Bool = false
+    var flipX: Bool = false
+    var flipY: Bool = false
     //var blur: CGFloat = 0.0
 }
 
