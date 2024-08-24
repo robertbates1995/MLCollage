@@ -36,8 +36,6 @@ class Project {
     func createCollageSet() -> [Collage] {
         var set = [Collage]()
         let modifacations: [Modification] = createModList()
-        let creator = CollageCreator()
-        //create all permutations for every background
         for x in backgrounds {
             for i in appendableBackgroundSet(x, modificaitions: modifacations) {
                 set.append(i)
@@ -58,7 +56,6 @@ class Project {
     }
     
     func createModList(incomingMods: [Modification] = [Modification()]) -> [Modification] {
-        print("scale: \(scale), translate: \(translate), rotate: \(rotate)")
         var mods = incomingMods
         if scale {
             for i in mods {
@@ -95,8 +92,8 @@ struct Modification {
     var translateY: CGFloat = 0
     var scale: CGFloat = 1.0
     var rotate: CGFloat = 0.0
-    //var mirrorX: Bool = false
-    //var mirrorY: Bool = false
+    //var flipX: Bool = false
+    //var flipY: Bool = false
     //var blur: CGFloat = 0.0
 }
 

@@ -20,7 +20,7 @@ final class CollageCreatorTests: XCTestCase {
     func testSubject() {
         let mod = Modification(translateX: 0.5, rotate: .pi)
         let result = subject.modify(mod, size: .init(width: 200, height: 200))
-        assertSnapshot(of: UIImage(ciImage: result.image).toCGImage(), as: .image, record: true)
+        assertSnapshot(of: UIImage(ciImage: result.image).toCGImage(), as: .image)
     }
     
     func testCreateCollageSetNoMods() {
