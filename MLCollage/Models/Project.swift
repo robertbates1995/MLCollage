@@ -88,14 +88,12 @@ class Project {
         if flip {
             for i in mods {
                 var newMod = i
-                if i.flipX {
-                    if i.flipY {
-                        //both case
-                    }
-                    //x case
-                } else {
-                    //y case
-                }
+                newMod.flipX = true
+                mods.append(newMod)
+                newMod.flipY = true
+                mods.append(newMod)
+                newMod.flipX = false
+                mods.append(newMod)
             }
         }
         return mods

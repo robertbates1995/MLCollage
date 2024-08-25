@@ -81,6 +81,7 @@ final class CollageCreatorTests: XCTestCase {
         sut.scale = true
         sut.translate = true
         sut.rotate = true
+        sut.flip = true
         let result = sut.createCollageSet()
         XCTAssertEqual(result.count, 16) //will need to be set to a different value based on number of results
         for i in result {
