@@ -1,0 +1,10 @@
+▿ CollageData
+  ▿ annotations: 1 element
+    ▿ Annotation
+      ▿ coordinates: Coordinates
+        - height: 50.0
+        - width: 50.0
+        - x: 225.0
+        - y: -50.0
+      - label: "monke"
+  - image: "project title"
