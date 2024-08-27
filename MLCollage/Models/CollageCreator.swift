@@ -15,13 +15,11 @@ import SwiftUI
 
 @Observable
 class CollageCreator {
-    //TODO: create a function that creates a single collage with multiple subjects in it
     func create(subject: Subject, background: CIImage, title: String) -> Collage {
-        //will likely need parameters to control number of subjects and their orientations
         //create one annotation and one Collage in this step
         var collage = background
         var annotations = [CollageData.Annotation]()
-        collage = subject.image.composited(over: background)//.cropped(to: background.extent)
+        collage = subject.image.composited(over: background).cropped(to: background.extent)
         annotations.append(CollageData.Annotation(label: subject.label, coordinates: .init(subject.image.extent)))
         let data = CollageData(annotation: annotations, title: title)
         return Collage(image: UIImage(ciImage: collage), data: data)
@@ -37,7 +35,6 @@ typealias ImageType = UIImage
 class Collage {
     var image: ImageType
     var data: CollageData
-    
     init(image: UIImage, data: CollageData) {
         self.image = image
         self.data = data

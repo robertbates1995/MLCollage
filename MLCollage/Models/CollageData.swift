@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CollageData: Codable, Equatable {
+struct CollageData: Codable, Equatable, Sequence {
     var annotation: [Annotation]
     var imagefilename: String
     
