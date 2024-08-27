@@ -11,8 +11,17 @@ import SnapshotTesting
 import SwiftUI
 
 final class MLCollageTests: XCTestCase {
+    let sut = Project(
+        subjects: [Subject(image: CIImage(image: .monke)!, label: "monke")],
+        backgrounds: [CIImage(image: .forest)!],
+        title: "test project title",
+        translate: true,
+        scale: true,
+        rotate: true,
+        flip: true
+    )
+    
     func testJSON() throws {
-        let sut = CollageData(annotation: [.init(label: "test label")], title: "test title")
         let encoder = JSONEncoder()
         encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
         let output = try encoder.encode([sut])
