@@ -15,7 +15,7 @@ import SwiftUI
 final class CollageCreatorTests: XCTestCase {
     let subject = Subject(image: CIImage(image: .monke)!, label: "monke")
     let background = CIImage(image: .forest)!
-    lazy var sut = Project(subjects: [subject], backgrounds: [background])
+    lazy var sut = Project(subjects: [subject], backgrounds: [background], title: "ProjectTitle")
     
     func testSubject() {
         let mod = Modification(translateX: 0.5, rotate: .pi)
@@ -29,7 +29,7 @@ final class CollageCreatorTests: XCTestCase {
         XCTAssertEqual(result.count, 1)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
-            assertSnapshot(of: i.data, as: .dump)
+            assertSnapshot(of: i.data, as: .dump, record: false)
         }
     }
     
@@ -40,7 +40,7 @@ final class CollageCreatorTests: XCTestCase {
         XCTAssertEqual(result.count, 4)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
-            assertSnapshot(of: i.data, as: .dump)
+            assertSnapshot(of: i.data, as: .dump, record: false)
         }
     }
     
@@ -51,7 +51,7 @@ final class CollageCreatorTests: XCTestCase {
         XCTAssertEqual(result.count, 2)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
-            assertSnapshot(of: i.data, as: .dump)
+            assertSnapshot(of: i.data, as: .dump, record: false)
         }
     }
     
@@ -62,7 +62,7 @@ final class CollageCreatorTests: XCTestCase {
         XCTAssertEqual(result.count, 2)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
-            assertSnapshot(of: i.data, as: .dump)
+            assertSnapshot(of: i.data, as: .dump, record: false)
         }
     }
     
@@ -73,7 +73,7 @@ final class CollageCreatorTests: XCTestCase {
         XCTAssertEqual(result.count, 4)
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
-            assertSnapshot(of: i.data, as: .dump)
+            assertSnapshot(of: i.data, as: .dump, record: false)
         }
     }
     
@@ -86,7 +86,7 @@ final class CollageCreatorTests: XCTestCase {
         XCTAssertEqual(result.count, 64) //will need to be set to a different value based on number of results
         for i in result {
             assertSnapshot(of: i.image.toCGImage(), as: .image)
-            assertSnapshot(of: i.data, as: .dump)
+            assertSnapshot(of: i.data, as: .dump, record: false)
         }
     }
 }

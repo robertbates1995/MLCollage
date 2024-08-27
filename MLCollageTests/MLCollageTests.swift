@@ -14,7 +14,7 @@ final class MLCollageTests: XCTestCase {
     let sut = Project(
         subjects: [Subject(image: CIImage(image: .monke)!, label: "monke")],
         backgrounds: [CIImage(image: .forest)!],
-        title: "test project title",
+        title: "collageTitle",
         translate: true,
         scale: true,
         rotate: true,
