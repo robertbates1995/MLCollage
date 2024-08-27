@@ -22,19 +22,27 @@ class Project {
     var iterations: Int
     let creator = CollageCreator()
     
-    func createJSON() throws -> String  { //return type may be wrong
-        projectData = createCollageSet()
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
-        var annotationArray = [CollageData]()
-        var count = 0
-        for i in projectData {
-            i.data.imagefilename.append(String(count))
-            annotationArray.append(i.data)
-            count += 1
+    func export(to dir: String) {
+        // Create URL
+        var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("image.png")
+        
+        do {
+            try createJSON().data(using: .utf8)!.write(to: url)
+        } catch {
+            print("Unable to write image data to disk")
         }
-        let output = try encoder.encode(annotationArray)
-        return String.init(data: output, encoding: .utf8)!
+        
+        for i in projectData {
+            // Convert to Data
+            if let data = i.image.pngData() {
+                do {
+                    try data.write(to: url)
+                } catch {
+                    print("Unable to save image to disk")
+                }
+            }
+        }
+        
     }
     
     init(projectData: [Collage] = [], subjects: [Subject] = [], backgrounds: [CIImage] = [], title: String = "project title", translate: Bool = false, scale: Bool = false, rotate: Bool = false, flip: Bool = false, iterations: Int = 1) {
@@ -112,6 +120,21 @@ class Project {
         }
         return mods
     }
+    
+    func createJSON() throws -> String  { //return type may be wrong
+        projectData = createCollageSet()
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
+        var annotationArray = [CollageData]()
+        var count = 0
+        for i in projectData {
+            i.data.imagefilename.append("\(count).png")
+            annotationArray.append(i.data)
+            count += 1
+        }
+        let output = try encoder.encode(annotationArray)
+        return String.init(data: output, encoding: .utf8)!
+    }
 }
 
 struct Modification {
@@ -125,5 +148,5 @@ struct Modification {
 }
 
 func degreesToRadians(_ degrees: CGFloat) -> CGFloat{
-        return degrees * .pi / 180.0
-    }
+    return degrees * .pi / 180.0
+}

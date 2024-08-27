@@ -13,7 +13,6 @@ import UIKit
 import SwiftUI
 #endif
 
-@Observable
 class CollageCreator {
     func create(subject: Subject, background: CIImage, title: String) -> Collage {
         //create one annotation and one Collage in this step

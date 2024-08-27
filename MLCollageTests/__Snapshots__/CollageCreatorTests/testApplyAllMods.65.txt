@@ -1,0 +1,898 @@
+[
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle0.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle1.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle2.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle3.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle4.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle5.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle6.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle7.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle8.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle9.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle10.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle11.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle12.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle13.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle14.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle15.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle16.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle17.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle18.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle19.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle20.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle21.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle22.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle23.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle24.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle25.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle26.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle27.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle28.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle29.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle30.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle31.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle32.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle33.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle34.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle35.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle36.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle37.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle38.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle39.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle40.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle41.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle42.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle43.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle44.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle45.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle46.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle47.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle48.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle49.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle50.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle51.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle52.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle53.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle54.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle55.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle56.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle57.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle58.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle59.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle60.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle61.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle62.png"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "ProjectTitle63.png"
+  }
+]
