@@ -1,6 +1,6 @@
 [
   {
-    "annotations" : [
+    "annotation" : [
       {
         "coordinates" : {
           "height" : 0,

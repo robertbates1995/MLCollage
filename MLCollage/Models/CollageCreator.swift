@@ -23,7 +23,7 @@ class CollageCreator {
         var annotations = [CollageData.Annotation]()
         collage = subject.image.composited(over: background)//.cropped(to: background.extent)
         annotations.append(CollageData.Annotation(label: subject.label, coordinates: .init(subject.image.extent)))
-        let data = CollageData(annotations: annotations, title: title)
+        let data = CollageData(annotation: annotations, title: title)
         return Collage(image: UIImage(ciImage: collage), data: data)
     }
 }

@@ -8,12 +8,12 @@
 import Foundation
 
 struct CollageData: Codable, Equatable {
-    var annotations: [Annotation]
-    var image: String
+    var annotation: [Annotation]
+    var imagefilename: String
     
-    init(annotations: [Annotation], title image: String) {
-        self.annotations = annotations
-        self.image = image
+    init(annotation: [Annotation], title image: String) {
+        self.annotation = annotation
+        self.imagefilename = image
     }
     
     struct Annotation: Codable, Equatable {

@@ -12,13 +12,13 @@ import SwiftUI
 
 final class MLCollageTests: XCTestCase {
     func testJSON() throws {
-        let sut = CollageData(annotations: [.init(label: "test label")], title: "test title")
+        let sut = CollageData(annotation: [.init(label: "test label")], title: "test title")
         let encoder = JSONEncoder()
         encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
         let output = try encoder.encode([sut])
         
         let stringPrint = String.init(data: output, encoding: .utf8)!
         
-        assertSnapshot(of: stringPrint, as: .lines, record: false)
+        assertSnapshot(of: stringPrint, as: .lines)
     }
 }
