@@ -26,9 +26,9 @@ class Project {
         projectData = createCollageSet()
         let encoder = JSONEncoder()
         encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
-        var annotationArray = [Collage]()
+        var annotationArray = [CollageData]()
         for i in projectData {
-            annotationArray += i.data
+            annotationArray.append(i.data)
         }
         let output = try encoder.encode(annotationArray)
         return String.init(data: output, encoding: .utf8)!

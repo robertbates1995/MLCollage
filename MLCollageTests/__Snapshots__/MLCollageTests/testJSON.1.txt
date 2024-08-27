@@ -3,14 +3,896 @@
     "annotation" : [
       {
         "coordinates" : {
-          "height" : 0,
-          "width" : 0,
-          "x" : 0,
-          "y" : 0
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
         },
-        "label" : "test label"
+        "label" : "monke"
       }
     ],
-    "imagefilename" : "test title"
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : -175,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 225,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : 100
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 50,
+          "width" : 50,
+          "x" : 25,
+          "y" : -50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 50
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : -100,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 200,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 75
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
+  },
+  {
+    "annotation" : [
+      {
+        "coordinates" : {
+          "height" : 100,
+          "width" : 100,
+          "x" : 50,
+          "y" : 25
+        },
+        "label" : "monke"
+      }
+    ],
+    "imagefilename" : "test project title"
   }
 ]
