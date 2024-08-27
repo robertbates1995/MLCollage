@@ -22,12 +22,7 @@ final class MLCollageTests: XCTestCase {
     )
     
     func testJSON() throws {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
-        let output = try encoder.encode([sut])
-        
-        let stringPrint = String.init(data: output, encoding: .utf8)!
-        
-        assertSnapshot(of: stringPrint, as: .lines)
+        let result = try sut.createJSON()
+        assertSnapshot(of: result, as: .lines)
     }
 }

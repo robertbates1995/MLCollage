@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 @Observable
-class Project: Encodable {
+class Project {
     //create members that represent mod settings toggled on or off
     var projectData: [Collage]
     var subjects: [Subject]
@@ -23,6 +23,7 @@ class Project: Encodable {
     let creator = CollageCreator()
     
     func createJSON() throws -> String  { //return type may be wrong
+        projectData = createCollageSet()
         let encoder = JSONEncoder()
         encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
         var annotationArray = [CollageData.Annotation]()
@@ -30,7 +31,7 @@ class Project: Encodable {
             annotationArray += i.data.annotation
         }
         let output = try encoder.encode(annotationArray)
-        let stringPrint = String.init(data: output, encoding: .utf8)!
+        return String.init(data: output, encoding: .utf8)!
     }
     
     init(projectData: [Collage] = [], subjects: [Subject] = [], backgrounds: [CIImage] = [], title: String = "project title", translate: Bool = false, scale: Bool = false, rotate: Bool = false, flip: Bool = false, iterations: Int = 1) {
