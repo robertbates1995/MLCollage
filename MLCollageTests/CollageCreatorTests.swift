@@ -78,6 +78,28 @@ final class CollageCreatorTests: XCTestCase {
         }
     }
     
+    func testFlipAndRotate() {
+        sut.flip = true
+        sut.rotate = true
+        let result = sut.createCollageSet()
+        XCTAssertEqual(result.count, 8)
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.data, as: .dump, record: recording)
+        }
+    }
+    
+    func testFlipAndTranslate() {
+        sut.translate = true
+        sut.flip = true
+        let result = sut.createCollageSet()
+        XCTAssertEqual(result.count, 8)
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.data, as: .dump, record: recording)
+        }
+    }
+    
     func testApplyAllMods() {
         sut.scale = true
         sut.translate = true
