@@ -111,16 +111,16 @@ final class CollageCreatorTests: XCTestCase {
         assertSnapshot(of: try sut.createJSON(), as: .lines, record: recording)
     }
     
-    func testExport() {
+    func testExport() throws {
         sut.scale = true
         sut.translate = true
         sut.rotate = true
         sut.flip = true
         var url = FileManager.default.temporaryDirectory.appendingPathComponent(name, conformingTo: .directory)
-        try? FileManager.default.removeItem(at: url)
-        try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
         //delete the directory that is being tested (FileManager.shared.rm)
+        try? FileManager.default.removeItem(at: url)
         //create a blank directory at the same spot
+        XCTAssertNoThrow(try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false))
         sut.export(to: url)
         //use FileManager to make sure all files are present
         //xctassert the files exist, not necessaraly that they are correct

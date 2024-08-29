@@ -22,22 +22,19 @@ class Project {
     var iterations: Int
     let creator = CollageCreator()
     
-    func export(to dir: URL) {
+    func export(to url: URL) {
         // Create unique URL based on what collage is being writen
-        var url = FileManager.default.temporaryDirectory.appendingPathComponent(.name, conformingTo: .directory)
         var count = 1
-        
         do {
-            try createJSON().data(using: .utf8)!.write(to: url)
+            try createJSON().data(using: .utf8)!.write(to: url.appendingPathComponent("anotations.json"))
         } catch {
             print("Unable to write image data to disk")
         }
-        
         for i in projectData {
             // Convert to Data
             if let data = i.image.pngData() {
                 do {
-                    try data.write(to: url.appendingPathComponent("\(i.data.imagefilename)\(count).png"))
+                    try data.write(to: url.appendingPathComponent("\(count).png"))
                     count += 1
                 } catch {
                     print("Unable to save image to disk")
@@ -129,7 +126,7 @@ class Project {
         var annotationArray = [CollageData]()
         var count = 0
         for i in projectData {
-            i.data.imagefilename.append("\(count).png")
+            i.data.imagefilename = "\(count).png"
             annotationArray.append(i.data)
             count += 1
         }
