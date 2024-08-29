@@ -116,9 +116,12 @@ final class CollageCreatorTests: XCTestCase {
         sut.translate = true
         sut.rotate = true
         sut.flip = true
+        var url = FileManager.default.temporaryDirectory.appendingPathComponent(name, conformingTo: .directory)
+        try? FileManager.default.removeItem(at: url)
+        try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: false)
         //delete the directory that is being tested (FileManager.shared.rm)
         //create a blank directory at the same spot
-        sut.export(to: "temp")
+        sut.export(to: url)
         //use FileManager to make sure all files are present
         //xctassert the files exist, not necessaraly that they are correct
     }

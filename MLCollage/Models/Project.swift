@@ -24,7 +24,7 @@ class Project {
     
     func export(to dir: URL) {
         // Create unique URL based on what collage is being writen
-        var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        var url = FileManager.default.temporaryDirectory.appendingPathComponent(.name, conformingTo: .directory)
         var count = 1
         
         do {
