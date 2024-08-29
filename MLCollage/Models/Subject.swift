@@ -29,13 +29,14 @@ struct Subject {
         extent = temp.image.extent
         temp.image = temp.image.transformed(by: .init(scaleX: mod.scale, y: mod.scale))
         extent = temp.image.extent
-        temp.image = temp.image.transformed(by: .init(translationX: mod.translateX * (size.width - extent.width), y: mod.translateY * (size.height - extent.height)))
         if mod.flipY {
             temp.image = temp.image.oriented(.downMirrored)
         }
         if mod.flipX {
             temp.image = temp.image.oriented(.upMirrored)
         }
+        extent = temp.image.extent
+        temp.image = temp.image.transformed(by: .init(translationX: mod.translateX * (size.width - extent.width), y: mod.translateY * (size.height - extent.height)))
         return temp
     }
 }

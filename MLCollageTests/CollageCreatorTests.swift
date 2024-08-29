@@ -21,7 +21,7 @@ final class CollageCreatorTests: XCTestCase {
     func testSubject() {
         let mod = Modification(translateX: 0.5, rotate: .pi)
         let result = subject.modify(mod, size: .init(width: 200, height: 200))
-        assertSnapshot(of: UIImage(ciImage: result.image).toCGImage(), as: .image)
+        assertSnapshot(of: UIImage(ciImage: result.image).toCGImage(), as: .image, record: recording)
     }
     
     func testCreateCollageSetNoMods() {
@@ -29,7 +29,7 @@ final class CollageCreatorTests: XCTestCase {
         let result = sut.createCollageSet()
         XCTAssertEqual(result.count, 1)
         for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
             assertSnapshot(of: i.data, as: .dump, record: recording)
         }
     }
@@ -40,7 +40,7 @@ final class CollageCreatorTests: XCTestCase {
         let result = sut.createCollageSet()
         XCTAssertEqual(result.count, 4)
         for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
             assertSnapshot(of: i.data, as: .dump, record: recording)
         }
     }
@@ -51,7 +51,7 @@ final class CollageCreatorTests: XCTestCase {
         let result = sut.createCollageSet()
         XCTAssertEqual(result.count, 2)
         for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
             assertSnapshot(of: i.data, as: .dump, record: recording)
         }
     }
@@ -62,7 +62,7 @@ final class CollageCreatorTests: XCTestCase {
         let result = sut.createCollageSet()
         XCTAssertEqual(result.count, 2)
         for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
             assertSnapshot(of: i.data, as: .dump, record: recording)
         }
     }
@@ -73,7 +73,7 @@ final class CollageCreatorTests: XCTestCase {
         let result = sut.createCollageSet()
         XCTAssertEqual(result.count, 4)
         for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
             assertSnapshot(of: i.data, as: .dump, record: recording)
         }
     }
@@ -84,7 +84,7 @@ final class CollageCreatorTests: XCTestCase {
         let result = sut.createCollageSet()
         XCTAssertEqual(result.count, 8)
         for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
             assertSnapshot(of: i.data, as: .dump, record: recording)
         }
     }
@@ -93,9 +93,9 @@ final class CollageCreatorTests: XCTestCase {
         sut.translate = true
         sut.flip = true
         let result = sut.createCollageSet()
-        XCTAssertEqual(result.count, 8)
+        XCTAssertEqual(result.count, 16)
         for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image)
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
             assertSnapshot(of: i.data, as: .dump, record: recording)
         }
     }
@@ -107,7 +107,7 @@ final class CollageCreatorTests: XCTestCase {
         sut.flip = true
         let result = sut.createCollageSet()
         XCTAssertEqual(result.count, 64) //will need to be set to a different value based on number of results
-        for i in result { assertSnapshot(of: i.image.toCGImage(), as: .image) }
+        for i in result { assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording) }
         assertSnapshot(of: try sut.createJSON(), as: .lines, record: recording)
     }
     

@@ -397,7 +397,7 @@
         "coordinates" : {
           "height" : 50,
           "width" : 50,
-          "x" : -175,
+          "x" : 225,
           "y" : 25
         },
         "label" : "monke"
@@ -411,7 +411,7 @@
         "coordinates" : {
           "height" : 50,
           "width" : 50,
-          "x" : -175,
+          "x" : 225,
           "y" : 25
         },
         "label" : "monke"
@@ -439,7 +439,7 @@
         "coordinates" : {
           "height" : 50,
           "width" : 50,
-          "x" : -175,
+          "x" : 225,
           "y" : 100
         },
         "label" : "monke"
@@ -453,8 +453,8 @@
         "coordinates" : {
           "height" : 50,
           "width" : 50,
-          "x" : -175,
-          "y" : -50
+          "x" : 225,
+          "y" : 100
         },
         "label" : "monke"
       }
@@ -468,7 +468,7 @@
           "height" : 50,
           "width" : 50,
           "x" : 225,
-          "y" : -50
+          "y" : 100
         },
         "label" : "monke"
       }
@@ -496,7 +496,7 @@
           "height" : 50,
           "width" : 50,
           "x" : 25,
-          "y" : -50
+          "y" : 100
         },
         "label" : "monke"
       }
@@ -510,7 +510,7 @@
           "height" : 50,
           "width" : 50,
           "x" : 25,
-          "y" : -50
+          "y" : 100
         },
         "label" : "monke"
       }
@@ -523,7 +523,7 @@
         "coordinates" : {
           "height" : 100,
           "width" : 100,
-          "x" : -100,
+          "x" : 200,
           "y" : 50
         },
         "label" : "monke"
@@ -537,7 +537,7 @@
         "coordinates" : {
           "height" : 100,
           "width" : 100,
-          "x" : -100,
+          "x" : 200,
           "y" : 50
         },
         "label" : "monke"
@@ -565,7 +565,7 @@
         "coordinates" : {
           "height" : 100,
           "width" : 100,
-          "x" : -100,
+          "x" : 200,
           "y" : 75
         },
         "label" : "monke"
@@ -579,8 +579,8 @@
         "coordinates" : {
           "height" : 100,
           "width" : 100,
-          "x" : -100,
-          "y" : 25
+          "x" : 200,
+          "y" : 75
         },
         "label" : "monke"
       }
@@ -594,7 +594,7 @@
           "height" : 100,
           "width" : 100,
           "x" : 200,
-          "y" : 25
+          "y" : 75
         },
         "label" : "monke"
       }
@@ -622,7 +622,7 @@
           "height" : 100,
           "width" : 100,
           "x" : 50,
-          "y" : 25
+          "y" : 75
         },
         "label" : "monke"
       }
@@ -636,7 +636,7 @@
           "height" : 100,
           "width" : 100,
           "x" : 50,
-          "y" : 25
+          "y" : 75
         },
         "label" : "monke"
       }
@@ -649,7 +649,7 @@
         "coordinates" : {
           "height" : 50,
           "width" : 50,
-          "x" : -175,
+          "x" : 225,
           "y" : 25
         },
         "label" : "monke"
@@ -663,7 +663,7 @@
         "coordinates" : {
           "height" : 50,
           "width" : 50,
-          "x" : -175,
+          "x" : 225,
           "y" : 25
         },
         "label" : "monke"
@@ -691,7 +691,7 @@
         "coordinates" : {
           "height" : 50,
           "width" : 50,
-          "x" : -175,
+          "x" : 225,
           "y" : 100
         },
         "label" : "monke"
@@ -705,8 +705,8 @@
         "coordinates" : {
           "height" : 50,
           "width" : 50,
-          "x" : -175,
-          "y" : -50
+          "x" : 225,
+          "y" : 100
         },
         "label" : "monke"
       }
@@ -720,7 +720,7 @@
           "height" : 50,
           "width" : 50,
           "x" : 225,
-          "y" : -50
+          "y" : 100
         },
         "label" : "monke"
       }
@@ -748,7 +748,7 @@
           "height" : 50,
           "width" : 50,
           "x" : 25,
-          "y" : -50
+          "y" : 100
         },
         "label" : "monke"
       }
@@ -762,7 +762,7 @@
           "height" : 50,
           "width" : 50,
           "x" : 25,
-          "y" : -50
+          "y" : 100
         },
         "label" : "monke"
       }
@@ -775,7 +775,7 @@
         "coordinates" : {
           "height" : 100,
           "width" : 100,
-          "x" : -100,
+          "x" : 200,
           "y" : 50
         },
         "label" : "monke"
@@ -789,7 +789,7 @@
         "coordinates" : {
           "height" : 100,
           "width" : 100,
-          "x" : -100,
+          "x" : 200,
           "y" : 50
         },
         "label" : "monke"
@@ -817,7 +817,7 @@
         "coordinates" : {
           "height" : 100,
           "width" : 100,
-          "x" : -100,
+          "x" : 200,
           "y" : 75
         },
         "label" : "monke"
@@ -831,8 +831,8 @@
         "coordinates" : {
           "height" : 100,
           "width" : 100,
-          "x" : -100,
-          "y" : 25
+          "x" : 200,
+          "y" : 75
         },
         "label" : "monke"
       }
@@ -846,7 +846,7 @@
           "height" : 100,
           "width" : 100,
           "x" : 200,
-          "y" : 25
+          "y" : 75
         },
         "label" : "monke"
       }
@@ -874,7 +874,7 @@
           "height" : 100,
           "width" : 100,
           "x" : 50,
-          "y" : 25
+          "y" : 75
         },
         "label" : "monke"
       }
@@ -888,7 +888,7 @@
           "height" : 100,
           "width" : 100,
           "x" : 50,
-          "y" : 25
+          "y" : 75
         },
         "label" : "monke"
       }
