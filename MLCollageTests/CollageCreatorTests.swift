@@ -124,6 +124,7 @@ final class CollageCreatorTests: XCTestCase {
         sut.export(to: url)
         //use FileManager to make sure all files are present
         //xctassert the files exist, not necessaraly that they are correct
+        try XCTAssertEqual(FileManager.default.contentsOfDirectory(atPath: url.path).count, 65)
     }
 }
 
