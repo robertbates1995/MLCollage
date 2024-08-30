@@ -24,7 +24,7 @@ class Project {
     
     func export(to url: URL) {
         // Create unique URL based on what collage is being writen
-        var count = 1
+        var count = 0
         do {
             try createJSON().data(using: .utf8)!.write(to: url.appendingPathComponent("anotations.json"))
         } catch {
@@ -142,7 +142,6 @@ struct Modification {
     var rotate: CGFloat = 0.0
     var flipX: Bool = false
     var flipY: Bool = false
-    //var blur: CGFloat = 0.0
 }
 
 func degreesToRadians(_ degrees: CGFloat) -> CGFloat{

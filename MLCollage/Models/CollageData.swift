@@ -37,9 +37,9 @@ struct CollageData: Codable, Equatable {
 }
 
 extension CollageData.Annotation.Coordinates {
-    init(_ extent: CGRect) {
+    init(_ extent: CGRect, backgroundHeight: CGFloat) {
         x = extent.midX
-        y = extent.midY
+        y = backgroundHeight - extent.midY
         width = extent.width
         height = extent.height
     }
