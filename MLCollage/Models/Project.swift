@@ -16,10 +16,12 @@ class Project {
     var backgrounds: [CIImage]
     var title: String
     var translate: Bool
+    var translateBy: CGFloat
     var scale: Bool
+    var scaleBy: CGFloat
     var rotate: Bool
+    var rotateBy: CGFloat
     var flip: Bool
-    var iterations: Int
     let creator = CollageCreator()
     
     func export(to url: URL) {
@@ -43,16 +45,28 @@ class Project {
         }
     }
     
-    init(projectData: [Collage] = [], subjects: [Subject] = [], backgrounds: [CIImage] = [], title: String = "project title", translate: Bool = false, scale: Bool = false, rotate: Bool = false, flip: Bool = false, iterations: Int = 1) {
+    init(projectData: [Collage] = [],
+         subjects: [Subject] = [],
+         backgrounds: [CIImage] = [],
+         title: String = "project title",
+         translate: Bool = false,
+         translateBy: CGFloat = 0.0,
+         scale: Bool = false,
+         scaleBy: CGFloat = 0.0,
+         rotate: Bool = false,
+         rotateBy: CGFloat = 0.0,
+         flip: Bool = false) {
         self.projectData = projectData
         self.subjects = subjects
         self.backgrounds = backgrounds
         self.title = title
         self.translate = translate
+        self.translateBy = translateBy
         self.scale = scale
+        self.scaleBy = scaleBy
         self.rotate = rotate
+        self.rotateBy = rotateBy
         self.flip = flip
-        self.iterations = iterations
     }
     
     func createCollageSet() -> [Collage] {
