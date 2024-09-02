@@ -144,8 +144,8 @@ class Project {
     }
     
     func createRandModList() -> [Modification] {
-        var mods = [Modification()]
-        for i in 0...population {
+        var mods: [Modification] = []
+        for i in 0..<population {
             mods.append(randomMod())
         }
         return mods

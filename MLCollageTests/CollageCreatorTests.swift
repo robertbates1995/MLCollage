@@ -111,6 +111,16 @@ final class CollageCreatorTests: XCTestCase {
         assertSnapshot(of: try sut.createJSON(), as: .lines, record: recording)
     }
     
+    func testRandMods() {
+        sut.population = 100
+        sut.scale = true
+        sut.translate = true
+        sut.rotate = true
+        sut.flip = true
+        let result = sut.createRandModList()
+        XCTAssertEqual(result.count, 100)
+    }
+    
     func testExport() throws {
         sut.scale = true
         sut.translate = true
