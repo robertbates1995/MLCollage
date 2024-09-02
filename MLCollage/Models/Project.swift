@@ -14,7 +14,7 @@ class Project {
     var subjects: [Subject]
     var backgrounds: [CIImage]
     var title: String
-    var population: CGFloat
+    var population: Int
     var translate: Bool
     var translateLowerBound: CGFloat
     var translateUpperBound: CGFloat
@@ -51,7 +51,7 @@ class Project {
          subjects: [Subject] = [],
          backgrounds: [CIImage] = [],
          title: String = "project title",
-         population: CGFloat = 1,
+         population: Int = 1,
          translate: Bool = false,
          translateLowerBound: CGFloat = 0.5,
          translateUpperBound: CGFloat = 1.5,
@@ -144,9 +144,30 @@ class Project {
     }
     
     func createRandModList() -> [Modification] {
-        var mods: [Modification]
-        
+        var mods = [Modification()]
+        for i in 0...population {
+            mods.append(randomMod())
+        }
         return mods
+    }
+    
+    func randomMod() -> Modification {
+        var mod = Modification()
+        if scale {
+            mod.scale = CGFloat.random(in: scaleLowerBound..<scaleUpperBound)
+        }
+        if rotate {
+            mod.rotate = CGFloat.random(in: (rotateLowerBound * 2 * .pi)..<(rotateUpperBound * 2 * .pi))
+        }
+        if flip {
+            mod.flipX = Bool.random()
+            mod.flipY = Bool.random()
+        }
+        if translate {
+            mod.translateX = CGFloat.random(in: translateLowerBound..<translateUpperBound)
+            mod.translateY = CGFloat.random(in: translateLowerBound..<translateUpperBound)
+        }
+        return mod
     }
     
     func createJSON() throws -> String  { //return type may be wrong
