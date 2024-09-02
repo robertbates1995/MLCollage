@@ -16,11 +16,8 @@ class Project {
     var backgrounds: [CIImage]
     var title: String
     var translate: Bool
-    var translateBy: CGFloat
     var scale: Bool
-    var scaleBy: CGFloat
     var rotate: Bool
-    var rotateBy: CGFloat
     var flip: Bool
     let creator = CollageCreator()
     
@@ -50,22 +47,16 @@ class Project {
          backgrounds: [CIImage] = [],
          title: String = "project title",
          translate: Bool = false,
-         translateBy: CGFloat = 0.0,
          scale: Bool = false,
-         scaleBy: CGFloat = 0.0,
          rotate: Bool = false,
-         rotateBy: CGFloat = 0.0,
          flip: Bool = false) {
         self.projectData = projectData
         self.subjects = subjects
         self.backgrounds = backgrounds
         self.title = title
         self.translate = translate
-        self.translateBy = translateBy
         self.scale = scale
-        self.scaleBy = scaleBy
         self.rotate = rotate
-        self.rotateBy = rotateBy
         self.flip = flip
     }
     
