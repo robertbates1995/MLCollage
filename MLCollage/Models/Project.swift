@@ -10,11 +10,11 @@ import UIKit
 
 @Observable
 class Project {
-    //create members that represent mod settings toggled on or off
     var projectData: [Collage]
     var subjects: [Subject]
     var backgrounds: [CIImage]
     var title: String
+    var population: CGFloat
     var translate: Bool
     var translateLowerBound: CGFloat
     var translateUpperBound: CGFloat
@@ -28,7 +28,6 @@ class Project {
     let creator = CollageCreator()
     
     func export(to url: URL) {
-        // Create unique URL based on what collage is being writen
         var count = 0
         do {
             try createJSON().data(using: .utf8)!.write(to: url.appendingPathComponent("anotations.json"))
@@ -36,7 +35,6 @@ class Project {
             print("Unable to write image data to disk")
         }
         for i in projectData {
-            // Convert to Data
             if let data = i.image.pngData() {
                 do {
                     try data.write(to: url.appendingPathComponent("\(count).png"))
@@ -53,6 +51,7 @@ class Project {
          subjects: [Subject] = [],
          backgrounds: [CIImage] = [],
          title: String = "project title",
+         population: CGFloat = 1,
          translate: Bool = false,
          translateLowerBound: CGFloat = 0.5,
          translateUpperBound: CGFloat = 1.5,
@@ -67,6 +66,7 @@ class Project {
         self.subjects = subjects
         self.backgrounds = backgrounds
         self.title = title
+        self.population = population
         self.translate = translate
         self.translateLowerBound = translateLowerBound
         self.translateUpperBound = translateUpperBound
@@ -106,26 +106,14 @@ class Project {
         if scale {
             for i in mods {
                 var newMod = i
-                newMod.scale = 2.0 //critical value
+                newMod.scale = CGFloat.random(in: scaleLowerBound..<scaleUpperBound)
                 mods.append(newMod)
             }
         }
         if rotate {
             for i in mods {
                 var newMod = i
-                newMod.rotate = .pi
-                mods.append(newMod) //critical value
-            }
-        }
-        //translate should be applied last
-        if translate {
-            for i in mods {
-                var newMod = i
-                newMod.translateX = 1.0 //critical value
-                mods.append(newMod)
-                newMod.translateY = 1.0 //critical value
-                mods.append(newMod)
-                newMod.translateX = 0.0
+                newMod.rotate = CGFloat.random(in: (rotateLowerBound * 2 * .pi)..<(rotateUpperBound * 2 * .pi))
                 mods.append(newMod)
             }
         }
@@ -140,6 +128,24 @@ class Project {
                 mods.append(newMod)
             }
         }
+        //translate should be applied last
+        if translate {
+            for i in mods {
+                var newMod = i
+                newMod.translateX = CGFloat.random(in: translateLowerBound..<translateUpperBound)
+                mods.append(newMod)
+                newMod.translateY = CGFloat.random(in: translateLowerBound..<translateUpperBound)
+                mods.append(newMod)
+                newMod.translateX = CGFloat.random(in: translateLowerBound..<translateUpperBound)
+                mods.append(newMod)
+            }
+        }
+        return mods
+    }
+    
+    func createRandModList() -> [Modification] {
+        var mods: [Modification]
+        
         return mods
     }
     
