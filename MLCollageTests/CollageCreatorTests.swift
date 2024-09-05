@@ -127,9 +127,8 @@ final class CollageCreatorTests: XCTestCase {
         sut.translate = false
         sut.rotate = false
         sut.flip = false
-        let result = sut.createRandomModList()
+        let result = sut.createCollageSet()
         XCTAssertEqual(result.count, 1)
-        
     }
     
     func testExport() throws {

@@ -82,8 +82,12 @@ class Project {
         var set = [Collage]()
         let modifacations: [Modification] = createModList()
         for x in backgrounds {
-            for i in appendableBackgroundSet(x, modificaitions: modifacations) {
-                set.append(i)
+            if (translate || scale || rotate || flip) {
+                for i in appendableBackgroundSet(x, modificaitions: modifacations) {
+                    set.append(i)
+                }
+            } else {
+                set.append(contentsOf: appendableBackgroundSet(x, modificaitions: [Modification()]))
             }
         }
         return set
@@ -186,8 +190,8 @@ class Project {
 }
 
 struct Modification {
-    var translateX: CGFloat = 0
-    var translateY: CGFloat = 0
+    var translateX: CGFloat = 0.0
+    var translateY: CGFloat = 0.0
     var scale: CGFloat = 1.0
     var rotate: CGFloat = 0.0
     var flipX: Bool = false
