@@ -27,26 +27,6 @@ class Project {
     var flip: Bool
     let creator = CollageCreator()
     
-    func export(to url: URL) {
-        var count = 0
-        do {
-            try createJSON().data(using: .utf8)!.write(to: url.appendingPathComponent("anotations.json"))
-        } catch {
-            print("Unable to write image data to disk")
-        }
-        for i in projectData {
-            if let data = i.image.pngData() {
-                do {
-                    try data.write(to: url.appendingPathComponent("\(count).png"))
-                    count += 1
-                } catch {
-                    print("Unable to save image to disk")
-                }
-            }
-        }
-    }
-    
-    
     init(projectData: [Collage] = [],
          subjects: [Subject] = [],
          backgrounds: [CIImage] = [],
@@ -77,6 +57,25 @@ class Project {
         self.rotateLowerBound = rotateLowerBound
         self.rotateUpperBound = rotateUpperBound
         self.flip = flip
+    }
+    
+    func export(to url: URL) {
+        var count = 0
+        do {
+            try createJSON().data(using: .utf8)!.write(to: url.appendingPathComponent("anotations.json"))
+        } catch {
+            print("Unable to write image data to disk")
+        }
+        for i in projectData {
+            if let data = i.image.pngData() {
+                do {
+                    try data.write(to: url.appendingPathComponent("\(count).png"))
+                    count += 1
+                } catch {
+                    print("Unable to save image to disk")
+                }
+            }
+        }
     }
     
     func createCollageSet() -> [Collage] {
@@ -143,9 +142,9 @@ class Project {
         return mods
     }
     
-    func createRandModList() -> [Modification] {
+    func createRandomModList() -> [Modification] {
         var mods: [Modification] = []
-        for i in 0..<population {
+        for _ in 0..<population {
             mods.append(randomMod())
         }
         return mods
@@ -170,7 +169,7 @@ class Project {
         return mod
     }
     
-    func createJSON() throws -> String  { //return type may be wrong
+    func createJSON() throws -> String  {
         projectData = createCollageSet()
         let encoder = JSONEncoder()
         encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
