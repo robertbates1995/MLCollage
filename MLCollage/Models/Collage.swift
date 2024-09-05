@@ -8,35 +8,29 @@
 import Foundation
 #if os(macOS)
 import AppKit
+typealias ImageType = NSImage
 #else
 import UIKit
 import SwiftUI
-#endif
-
-class CollageCreator {
-    func create(subject: Subject, background: CIImage, title: String) -> Collage {
-        //create one annotation and one Collage in this step
-        var collage = background
-        var annotations = [CollageData.Annotation]()
-        collage = subject.image.composited(over: background).cropped(to: background.extent)
-        annotations.append(CollageData.Annotation(label: subject.label, coordinates: .init(subject.image.extent, backgroundHeight: collage.extent.height)))
-        let data = CollageData(annotation: annotations, title: title)
-        return Collage(image: UIImage(ciImage: collage), data: data)
-    }
-}
-
-#if os(macOS)
-typealias ImageType = NSImage
-#else
 typealias ImageType = UIImage
 #endif
 
 class Collage {
     var image: ImageType
-    var data: CollageData
-    init(image: UIImage, data: CollageData) {
+    var annotations: [CollageData.Annotation]
+    
+    init(image: ImageType, annotations: [CollageData.Annotation]) {
         self.image = image
-        self.data = data
+        self.annotations = annotations
+    }
+    
+    static func create(subject: Subject, background: CIImage, title: String) -> Collage {
+        //create one annotation and one Collage in this step
+        var collage = background
+        var annotations = [CollageData.Annotation]()
+        collage = subject.image.composited(over: background).cropped(to: background.extent)
+        annotations.append(CollageData.Annotation(label: subject.label, coordinates: .init(subject.image.extent, backgroundHeight: collage.extent.height)))
+        return Collage(image: UIImage(ciImage: collage), annotations: annotations)
     }
 }
 

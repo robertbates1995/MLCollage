@@ -25,7 +25,6 @@ class Project {
     var rotateLowerBound: CGFloat
     var rotateUpperBound: CGFloat
     var flip: Bool
-    let creator = CollageCreator()
     
     init(projectData: [Collage] = [],
          subjects: [Subject] = [],
@@ -98,7 +97,7 @@ class Project {
         for i in modificaitions {
             for x in subjects {
                 let modifiedSubject = x.modify(i, size: background.extent.size)
-                set.append(creator.create(subject: modifiedSubject, background: background, title: "\(title)"))
+                set.append(Collage.create(subject: modifiedSubject, background: background, title: "\(title)"))
             }
         }
         return set
@@ -177,16 +176,18 @@ class Project {
         projectData = createCollageSet()
         let encoder = JSONEncoder()
         encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
-        var annotationArray = [CollageData]()
         var count = 0
-        for i in projectData {
-            i.data.imagefilename = "\(count).png"
-            annotationArray.append(i.data)
+        let annotationArray = projectData.map {
             count += 1
+            return CollageData(annotation: $0.annotations, imagefilename: "\(count - 1).png")
         }
         let output = try encoder.encode(annotationArray)
         return String.init(data: output, encoding: .utf8)!
     }
+}
+
+struct ProjectSettings {
+    
 }
 
 struct Modification {
@@ -196,8 +197,4 @@ struct Modification {
     var rotate: CGFloat = 0.0
     var flipX: Bool = false
     var flipY: Bool = false
-}
-
-func degreesToRadians(_ degrees: CGFloat) -> CGFloat{
-    return degrees * .pi / 180.0
 }

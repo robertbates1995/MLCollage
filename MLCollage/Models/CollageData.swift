@@ -11,9 +11,9 @@ struct CollageData: Codable, Equatable {
     var annotation: [Annotation]
     var imagefilename: String
     
-    init(annotation: [Annotation], title image: String) {
+    init(annotation: [Annotation], imagefilename: String) {
         self.annotation = annotation
-        self.imagefilename = image
+        self.imagefilename = imagefilename
     }
     
     struct Annotation: Codable, Equatable {
