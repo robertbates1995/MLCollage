@@ -124,10 +124,6 @@ final class CollageTests: XCTestCase {
 //    }
     
     func testExport() throws {
-        sut.scale = true
-        sut.translate = true
-        sut.rotate = true
-        sut.flip = true
         var url = FileManager.default.temporaryDirectory.appendingPathComponent(name, conformingTo: .directory)
         //delete the directory that is being tested (FileManager.shared.rm)
         try? FileManager.default.removeItem(at: url)

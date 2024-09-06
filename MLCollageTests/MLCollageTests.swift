@@ -15,10 +15,7 @@ final class MLCollageTests: XCTestCase {
         subjects: [Subject(image: CIImage(image: .monke)!, label: "monke")],
         backgrounds: [CIImage(image: .forest)!],
         title: "collageTitle",
-        translate: true,
-        scale: true,
-        rotate: true,
-        flip: true
+        settings: ProjectSettings()
     )
     
     func testJSON() throws {
