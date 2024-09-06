@@ -14,48 +14,20 @@ class Project {
     var subjects: [Subject]
     var backgrounds: [CIImage]
     var title: String
-    var population: Int
-    var translate: Bool
-    var translateLowerBound: CGFloat
-    var translateUpperBound: CGFloat
-    var scale: Bool
-    var scaleLowerBound: CGFloat
-    var scaleUpperBound: CGFloat
-    var rotate: Bool
-    var rotateLowerBound: CGFloat
-    var rotateUpperBound: CGFloat
-    var flip: Bool
+    var settings: ProjectSettings
+    
     
     init(projectData: [Collage] = [],
          subjects: [Subject] = [],
          backgrounds: [CIImage] = [],
          title: String = "project title",
-         population: Int = 1,
-         translate: Bool = false,
-         translateLowerBound: CGFloat = 0.5,
-         translateUpperBound: CGFloat = 1.5,
-         scale: Bool = false,
-         scaleLowerBound: CGFloat = 0.5,
-         scaleUpperBound: CGFloat = 1.5,
-         rotate: Bool = false,
-         rotateLowerBound: CGFloat = 0.5,
-         rotateUpperBound: CGFloat = 1.5,
-         flip: Bool = false) {
+         settings: ProjectSettings = ProjectSettings()
+         ) {
         self.projectData = projectData
         self.subjects = subjects
         self.backgrounds = backgrounds
         self.title = title
-        self.population = population
-        self.translate = translate
-        self.translateLowerBound = translateLowerBound
-        self.translateUpperBound = translateUpperBound
-        self.scale = scale
-        self.scaleLowerBound = scaleLowerBound
-        self.scaleUpperBound = scaleUpperBound
-        self.rotate = rotate
-        self.rotateLowerBound = rotateLowerBound
-        self.rotateUpperBound = rotateUpperBound
-        self.flip = flip
+        self.settings = settings
     }
     
     func export(to url: URL) {
@@ -81,7 +53,7 @@ class Project {
         var set = [Collage]()
         let modifacations: [Modification] = createModList()
         for x in backgrounds {
-            if (translate || scale || rotate || flip) {
+            if (settings.translate || settings.scale || settings.rotate || settings.flip) {
                 for i in appendableBackgroundSet(x, modificaitions: modifacations) {
                     set.append(i)
                 }
@@ -105,21 +77,21 @@ class Project {
     
     func createModList(incomingMods: [Modification] = [Modification()]) -> [Modification] {
         var mods = incomingMods
-        if scale {
+        if settings.scale {
             for i in mods {
                 var newMod = i
-                newMod.scale = CGFloat.random(in: scaleLowerBound..<scaleUpperBound)
+                newMod.scale = CGFloat.random(in: settings.scaleLowerBound..<settings.scaleUpperBound)
                 mods.append(newMod)
             }
         }
-        if rotate {
+        if settings.rotate {
             for i in mods {
                 var newMod = i
-                newMod.rotate = CGFloat.random(in: (rotateLowerBound * 2 * .pi)..<(rotateUpperBound * 2 * .pi))
+                newMod.rotate = CGFloat.random(in: (settings.rotateLowerBound * 2 * .pi)..<(settings.rotateUpperBound * 2 * .pi))
                 mods.append(newMod)
             }
         }
-        if flip {
+        if settings.flip {
             for i in mods {
                 var newMod = i
                 newMod.flipX = true
@@ -131,14 +103,14 @@ class Project {
             }
         }
         //translate should be applied last
-        if translate {
+        if settings.translate {
             for i in mods {
                 var newMod = i
-                newMod.translateX = CGFloat.random(in: translateLowerBound..<translateUpperBound)
+                newMod.translateX = CGFloat.random(in: settings.translateLowerBound..<settings.translateUpperBound)
                 mods.append(newMod)
-                newMod.translateY = CGFloat.random(in: translateLowerBound..<translateUpperBound)
+                newMod.translateY = CGFloat.random(in: settings.translateLowerBound..<settings.translateUpperBound)
                 mods.append(newMod)
-                newMod.translateX = CGFloat.random(in: translateLowerBound..<translateUpperBound)
+                newMod.translateX = CGFloat.random(in: settings.translateLowerBound..<settings.translateUpperBound)
                 mods.append(newMod)
             }
         }
@@ -147,7 +119,7 @@ class Project {
     
     func createRandomModList() -> [Modification] {
         var mods: [Modification] = []
-        for _ in 0..<population {
+        for _ in 0..<settings.population {
             mods.append(randomMod())
         }
         return mods
@@ -155,19 +127,19 @@ class Project {
     
     func randomMod() -> Modification {
         var mod = Modification()
-        if scale {
-            mod.scale = CGFloat.random(in: scaleLowerBound..<scaleUpperBound)
+        if settings.scale {
+            mod.scale = CGFloat.random(in: settings.scaleLowerBound..<settings.scaleUpperBound)
         }
-        if rotate {
-            mod.rotate = CGFloat.random(in: (rotateLowerBound * 2 * .pi)..<(rotateUpperBound * 2 * .pi))
+        if settings.rotate {
+            mod.rotate = CGFloat.random(in: (settings.rotateLowerBound * 2 * .pi)..<(settings.rotateUpperBound * 2 * .pi))
         }
-        if flip {
+        if settings.flip {
             mod.flipX = Bool.random()
             mod.flipY = Bool.random()
         }
-        if translate {
-            mod.translateX = CGFloat.random(in: translateLowerBound..<translateUpperBound)
-            mod.translateY = CGFloat.random(in: translateLowerBound..<translateUpperBound)
+        if settings.translate {
+            mod.translateX = CGFloat.random(in: settings.translateLowerBound..<settings.translateUpperBound)
+            mod.translateY = CGFloat.random(in: settings.translateLowerBound..<settings.translateUpperBound)
         }
         return mod
     }
@@ -187,7 +159,41 @@ class Project {
 }
 
 struct ProjectSettings {
+    var population: Int
+    var translate: Bool
+    var translateLowerBound: CGFloat
+    var translateUpperBound: CGFloat
+    var scale: Bool
+    var scaleLowerBound: CGFloat
+    var scaleUpperBound: CGFloat
+    var rotate: Bool
+    var rotateLowerBound: CGFloat
+    var rotateUpperBound: CGFloat
+    var flip: Bool
     
+    init(population: Int = 1,
+         translate: Bool = false,
+         translateLowerBound: CGFloat = 0.5,
+         translateUpperBound: CGFloat = 1.5,
+         scale: Bool = false,
+         scaleLowerBound: CGFloat = 0.5,
+         scaleUpperBound: CGFloat = 1.5,
+         rotate: Bool = false,
+         rotateLowerBound: CGFloat = 0.5,
+         rotateUpperBound: CGFloat = 1.5,
+         flip: Bool = false) {
+        self.population = population
+        self.translate = translate
+        self.translateLowerBound = translateLowerBound
+        self.translateUpperBound = translateUpperBound
+        self.scale = scale
+        self.scaleLowerBound = scaleLowerBound
+        self.scaleUpperBound = scaleUpperBound
+        self.rotate = rotate
+        self.rotateLowerBound = rotateLowerBound
+        self.rotateUpperBound = rotateUpperBound
+        self.flip = flip
+    }
 }
 
 struct Modification {
