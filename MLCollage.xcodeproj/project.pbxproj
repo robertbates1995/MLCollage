@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7A02F8612C6141C9006A894B /* CustomDump in Frameworks */ = {isa = PBXBuildFile; productRef = 7A02F8602C6141C9006A894B /* CustomDump */; };
 		7A02F8BD2C743A62006A894B /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A02F8BC2C743A62006A894B /* Subject.swift */; };
+		7A02F8BF2C8A8472006A894B /* ProjectSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A02F8BE2C8A8472006A894B /* ProjectSettings.swift */; };
 		7A8E353B2C585E8800B386EF /* MLCollageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E353A2C585E8800B386EF /* MLCollageApp.swift */; };
 		7A8E35412C585E8A00B386EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8E35402C585E8A00B386EF /* Assets.xcassets */; };
 		7A8E35462C585E8A00B386EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8E35452C585E8A00B386EF /* Preview Assets.xcassets */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		7A02F8BC2C743A62006A894B /* Subject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		7A02F8BE2C8A8472006A894B /* ProjectSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectSettings.swift; sourceTree = "<group>"; };
 		7A8E35372C585E8800B386EF /* MLCollage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MLCollage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8E353A2C585E8800B386EF /* MLCollageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLCollageApp.swift; sourceTree = "<group>"; };
 		7A8E35402C585E8A00B386EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				7A8E35682C5860D200B386EF /* Collage.swift */,
 				7A8E356A2C5860D200B386EF /* CollageData.swift */,
 				7A02F8BC2C743A62006A894B /* Subject.swift */,
+				7A02F8BE2C8A8472006A894B /* ProjectSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 				7A8E35702C5860D200B386EF /* Collage.swift in Sources */,
 				7A8E35732C5860D200B386EF /* ContentView.swift in Sources */,
 				7A8E35722C5860D200B386EF /* CollageData.swift in Sources */,
+				7A02F8BF2C8A8472006A894B /* ProjectSettings.swift in Sources */,
 				7A02F8BD2C743A62006A894B /* Subject.swift in Sources */,
 				7A8E353B2C585E8800B386EF /* MLCollageApp.swift in Sources */,
 			);
