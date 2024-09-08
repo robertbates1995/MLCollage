@@ -13,10 +13,10 @@ import CustomDump
 import SwiftUI
 
 final class CollageTests: XCTestCase {
-    let subject = Subject(image: CIImage(image: .monke)!, label: "monke")
+    let subject = Subject(image: CIImage(image: .compass)!, label: "compass")
     let background = CIImage(image: .forest)!
     lazy var sut = Project(subjects: [subject], backgrounds: [background], title: "ProjectTitle")
-    let recording = false
+    let recording = true
     
     func testSubject() {
         let mod = Modification(translateX: 0.5, rotate: .pi)

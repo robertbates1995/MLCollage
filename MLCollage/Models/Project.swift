@@ -16,7 +16,6 @@ class Project {
     var title: String
     var settings: ProjectSettings
     
-    
     init(projectData: [Collage] = [],
          subjects: [Subject] = [],
          backgrounds: [CIImage] = [],
@@ -52,13 +51,15 @@ class Project {
     func createCollageSet() -> [Collage] {
         var set = [Collage]()
         let modifacations: [Modification] = createModList()
-        for x in backgrounds {
-            if (settings.translate || settings.scale || settings.rotate || settings.flip) {
-                for i in appendableBackgroundSet(x, modificaitions: modifacations) {
-                    set.append(i)
+        for x in subjects {
+            for y in backgrounds {
+                if (settings.translate || settings.scale || settings.rotate || settings.flip) {
+                    for z in appendableBackgroundSet(y, modificaitions: modifacations) {
+                        set.append(z)
+                    }
+                } else {
+                    set.append(contentsOf: appendableBackgroundSet(y, modificaitions: [Modification()]))
                 }
-            } else {
-                set.append(contentsOf: appendableBackgroundSet(x, modificaitions: [Modification()]))
             }
         }
         return set
