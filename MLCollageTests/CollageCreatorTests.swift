@@ -13,23 +13,32 @@ import CustomDump
 import SwiftUI
 
 final class CollageTests: XCTestCase {
-    let subject = Subject(image: CIImage(image: .compass)!, label: "compass")
+    let subject1 = Subject(image: CIImage(image: .compass)!, label: "compass")
+    let subject2 = Subject(image: CIImage(image: .monke)!, label: "monke")
     let background = CIImage(image: .forest)!
-    lazy var sut = Project(subjects: [subject], backgrounds: [background], title: "ProjectTitle")
-    let recording = true
+    lazy var sut = Project(subjects: [subject1], backgrounds: [background], title: "ProjectTitle")
+    let recording = false //change to toggle global recording of test results
     
     func testSubject() {
         let mod = Modification(translateX: 0.5, rotate: .pi)
-        let result = subject.modify(mod, size: .init(width: 200, height: 200))
+        let result = subject1.modify(mod, size: .init(width: 200, height: 200))
         assertSnapshot(of: UIImage(ciImage: result.image).toCGImage(), as: .image, record: recording)
+    }
+    
+    func testMultipleSubjects() {
+        sut.subjects.append(contentsOf: [subject1, subject2])
+        let result = sut.createCollageSet()
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
+        }
     }
     
     //make test for no mods case
     
     func testCollageTranslate() {
         let mod = Modification(translateX: 0.5, translateY: 0.5)
-        let subject = subject.modify(mod, size: background.extent.size)
-        let result = Collage.create(subject: subject, background: background, title: "CollageTitle")
+        let subject = subject1.modify(mod, size: background.extent.size)
+        let result = Collage.create(subject: subject1, background: background, title: "CollageTitle")
         assertSnapshot(of: result.image.toCGImage(), as: .image, record: recording)
         assertSnapshot(of: result.annotations, as: .dump, record: recording)
     }
