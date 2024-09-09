@@ -1,8 +1,0 @@
-▿ 1 element
-  ▿ Annotation
-    ▿ coordinates: Coordinates
-      - height: 2048.0
-      - width: 2048.0
-      - x: 1024.0
-      - y: -899.0
-    - label: "compass"

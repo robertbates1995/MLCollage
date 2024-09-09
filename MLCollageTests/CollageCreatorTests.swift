@@ -38,7 +38,7 @@ final class CollageTests: XCTestCase {
     func testCollageTranslate() {
         let mod = Modification(translateX: 0.5, translateY: 0.5)
         let subject = subject1.modify(mod, size: background.extent.size)
-        let result = Collage.create(subject: subject1, background: background, title: "CollageTitle")
+        let result = Collage.create(subject: subject, background: background, title: "CollageTitle")
         assertSnapshot(of: result.image.toCGImage(), as: .image, record: recording)
         assertSnapshot(of: result.annotations, as: .dump, record: recording)
     }
