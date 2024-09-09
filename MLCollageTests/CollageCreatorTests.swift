@@ -26,6 +26,15 @@ final class CollageTests: XCTestCase {
     }
     
     func testMultipleSubjects() {
+        sut.subjects.append(subject1)
+        sut.numberOfEachSubject = 3
+        let result = sut.createCollageSet()
+        for i in result {
+            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
+        }
+    }
+    
+    func testMultipleDifferentSubjects() {
         sut.subjects.append(contentsOf: [subject1, subject2])
         let result = sut.createCollageSet()
         for i in result {
