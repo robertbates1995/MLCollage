@@ -19,127 +19,24 @@ final class CollageTests: XCTestCase {
     lazy var sut = Project(subjects: [subject1], backgrounds: [background], title: "ProjectTitle")
     let recording = false //change to toggle global recording of test results
     
+    func testJSON() throws {
+        let result = try sut.createJSON()
+        assertSnapshot(of: result, as: .lines)
+    }
+    
     func testSubject() {
         let mod = Modification(translateX: 0.5, rotate: .pi)
-        let result = subject1.modify(mod, size: .init(width: 200, height: 200))
+        let result = subject1.modify(mod: mod, backgroundSize: .init(width: 200, height: 200))
         assertSnapshot(of: UIImage(ciImage: result.image).toCGImage(), as: .image, record: recording)
     }
-    
-    func testMultipleSubjects() {
-        sut.subjects.append(subject1)
-        sut.numberOfEachSubject = 3
-        let result = sut.createCollageSet()
-        for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
-        }
-    }
-    
-    func testMultipleDifferentSubjects() {
-        sut.subjects.append(contentsOf: [subject1, subject2])
-        let result = sut.createCollageSet()
-        for i in result {
-            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
-        }
-    }
-    
-    //make test for no mods case
-    
+        
     func testCollageTranslate() {
         let mod = Modification(translateX: 0.5, translateY: 0.5)
-        let subject = subject1.modify(mod, size: background.extent.size)
+        let subject = subject1.modify(mod: mod, backgroundSize: background.extent.size)
         let result = Collage.create(subject: subject, background: background, title: "CollageTitle")
         assertSnapshot(of: result.image.toCGImage(), as: .image, record: recording)
         assertSnapshot(of: result.annotations, as: .dump, record: recording)
     }
-    
-//    //bad from down
-//    func testCollageScale() {
-//        //create a set of collage images
-//        sut.scale = true
-//        let result = sut.Collage()
-//        XCTAssertEqual(result.count, 2)
-//        for i in result {
-//            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
-//            assertSnapshot(of: i.data, as: .dump, record: recording)
-//        }
-//    }
-//    
-//    func testCollageRotate() {
-//        //create a set of collage images
-//        sut.rotate = true
-//        let result = sut.Collage()
-//        XCTAssertEqual(result.count, 2)
-//        for i in result {
-//            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
-//            assertSnapshot(of: i.data, as: .dump, record: recording)
-//        }
-//    }
-//    
-//    func testCollageFlip() {
-//        //create a set of collage images
-//        sut.flip = true
-//        let result = sut.Collage()
-//        XCTAssertEqual(result.count, 4)
-//        for i in result {
-//            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
-//            assertSnapshot(of: i.data, as: .dump, record: recording)
-//        }
-//    }
-//    
-//    func testFlipAndRotate() {
-//        sut.flip = true
-//        sut.rotate = true
-//        let result = sut.Collage()
-//        XCTAssertEqual(result.count, 8)
-//        for i in result {
-//            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
-//            assertSnapshot(of: i.data, as: .dump, record: recording)
-//        }
-//    }
-//    
-//    func testFlipAndTranslate() {
-//        sut.translate = true
-//        sut.flip = true
-//        let result = sut.Collage()
-//        XCTAssertEqual(result.count, 16)
-//        for i in result {
-//            assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording)
-//            assertSnapshot(of: i.data, as: .dump, record: recording)
-//        }
-//    }
-//    
-//    func testApplyAllMods() {
-//        sut.scale = true
-//        sut.translate = true
-//        sut.rotate = true
-//        sut.flip = true
-//        let result = sut.Collage()
-//        XCTAssertEqual(result.count, 64) //will need to be set to a different value based on number of results
-//        for i in result { assertSnapshot(of: i.image.toCGImage(), as: .image, record: recording) }
-//        assertSnapshot(of: try sut.createJSON(), as: .lines, record: recording)
-//    }
-//    
-//    // bad from up
-//    
-//    func testRandMods() {
-//        sut.population = 100
-//        sut.scale = true
-//        sut.translate = true
-//        sut.rotate = true
-//        sut.flip = true
-//        let result = sut.createRandomModList()
-//        XCTAssertEqual(result.count, 100)
-//    }
-//    
-//    func testRandTooMany() {
-//        sut.population = 100
-//        sut.scale = false
-//        sut.translate = false
-//        sut.rotate = false
-//        sut.flip = false
-//        let result = sut.Collage()
-//        XCTAssertEqual(result.count, 1)
-//    }
     
     func testExport() throws {
         var url = FileManager.default.temporaryDirectory.appendingPathComponent(name, conformingTo: .directory)
@@ -152,8 +49,22 @@ final class CollageTests: XCTestCase {
         //xctassert the files exist, not necessaraly that they are correct
         try XCTAssertEqual(FileManager.default.contentsOfDirectory(atPath: url.path).count, 65)
     }
-}
+    
+    func testSave() throws {
+        var url = FileManager.default.temporaryDirectory.appendingPathComponent(name, conformingTo: .directory)
+        try? FileManager.default.removeItem(at: url)
+        XCTAssertNoThrow(try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false))
+        //give sut at least 2 subjects
+        sut.subjects.append(contentsOf: [subject1, subject1, subject2])
+        //call save at url
+        sut.save(to: url)
+        //create list of file names at url
+        let result = try FileManager.default.contentsOfDirectory(atPath: url.path)
+        //test list of names
+        XCTAssertEqual(result.sorted(), ["compass", "monke", "backgrounds"])
+        try XCTAssertEqual(FileManager.default.contentsOfDirectory(atPath: url.appending(path: "compass").path).count, 2)
+        try XCTAssertEqual(FileManager.default.contentsOfDirectory(atPath: url.appending(path: "monke").path).count, 1)
+        try XCTAssertEqual(FileManager.default.contentsOfDirectory(atPath: url.appending(path: "background").path).count, 1)
 
-//delete directory at speciffic address
-//create directory at speciffic address
-//write files (json and all png) to directory
+    }
+}

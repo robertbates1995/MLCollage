@@ -9,6 +9,7 @@ import Foundation
 
 struct ProjectSettings {
     var population: Int
+    var numberOfEachSubject: Int
     var translate: Bool
     var translateLowerBound: CGFloat
     var translateUpperBound: CGFloat
@@ -21,6 +22,7 @@ struct ProjectSettings {
     var flip: Bool
     
     init(population: Int = 1,
+         numberOfEachSubject: Int = 1,
          translate: Bool = false,
          translateLowerBound: CGFloat = 0.5,
          translateUpperBound: CGFloat = 1.5,
@@ -32,6 +34,7 @@ struct ProjectSettings {
          rotateUpperBound: CGFloat = 1.5,
          flip: Bool = false) {
         self.population = population
+        self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
         self.translateLowerBound = translateLowerBound
         self.translateUpperBound = translateUpperBound

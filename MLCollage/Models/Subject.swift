@@ -10,15 +10,15 @@ import UIKit
 import Accelerate
 
 struct Subject {
-    var image: CIImage
-    var label: String
+    var image: CIImage //TODO: convert to array of images all of the same subject
+    var label: String //TODO: name of the folder it's sitting in
     init(image: CIImage = CIImage.black, label: String = "subject label") {
         self.image = image
         self.label = label
     }
     
     //modify must return copy of subject without changing OG
-    func modify(_ mod: Modification, size: CGSize) -> Subject {
+    func modify(mod: Modification, backgroundSize: CGSize) -> Subject {
         var temp = self
         var extent = temp.image.extent
         temp.image = temp.image.transformed(by: .init(translationX: -extent.width / 2, y: -extent.height / 2))
@@ -36,7 +36,7 @@ struct Subject {
             temp.image = temp.image.oriented(.upMirrored)
         }
         extent = temp.image.extent
-        temp.image = temp.image.transformed(by: .init(translationX: mod.translateX * (size.width - extent.width), y: mod.translateY * (size.height - extent.height)))
+        temp.image = temp.image.transformed(by: .init(translationX: mod.translateX * (backgroundSize.width - extent.width), y: mod.translateY * (backgroundSize.height - extent.height)))
         return temp
     }
 }

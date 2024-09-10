@@ -29,6 +29,24 @@ class Project {
         self.settings = settings
     }
     
+//    //get this to work
+//    init(url: URL) {
+//        //this will find the data needed for the project 
+//        //and populate project settings, subjects, and backgrounds
+//        //backgrounds 
+//    }
+    
+    func save(to url: URL) {
+        for i in subjects {
+            //create directory to save to
+            //save like in export function
+        }
+        for i in backgrounds {
+            //create directory to save to
+            //save like in export function
+        }
+    }
+    
     func export(to url: URL) {
         var count = 0
         do {
@@ -54,30 +72,30 @@ class Project {
         for x in subjects {
             for y in backgrounds {
                 if (settings.translate || settings.scale || settings.rotate || settings.flip) {
-                    for z in appendableBackgroundSet(y, modificaitions: modifacations) {
+                    for z in appendableCollageSet(y, modificaitions: modifacations) {
                         set.append(z)
                     }
                 } else {
-                    set.append(contentsOf: appendableBackgroundSet(y, modificaitions: [Modification()]))
+                    set.append(contentsOf: appendableCollageSet(y, modificaitions: [Modification()]))
                 }
             }
         }
         return set
     }
     
-    func appendableBackgroundSet(_ background: CIImage, modificaitions: [Modification]) -> [Collage] {
+    func appendableCollageSet(_ background: CIImage, modificaitions: [Modification]) -> [Collage] {
         var set = [Collage]()
-        for i in modificaitions {
+        for mod in modificaitions {
             for x in subjects {
-                let modifiedSubject = x.modify(i, size: background.extent.size)
+                let modifiedSubject = x.modify(mod: mod, backgroundSize: background.extent.size)
                 set.append(Collage.create(subject: modifiedSubject, background: background, title: "\(title)"))
             }
         }
         return set
     }
     
-    func createModList(incomingMods: [Modification] = [Modification()]) -> [Modification] {
-        var mods = incomingMods
+    func createModList(modifications: [Modification] = [Modification()]) -> [Modification] {
+        var mods = modifications
         if settings.scale {
             for i in mods {
                 var newMod = i
