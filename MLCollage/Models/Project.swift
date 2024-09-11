@@ -15,13 +15,23 @@ class Project {
     var backgrounds: [CIImage]
     var title: String
     var settings: ProjectSettings
+    var labels: [String: [Subject]] {
+        subjects.reduce(into: [:]) { dict, subject in
+            if var foo = dict[subject.label] {
+                foo.append(subject)
+                dict[subject.label] = foo
+            } else {
+                dict[subject.label] = [subject]
+            }
+        }
+    }
     
     init(projectData: [Collage] = [],
          subjects: [Subject] = [],
          backgrounds: [CIImage] = [],
          title: String = "project title",
          settings: ProjectSettings = ProjectSettings()
-         ) {
+    ) {
         self.projectData = projectData
         self.subjects = subjects
         self.backgrounds = backgrounds
@@ -29,35 +39,79 @@ class Project {
         self.settings = settings
     }
     
-//    //get this to work
-//    init(url: URL) {
-//        //this will find the data needed for the project 
-//        //and populate project settings, subjects, and backgrounds
-//        //backgrounds 
-//    }
+    //get this to work
+    init(url: URL) throws {
+        //this will find the data needed for the project
+        //and populate project settings, subjects, and backgrounds
+        let temp = url.lastPathComponent
+        self.title = String(temp[..<temp.lastIndex(of: ".")!])
+        //create json decoder
+        let data = try Data(contentsOf: url)
+        //use decoder to load settings
+        self.settings = try JSONDecoder().decode(ProjectSettings.self, from: data)
+        let url = url.deletingLastPathComponent()
+        let manager = FileManager.default
+        self.projectData = []
+        self.subjects = try manager.contentsOfDirectory(atPath: url.appending(path: "subjects").path).flatMap { label in
+            try manager.contentsOfDirectory(atPath: url.appending(path:"subjects/\(label)").path).map { image in
+                Subject(image: UIImage(contentsOfFile: url.appending(path:"subjects/\(label)/\(image)").path)!.toCIImage(), label: label)
+            }
+        }
+        self.backgrounds = try manager.contentsOfDirectory(atPath: url.appending(path:"backgrounds").path).map { background in
+            UIImage(contentsOfFile: url.appending(path:"backgrounds/\(background)").path)!.toCIImage()
+        }
+        
+    }
     
     func save(to url: URL) {
-        for i in subjects {
-            //create directory to save to
-            //save like in export function
+        let manager = FileManager.default
+        do {
+            let subjectsDir = url.appending(path:"subjects")
+            let backgroundDir = url.appending(path:"backgrounds")
+            let settingsFile = url.appending(path:"\(title).sett")
+            //create directores to save to
+            try manager.createDirectory(at: subjectsDir, withIntermediateDirectories: false)
+            try manager.createDirectory(at: backgroundDir, withIntermediateDirectories: false)
+            for i in labels {
+                let subjectDir = subjectsDir.appending(path:i.key)
+                try? manager.createDirectory(at: subjectDir, withIntermediateDirectories: false)
+                try saveToDir(dir: subjectDir, images: i.value.map({UIImage(ciImage: $0.image)}))
+            }
+            try saveToDir(dir: backgroundDir, images: backgrounds.map({ UIImage(ciImage: $0)}))
+            
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
+            let output = try encoder.encode(settings)
+            try output.write(to: settingsFile)
+        } catch {
+            print("Unable to write images to disk")
         }
-        for i in backgrounds {
-            //create directory to save to
+    }
+    
+    func saveToDir(dir: URL, images: [UIImage]) throws {
+        let manager = FileManager.default
+        var count = 1
+        for i in images {
             //save like in export function
+            if let data = i.pngData() {
+                try data.write(to: dir.appending(path:"\(count).png"))
+                //manager.createFile(atPath: dir.appending(path:"\(count).png").absoluteString, contents: data)
+                count += 1
+            }
         }
     }
     
     func export(to url: URL) {
         var count = 0
         do {
-            try createJSON().data(using: .utf8)!.write(to: url.appendingPathComponent("anotations.json"))
+            try createJSON().data(using: .utf8)!.write(to: url.appending(path:"anotations.json"))
         } catch {
             print("Unable to write image data to disk")
         }
         for i in projectData {
             if let data = i.image.pngData() {
                 do {
-                    try data.write(to: url.appendingPathComponent("\(count).png"))
+                    try data.write(to: url.appending(path:"\(count).png"))
                     count += 1
                 } catch {
                     print("Unable to save image to disk")
@@ -68,25 +122,10 @@ class Project {
     
     func createCollageSet() -> [Collage] {
         var set = [Collage]()
-        let modifacations: [Modification] = createModList()
         for x in subjects {
-            for y in backgrounds {
-                if (settings.translate || settings.scale || settings.rotate || settings.flip) {
-                    for z in appendableCollageSet(y, modificaitions: modifacations) {
-                        set.append(z)
-                    }
-                } else {
-                    set.append(contentsOf: appendableCollageSet(y, modificaitions: [Modification()]))
-                }
-            }
-        }
-        return set
-    }
-    
-    func appendableCollageSet(_ background: CIImage, modificaitions: [Modification]) -> [Collage] {
-        var set = [Collage]()
-        for mod in modificaitions {
-            for x in subjects {
+            let modifacations: [Modification] = createModList()
+            for mod in modifacations {
+                let background = backgrounds.randomElement()!
                 let modifiedSubject = x.modify(mod: mod, backgroundSize: background.extent.size)
                 set.append(Collage.create(subject: modifiedSubject, background: background, title: "\(title)"))
             }
@@ -95,53 +134,26 @@ class Project {
     }
     
     func createModList(modifications: [Modification] = [Modification()]) -> [Modification] {
-        var mods = modifications
-        if settings.scale {
-            for i in mods {
-                var newMod = i
+        (1...settings.population).map { _ in
+            var newMod = Modification()
+            if settings.scale {
                 newMod.scale = CGFloat.random(in: settings.scaleLowerBound..<settings.scaleUpperBound)
-                mods.append(newMod)
             }
-        }
-        if settings.rotate {
-            for i in mods {
-                var newMod = i
+            if settings.rotate {
+                
                 newMod.rotate = CGFloat.random(in: (settings.rotateLowerBound * 2 * .pi)..<(settings.rotateUpperBound * 2 * .pi))
-                mods.append(newMod)
             }
-        }
-        if settings.flip {
-            for i in mods {
-                var newMod = i
-                newMod.flipX = true
-                mods.append(newMod)
-                newMod.flipY = true
-                mods.append(newMod)
-                newMod.flipX = false
-                mods.append(newMod)
+            if settings.flip {
+                newMod.flipX = Bool.random()
+                newMod.flipY = Bool.random()
             }
-        }
-        //translate should be applied last
-        if settings.translate {
-            for i in mods {
-                var newMod = i
+            //translate should be applied last
+            if settings.translate {
                 newMod.translateX = CGFloat.random(in: settings.translateLowerBound..<settings.translateUpperBound)
-                mods.append(newMod)
                 newMod.translateY = CGFloat.random(in: settings.translateLowerBound..<settings.translateUpperBound)
-                mods.append(newMod)
-                newMod.translateX = CGFloat.random(in: settings.translateLowerBound..<settings.translateUpperBound)
-                mods.append(newMod)
             }
+            return newMod
         }
-        return mods
-    }
-    
-    func createRandomModList() -> [Modification] {
-        var mods: [Modification] = []
-        for _ in 0..<settings.population {
-            mods.append(randomMod())
-        }
-        return mods
     }
     
     func randomMod() -> Modification {
