@@ -20,6 +20,25 @@ struct Subject {
     //modify must return copy of subject without changing OG
     func modify(mod: Modification, backgroundSize: CGSize) -> Subject {
         var temp = self
+        
+        ///
+        let sourceImage = temp.image
+        let resizeFilter = CIFilter(name:"CILanczosScaleTransform")!
+
+        // Desired output size
+        let targetSize = CGSize(width:100, height:100)
+
+        // Compute scale and corrective aspect ratio
+        let scale = targetSize.height / (sourceImage.extent.height)
+        let aspectRatio = targetSize.width/((sourceImage.extent.width) * scale)
+
+        // Apply resizing
+        resizeFilter.setValue(sourceImage, forKey: kCIInputImageKey)
+        resizeFilter.setValue(scale, forKey: kCIInputScaleKey)
+        resizeFilter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
+        let outputImage = resizeFilter.outputImage
+        ///
+
         var extent = temp.image.extent
         temp.image = temp.image.transformed(by: .init(translationX: -extent.width / 2, y: -extent.height / 2))
         extent = temp.image.extent

@@ -15,10 +15,11 @@ import SwiftUI
 final class CollageTests: XCTestCase {
     let subject1 = Subject(image: CIImage(image: .compass)!, label: "compass")
     let subject2 = Subject(image: CIImage(image: .monke)!, label: "monkey")
+    let subject3 = Subject(image: CIImage(image: .redApple1)!, label: "redApple1")
     let background1 = CIImage(image: .forest)!
     let background2 = CIImage(image: .grid)!
     
-    lazy var sut = Project(subjects: [subject1, subject2], backgrounds: [background1, background2], title: "test")
+    lazy var sut = Project(subjects: [subject1, subject2, subject3], backgrounds: [background1, background2], title: "test")
     let recording = false //change to toggle global recording of test results
     
     func testJSON() throws {

@@ -124,7 +124,7 @@ class Project {
         var set = [Collage]()
         for x in subjects {
             let modifacations: [Modification] = createModList()
-            for mod in modifacations {
+            for mod in createModList() {
                 let background = backgrounds.randomElement()!
                 let modifiedSubject = x.modify(mod: mod, backgroundSize: background.extent.size)
                 set.append(Collage.create(subject: modifiedSubject, background: background, title: "\(title)"))
