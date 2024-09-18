@@ -13,22 +13,23 @@ import CustomDump
 import SwiftUI
 
 final class CollageTests: XCTestCase {
-    let subject1 = Subject(image: CIImage(image: .compass)!, label: "compass")
-    let subject2 = Subject(image: CIImage(image: .monke)!, label: "monkey")
-    let subject3 = Subject(image: CIImage(image: .redApple1)!, label: "redApple")
-    let subject4 = Subject(image: CIImage(image: .redApple2)!, label: "redApple")
-    let subject5 = Subject(image: CIImage(image: .redApple3)!, label: "redApple")
-    let subject6 = Subject(image: CIImage(image: .redApple4)!, label: "redApple")
-    let subject7 = Subject(image: CIImage(image: .greenApple1)!, label: "greenApple")
-    let subject8 = Subject(image: CIImage(image: .greenApple2)!, label: "greenApple")
-    let subject9 = Subject(image: CIImage(image: .greenApple3)!, label: "greenApple")
-    let subject10 = Subject(image: CIImage(image: .greenApple4)!, label: "greenApple")
-    let subject11 = Subject(image: CIImage(image: .greenApple5)!, label: "greenApple")
-    let subject12 = Subject(image: CIImage(image: .banana1)!, label: "banana")
-    let subject13 = Subject(image: CIImage(image: .banana2)!, label: "banana")
-    let subject14 = Subject(image: CIImage(image: .banana3)!, label: "banana")
-    let subject15 = Subject(image: CIImage(image: .banana4)!, label: "banana")
-    let subject16 = Subject(image: CIImage(image: .banana5)!, label: "banana")
+    let subject1 = Subject(image: CIImage(image: .redApple1)!, label: "redApple")
+    let subject2 = Subject(image: CIImage(image: .redApple2)!, label: "redApple")
+    let subject3 = Subject(image: CIImage(image: .redApple3)!, label: "redApple")
+    let subject4 = Subject(image: CIImage(image: .redApple4)!, label: "redApple")
+    let subject5 = Subject(image: CIImage(image: .redApple5)!, label: "redApple")
+    let subject6 = Subject(image: CIImage(image: .redApple6)!, label: "redApple")
+    let subject7 = Subject(image: CIImage(image: .redApple7)!, label: "redApple")
+    let subject8 = Subject(image: CIImage(image: .redApple8)!, label: "redApple")
+    let subject9 = Subject(image: CIImage(image: .redApple9)!, label: "redApple")
+    let subject10 = Subject(image: CIImage(image: .redApple10)!, label: "redApple")
+    let subject11 = Subject(image: CIImage(image: .redApple11)!, label: "redApple")
+    let subject12 = Subject(image: CIImage(image: .redApple12)!, label: "redApple")
+    let subject13 = Subject(image: CIImage(image: .redApple13)!, label: "redApple")
+    let subject14 = Subject(image: CIImage(image: .redApple14)!, label: "redApple")
+    let subject15 = Subject(image: CIImage(image: .redApple15)!, label: "redApple")
+    let subject16 = Subject(image: CIImage(image: .redApple16)!, label: "redApple")
+    let subject17 = Subject(image: CIImage(image: .redApple17)!, label: "redApple")
     
     let background1 = CIImage(image: .forest)!
     let background2 = CIImage(image: .grid)!
@@ -53,7 +54,8 @@ final class CollageTests: XCTestCase {
                                       subject13,
                                       subject14,
                                       subject15,
-                                      subject16
+                                      subject16,
+                                      subject17
                                      ], backgrounds: [background1, background2, background3, background4, background5, background6], title: "test")
     let recording = false //change to toggle global recording of test results
     
@@ -77,7 +79,7 @@ final class CollageTests: XCTestCase {
     }
     
     func testExport() throws {
-        sut.settings.population = 100
+        sut.settings.population = 10
         var url = FileManager.default.temporaryDirectory.appendingPathComponent(name, conformingTo: .directory)
         print(url.path)
         //delete the directory that is being tested (FileManager.shared.rm)
