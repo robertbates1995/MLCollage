@@ -15,11 +15,46 @@ import SwiftUI
 final class CollageTests: XCTestCase {
     let subject1 = Subject(image: CIImage(image: .compass)!, label: "compass")
     let subject2 = Subject(image: CIImage(image: .monke)!, label: "monkey")
-    let subject3 = Subject(image: CIImage(image: .redApple1)!, label: "redApple1")
+    let subject3 = Subject(image: CIImage(image: .redApple1)!, label: "redApple")
+    let subject4 = Subject(image: CIImage(image: .redApple2)!, label: "redApple")
+    let subject5 = Subject(image: CIImage(image: .redApple3)!, label: "redApple")
+    let subject6 = Subject(image: CIImage(image: .redApple4)!, label: "redApple")
+    let subject7 = Subject(image: CIImage(image: .greenApple1)!, label: "greenApple")
+    let subject8 = Subject(image: CIImage(image: .greenApple2)!, label: "greenApple")
+    let subject9 = Subject(image: CIImage(image: .greenApple3)!, label: "greenApple")
+    let subject10 = Subject(image: CIImage(image: .greenApple4)!, label: "greenApple")
+    let subject11 = Subject(image: CIImage(image: .greenApple5)!, label: "greenApple")
+    let subject12 = Subject(image: CIImage(image: .banana1)!, label: "banana")
+    let subject13 = Subject(image: CIImage(image: .banana2)!, label: "banana")
+    let subject14 = Subject(image: CIImage(image: .banana3)!, label: "banana")
+    let subject15 = Subject(image: CIImage(image: .banana4)!, label: "banana")
+    let subject16 = Subject(image: CIImage(image: .banana5)!, label: "banana")
+    
     let background1 = CIImage(image: .forest)!
     let background2 = CIImage(image: .grid)!
+    let background3 = CIImage(image: .blackGrid)!
+    let background4 = CIImage(image: .crazyBackground1)!
+    let background5 = CIImage(image: .crazyBackground2)!
+    let background6 = CIImage(image: .crazyBackground3)!
+
+
+
     
-    lazy var sut = Project(subjects: [subject1, subject2, subject3], backgrounds: [background1, background2], title: "test")
+    lazy var sut = Project(subjects: [subject3, 
+                                      subject4,
+                                      subject5,
+                                      subject6,
+                                      subject7,
+                                      subject8,
+                                      subject9,
+                                      subject10,
+                                      subject11,
+                                      subject12,
+                                      subject13,
+                                      subject14,
+                                      subject15,
+                                      subject16
+                                     ], backgrounds: [background1, background2, background3, background4, background5, background6], title: "test")
     let recording = false //change to toggle global recording of test results
     
     func testJSON() throws {

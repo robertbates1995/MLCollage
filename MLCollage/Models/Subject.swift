@@ -26,7 +26,7 @@ struct Subject {
         let resizeFilter = CIFilter(name:"CILanczosScaleTransform")!
 
         // Desired output size
-        let targetSize = CGSize(width:100, height:100)
+        let targetSize = CGSize(width:50, height:100)
 
         // Compute scale and corrective aspect ratio
         let scale = targetSize.height / (sourceImage.extent.height)
@@ -35,9 +35,11 @@ struct Subject {
         // Apply resizing
         resizeFilter.setValue(sourceImage, forKey: kCIInputImageKey)
         resizeFilter.setValue(scale, forKey: kCIInputScaleKey)
-        resizeFilter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
+        //resizeFilter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
         let outputImage = resizeFilter.outputImage
+        temp.image = outputImage!
         ///
+        
 
         var extent = temp.image.extent
         temp.image = temp.image.transformed(by: .init(translationX: -extent.width / 2, y: -extent.height / 2))
