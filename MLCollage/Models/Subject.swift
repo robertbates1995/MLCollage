@@ -26,7 +26,7 @@ struct Subject {
         let resizeFilter = CIFilter(name:"CILanczosScaleTransform")!
 
         // Desired output size
-        let targetSize = CGSize(width:50, height:100)
+        let targetSize = CGSize(width: 50, height: backgroundSize.height/2)
 
         // Compute scale and corrective aspect ratio
         let scale = targetSize.height / (sourceImage.extent.height)
