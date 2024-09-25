@@ -39,7 +39,6 @@ class Project {
         self.settings = settings
     }
     
-    //get this to work
     init(url: URL) throws {
         //this will find the data needed for the project
         //and populate project settings, subjects, and backgrounds

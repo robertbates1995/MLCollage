@@ -19,28 +19,16 @@ struct ContentView: View {
     @State var creator = Project()
     
     var body: some View {
-        Text("placeholder")
-        NavigationSplitView(
-            columnVisibility: $visibility,
-            sidebar: {SidebarView(creator.createCollageSet())},
-            detail: { DetailView() })
-    }
-    
-    struct SidebarView: View {
-        var collages: [Collage]
-        
-        init( _ collages: [Collage]) {
-            self.collages = collages
-        }
-        
-        var body: some View {
-            Text("sidebar")
-        }
-    }
-    
-    struct DetailView: View {
-        var body: some View {
-            Text("detail")
+        TabView {
+            Tab("Inputs", systemImage: "rightArrow") {
+                Text("This is a blog page")
+            }
+            Tab("settings", systemImage: "page") {
+                Text("This is a blog page")
+            }
+            Tab("output", systemImage: "pencil") {
+                Text("This is a blog page")
+            }
         }
     }
 }
