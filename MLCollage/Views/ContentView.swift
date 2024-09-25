@@ -21,13 +21,16 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Tab("Inputs", systemImage: "rightArrow") {
-                Text("This is a blog page")
+                Text("This is an inputs page")
+                //InputsView()
             }
             Tab("settings", systemImage: "page") {
-                Text("This is a blog page")
+                Text("This is a settings page")
+                //SettingsView()
             }
             Tab("output", systemImage: "pencil") {
-                Text("This is a blog page")
+                Text("This is an output page")
+                //OutputView()
             }
         }
     }
