@@ -10,8 +10,8 @@ import UIKit
 import Accelerate
 
 struct Subject {
-    var image: CIImage //TODO: convert to array of images all of the same subject
-    var label: String //TODO: name of the folder it's sitting in
+    var image: CIImage
+    var label: String
     init(image: CIImage = CIImage.black, label: String = "subject label") {
         self.image = image
         self.label = label
@@ -30,12 +30,10 @@ struct Subject {
 
         // Compute scale and corrective aspect ratio
         let scale = targetSize.height / (sourceImage.extent.height)
-        let aspectRatio = targetSize.width/((sourceImage.extent.width) * scale)
 
         // Apply resizing
         resizeFilter.setValue(sourceImage, forKey: kCIInputImageKey)
         resizeFilter.setValue(scale, forKey: kCIInputScaleKey)
-        //resizeFilter.setValue(aspectRatio, forKey: kCIInputAspectRatioKey)
         let outputImage = resizeFilter.outputImage
         temp.image = outputImage!
         ///

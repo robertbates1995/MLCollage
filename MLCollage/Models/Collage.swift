@@ -6,20 +6,22 @@
 //
 
 import Foundation
-#if os(macOS)
-import AppKit
-typealias ImageType = NSImage
-#else
+import CoreImage
 import UIKit
-import SwiftUI
-typealias ImageType = UIImage
-#endif
+//#if os(macOS)
+//import AppKit
+//typealias ImageType = NSImage
+//#else
+//import UIKit
+//import SwiftUI
+//typealias ImageType = UIImage
+//#endif
 
 class Collage {
-    var image: ImageType
+    var image: CIImage
     var annotations: [CollageData.Annotation]
     
-    init(image: ImageType, annotations: [CollageData.Annotation]) {
+    init(image: CIImage, annotations: [CollageData.Annotation]) {
         self.image = image
         self.annotations = annotations
     }
@@ -30,7 +32,7 @@ class Collage {
         var annotations = [CollageData.Annotation]()
         collage = subject.image.composited(over: background).cropped(to: background.extent)
         annotations.append(CollageData.Annotation(label: subject.label, coordinates: .init(subject.image.extent, backgroundHeight: collage.extent.height)))
-        return Collage(image: UIImage(ciImage: collage), annotations: annotations)
+        return Collage(image: collage, annotations: annotations)
     }
 }
 

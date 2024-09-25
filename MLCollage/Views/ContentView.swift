@@ -27,6 +27,11 @@ struct ContentView: View {
             }
         }
     }
+    
+    //map function converting subjects to CIImage
+    func ConvertToCIImages(subjects: [Subject]) -> [CIImage]{
+        
+    }
 }
 
 #Preview {
