@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct InputsView: View {
+    var subjects: [CIImage]
+    var backgrounds: [CIImage]
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    }
+    
+    init(subjects: [CIImage], backgrounds: [CIImage]) {
+        self.subjects = subjects
+        self.backgrounds = backgrounds
     }
 }
 
 #Preview {
-    InputsView()
+    InputsView(subjects: [CIImage(image: .apple1)!,
+                          CIImage(image: .apple2)!,
+                          CIImage(image: .apple3)!,],
+               backgrounds: [CIImage(image: .crazyBackground1)!,
+                             CIImage(image: .crazyBackground2)!,
+                             CIImage(image: .crazyBackground3)!])
 }
