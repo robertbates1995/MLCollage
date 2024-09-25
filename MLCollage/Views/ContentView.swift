@@ -15,7 +15,7 @@ struct ContentView: View {
         TabView {
             Tab("Inputs", systemImage: "rightArrow") {
                 Text("This is an inputs page")
-                InputsView(subjects: project.subjects.image, backgrounds: project.backgrounds)
+                InputsView(subjects: project.subjects, backgrounds: project.backgrounds)
             }
             Tab("settings", systemImage: "page") {
                 Text("This is a settings page")
