@@ -88,7 +88,6 @@ class Project {
     }
     
     func saveToDir(dir: URL, images: [UIImage]) throws {
-        let manager = FileManager.default
         var count = 1
         for i in images {
             //save like in export function
@@ -108,7 +107,7 @@ class Project {
             print("Unable to write image data to disk")
         }
         for i in projectData {
-            if let data = i.image.pngData() {
+            if let data = UIImage(ciImage: i.image).pngData() {
                 do {
                     try data.write(to: url.appending(path:"\(count).png"))
                     count += 1
@@ -122,7 +121,6 @@ class Project {
     func createCollageSet() -> [Collage] {
         var set = [Collage]()
         for x in subjects {
-            let modifacations: [Modification] = createModList()
             for mod in createModList() {
                 let background = backgrounds.randomElement()!
                 let modifiedSubject = x.modify(mod: mod, backgroundSize: background.extent.size)

@@ -15,7 +15,7 @@ struct ContentView: View {
         TabView {
             Tab("Inputs", systemImage: "rightArrow") {
                 Text("This is an inputs page")
-                InputsView(subjects: project.subjects, backgrounds: project.backgrounds)
+                InputsView(subjects: project.subjects.map(\.image), backgrounds: project.backgrounds)
             }
             Tab("settings", systemImage: "page") {
                 Text("This is a settings page")
@@ -26,11 +26,6 @@ struct ContentView: View {
                 //OutputView()
             }
         }
-    }
-    
-    //map function converting subjects to CIImage
-    func ConvertToCIImages(subjects: [Subject]) -> [CIImage]{
-        
     }
 }
 
