@@ -8,17 +8,11 @@
 import SwiftUI
 
 struct InputsView: View {
-    var subjects: [CIImage]
-    var backgrounds: [CIImage]
-    var body: some View {
-        List {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-        }
-    }
+    @State var subjects: [CIImage]
+    @State var backgrounds: [CIImage]
     
-    init(subjects: [CIImage], backgrounds: [CIImage]) {
-        self.subjects = subjects
-        self.backgrounds = backgrounds
+    var body: some View {
+        Text("This is an inputs page")
     }
 }
 

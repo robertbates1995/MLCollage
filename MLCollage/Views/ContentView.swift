@@ -14,16 +14,14 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Tab("Inputs", systemImage: "rightArrow") {
-                Text("This is an inputs page")
                 InputsView(subjects: project.subjects.map(\.image), backgrounds: project.backgrounds)
             }
             Tab("settings", systemImage: "page") {
-                Text("This is a settings page")
-                //SettingsView()
+                SettingsView(settings: project.settings)
             }
             Tab("output", systemImage: "pencil") {
                 Text("This is an output page")
-                //OutputView()
+                OutputsView(outputs: project.projectData.map(\.image))
             }
         }
     }

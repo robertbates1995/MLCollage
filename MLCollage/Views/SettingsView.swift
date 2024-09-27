@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @State var settings: ProjectSettings
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("This is a settings page")
     }
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(settings: ProjectSettings())
 }
