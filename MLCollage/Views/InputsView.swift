@@ -12,6 +12,11 @@ struct InputsView: View {
     @State var backgrounds: [CIImage]
     
     var body: some View {
+        List {
+            Section(header: Text("Subjects")) {
+                
+            }
+        }
         Text("This is an inputs page")
     }
 }

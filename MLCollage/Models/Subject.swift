@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Accelerate
 
-struct Subject {
+class Subject: ObservableObject {
     var image: CIImage
     var label: String
     init(image: CIImage = CIImage.black, label: String = "subject label") {

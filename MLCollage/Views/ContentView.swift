@@ -20,7 +20,6 @@ struct ContentView: View {
                 SettingsView(settings: project.settings)
             }
             Tab("output", systemImage: "pencil") {
-                Text("This is an output page")
                 OutputsView(outputs: project.projectData.map(\.image))
             }
         }
