@@ -14,7 +14,11 @@ struct InputsView: View {
     var body: some View {
         List {
             Section(header: Text("Subjects")) {
-                
+                ForEach(0..<subjects.count) { index in
+                    HStack {
+                        Image(uiImage: UIImage(cgImage: subjects[index].cgImage!)).resizable()
+                    }
+                }
             }
         }
         Text("This is an inputs page")
@@ -28,4 +32,8 @@ struct InputsView: View {
                backgrounds: [CIImage(image: .crazyBackground1)!,
                              CIImage(image: .crazyBackground2)!,
                              CIImage(image: .crazyBackground3)!])
+}
+
+extension CIImage: Identifiable {
+    
 }
