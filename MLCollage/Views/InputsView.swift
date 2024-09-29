@@ -13,14 +13,14 @@ struct InputsView: View {
     
     var body: some View {
         ScrollView {
-                    LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]) {
-                        ForEach(0..<subjects.count) { index in
-                            VStack {
-                                Image(uiImage: UIImage(cgImage: subjects[index].cgImage!))
-                            }
-                        }
-                    }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]) {
+                ForEach(0..<subjects.count) { index in
+                    Image(uiImage: UIImage(cgImage: subjects[index].cgImage!))
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                 }
+            }
+        }
     }
 }
 
