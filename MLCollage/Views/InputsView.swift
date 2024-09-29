@@ -12,16 +12,15 @@ struct InputsView: View {
     @State var backgrounds: [CIImage]
     
     var body: some View {
-        List {
-            Section(header: Text("Subjects")) {
-                ForEach(0..<subjects.count) { index in
-                    HStack {
-                        Image(uiImage: UIImage(cgImage: subjects[index].cgImage!)).resizable()
+        ScrollView {
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]) {
+                        ForEach(0..<subjects.count) { index in
+                            VStack {
+                                Image(uiImage: UIImage(cgImage: subjects[index].cgImage!))
+                            }
+                        }
                     }
                 }
-            }
-        }
-        Text("This is an inputs page")
     }
 }
 
@@ -32,8 +31,4 @@ struct InputsView: View {
                backgrounds: [CIImage(image: .crazyBackground1)!,
                              CIImage(image: .crazyBackground2)!,
                              CIImage(image: .crazyBackground3)!])
-}
-
-extension CIImage: Identifiable {
-    
 }
