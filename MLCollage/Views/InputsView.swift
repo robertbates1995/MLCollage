@@ -25,9 +25,7 @@ struct InputsView: View {
 }
 
 #Preview {
-    InputsView(subjects: [CIImage(image: .apple1)!,
-                          CIImage(image: .apple2)!,
-                          CIImage(image: .apple3)!,],
+    InputsView(subjects: ,
                backgrounds: [CIImage(image: .crazyBackground1)!,
                              CIImage(image: .crazyBackground2)!,
                              CIImage(image: .crazyBackground3)!])

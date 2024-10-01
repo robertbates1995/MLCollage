@@ -194,3 +194,18 @@ struct Modification {
     var flipX: Bool = false
     var flipY: Bool = false
 }
+
+extension Project {
+    let mock =  Project(projectData: [Collage.create(subject: Subject(image: CIImage(image: .apple1)!, label: "MockLabel"),
+                                                            background: CIImage(image: .crazyBackground1)!, title: "MockTitle1"),
+                                             Collage.create(subject: Subject(image: CIImage(image: .apple2)!, label: "MockLabel"),
+                                                            background: CIImage(image: .crazyBackground1)!, title: "MockTitle2")],
+                               subjects: [Subject(image: CIImage(image: .apple1)!, label: "MockLabel"),
+                                          Subject(image: CIImage(image: .apple2)!, label: "MockLabel"),
+                                          Subject(image: CIImage(image: .apple3)!, label: "MockLabel"),],
+                               backgrounds: [CIImage(image: .crazyBackground1)!,
+                                             CIImage(image: .crazyBackground2)!,
+                                             CIImage(image: .crazyBackground3)!],
+                               title: "MockProject",
+                               settings: .init())
+}
