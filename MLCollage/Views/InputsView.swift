@@ -24,9 +24,8 @@ struct InputsView: View {
     }
 }
 
+
 #Preview {
-    InputsView(subjects: ,
-               backgrounds: [CIImage(image: .crazyBackground1)!,
-                             CIImage(image: .crazyBackground2)!,
-                             CIImage(image: .crazyBackground3)!])
+    InputsView(subjects: Project.mock.subjects.map({ $0.image }),
+               backgrounds: Project.mock.backgrounds)
 }

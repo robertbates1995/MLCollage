@@ -196,7 +196,7 @@ struct Modification {
 }
 
 extension Project {
-    let mock =  Project(projectData: [Collage.create(subject: Subject(image: CIImage(image: .apple1)!, label: "MockLabel"),
+    static let mock =  Project(projectData: [Collage.create(subject: Subject(image: CIImage(image: .apple1)!, label: "MockLabel"),
                                                             background: CIImage(image: .crazyBackground1)!, title: "MockTitle1"),
                                              Collage.create(subject: Subject(image: CIImage(image: .apple2)!, label: "MockLabel"),
                                                             background: CIImage(image: .crazyBackground1)!, title: "MockTitle2")],
