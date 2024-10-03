@@ -12,7 +12,13 @@ struct InputsView: View {
     @State var backgrounds: [CIImage]
     
     var body: some View {
-        ScrollView {
+        List {
+            extractedFunc()
+        }
+    }
+    
+    fileprivate func extractedFunc() -> Section<Text, LazyVGrid<ForEach<Range<Int>, Int, some View>>, EmptyView> {
+        return Section(header: Text("Subjects")){
             LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]) {
                 ForEach(0..<subjects.count) { index in
                     Image(uiImage: UIImage(cgImage: subjects[index].cgImage!))
@@ -22,8 +28,8 @@ struct InputsView: View {
             }
         }
     }
+    
 }
-
 
 #Preview {
     InputsView(subjects: Project.mock.subjects.map({ $0.image }),
