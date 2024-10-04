@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct InputsView: View {
-    @State var subjects: [UIImage]
-    @State var backgrounds: [UIImage]
+    @State var subjects: [Subject]
+    @State var backgrounds: [Subject]
     
     var body: some View {
         List {
-            InputsViewSection(header: "Subjects", count: subjects.count, images: subjects)
-            InputsViewSection(header: "Backgrounds", count: backgrounds.count, images: backgrounds)
+            InputsViewSection(header: "Subjects", count: subjects.count, subjects: subjects)
+            InputsViewSection(header: "Backgrounds", count: backgrounds.count, subjects: backgrounds)
         }
     }
 }
 
 #Preview {
-    InputsView(subjects: Project.mock.subjects.map({ $0.image.toUIImage()}),
-               backgrounds: Project.mock.backgrounds.map({$0.toUIImage()}))
+    InputsView(subjects: Project.mock.subjects, backgrounds: Project.mock.backgrounds)
 }
 
 

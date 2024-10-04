@@ -12,7 +12,7 @@ import UIKit
 class Project {
     var projectData: [Collage]
     var subjects: [Subject]
-    var backgrounds: [CIImage]
+    var backgrounds: [Subject]
     var title: String
     var settings: ProjectSettings
     var labels: [String: [Subject]] {
@@ -28,7 +28,7 @@ class Project {
     
     init(projectData: [Collage] = [],
          subjects: [Subject] = [],
-         backgrounds: [CIImage] = [],
+         backgrounds: [Subject] = [],
          title: String = "project title",
          settings: ProjectSettings = ProjectSettings()
     ) {
@@ -57,7 +57,7 @@ class Project {
             }
         }
         self.backgrounds = try manager.contentsOfDirectory(atPath: url.appending(path:"backgrounds").path).map { background in
-            UIImage(contentsOfFile: url.appending(path:"backgrounds/\(background)").path)!.toCIImage()
+            Subject(image: UIImage(contentsOfFile: url.appending(path:"backgrounds/\(background)").path)!.toCIImage(), label: background)
         }
         
     }
@@ -76,7 +76,7 @@ class Project {
                 try? manager.createDirectory(at: subjectDir, withIntermediateDirectories: false)
                 try saveToDir(dir: subjectDir, images: i.value.map({UIImage(ciImage: $0.image)}))
             }
-            try saveToDir(dir: backgroundDir, images: backgrounds.map({ UIImage(ciImage: $0)}))
+            try saveToDir(dir: backgroundDir, images: backgrounds.map({ UIImage(ciImage: $0.image)}))
             
             let encoder = JSONEncoder()
             encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
@@ -123,8 +123,8 @@ class Project {
         for x in subjects {
             for mod in createModList() {
                 let background = backgrounds.randomElement()!
-                let modifiedSubject = x.modify(mod: mod, backgroundSize: background.extent.size)
-                set.append(Collage.create(subject: modifiedSubject, background: background, title: "\(title)"))
+                let modifiedSubject = x.modify(mod: mod, backgroundSize: background.image.extent.size)
+                set.append(Collage.create(subject: modifiedSubject, background: background.image, title: "\(title)"))
             }
         }
         return set
@@ -195,17 +195,19 @@ struct Modification {
     var flipY: Bool = false
 }
 
+//make backgrounds into subjects
+
 extension Project {
-    static let mock =  Project(projectData: [Collage.create(subject: Subject(image: CIImage(image: .apple1)!, label: "MockLabel"),
+    static let mock =  Project(projectData: [Collage.create(subject: Subject(image: CIImage(image: .apple1)!, label: "MockLabel1"),
                                                             background: CIImage(image: .crazyBackground1)!, title: "MockTitle1"),
-                                             Collage.create(subject: Subject(image: CIImage(image: .apple2)!, label: "MockLabel"),
+                                             Collage.create(subject: Subject(image: CIImage(image: .apple2)!, label: "MockLabel2"),
                                                             background: CIImage(image: .crazyBackground1)!, title: "MockTitle2")],
-                               subjects: [Subject(image: CIImage(image: .apple1)!, label: "MockLabel"),
-                                          Subject(image: CIImage(image: .apple2)!, label: "MockLabel"),
-                                          Subject(image: CIImage(image: .apple3)!, label: "MockLabel"),],
-                               backgrounds: [CIImage(image: .crazyBackground1)!,
-                                             CIImage(image: .crazyBackground2)!,
-                                             CIImage(image: .crazyBackground3)!],
+                               subjects: [Subject(image: CIImage(image: .apple1)!, label: "MockLabel1"),
+                                          Subject(image: CIImage(image: .apple2)!, label: "MockLabel2"),
+                                          Subject(image: CIImage(image: .apple3)!, label: "MockLabel3"),],
+                               backgrounds: [Subject(image: CIImage(image: .crazyBackground1)!, label: "MockBackground1"),
+                                             Subject(image: CIImage(image: .crazyBackground2)!, label: "MockBackground2"),
+                                             Subject(image: CIImage(image: .crazyBackground3)!, label: "MockBackground3")],
                                title: "MockProject",
                                settings: .init())
 }
