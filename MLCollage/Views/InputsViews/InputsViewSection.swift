@@ -24,7 +24,6 @@ struct InputsViewSection: View {
                             .background(Color(.gray.withAlphaComponent(0.2)))
                             .clipShape(.rect(cornerRadius: 10))
                             .padding(3)
-                            .shadow(radius: 5)
                         Text(subject.label)
                     }
                 }
