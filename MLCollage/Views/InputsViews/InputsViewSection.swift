@@ -13,13 +13,20 @@ struct InputsViewSection: View {
     var subjects: [Subject]
     
     var body: some View {
-        Section(header: Text(header)){
+        Section(header: Text(header)) {
             LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]) {
                 ForEach(subjects, id: \.label) { subject in
-                    Image(uiImage: subject.image.toUIImage())
-                        .resizable()
-                        .background(.green)
-                        .aspectRatio(contentMode: .fill)
+                    VStack {
+                        Image(uiImage: subject.image.toUIImage())
+                            .resizable()
+                            .padding()
+                            .aspectRatio(contentMode: .fill)
+                            .background(Color(.gray.withAlphaComponent(0.2)))
+                            .clipShape(.rect(cornerRadius: 10))
+                            .padding(3)
+                            .shadow(radius: 5)
+                        Text(subject.label)
+                    }
                 }
             }
         }
