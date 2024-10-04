@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Tab("Inputs", systemImage: "rightArrow") {
-                InputsView(subjects: project.subjects.map(\.image), backgrounds: project.backgrounds)
+                InputsView(subjects: project.subjects.map({$0.image.toUIImage()!}), backgrounds: project.backgrounds.map({$0.toUIImage()!}))
             }
             Tab("settings", systemImage: "page") {
                 SettingsView(settings: project.settings)

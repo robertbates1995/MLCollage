@@ -60,20 +60,4 @@ struct Subject {
     }
 }
 
-extension UIImage {
-    func toCGImage() -> UIImage {
-        guard let ciImage = self.ciImage else {
-            return self
-        }
-        let context = CIContext(options: nil)
-        if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
-            return UIImage(cgImage: cgImage)
-        }
-        return self
-    }
-    
-    func toCIImage() -> CIImage {
-        if let temp = self.ciImage { return temp }
-        return CIImage(cgImage: cgImage!)
-    }
-}
+

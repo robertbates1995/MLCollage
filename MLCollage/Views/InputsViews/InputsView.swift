@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct InputsView: View {
-    @State var subjects: [CIImage]
-    @State var backgrounds: [CIImage]
+    @State var subjects: [UIImage]
+    @State var backgrounds: [UIImage]
     
     var body: some View {
         List {
@@ -20,8 +20,8 @@ struct InputsView: View {
 }
 
 #Preview {
-    InputsView(subjects: Project.mock.subjects.map({ $0.image }),
-               backgrounds: Project.mock.backgrounds)
+    InputsView(subjects: Project.mock.subjects.map({ $0.image.toUIImage()! }),
+               backgrounds: Project.mock.backgrounds.map({$0.toUIImage()!}))
 }
 
 

@@ -10,17 +10,13 @@ import SwiftUI
 struct InputsViewSection: View {
     var header: String
     var count: Int
-    var images: [CIImage]
+    var images: [UIImage]
     
     var body: some View {
         Section(header: Text(header)){
-            Image(uiImage: UIImage(ciImage: images[0]))
-                .resizable()
-                .background(.green)
-                .aspectRatio(contentMode: .fill)
             LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]) {
                 ForEach(0..<count) { index in
-                    Image(uiImage: UIImage(ciImage: images[index]))
+                    Image(uiImage: images[index])
                         .resizable()
                         .background(.green)
                         .aspectRatio(contentMode: .fill)
@@ -31,5 +27,5 @@ struct InputsViewSection: View {
 }
 
 #Preview {
-    InputsViewSection(header: "Test Header", count: Project.mock.subjects.count, images: Project.mock.subjects.map({ $0.image }))
+    InputsViewSection(header: "Test Header", count: Project.mock.subjects.count, images: Project.mock.subjects.map({ $0.image.toUIImage()! }))
 }
