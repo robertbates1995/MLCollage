@@ -19,8 +19,6 @@ struct InputsView: View {
     }
 }
 
-
-
 #Preview {
     InputsView(subjects: Project.mock.subjects.map({ $0.image }),
                backgrounds: Project.mock.backgrounds)

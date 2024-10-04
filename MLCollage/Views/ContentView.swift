@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var visibility: NavigationSplitViewVisibility = .all
-    @State var project = Project()
+    @State var project = Project.mock
     
     var body: some View {
         TabView {

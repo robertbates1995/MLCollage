@@ -14,11 +14,16 @@ struct InputsViewSection: View {
     
     var body: some View {
         Section(header: Text(header)){
+            Image(uiImage: UIImage(ciImage: images[0]))
+                .resizable()
+                .background(.green)
+                .aspectRatio(contentMode: .fill)
             LazyVGrid(columns: [GridItem(.adaptive(minimum:100))]) {
                 ForEach(0..<count) { index in
                     Image(uiImage: UIImage(ciImage: images[index]))
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .background(.green)
+                        .aspectRatio(contentMode: .fill)
                 }
             }
         }
