@@ -26,11 +26,12 @@ extension UIImage {
 }
 
 extension CIImage {
-    func toUIImage() -> UIImage? {
+    func toUIImage() -> UIImage {
         let context = CIContext(options: nil)
         if let cgImage = context.createCGImage(self, from: extent) {
             return UIImage(cgImage: cgImage)
         }
-        return nil
+        //return error image
+        return .banana1
     }
 }

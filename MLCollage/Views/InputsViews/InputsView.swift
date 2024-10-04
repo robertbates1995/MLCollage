@@ -20,8 +20,8 @@ struct InputsView: View {
 }
 
 #Preview {
-    InputsView(subjects: Project.mock.subjects.map({ $0.image.toUIImage()! }),
-               backgrounds: Project.mock.backgrounds.map({$0.toUIImage()!}))
+    InputsView(subjects: Project.mock.subjects.map({ $0.image.toUIImage()}),
+               backgrounds: Project.mock.backgrounds.map({$0.toUIImage()}))
 }
 
 

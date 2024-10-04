@@ -27,5 +27,5 @@ struct InputsViewSection: View {
 }
 
 #Preview {
-    InputsViewSection(header: "Test Header", count: Project.mock.subjects.count, images: Project.mock.subjects.map({ $0.image.toUIImage()! }))
+    InputsViewSection(header: "Test Header", count: Project.mock.subjects.count, images: Project.mock.subjects.map({$0.image.toUIImage()}))
 }
