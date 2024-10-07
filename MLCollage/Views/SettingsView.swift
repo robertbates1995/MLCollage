@@ -12,17 +12,21 @@ struct SettingsView: View {
     
     var body: some View {
         VStack{
-            Text("This is a settings page")
-            Slider(value: $settings.population, in: 0...100) {
-                Text("Label")
-            } minimumValueLabel: {
-                Image(systemName: "tortoise")
-            } maximumValueLabel: {
-                Image(systemName: "hare")
-            } onEditingChanged: {
-                print("\($0)")
-                print("\(settings.population)")
-            }
+            Text("Settings")
+            
+            List {
+                Section {
+                    HStack {
+                        Text("Population = \(String(format: "%g", settings.population.rounded()))")
+                    }
+                    Slider(value: $settings.population, in: 0...100) {
+                        Text("population")
+                    } onEditingChanged: { _ in
+                        settings.population = settings.population.rounded()
+                        print("\(settings.population)")
+                    }
+                }
+            }.scrollDisabled(true)
         }
     }
 }
