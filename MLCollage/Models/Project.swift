@@ -131,7 +131,7 @@ class Project {
     }
     
     func createModList(modifications: [Modification] = [Modification()]) -> [Modification] {
-        (1...settings.population).map { _ in
+        (1...Int(settings.population)).map { _ in
             var newMod = Modification()
             if settings.scale {
                 newMod.scale = CGFloat.random(in: settings.scaleLowerBound..<settings.scaleUpperBound)

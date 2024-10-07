@@ -13,7 +13,7 @@ struct SettingsView: View {
     var body: some View {
         VStack{
             Text("This is a settings page")
-            Slider(value: $settings.population, in: 0...1000) {
+            Slider(value: $settings.population, in: 0...100) {
                 Text("Label")
             } minimumValueLabel: {
                 Image(systemName: "tortoise")
@@ -21,6 +21,7 @@ struct SettingsView: View {
                 Image(systemName: "hare")
             } onEditingChanged: {
                 print("\($0)")
+                print("\(settings.population)")
             }
         }
     }
