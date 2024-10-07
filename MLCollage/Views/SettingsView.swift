@@ -15,7 +15,7 @@ struct SettingsView: View {
             Text("Settings")
             
             List {
-                ExtractedView("population", value: settings.population, range: 0...100)
+                SettingView("population", value: settings.population, range: 0...100)
             }.scrollDisabled(true)
         }
     }
@@ -25,7 +25,7 @@ struct SettingsView: View {
     SettingsView(settings: ProjectSettings())
 }
 
-struct ExtractedView: View {
+struct SettingView: View {
     @State var value: Double
     let range: ClosedRange<Double>
     let title: String
