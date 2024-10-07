@@ -15,17 +15,7 @@ struct SettingsView: View {
             Text("Settings")
             
             List {
-                Section ("Population"){
-                    HStack {
-                        Text(String(format: "%g", settings.population.rounded()))
-                    }
-                    Slider(value: $settings.population, in: 0...100) {
-                        Text("population")
-                    } onEditingChanged: { _ in
-                        settings.population = settings.population.rounded()
-                        print("\(settings.population)")
-                    }
-                }
+                ExtractedView("population", value: settings.population, range: 0...100)
             }.scrollDisabled(true)
         }
     }
@@ -33,4 +23,30 @@ struct SettingsView: View {
 
 #Preview {
     SettingsView(settings: ProjectSettings())
+}
+
+struct ExtractedView: View {
+    @State var value: Double
+    let range: ClosedRange<Double>
+    let title: String
+    
+    init(_ title: String, value: Double, range: ClosedRange<Double>) {
+        self.value = value
+        self.range = range
+        self.title = title
+    }
+    
+    var body: some View {
+        Section (title) {
+            HStack {
+                Text(String(format: "%g", value.rounded()))
+            }
+            Slider(value: $value, in: range) {
+                Text("population")
+            } onEditingChanged: { _ in
+                value = value.rounded()
+                print("\(value)")
+            }
+        }
+    }
 }
