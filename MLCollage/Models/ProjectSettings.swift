@@ -8,8 +8,8 @@
 import Foundation
 
 struct ProjectSettings: Equatable, Codable {
-    var population: Int
-    var numberOfEachSubject: Int
+    var population: Double
+    var numberOfEachSubject: Double
     var translate: Bool
     var translateLowerBound: CGFloat
     var translateUpperBound: CGFloat
@@ -21,8 +21,8 @@ struct ProjectSettings: Equatable, Codable {
     var rotateUpperBound: CGFloat
     var flip: Bool
     
-    init(population: Int = 10,
-         numberOfEachSubject: Int = 1,
+    init(population: Double = 10.0,
+         numberOfEachSubject: Double = 1.0,
          translate: Bool = true,
          translateLowerBound: CGFloat = 0.0,
          translateUpperBound: CGFloat = 1.0,

@@ -11,7 +11,18 @@ struct SettingsView: View {
     @State var settings: ProjectSettings
     
     var body: some View {
-        Text("This is a settings page")
+        VStack{
+            Text("This is a settings page")
+            Slider(value: $settings.population, in: 0...1000) {
+                Text("Label")
+            } minimumValueLabel: {
+                Image(systemName: "tortoise")
+            } maximumValueLabel: {
+                Image(systemName: "hare")
+            } onEditingChanged: {
+                print("\($0)")
+            }
+        }
     }
 }
 
