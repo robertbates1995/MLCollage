@@ -15,9 +15,9 @@ struct SettingsView: View {
             Text("Settings")
             
             List {
-                Section {
+                Section ("Population"){
                     HStack {
-                        Text("Population = \(String(format: "%g", settings.population.rounded()))")
+                        Text(String(format: "%g", settings.population.rounded()))
                     }
                     Slider(value: $settings.population, in: 0...100) {
                         Text("population")
