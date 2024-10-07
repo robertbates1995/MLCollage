@@ -11,13 +11,10 @@ struct SettingsView: View {
     @State var settings: ProjectSettings
     
     var body: some View {
-        VStack{
-            Text("Settings")
-            
-            List {
-                SettingView("population", value: settings.population, range: 0...100)
-            }.scrollDisabled(true)
-        }
+        List {
+            SettingView("population", value: settings.population, range: 0...100)
+            SettingView("number of each subject", value: settings.numberOfEachSubject, range: 0...20)
+        }.scrollDisabled(true)
     }
 }
 
