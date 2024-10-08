@@ -41,6 +41,13 @@ struct SettingView: View {
     var body: some View {
         if hasLower {
             Section(title) {
+                HStack {
+                    Text("Lower Value: ")
+                    Text(String(format: "%g", value.rounded()))
+                    Spacer()
+                    Text("Upper Value: ")
+                    Text(String(format: "%g", upperValue.rounded()))
+                }
                 SliderView(slider: CustomSlider(start: value, end: upperValue))
             }
         } else {
