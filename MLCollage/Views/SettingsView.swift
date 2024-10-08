@@ -14,8 +14,7 @@ struct SettingsView: View {
         List {
             SettingView("population", value: settings.population, range: 0...100)
             SettingView("number of each subject", value: settings.numberOfEachSubject, range: 0...20)
-            SliderView(slider: CustomSlider(start: settings.translateLowerBound, end: settings.translateUpperBound))
-            
+            SettingView("translation", value: settings.translateLowerBound, upperValue: settings.translateUpperBound, range: 0...100, hasLower: true)
         }.scrollDisabled(true)
     }
 }
@@ -26,25 +25,35 @@ struct SettingsView: View {
 
 struct SettingView: View {
     @State var value: Double
+    @State var upperValue: Double
     let range: ClosedRange<Double>
     let title: String
+    let hasLower: Bool
     
-    init(_ title: String, value: Double, range: ClosedRange<Double>) {
+    init(_ title: String, value: Double, upperValue: Double = 0.0, range: ClosedRange<Double>, hasLower: Bool = false) {
         self.value = value
+        self.upperValue = upperValue
         self.range = range
         self.title = title
+        self.hasLower = hasLower
     }
     
     var body: some View {
-        Section (title) {
-            HStack {
-                Text(String(format: "%g", value.rounded()))
+        if hasLower {
+            Section(title) {
+                SliderView(slider: CustomSlider(start: value, end: upperValue))
             }
-            Slider(value: $value, in: range) {
-                Text("population")
-            } onEditingChanged: { _ in
-                value = value.rounded()
-                print("\(value)")
+        } else {
+            Section(title) {
+                HStack {
+                    Text(String(format: "%g", value.rounded()))
+                }
+                Slider(value: $value, in: range) {
+                    Text("population")
+                } onEditingChanged: { _ in
+                    value = value.rounded()
+                    print("\(value)")
+                }
             }
         }
     }
