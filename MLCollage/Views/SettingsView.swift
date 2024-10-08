@@ -14,6 +14,7 @@ struct SettingsView: View {
         List {
             SettingView("population", value: settings.population, range: 0...100)
             SettingView("number of each subject", value: settings.numberOfEachSubject, range: 0...20)
+            SliderView(slider: CustomSlider(start: settings.translateLowerBound, end: settings.translateUpperBound))
             
         }.scrollDisabled(true)
     }

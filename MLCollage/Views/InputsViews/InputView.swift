@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InputsViewSection: View {
+struct InputView: View {
     var header: String
     var count: Int
     var subjects: [Subject]
@@ -33,5 +33,5 @@ struct InputsViewSection: View {
 }
 
 #Preview {
-    InputsViewSection(header: "Test Header", count: Project.mock.subjects.count, subjects: Project.mock.subjects)
+    InputView(header: "Test Header", count: Project.mock.subjects.count, subjects: Project.mock.subjects)
 }

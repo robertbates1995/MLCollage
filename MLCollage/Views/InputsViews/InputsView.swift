@@ -13,8 +13,8 @@ struct InputsView: View {
     
     var body: some View {
         List {
-            InputsViewSection(header: "Subjects", count: subjects.count, subjects: subjects)
-            InputsViewSection(header: "Backgrounds", count: backgrounds.count, subjects: backgrounds)
+            InputView(header: "Subjects", count: subjects.count, subjects: subjects)
+            InputView(header: "Backgrounds", count: backgrounds.count, subjects: backgrounds)
         }
     }
 }
