@@ -63,7 +63,7 @@ struct SliderPathBetweenView: View {
 class CustomSlider: ObservableObject {
     
     //Slider Size
-    let width: CGFloat = 300
+    let width: CGFloat = 200
     let lineWidth: CGFloat = 4
     
     //Slider value range from valueStart to valueEnd
@@ -144,7 +144,7 @@ class SliderHandle: ObservableObject {
     let sliderValueRange: Double
     
     //Slider Handle
-    var diameter: CGFloat = 40
+    var diameter: CGFloat = 28
     var startLocation: CGPoint
     
     //Current Value

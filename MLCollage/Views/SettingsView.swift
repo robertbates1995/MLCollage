@@ -9,13 +9,20 @@ import SwiftUI
 
 struct SettingsView: View {
     @State var settings: ProjectSettings
+    @State var width: CGSize = .zero
     
     var body: some View {
-        List {
-            SettingView("population", value: settings.population, range: 0...100)
-            SettingView("number of each subject", value: settings.numberOfEachSubject, range: 0...20)
-            SettingView("translation", value: settings.translateLowerBound, upperValue: settings.translateUpperBound, range: 0...100, hasLower: true)
-        }.scrollDisabled(true)
+        GeometryReader { proxy in
+            List {
+                SettingView("population", value: settings.population, range: 0...100)
+                SettingView("number of each subject", value: settings.numberOfEachSubject, range: 0...20)
+                SettingView("translation", value: settings.translateLowerBound, upperValue: settings.translateUpperBound, range: 0...100, hasLower: true)
+            }.scrollDisabled(true)
+                .onAppear {
+                    width = proxy.size
+                }
+        }
+        
     }
 }
 
