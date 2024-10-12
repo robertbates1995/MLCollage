@@ -19,10 +19,6 @@ struct SettingsView: View {
     }
 }
 
-#Preview {
-    SettingsView(settings: ProjectSettings())
-}
-
 struct SettingView: View {
     @State var value: Double
     @State var upperValue: Double
@@ -64,4 +60,8 @@ struct SettingView: View {
             }
         }
     }
+}
+
+#Preview {
+    SettingsView(settings: ProjectSettings())
 }

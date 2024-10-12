@@ -55,7 +55,7 @@ struct SliderPathBetweenView: View {
             path.move(to: slider.lowHandle.currentLocation)
             path.addLine(to: slider.highHandle.currentLocation)
         }
-        .stroke(Color.green, lineWidth: slider.lineWidth)
+        .stroke(Color.blue, lineWidth: slider.lineWidth)
     }
 }
 
@@ -64,7 +64,7 @@ class CustomSlider: ObservableObject {
     
     //Slider Size
     let width: CGFloat = 300
-    let lineWidth: CGFloat = 8
+    let lineWidth: CGFloat = 4
     
     //Slider value range from valueStart to valueEnd
     let valueStart: Double
