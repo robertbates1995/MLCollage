@@ -13,23 +13,28 @@ struct SliderView: View {
     @ObservedObject var slider: CustomSlider
     
     var body: some View {
-        RoundedRectangle(cornerRadius: slider.lineWidth)
-            .fill(Color.gray.opacity(0.2))
-            .frame(width: slider.width, height: slider.lineWidth)
-            .overlay(
-                ZStack {
-                    //Path between both handles
-                    SliderPathBetweenView(slider: slider)
-                    
-                    //Low Handle
-                    SliderHandleView(handle: slider.lowHandle)
-                        .highPriorityGesture(slider.lowHandle.sliderDragGesture)
-                    
-                    //High Handle
-                    SliderHandleView(handle: slider.highHandle)
-                        .highPriorityGesture(slider.highHandle.sliderDragGesture)
+        GeometryReader { proxy in
+            RoundedRectangle(cornerRadius: slider.lineWidth)
+                .fill(Color.gray.opacity(0.2))
+                .frame(width: slider.width, height: slider.lineWidth)
+                .overlay(
+                    ZStack {
+                        //Path between both handles
+                        SliderPathBetweenView(slider: slider)
+                        
+                        //Low Handle
+                        SliderHandleView(handle: slider.lowHandle)
+                            .highPriorityGesture(slider.lowHandle.sliderDragGesture)
+
+                        //High Handle
+                        SliderHandleView(handle: slider.highHandle)
+                            .highPriorityGesture(slider.highHandle.sliderDragGesture)
+                    }
+                )
+                .onAppear {
+                    slider.width = proxy.size.width
                 }
-            )
+        }
     }
 }
 
@@ -59,7 +64,6 @@ struct SliderPathBetweenView: View {
     }
 }
 
-
 class CustomSlider: ObservableObject {
     
     //Slider Size
@@ -77,7 +81,7 @@ class CustomSlider: ObservableObject {
     //Handle start percentage (also for starting point)
     @SliderValue var highHandleStartPercentage = 1.0
     @SliderValue var lowHandleStartPercentage = 0.0
-
+    
     var anyCancellableHigh: AnyCancellable?
     var anyCancellableLow: AnyCancellable?
     
@@ -90,14 +94,14 @@ class CustomSlider: ObservableObject {
                                   sliderValueStart: valueStart,
                                   sliderValueEnd: valueEnd,
                                   startPercentage: _highHandleStartPercentage
-                                )
+        )
         
         lowHandle = SliderHandle(sliderWidth: width,
-                                  sliderHeight: lineWidth,
-                                  sliderValueStart: valueStart,
-                                  sliderValueEnd: valueEnd,
-                                  startPercentage: _lowHandleStartPercentage
-                                )
+                                 sliderHeight: lineWidth,
+                                 sliderValueStart: valueStart,
+                                 sliderValueEnd: valueEnd,
+                                 startPercentage: _lowHandleStartPercentage
+        )
         
         anyCancellableHigh = highHandle.objectWillChange.sink { _ in
             self.objectWillChange.send()
@@ -153,7 +157,7 @@ class SliderHandle: ObservableObject {
     //Slider Button Location
     @Published var onDrag: Bool
     @Published var currentLocation: CGPoint
-        
+    
     init(sliderWidth: CGFloat, sliderHeight: CGFloat, sliderValueStart: Double, sliderValueEnd: Double, startPercentage: SliderValue) {
         self.sliderWidth = sliderWidth
         self.sliderHeight = sliderHeight
