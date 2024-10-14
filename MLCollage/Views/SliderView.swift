@@ -25,15 +25,12 @@ struct SliderView: View {
                         //Low Handle
                         SliderHandleView(handle: slider.lowHandle)
                             .highPriorityGesture(slider.lowHandle.sliderDragGesture)
-
+                        
                         //High Handle
                         SliderHandleView(handle: slider.highHandle)
                             .highPriorityGesture(slider.highHandle.sliderDragGesture)
                     }
                 )
-                .onAppear {
-                    slider.width = proxy.size.width
-                }
         }
     }
 }
@@ -67,7 +64,7 @@ struct SliderPathBetweenView: View {
 class CustomSlider: ObservableObject {
     
     //Slider Size
-    let width: CGFloat = 200
+    let width: CGFloat = 600
     let lineWidth: CGFloat = 4
     
     //Slider value range from valueStart to valueEnd

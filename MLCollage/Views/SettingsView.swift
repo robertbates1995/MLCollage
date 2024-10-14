@@ -47,7 +47,11 @@ struct SettingView: View {
                     Text("Upper Value: ")
                     Text(String(format: "%g", upperValue.rounded()))
                 }
-                SliderView(slider: CustomSlider(start: value, end: upperValue))
+                VStack {
+                    SliderView(slider: CustomSlider(start: value, end: upperValue))
+                        //.padding()
+                        
+                }
             }
         } else {
             Section(title) {
