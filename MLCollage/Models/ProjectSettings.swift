@@ -11,8 +11,8 @@ struct ProjectSettings: Equatable, Codable {
     var population: Double
     var numberOfEachSubject: Double
     var translate: Bool
-    var translateLowerBound: CGFloat
-    var translateUpperBound: CGFloat
+    var translateLowerBound: Double
+    var translateUpperBound: Double
     var scale: Bool
     var scaleLowerBound: CGFloat
     var scaleUpperBound: CGFloat
@@ -24,8 +24,8 @@ struct ProjectSettings: Equatable, Codable {
     init(population: Double = 10.0,
          numberOfEachSubject: Double = 1.0,
          translate: Bool = true,
-         translateLowerBound: CGFloat = 0.0,
-         translateUpperBound: CGFloat = 1.0,
+         translateLowerBound: Double = 0.0,
+         translateUpperBound: Double = 1.0,
          scale: Bool = true,
          scaleLowerBound: CGFloat = 0.3,
          scaleUpperBound: CGFloat = 1.3,

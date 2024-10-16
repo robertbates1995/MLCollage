@@ -8,34 +8,26 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State var settings: ProjectSettings
+    @Binding var settings: ProjectSettings
     @State var width: CGSize = .zero
     
     var body: some View {
-        GeometryReader { proxy in
-            List {
-                SettingView("population", value: settings.population, range: 0...100)
-                SettingView("number of each subject", value: settings.numberOfEachSubject, range: 0...20)
-                SettingView("translation", value: settings.translateLowerBound, upperValue: settings.translateUpperBound, range: 0...100, hasLower: true)
-            }.scrollDisabled(true)
-        }
+        List {
+            SettingView(title: "population", value: $settings.population, upperValue: $settings.population, range: 0...100, hasLower: false)
+            SettingView(title: "number of each subject", value: $settings.numberOfEachSubject, upperValue: $settings.numberOfEachSubject, range: 0...20, hasLower: false)
+            SettingView(title: "translation", value: $settings.translateLowerBound, upperValue: $settings.translateUpperBound, range: 0...100, hasLower: true)
+        }.scrollDisabled(true)
     }
 }
 
 struct SettingView: View {
-    @State var value: Double
-    @State var upperValue: Double
-    let range: ClosedRange<Double>
     let title: String
+    @Binding var value: Double
+    @Binding var upperValue: Double
+    let range: ClosedRange<Double>
     let hasLower: Bool
     
-    init(_ title: String, value: Double, upperValue: Double = 0.0, range: ClosedRange<Double>, hasLower: Bool = false) {
-        self.value = value
-        self.upperValue = upperValue
-        self.range = range
-        self.title = title
-        self.hasLower = hasLower
-    }
+    
     
     var body: some View {
         if hasLower {
@@ -49,8 +41,6 @@ struct SettingView: View {
                 }
                 VStack {
                     SliderView(slider: CustomSlider(start: value, end: upperValue))
-                        //.padding()
-                        
                 }
             }
         } else {
@@ -70,5 +60,6 @@ struct SettingView: View {
 }
 
 #Preview {
-    SettingsView(settings: ProjectSettings())
+    @Previewable @State var model = ProjectSettings()
+    SettingsView(settings: $model)
 }

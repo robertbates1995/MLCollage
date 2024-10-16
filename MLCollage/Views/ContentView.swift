@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var visibility: NavigationSplitViewVisibility = .all
-    @State var project = Project()
+    @Binding var project: Project
     
     var body: some View {
         TabView {
@@ -17,7 +17,7 @@ struct ContentView: View {
                 InputsView(subjects: project.subjects, backgrounds: project.backgrounds)
             }
             Tab("settings", systemImage: "page") {
-                SettingsView(settings: project.settings)
+                SettingsView(settings: $project.settings)
             }
             Tab("output", systemImage: "pencil") {
                 OutputsView(outputs: project.projectData.map(\.image))
@@ -27,5 +27,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(project: Project.mock)
+    @Previewable @State var model = Project()
+    ContentView(project: $model.mock)
 }

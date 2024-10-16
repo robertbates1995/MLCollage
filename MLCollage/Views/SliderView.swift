@@ -12,11 +12,6 @@ import Combine
 struct SliderView: View {
     @ObservedObject var slider: CustomSlider
     
-    init(slider: CustomSlider) {
-        self.slider = slider
-        print("init")
-    }
-    
     var body: some View {
         GeometryReader { proxy in
             VStack {
