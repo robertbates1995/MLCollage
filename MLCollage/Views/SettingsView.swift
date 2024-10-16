@@ -34,10 +34,10 @@ struct SettingView: View {
             Section(title) {
                 HStack {
                     Text("Lower Value: ")
-                    Text(String(format: "%g", value.rounded()))
+                    Text(String(format: "%g", value))
                     Spacer()
                     Text("Upper Value: ")
-                    Text(String(format: "%g", upperValue.rounded()))
+                    Text(String(format: "%g", upperValue))
                 }
                 VStack {
                     SliderView(slider: CustomSlider(start: value, end: upperValue))

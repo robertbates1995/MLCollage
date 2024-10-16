@@ -27,6 +27,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    @Previewable @State var model = Project()
-    ContentView(project: $model.mock)
+    @Previewable @State var model = Project.mock
+    ContentView(project: $model)
 }

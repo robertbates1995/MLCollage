@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct MLCollageApp: App {
+    @State var project = Project()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(project: $project)
         }
     }
 }
