@@ -27,8 +27,6 @@ struct SettingView: View {
     let range: ClosedRange<Double>
     let hasLower: Bool
     
-    
-    
     var body: some View {
         if hasLower {
             Section(title) {
@@ -40,7 +38,7 @@ struct SettingView: View {
                     Text(String(format: "%g", upperValue))
                 }
                 VStack {
-                    SliderView(slider: CustomSlider(start: value, end: upperValue))
+                    HighLowSlider(highValue: $upperValue, lowValue: $value, range: range)
                 }
             }
         } else {

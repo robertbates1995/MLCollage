@@ -16,6 +16,9 @@ struct HighLowSlider: View {
     @Binding var lowValue: Double
     @State var lowDrag: Bool = false
     @State var highDrag: Bool = false
+    let range: ClosedRange<Double>
+    
+    
     
     var body: some View {
         GeometryReader { proxy in
@@ -32,8 +35,7 @@ struct HighLowSlider: View {
                                 .highPriorityGesture(DragGesture()
                                     .onChanged { value in
                                         self.lowDrag = true
-                                        let tempValue = value.location.x / proxy.size.width
-                                        self.lowValue = min(tempValue, highValue)
+                                        self.lowValue = min(calcNewValue(value, proxy), highValue)
                                     }.onEnded { _ in
                                         self.lowDrag = false
                                     })
@@ -42,8 +44,7 @@ struct HighLowSlider: View {
                                 .highPriorityGesture(DragGesture()
                                     .onChanged { value in
                                         self.highDrag = true
-                                        let tempValue = value.location.x / proxy.size.width
-                                        self.highValue = max(tempValue, lowValue)
+                                        self.highValue = max(calcNewValue(value, proxy), lowValue)
                                     }.onEnded { _ in
                                         self.highDrag = false
                                     })
@@ -54,8 +55,16 @@ struct HighLowSlider: View {
         }
     }
     
-    func location(_ value: Double, _ proxy: GeometryProxy) -> CGPoint {
-        CGPoint(x: (value * proxy.size.width), y: 2)
+    fileprivate func calcNewValue(_ value: DragGesture.Value, _ proxy: GeometryProxy) -> CGFloat {
+        let percentage = min(max(value.location.x / proxy.size.width, 0.0), 1.0)
+        let width = range.upperBound - range.lowerBound
+        return percentage * width + range.lowerBound
+    }
+    
+    fileprivate func location(_ value: Double, _ proxy: GeometryProxy) -> CGPoint {
+        let width = range.upperBound - range.lowerBound
+        let percentage = (value - range.lowerBound) / width
+        return CGPoint(x: (percentage * proxy.size.width), y: 2)
     }
 }
 
@@ -90,12 +99,12 @@ fileprivate struct HandleView: View {
 }
 
 #Preview {
-    @Previewable @State var high = 1.0
-    @Previewable @State var low = 0.0
+    @Previewable @State var high = 10.0
+    @Previewable @State var low = 1.0
     
     VStack(alignment: .leading) {
         Text("High:" + high.formatted())
         Text("Low::" + low.formatted())
-        HighLowSlider(highValue: $high, lowValue: $low)
+        HighLowSlider(highValue: $high, lowValue: $low, range: 1...10)
     }.padding()
 }
