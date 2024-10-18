@@ -81,7 +81,7 @@ fileprivate struct HandleView: View {
     var body: some View {
         Circle()
             .frame(width: diameter, height: diameter)
-            .foregroundColor(.red)
+            .foregroundColor(.white)
             .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 0)
             .scaleEffect(onDrag ? 1.3 : 1)
             .contentShape(Rectangle())
