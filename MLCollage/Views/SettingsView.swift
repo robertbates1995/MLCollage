@@ -13,9 +13,18 @@ struct SettingsView: View {
     
     var body: some View {
         List {
+            //population
             SliderView(title: "population", value: $settings.population, range: 0...100)
+            //number of each subject
             SliderView(title: "number of each subject", value: $settings.numberOfEachSubject, range: 0...20)
-            HighLowSliderView(title: "translation", value: $settings.translateLowerBound, upperValue: $settings.translateUpperBound, range: 0...100)
+            //translation range
+            HighLowSliderView(title: "translation", value: $settings.translateLowerBound, upperValue: $settings.translateUpperBound, range: 0...1)
+            //scale range
+            HighLowSliderView(title: "scale", value: $settings.scaleLowerBound, upperValue: $settings.scaleUpperBound, range: 0.5...1.5)
+            //rotate range
+            HighLowSliderView(title: "scale", value: $settings.rotateLowerBound, upperValue: $settings.rotateUpperBound, range: 0.0...0.5)
+            //flip toggle
+            Toggle("flip subject", isOn: $settings.flip)
         }.scrollDisabled(true)
     }
 }

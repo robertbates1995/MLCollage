@@ -14,11 +14,11 @@ struct ProjectSettings: Equatable, Codable {
     var translateLowerBound: Double
     var translateUpperBound: Double
     var scale: Bool
-    var scaleLowerBound: CGFloat
-    var scaleUpperBound: CGFloat
+    var scaleLowerBound: Double
+    var scaleUpperBound: Double
     var rotate: Bool
-    var rotateLowerBound: CGFloat
-    var rotateUpperBound: CGFloat
+    var rotateLowerBound: Double
+    var rotateUpperBound: Double
     var flip: Bool
     
     init(population: Double = 10.0,
@@ -27,11 +27,11 @@ struct ProjectSettings: Equatable, Codable {
          translateLowerBound: Double = 0.0,
          translateUpperBound: Double = 1.0,
          scale: Bool = true,
-         scaleLowerBound: CGFloat = 0.3,
-         scaleUpperBound: CGFloat = 1.3,
+         scaleLowerBound: Double = 0.5,
+         scaleUpperBound: Double = 1.5,
          rotate: Bool = true,
-         rotateLowerBound: CGFloat = 0.5,
-         rotateUpperBound: CGFloat = 1.0,
+         rotateLowerBound: Double = 0.0,
+         rotateUpperBound: Double = 0.5,
          flip: Bool = true) {
         self.population = population
         self.numberOfEachSubject = numberOfEachSubject
