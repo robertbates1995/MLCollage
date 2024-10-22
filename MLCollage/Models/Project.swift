@@ -140,7 +140,7 @@ class Project {
                 
                 newMod.rotate = CGFloat.random(in: (settings.rotateLowerBound * 2 * .pi)..<(settings.rotateUpperBound * 2 * .pi))
             }
-            if settings.flip {
+            if settings.flipHorizontal {
                 newMod.flipX = Bool.random()
                 newMod.flipY = Bool.random()
             }
@@ -161,8 +161,10 @@ class Project {
         if settings.rotate {
             mod.rotate = CGFloat.random(in: (settings.rotateLowerBound * 2 * .pi)..<(settings.rotateUpperBound * 2 * .pi))
         }
-        if settings.flip {
+        if settings.flipHorizontal {
             mod.flipX = Bool.random()
+        }
+        if settings.flipVertical {
             mod.flipY = Bool.random()
         }
         if settings.translate {

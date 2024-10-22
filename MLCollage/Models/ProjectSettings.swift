@@ -19,7 +19,8 @@ struct ProjectSettings: Equatable, Codable {
     var rotate: Bool
     var rotateLowerBound: Double
     var rotateUpperBound: Double
-    var flip: Bool
+    var flipHorizontal: Bool
+    var flipVertical: Bool
     
     init(population: Double = 10.0,
          numberOfEachSubject: Double = 1.0,
@@ -32,7 +33,8 @@ struct ProjectSettings: Equatable, Codable {
          rotate: Bool = true,
          rotateLowerBound: Double = 0.0,
          rotateUpperBound: Double = 0.5,
-         flip: Bool = true) {
+         flipHorizontal: Bool = true,
+         flipVertical: Bool = true) {
         self.population = population
         self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
@@ -44,6 +46,7 @@ struct ProjectSettings: Equatable, Codable {
         self.rotate = rotate
         self.rotateLowerBound = rotateLowerBound
         self.rotateUpperBound = rotateUpperBound
-        self.flip = flip
+        self.flipHorizontal = flipHorizontal
+        self.flipVertical = flipVertical
     }
 }
