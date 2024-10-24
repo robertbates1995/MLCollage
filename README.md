@@ -7,10 +7,10 @@ essentaly cut-and-pasting the pre-existing photos into new arrangements. Stop wa
 ML Collage and train your vison model _fast_.
 
 ## Modify the original subject in multiple ways:
--translate
--scale
--rotate
--flip accross either axis
+- translate 
+- scale
+- rotate
+- flip accross either axis
 
 ## Application
 MLCollage is designed to be used in tandem with create ML. When a training set is generated, a JSON file is included in the output. 
