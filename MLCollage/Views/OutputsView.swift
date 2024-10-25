@@ -9,7 +9,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct OutputsView: View {
-    @State var outputs: CIImageFile
+    @State var yourDocument: TextFile
     @State private var showingExporter = false
 
     var body: some View {
@@ -18,7 +18,7 @@ struct OutputsView: View {
             Button("export") {
                 showingExporter.toggle()
             }
-        }.fileExporter(isPresented: $showingExporter, document: outputs, contentType: .png) { result in
+        }.fileExporter(isPresented: $showingExporter, document: yourDocument, contentType: .plainText) { result in
             switch result {
             case .success(let url):
                 print("Saved to \(url)")
@@ -29,36 +29,33 @@ struct OutputsView: View {
     }
 }
 
-struct CIImageFile: FileDocument {
+struct TextFile: FileDocument {
     // tell the system we support only plain text
-    static var readableContentTypes = [UTType.png, UTType.json]
+    static var readableContentTypes = [UTType.plainText]
 
     // by default our document is empty
-    var photos: [CIImage] = []
-    var json = ""
+    var text = ""
 
     // a simple initializer that creates new, empty documents
     init(initialText: String = "") {
-        photos = initialText
+        text = initialText
     }
 
     // this initializer loads data that has been saved previously
     init(configuration: ReadConfiguration) throws {
         if let data = configuration.file.regularFileContents {
-            photos = String(decoding: data, as: UTF8.self)
+            text = String(decoding: data, as: UTF8.self)
         }
     }
 
     // this will be called when the system wants to write our data to disk
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let data = Data(photos.utf8)
+        let data = Data(text.utf8)
         return FileWrapper(regularFileWithContents: data)
     }
 }
 
 #Preview {
     //replace this with actual output photos
-    OutputsView(outputs: [CIImage(image: .crazyBackground1)!,
-                          CIImage(image: .crazyBackground2)!,
-                          CIImage(image: .crazyBackground3)!])
+    OutputsView(yourDocument: TextFile(initialText: "testOutput1"))
 }
