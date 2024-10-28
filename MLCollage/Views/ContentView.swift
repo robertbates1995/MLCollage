@@ -20,7 +20,7 @@ struct ContentView: View {
                 SettingsView(settings: $project.settings)
             }
             Tab("output", systemImage: "pencil") {
-                OutputsView(yourDocument: TextFile(initialText: "test text"))
+                OutputsView(project: $project)
             }
         }
     }

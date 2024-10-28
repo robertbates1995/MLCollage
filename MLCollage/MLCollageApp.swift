@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct MLCollageApp: App {
-    @State var project = Project()
+    @State var project = Project.mock
     
     var body: some Scene {
         WindowGroup {

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 @Observable
 class Project {
@@ -102,7 +103,7 @@ class Project {
     func export(to url: URL) {
         var count = 0
         do {
-            try createJSON().data(using: .utf8)!.write(to: url.appending(path:"anotations.json"))
+            try createJSON().write(to: url.appending(path:"anotations.json"))
         } catch {
             print("Unable to write image data to disk")
         }
@@ -174,7 +175,7 @@ class Project {
         return mod
     }
     
-    func createJSON() throws -> String  {
+    func createJSON() -> Data  {
         projectData = createCollageSet()
         let encoder = JSONEncoder()
         encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
@@ -183,8 +184,9 @@ class Project {
             count += 1
             return CollageData(annotation: $0.annotations, imagefilename: "\(count - 1).png")
         }
-        let output = try encoder.encode(annotationArray)
-        return String.init(data: output, encoding: .utf8)!
+        let output = try! encoder.encode(annotationArray)
+        //return as data(using: .utf8)!
+        return output
     }
 }
 
