@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         TabView {
             Tab("Inputs", systemImage: "rightArrow") {
-                InputsView(subjects: project.subjects, backgrounds: project.backgrounds)
+                AllSubjectsView(model: $project.inputModel)
             }
             Tab("settings", systemImage: "page") {
                 SettingsView(settings: $project.settings)

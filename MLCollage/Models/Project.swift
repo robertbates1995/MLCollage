@@ -26,18 +26,21 @@ class Project {
             }
         }
     }
+    var inputModel: InputModel
     
     init(projectData: [Collage] = [],
          subjects: [Subject] = [],
          backgrounds: [Subject] = [],
          title: String = "project title",
-         settings: ProjectSettings = ProjectSettings()
+         settings: ProjectSettings = ProjectSettings(),
+         inputModel: InputModel = InputModel(subjects: [:], backgrounds: [])
     ) {
         self.projectData = projectData
         self.subjects = subjects
         self.backgrounds = backgrounds
         self.title = title
         self.settings = settings
+        self.inputModel = inputModel
     }
     
     init(url: URL) throws {
@@ -60,7 +63,7 @@ class Project {
         self.backgrounds = try manager.contentsOfDirectory(atPath: url.appending(path:"backgrounds").path).map { background in
             Subject(image: UIImage(contentsOfFile: url.appending(path:"backgrounds/\(background)").path)!.toCIImage(), label: background)
         }
-        
+        inputModel = InputModel(subjects: [:], backgrounds: [])
     }
     
     func save(to url: URL) {
@@ -213,5 +216,7 @@ extension Project {
                                              Subject(image: CIImage(image: .crazyBackground2)!, label: "MockBackground2"),
                                              Subject(image: CIImage(image: .crazyBackground3)!, label: "MockBackground3")],
                                title: "MockProject",
-                               settings: .init())
+                               settings: .init(),
+                               inputModel: InputModel.mock
+    )
 }
