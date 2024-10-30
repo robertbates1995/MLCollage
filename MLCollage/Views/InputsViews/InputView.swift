@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct InputView: View {
+    @State var isInput: Bool = false
     var header: String
     var count: Int
     var subjects: [Subject]
@@ -28,6 +29,14 @@ struct InputView: View {
                     }
                 }
             }
+        }
+    }
+}
+
+struct NewInputView: View {
+    var body: some View {
+        HStack {
+            
         }
     }
 }
