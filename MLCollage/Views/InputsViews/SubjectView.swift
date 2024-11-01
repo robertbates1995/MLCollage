@@ -41,12 +41,18 @@ struct SubjectView: View {
                         .padding(3)
                 }
                 HStack {
-                    Button("add image") {
-                        //add photo picker and pass result to action()
-                        PhotosPicker(selection: $photosPickerItem) {
+                    PhotosPicker(selection: $photosPickerItem, matching: .images) {
                             
-                        }
-                        action(UIImage(systemName: "plus")!)
+                    }
+                }
+            }
+        }
+        .onChange(of: photosPickerItem) { _, _ in
+            Task {
+                if let photosPickerItem, let data = try? await photosPickerItem.loadTransferable(type: Data.self) {
+                    if let image = UIImage(data: data) {
+                        //action(UIImage(systemName: "plus")!)
+                        images.append(image)
                     }
                 }
             }
