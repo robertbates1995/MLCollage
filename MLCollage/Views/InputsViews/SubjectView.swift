@@ -5,9 +5,9 @@
 //  Created by Robert Bates on 10/30/24.
 //
 
-
 import SwiftUI
 import UIKit
+import PhotosUI
 
 struct InputSubject {
     let label: String
@@ -23,7 +23,8 @@ struct InputSubject {
 
 struct SubjectView: View {
     let label: String
-    let images: [UIImage]
+    @State var images: [UIImage]
+    @State var photosPickerItem: PhotosPickerItem?
     let action: (UIImage) -> ()
     
     var body: some View {
@@ -42,6 +43,9 @@ struct SubjectView: View {
                 HStack {
                     Button("add image") {
                         //add photo picker and pass result to action()
+                        PhotosPicker(selection: $photosPickerItem) {
+                            
+                        }
                         action(UIImage(systemName: "plus")!)
                     }
                 }
