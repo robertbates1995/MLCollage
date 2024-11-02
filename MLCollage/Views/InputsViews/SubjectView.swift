@@ -23,8 +23,8 @@ struct InputSubject {
 
 struct SubjectView: View {
     let label: String
-    @State var images: [UIImage]
-    @State var photosPickerItem: PhotosPickerItem?
+    @State var images: [UIImage] = []
+    @State var photosPickerItems: [PhotosPickerItem] = []
     let action: (UIImage) -> ()
     
     var body: some View {
@@ -41,21 +41,22 @@ struct SubjectView: View {
                         .padding(3)
                 }
                 HStack {
-                    PhotosPicker(selection: $photosPickerItem, matching: .images) {
-                            
-                    }
+                    PhotosPicker("select photos", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .ordered)
                 }
             }
         }
-        .onChange(of: photosPickerItem) { _, _ in
+        .onChange(of: photosPickerItems) { _, _ in
             Task {
-                if let photosPickerItem, let data = try? await photosPickerItem.loadTransferable(type: Data.self) {
-                    if let image = UIImage(data: data) {
-                        //action(UIImage(systemName: "plus")!)
-                        images.append(image)
+                for item in photosPickerItems {
+                    if let data = try? await item.loadTransferable(type: Data.self) {
+                        if let image = UIImage(data: data) {
+                            //action(UIImage(systemName: "plus")!)
+                            images.append(image)
+                        }
                     }
                 }
             }
+            photosPickerItems.removeAll()
         }
     }
 }
