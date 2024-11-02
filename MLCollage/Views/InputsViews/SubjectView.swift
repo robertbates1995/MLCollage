@@ -46,17 +46,19 @@ struct SubjectView: View {
             }
         }
         .onChange(of: photosPickerItems) { _, _ in
+            let localPhotosPickerItems = photosPickerItems
+            photosPickerItems.removeAll()
             Task {
-                for item in photosPickerItems {
+                for item in localPhotosPickerItems {
                     if let data = try? await item.loadTransferable(type: Data.self) {
                         if let image = UIImage(data: data) {
                             //action(UIImage(systemName: "plus")!)
                             images.append(image)
+                            print(photosPickerItems.count)
                         }
                     }
                 }
             }
-            photosPickerItems.removeAll()
         }
     }
 }
