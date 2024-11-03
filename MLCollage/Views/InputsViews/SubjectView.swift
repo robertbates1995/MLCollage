@@ -23,38 +23,40 @@ struct InputSubject {
 
 struct SubjectView: View {
     let label: String
-    @State var images: [UIImage] = []
+#warning("todo: transfer 'images' to model")
+    @State var images: [MLCImage] = []
     @State var photosPickerItems: [PhotosPickerItem] = []
-    let action: (UIImage) -> ()
+    let action: (PhotosPickerItem) -> ()
     
     var body: some View {
         VStack {
             Text(label)
-            HStack {
-                ForEach(images, id: \.self) { image in
-                    Image(uiImage: image)
-                        .resizable()
-                        .padding()
-                        .aspectRatio(contentMode: .fill)
-                        .background(Color(.gray.withAlphaComponent(0.2)))
-                        .clipShape(.rect(cornerRadius: 10))
-                        .padding(3)
+                HStack {
+                    ForEach(images) { image in
+                        Image(uiImage: image)
+                            .resizable()
+                            .padding()
+                            .aspectRatio(contentMode: .fill)
+                            .background(Color(.gray.withAlphaComponent(0.2)))
+                            .clipShape(.rect(cornerRadius: 10))
+                            .padding(3)
+                    }
                 }
                 HStack {
                     PhotosPicker("select photos", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .ordered)
                 }
-            }
         }
         .onChange(of: photosPickerItems) { _, _ in
             let localPhotosPickerItems = photosPickerItems
             photosPickerItems.removeAll()
+            
             Task {
                 for item in localPhotosPickerItems {
                     if let data = try? await item.loadTransferable(type: Data.self) {
                         if let image = UIImage(data: data) {
+#warning("todo: make action use localPhotosPickerItems")
                             //action(UIImage(systemName: "plus")!)
                             images.append(image)
-                            print(photosPickerItems.count)
                         }
                     }
                 }
