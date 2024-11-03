@@ -24,15 +24,15 @@ struct InputSubject {
 struct SubjectView: View {
     let label: String
 #warning("todo: transfer 'images' to model")
-    @State var images: [MLCImage] = []
+    @State var images: [UIImage] = []
     @State var photosPickerItems: [PhotosPickerItem] = []
-    let action: (PhotosPickerItem) -> ()
+    let action: (UIImage) -> ()
     
     var body: some View {
         VStack {
             Text(label)
                 HStack {
-                    ForEach(images) { image in
+                    ForEach(images, id: \.self) { image in
                         Image(uiImage: image)
                             .resizable()
                             .padding()
