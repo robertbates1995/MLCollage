@@ -31,14 +31,13 @@ struct SubjectView: View {
     var body: some View {
         VStack {
             Text(label)
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 50, maximum: 50))], spacing: 20) {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20) {
                 ForEach(images, id: \.self) { image in
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 50, height: 50)
                         .background(Color.gray.opacity(0.5))
-                        .cornerRadius(10)
+                        .cornerRadius(5.0)
                 }
             }
             HStack {
@@ -54,7 +53,6 @@ struct SubjectView: View {
                     if let data = try? await item.loadTransferable(type: Data.self) {
                         if let image = UIImage(data: data) {
 #warning("todo: make action use localPhotosPickerItems")
-                            //action(UIImage(systemName: "plus")!)
                             images.append(image)
                         }
                     }

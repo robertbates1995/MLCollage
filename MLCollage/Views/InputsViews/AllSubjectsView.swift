@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AllSubjectsView: View {
     @Binding var model: InputModel
+    @State var addingSubject: Bool = false
     
     var body: some View {
         List {
@@ -18,6 +19,21 @@ struct AllSubjectsView: View {
             SubjectView(label: "backgrounds", images: model.backgrounds) { image in model.add(background: image)}
         }
         .padding()
+        HStack {
+            Button("Add Subject") {
+                addingSubject.toggle()
+            }
+        }.sheet(isPresented: $addingSubject) {
+            NewSubjectView()
+        }
+    }
+    
+    struct NewSubjectView: View {
+        @State var newSubject: String = "New Subject"
+        
+        var body: some View {
+            TextField("new subject", text: $newSubject)
+        }
     }
 }
 
