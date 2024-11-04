@@ -22,8 +22,8 @@ struct TrainingDataFile: FileDocument {
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        var json = project.createJSON()
-        var images = project.projectData
+        let json = project.createJSON()
+        let images = project.projectData
         var temp = ["project.json": FileWrapper(regularFileWithContents: json)]
         var count = 0
         
