@@ -10,6 +10,7 @@ import UniformTypeIdentifiers
 
 struct OutputsView: View {
     @Binding var project: Project
+    @State var collages: [Collage]?
     @State  var showingExporter = false
     #warning("todo: use the following to create a slider to dictate minimum photo size")
     @State var minSize: CGFloat = 100.0
@@ -18,10 +19,12 @@ struct OutputsView: View {
         VStack {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: minSize))], spacing: 20) {
-                    ForEach(project.projectData) { collage in
-                        Image(uiImage: collage.image.toUIImage())
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+                    if let collages {
+                        ForEach(collages) { collage in
+                            Image(uiImage: collage.image.toUIImage())
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        }
                     }
                 }
             }
@@ -31,8 +34,16 @@ struct OutputsView: View {
                 
             }
         }.task {
-            let _ = project.createJSON()
+            if (collages == nil) {
+                await createOutputs()
+                collages = project.projectData
+            }
         }.padding()
+    }
+    
+    nonisolated func createOutputs() async {
+        let _ = await project.createJSON()
+        print("here")
     }
 }
 

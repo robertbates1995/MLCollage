@@ -13,13 +13,13 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            Tab("Inputs", systemImage: "rightArrow") {
+            Tab("Inputs", systemImage: "square.and.arrow.down.on.square") {
                 AllSubjectsView(model: $project.inputModel)
             }
-            Tab("Settings", systemImage: "page") {
+            Tab("Settings", systemImage: "gearshape") {
                 SettingsView(settings: $project.settings)
             }
-            Tab("Output", systemImage: "pencil") {
+            Tab("Output", systemImage: "text.below.photo") {
                 OutputsView(project: $project)
             }
         }
