@@ -16,10 +16,10 @@ struct ContentView: View {
             Tab("Inputs", systemImage: "rightArrow") {
                 AllSubjectsView(model: $project.inputModel)
             }
-            Tab("settings", systemImage: "page") {
+            Tab("Settings", systemImage: "page") {
                 SettingsView(settings: $project.settings)
             }
-            Tab("output", systemImage: "pencil") {
+            Tab("Output", systemImage: "pencil") {
                 OutputsView(project: $project)
             }
         }

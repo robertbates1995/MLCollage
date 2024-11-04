@@ -205,11 +205,7 @@ struct Modification {
 //make backgrounds into subjects
 
 extension Project {
-    static let mock =  Project(projectData: [Collage.create(subject: Subject(image: CIImage(image: .apple1)!, label: "MockLabel1"),
-                                                            background: CIImage(image: .crazyBackground1)!, title: "MockTitle1"),
-                                             Collage.create(subject: Subject(image: CIImage(image: .apple2)!, label: "MockLabel2"),
-                                                            background: CIImage(image: .crazyBackground1)!, title: "MockTitle2")],
-                               subjects: [Subject(image: CIImage(image: .apple1)!, label: "MockLabel1"),
+    static let mock =  Project(subjects: [Subject(image: CIImage(image: .apple1)!, label: "MockLabel1"),
                                           Subject(image: CIImage(image: .apple2)!, label: "MockLabel2"),
                                           Subject(image: CIImage(image: .apple3)!, label: "MockLabel3"),],
                                backgrounds: [Subject(image: CIImage(image: .crazyBackground1)!, label: "MockBackground1"),

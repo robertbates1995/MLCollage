@@ -31,20 +31,19 @@ struct SubjectView: View {
     var body: some View {
         VStack {
             Text(label)
-                HStack {
-                    ForEach(images, id: \.self) { image in
-                        Image(uiImage: image)
-                            .resizable()
-                            .padding()
-                            .aspectRatio(contentMode: .fill)
-                            .background(Color(.gray.withAlphaComponent(0.2)))
-                            .clipShape(.rect(cornerRadius: 10))
-                            .padding(3)
-                    }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 50, maximum: 50))], spacing: 20) {
+                ForEach(images, id: \.self) { image in
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 50, height: 50)
+                        .background(Color.gray.opacity(0.5))
+                        .cornerRadius(10)
                 }
-                HStack {
-                    PhotosPicker("select photos", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .ordered)
-                }
+            }
+            HStack {
+                PhotosPicker("select photos", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .ordered)
+            }
         }
         .onChange(of: photosPickerItems) { _, _ in
             let localPhotosPickerItems = photosPickerItems

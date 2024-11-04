@@ -17,7 +17,8 @@ import UIKit
 //typealias ImageType = UIImage
 //#endif
 
-class Collage {
+class Collage: Identifiable {
+    let id = UUID()
     var image: CIImage
     var annotations: [CollageData.Annotation]
     
