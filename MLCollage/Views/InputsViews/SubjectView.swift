@@ -10,10 +10,10 @@ import UIKit
 import PhotosUI
 
 struct InputSubject {
-    let label: String
+    var label: String
     var images: [UIImage]
     
-    init(label: String, images: [UIImage]) {
+    init(label: String, images: [UIImage] = []) {
         self.label = label
         self.images = images
     }

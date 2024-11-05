@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NewSubjectView: View {
-    @Binding var subject: Subject
+    @Binding var subject: InputSubject
     
     var body: some View {
         Text("New Subject")
@@ -21,6 +21,6 @@ struct NewSubjectView: View {
 }
 
 #Preview {
-    @Previewable @State var model = Subject(image: CIImage(image: .apple1)!, label: "preview label")
+    @Previewable @State var model = InputSubject(label: "preview label")
     NewSubjectView(subject: $model)
 }

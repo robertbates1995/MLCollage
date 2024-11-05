@@ -11,6 +11,15 @@ import SwiftUI
 class InputModel {
     var subjects: [String: InputSubject]
     var backgrounds: [UIImage]
+    var newSubject: InputSubject {
+        var temp = InputSubject(label: "New Subject")
+        var counter = 2
+        while subjects.keys.contains(temp.label) {
+            temp = InputSubject(label: "New Subject \(counter)")
+            counter += 1
+        }
+        return temp
+    }
     
     init(subjects: [String : InputSubject], backgrounds: [UIImage]) {
         self.subjects = subjects
@@ -27,11 +36,14 @@ class InputModel {
         backgrounds.append(background)
     }
     
-    func add(subject: Subject?) {
-        if subject != nil {
-            let toAdd = subject!
-            subjects.updateValue(InputSubject(label: toAdd.label, images: [toAdd.image.toUIImage()]), forKey: toAdd.label)
+    func add(subject: InputSubject) {
+        var temp = subject.label
+        var counter = 2
+        while subjects.keys.contains(temp) {
+            temp = "\(subject.label) \(counter)"
+            counter += 1
         }
+        subjects[temp] = InputSubject(label: temp, images: subject.images)
     }
 }
 
