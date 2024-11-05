@@ -10,6 +10,7 @@ import SwiftUI
 struct AllSubjectsView: View {
     @Binding var model: InputModel
     @State var addingSubject: Bool = false
+    @State var newSubject: Subject? = nil
     
     var body: some View {
         List {
@@ -23,9 +24,16 @@ struct AllSubjectsView: View {
             Button("Add Subject") {
                 addingSubject.toggle()
             }
-        }.sheet(isPresented: $addingSubject) {
+        }.sheet(isPresented: $addingSubject, onDismiss: didDismiss) {
             NewSubjectView()
         }
+    }
+    
+    func didDismiss() {
+        if newSubject != nil {
+            model.add(subject: newSubject!)
+        }
+        newSubject = nil
     }
 }
 

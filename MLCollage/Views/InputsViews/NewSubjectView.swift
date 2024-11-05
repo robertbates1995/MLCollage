@@ -8,11 +8,18 @@
 import SwiftUI
 
 struct NewSubjectView: View {
-    @State var newSubject: String = "New Subject"
+    @State var title: String = "New Subject"
     
     var body: some View {
         Text("New Subject")
             .font(.largeTitle)
-        TextField("new subject", text: $newSubject)
+        TextField("new subject", text: $title)
+            .onSubmit {
+                
+            }
     }
+}
+
+#Preview {
+    NewSubjectView()
 }

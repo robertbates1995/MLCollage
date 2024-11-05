@@ -26,6 +26,10 @@ class InputModel {
     func add(background: UIImage) {
         backgrounds.append(background)
     }
+    
+    func add(subject: Subject) {
+        
+    }
 }
 
 extension InputModel {
