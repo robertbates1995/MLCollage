@@ -27,14 +27,6 @@ struct AllSubjectsView: View {
             NewSubjectView()
         }
     }
-    
-    struct NewSubjectView: View {
-        @State var newSubject: String = "New Subject"
-        
-        var body: some View {
-            TextField("new subject", text: $newSubject)
-        }
-    }
 }
 
 #Preview {
