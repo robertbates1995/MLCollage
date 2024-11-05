@@ -27,8 +27,11 @@ class InputModel {
         backgrounds.append(background)
     }
     
-    func add(subject: Subject) {
-        
+    func add(subject: Subject?) {
+        if subject != nil {
+            let toAdd = subject!
+            subjects.updateValue(InputSubject(label: toAdd.label, images: [toAdd.image.toUIImage()]), forKey: toAdd.label)
+        }
     }
 }
 

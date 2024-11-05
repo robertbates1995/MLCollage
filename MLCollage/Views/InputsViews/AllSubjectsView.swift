@@ -24,16 +24,10 @@ struct AllSubjectsView: View {
             Button("Add Subject") {
                 addingSubject.toggle()
             }
-        }.sheet(isPresented: $addingSubject, onDismiss: didDismiss) {
-            NewSubjectView()
+        }.sheet(isPresented: $addingSubject,
+                onDismiss: {model.add(subject: newSubject)}) {
+            NewSubjectView(subject: $newSubject)
         }
-    }
-    
-    func didDismiss() {
-        if newSubject != nil {
-            model.add(subject: newSubject!)
-        }
-        newSubject = nil
     }
 }
 
