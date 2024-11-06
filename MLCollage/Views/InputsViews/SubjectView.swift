@@ -20,13 +20,11 @@ struct InputSubject {
 }
 
 
-
 struct SubjectView: View {
     let label: String
 #warning("todo: transfer 'images' to model")
     @State var images: [UIImage] = []
     @State var photosPickerItems: [PhotosPickerItem] = []
-    let action: (UIImage) -> ()
     
     var body: some View {
         VStack {
@@ -59,6 +57,14 @@ struct SubjectView: View {
                 }
             }
         }
+    }
+}
+
+extension SubjectView {
+    init(subject: InputSubject) {
+        self.label = subject.label
+        self.images = subject.images
+        self.photosPickerItems = []
     }
 }
 

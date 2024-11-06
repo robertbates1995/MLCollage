@@ -11,16 +11,24 @@ struct NewSubjectView: View {
     @Binding var subject: InputSubject
     
     var body: some View {
-        Text("New Subject")
+        Text("Enter New Subject")
             .font(.largeTitle)
-        TextField("new subject", text: $subject.label)
-            .onSubmit {
-                
-            }
+        Divider()
+        HStack {
+            Text("Label: ")
+            TextField("new subject", text: $subject.label)
+                .padding()
+                .background(Color.black.opacity(0.1))
+        }
+        .padding()
+        List {
+            //SubjectView(subject: subject)
+        }
+        Spacer()
     }
 }
 
 #Preview {
-    @Previewable @State var model = InputSubject(label: "preview label")
+    @Previewable @State var model = InputSubject(label: "")
     NewSubjectView(subject: $model)
 }
