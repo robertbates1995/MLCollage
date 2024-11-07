@@ -40,7 +40,6 @@ final class CollageTests: XCTestCase {
     let background6 = CIImage(image: .crazyBackground3)!
     
     lazy var sut = Project(subjects: [subject1, subject2, subject3, subject4, subject5, subject6, subject7, subject8],
-                           backgrounds: [background1, background2, background3, background4, background5, background6],
                            title: "test")
     let recording = false //change to toggle global recording of test results
     

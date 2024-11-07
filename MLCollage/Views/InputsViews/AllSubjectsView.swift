@@ -16,11 +16,9 @@ struct AllSubjectsView: View {
     var body: some View {
         List {
             ForEach(model.subjects.sorted(by: {$0.key < $1.key}), id: \.key) { (key, subject) in
-                SubjectView(label: key, images: subject.images) { image in model.add(image: image, label: key)
-                }
+                SubjectView(label: key, images: subject.images)
             }
-            SubjectView(label: "backgrounds", images: model.backgrounds) { image in model.add(background: image)
-            }
+            SubjectView(label: "backgrounds", images: model.backgrounds)
         }
         .padding()
         HStack {
