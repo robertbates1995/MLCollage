@@ -21,14 +21,15 @@ struct InputSubject {
 
 
 struct SubjectView: View {
-    let label: String
-#warning("todo: transfer 'images' to model")
-    @State var images: [UIImage] = []
     @State var photosPickerItems: [PhotosPickerItem] = []
+    @Binding var images: [UIImage]
+    
+    func addImage(_ image: UIImage) {
+        images.append(image)
+    }
     
     var body: some View {
         VStack {
-            Text(label)
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20) {
                 ForEach(images, id: \.self) { image in
                     Image(uiImage: image)
@@ -50,8 +51,7 @@ struct SubjectView: View {
                 for item in localPhotosPickerItems {
                     if let data = try? await item.loadTransferable(type: Data.self) {
                         if let image = UIImage(data: data) {
-#warning("todo: make action use localPhotosPickerItems")
-                            images.append(image)
+                            addImage(image)
                         }
                     }
                 }
@@ -60,15 +60,7 @@ struct SubjectView: View {
     }
 }
 
-extension SubjectView {
-    init(subject: InputSubject) {
-        self.label = subject.label
-        self.images = subject.images
-        self.photosPickerItems = []
-    }
-}
-
 #Preview {
-    @Previewable @State var model = InputModel(subjects: ["apple": InputSubject(label: "apple", images: [UIImage(systemName: "plus")!, UIImage(systemName: "minus")!])], backgrounds: [UIImage(systemName: "house")!])
+    @Previewable @State var model = InputModel.mock
     AllSubjectsView(model: $model)
 }

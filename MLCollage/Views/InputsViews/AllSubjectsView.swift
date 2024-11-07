@@ -16,9 +16,14 @@ struct AllSubjectsView: View {
     var body: some View {
         List {
             ForEach(model.subjects.sorted(by: {$0.key < $1.key}), id: \.key) { (key, subject) in
-                SubjectView(label: key, images: subject.images)
+                var subject = model.subjects[key]!
+                SubjectView(images: Binding(get: {subject.images},
+                                            set: {
+                    subject.images = $0
+                    model.subjects[key] = subject
+                }))
             }
-            SubjectView(label: "backgrounds", images: model.backgrounds)
+            SubjectView(images: $model.backgrounds)
         }
         .padding()
         HStack {
@@ -41,5 +46,3 @@ struct AllSubjectsView: View {
     @Previewable @State var model = InputModel.mock
     AllSubjectsView(model: $model)
 }
-
-
