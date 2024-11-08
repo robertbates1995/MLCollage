@@ -1,66 +1,63 @@
-////
-////  CollageFactory.swift
-////  MLCollage
-////
-////  Created by Robert Bates on 11/8/24.
-////
 //
-//import UIKit
-//import CoreImage
+//  CollageFactory.swift
+//  MLCollage
 //
-//struct CollageFactory {
-//    let mod: Modification
-//    let backgroundSize: CGSize
-//    let subject: UIImage
-//    
-//    static func create(subject: Subject, background: CIImage, title: String) -> Collage {
-//        //create one annotation and one Collage in this step
-//        var collage = background
-//        var annotations = [CollageData.Annotation]()
-//        collage = subject.image.composited(over: background).cropped(to: background.extent)
-//        annotations.append(CollageData.Annotation(label: subject.label, coordinates: .init(subject.image.extent, backgroundHeight: collage.extent.height)))
-//        return Collage(image: collage, annotations: annotations)
-//    }
-//    
-//    //modify must return copy of subject without changing OG
-//    func modify() -> Collage {
-//        var temp = self
-//        
-//        ///
-//        let sourceImage = temp.image
-//        let resizeFilter = CIFilter(name:"CILanczosScaleTransform")!
+//  Created by Robert Bates on 11/8/24.
 //
-//        // Desired output size
-//        let targetSize = CGSize(width: 50, height: backgroundSize.height/2)
-//
-//        // Compute scale and corrective aspect ratio
-//        let scale = targetSize.height / (sourceImage.extent.height)
-//
-//        // Apply resizing
-//        resizeFilter.setValue(sourceImage, forKey: kCIInputImageKey)
-//        resizeFilter.setValue(scale, forKey: kCIInputScaleKey)
-//        let outputImage = resizeFilter.outputImage
-//        temp.image = outputImage!
-//        ///
-//        
-//
-//        var extent = temp.image.extent
-//        temp.image = temp.image.transformed(by: .init(translationX: -extent.width / 2, y: -extent.height / 2))
-//        extent = temp.image.extent
-//        temp.image = temp.image.transformed(by: .init(rotationAngle: mod.rotate))
-//        extent = temp.image.extent
-//        temp.image = temp.image.transformed(by: .init(translationX: extent.width / 2, y: extent.height / 2))
-//        extent = temp.image.extent
-//        temp.image = temp.image.transformed(by: .init(scaleX: mod.scale, y: mod.scale))
-//        extent = temp.image.extent
-//        if mod.flipY {
-//            temp.image = temp.image.oriented(.downMirrored)
-//        }
-//        if mod.flipX {
-//            temp.image = temp.image.oriented(.upMirrored)
-//        }
-//        extent = temp.image.extent
-//        temp.image = temp.image.transformed(by: .init(translationX: mod.translateX * (backgroundSize.width - extent.width), y: mod.translateY * (backgroundSize.height - extent.height)))
-//        return temp
-//    }
-//}
+
+import UIKit
+import CoreImage
+
+struct CollageFactory {
+    let mod: Modification
+    let subject: UIImage
+    let background: UIImage
+    let label: String
+    
+    //create one annotation and returns one Collage
+    func create() -> Collage {
+        var background = background.toCIImage()
+        var subject = subject.toCIImage()
+
+        rotate(&subject)
+        
+        scale(&subject)
+        
+        flip(&subject)
+        
+        translate(background, &subject)
+        
+        let collage = subject.composited(over: background).cropped(to: background.extent)
+        let annotation = CollageData.Annotation(label: label, coordinates: .init(subject.extent, backgroundHeight: collage.extent.height))
+        return Collage(image: collage, annotations: [annotation])
+    }
+    
+    
+    private func rotate(_ subject: inout CIImage) {
+        var subjectSize = subject.extent
+        subject = subject.transformed(by: .init(translationX: -subjectSize.width / 2, y: -subjectSize.height / 2))
+        subjectSize = subject.extent
+        subject = subject.transformed(by: .init(rotationAngle: mod.rotate))
+        subjectSize = subject.extent
+        subject = subject.transformed(by: .init(translationX: subjectSize.width / 2, y: subjectSize.height / 2))
+    }
+    
+    private func flip(_ subject: inout CIImage) {
+        if mod.flipY {
+            subject = subject.oriented(.downMirrored)
+        }
+        if mod.flipX {
+            subject = subject.oriented(.upMirrored)
+        }
+    }
+    
+    private func scale(_ subject: inout CIImage) {
+        subject = subject.transformed(by: .init(scaleX: mod.scale, y: mod.scale))
+    }
+    
+    private func translate(_ background: CIImage, _ subject: inout CIImage) {
+        var subjectSize = subject.extent
+        let backgroundSize = background.extent
+        subject = subject.transformed(by: .init(translationX: mod.translateX * (backgroundSize.width - subjectSize.width), y: mod.translateY * (backgroundSize.height - subjectSize.height)))
+    }
+}

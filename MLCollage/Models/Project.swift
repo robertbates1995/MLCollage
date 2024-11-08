@@ -105,13 +105,13 @@ class Project {
     
     func createCollageSet() -> [Collage] {
         var set = [Collage]()
-        for x in inputModel.subjects.values {
+        for subject in inputModel.subjects.values {
             for mod in createModList() {
-                guard let background = inputModel.backgrounds.randomElement()?.toCIImage() else {
+                guard let background = inputModel.backgrounds.randomElement(), let image = subject.images.randomElement() else {
                     continue
                 }
-//                let modifiedSubject = x.modify(mod: mod, backgroundSize: background.extent.size)
-//                set.append(Collage.create(subject: modifiedSubject, background: background, title: "\(title)"))
+                let factory = CollageFactory(mod: mod, subject: image, background: background, label: subject.label)
+                set.append(factory.create())
             }
         }
         return set
