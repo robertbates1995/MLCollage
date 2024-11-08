@@ -26,15 +26,6 @@ class Collage: Identifiable {
         self.image = image
         self.annotations = annotations
     }
-    
-    static func create(subject: Subject, background: CIImage, title: String) -> Collage {
-        //create one annotation and one Collage in this step
-        var collage = background
-        var annotations = [CollageData.Annotation]()
-        collage = subject.image.composited(over: background).cropped(to: background.extent)
-        annotations.append(CollageData.Annotation(label: subject.label, coordinates: .init(subject.image.extent, backgroundHeight: collage.extent.height)))
-        return Collage(image: collage, annotations: annotations)
-    }
 }
 
 //CIImage for manipulation

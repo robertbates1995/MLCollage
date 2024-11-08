@@ -11,7 +11,7 @@ struct AllSubjectsView: View {
     @Binding var model: InputModel
     @State var addNewSubject: Bool = false
     @State var editSubject: Bool = false
-    @State var newSubject: InputSubject = InputSubject(label: "New Subject")
+    @State var newSubject: Subject = Subject(label: "New Subject")
     
     var body: some View {
         List {

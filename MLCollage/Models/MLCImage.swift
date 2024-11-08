@@ -8,9 +8,6 @@
 import UIKit
 
 struct MLCImage: Identifiable {
-    //id should be the file name
     var id: String = ""
     var uiImage: UIImage
-    var cgImage: CGImage
-    //nsImage: NSImage (use for macOS)
 }

@@ -9,25 +9,25 @@ import SwiftUI
 
 @Observable
 class InputModel {
-    var subjects: [String: InputSubject]
+    var subjects: [String: Subject]
     var backgrounds: [UIImage]
-    var newSubject: InputSubject {
-        var temp = InputSubject(label: "New Subject")
+    var newSubject: Subject {
+        var temp = Subject(label: "New Subject")
         var counter = 2
         while subjects.keys.contains(temp.label) {
-            temp = InputSubject(label: "New Subject \(counter)")
+            temp = Subject(label: "New Subject \(counter)")
             counter += 1
         }
         return temp
     }
     
-    init(subjects: [String : InputSubject], backgrounds: [UIImage]) {
+    init(subjects: [String : Subject], backgrounds: [UIImage]) {
         self.subjects = subjects
         self.backgrounds = backgrounds
     }
     
     func add(image: UIImage, label: String) {
-        var subject = subjects[label] ?? InputSubject(label: label, images: [])
+        var subject = subjects[label] ?? Subject(label: label, images: [])
         subject.images.append(image)
         subjects[label] = subject
     }
@@ -36,14 +36,14 @@ class InputModel {
         backgrounds.append(background)
     }
     
-    func add(subject: InputSubject) {
+    func add(subject: Subject) {
         var temp = subject.label
         var counter = 2
         while subjects.keys.contains(temp) {
             temp = "\(subject.label) \(counter)"
             counter += 1
         }
-        subjects[temp] = InputSubject(label: temp, images: subject.images)
+        subjects[temp] = Subject(label: temp, images: subject.images)
     }
 }
 

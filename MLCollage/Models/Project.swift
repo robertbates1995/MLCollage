@@ -9,22 +9,21 @@ import Foundation
 import UIKit
 import SwiftUI
 
+
+
 @Observable
 class Project {
     var projectData: [Collage]
-    var subjects: [Subject]
     var title: String
     var settings: ProjectSettings
     var inputModel: InputModel
     
     init(projectData: [Collage] = [],
-         subjects: [Subject] = [],
          title: String = "project title",
          settings: ProjectSettings = ProjectSettings(),
          inputModel: InputModel = InputModel(subjects: [:], backgrounds: [])
     ) {
         self.projectData = projectData
-        self.subjects = subjects
         self.title = title
         self.settings = settings
         self.inputModel = inputModel
@@ -42,11 +41,6 @@ class Project {
         let url = url.deletingLastPathComponent()
         let manager = FileManager.default
         self.projectData = []
-        self.subjects = try manager.contentsOfDirectory(atPath: url.appending(path: "subjects").path).flatMap { label in
-            try manager.contentsOfDirectory(atPath: url.appending(path:"subjects/\(label)").path).map { image in
-                Subject(image: UIImage(contentsOfFile: url.appending(path:"subjects/\(label)/\(image)").path)!.toCIImage(), label: label)
-            }
-        }
         let backgrounds = try manager.contentsOfDirectory(atPath: url.appending(path:"backgrounds").path).compactMap { fileName in
             UIImage(contentsOfFile: url.appending(path:"backgrounds/\(fileName)").path)
         }
@@ -111,13 +105,13 @@ class Project {
     
     func createCollageSet() -> [Collage] {
         var set = [Collage]()
-        for x in subjects {
+        for x in inputModel.subjects.values {
             for mod in createModList() {
                 guard let background = inputModel.backgrounds.randomElement()?.toCIImage() else {
                     continue
                 }
-                let modifiedSubject = x.modify(mod: mod, backgroundSize: background.extent.size)
-                set.append(Collage.create(subject: modifiedSubject, background: background, title: "\(title)"))
+//                let modifiedSubject = x.modify(mod: mod, backgroundSize: background.extent.size)
+//                set.append(Collage.create(subject: modifiedSubject, background: background, title: "\(title)"))
             }
         }
         return set
@@ -182,23 +176,12 @@ class Project {
     }
 }
 
-struct Modification {
-    var translateX: CGFloat = 0.0
-    var translateY: CGFloat = 0.0
-    var scale: CGFloat = 1.0
-    var rotate: CGFloat = 0.0
-    var flipX: Bool = false
-    var flipY: Bool = false
-}
+
 
 //make backgrounds into subjects
 
 extension Project {
-    static let mock =  Project(subjects: [Subject(image: CIImage(image: .apple1)!, label: "MockLabel1"),
-                                          Subject(image: CIImage(image: .apple2)!, label: "MockLabel2"),
-                                          Subject(image: CIImage(image: .apple3)!, label: "MockLabel3"),],
-                               title: "MockProject",
+    static let mock =  Project(title: "MockProject",
                                settings: .init(),
-                               inputModel: InputModel.mock
-    )
+                               inputModel: InputModel.mock)
 }

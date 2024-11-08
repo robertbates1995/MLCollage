@@ -24,7 +24,7 @@ final class InputModelTests: XCTestCase {
     }
     
     func testAddImage() {
-        var subject = InputSubject(label: "test")
+        var subject = Subject(label: "test")
         let image = UIImage(resource: .apple1)
         let view = SubjectView(images: Binding(get: {subject.images}, set: {subject.images = $0}))
         view.addImage(image)

@@ -9,17 +9,6 @@ import SwiftUI
 import UIKit
 import PhotosUI
 
-struct InputSubject {
-    var label: String
-    var images: [UIImage]
-    
-    init(label: String, images: [UIImage] = []) {
-        self.label = label
-        self.images = images
-    }
-}
-
-
 struct SubjectView: View {
     @State var photosPickerItems: [PhotosPickerItem] = []
     @Binding var images: [UIImage]
@@ -61,6 +50,6 @@ struct SubjectView: View {
 }
 
 #Preview {
-    @Previewable @State var model = InputModel.mock
-    AllSubjectsView(model: $model)
+    @Previewable @State var model = InputModel.mock.backgrounds
+    SubjectView(images: $model)
 }
