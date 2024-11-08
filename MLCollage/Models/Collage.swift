@@ -5,9 +5,10 @@
 //  Created by Robert Bates on 7/16/24.
 //
 
-import Foundation
 import CoreImage
+import Foundation
 import UIKit
+
 //#if os(macOS)
 //import AppKit
 //typealias ImageType = NSImage
@@ -19,15 +20,23 @@ import UIKit
 
 class Collage: Identifiable {
     let id = UUID()
-    var image: CIImage
-    var annotations: [CollageData.Annotation]
-    
-    init(image: CIImage, annotations: [CollageData.Annotation]) {
+    var image: UIImage
+    var json: CollageData
+
+    init(image: UIImage, json: CollageData) {
         self.image = image
-        self.annotations = annotations
+        self.json = json
     }
 }
 
-//CIImage for manipulation
-//UIImage for ios
-//NSImage for mac
+extension Array where Element == Collage {
+    var json: Data {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .init(arrayLiteral: [
+            .prettyPrinted, .sortedKeys,
+        ])
+        let output = try! encoder.encode(self.map(\.json))
+        return output
+    }
+}
+

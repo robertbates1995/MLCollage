@@ -84,34 +84,17 @@ class Project {
         }
     }
     
-    func export(to url: URL) {
-        var count = 0
-        do {
-            try createJSON().write(to: url.appending(path:"anotations.json"))
-        } catch {
-            print("Unable to write image data to disk")
-        }
-        for i in outputModel.projectData {
-            if let data = UIImage(ciImage: i.image).pngData() {
-                do {
-                    try data.write(to: url.appending(path:"\(count).png"))
-                    count += 1
-                } catch {
-                    print("Unable to save image to disk")
-                }
-            }
-        }
-    }
-    
     func createCollageSet() -> [Collage] {
         var set = [Collage]()
         for subject in inputModel.subjects.values {
+            var count = 1
             for mod in createModList() {
                 guard let background = inputModel.backgrounds.randomElement(), let image = subject.images.randomElement() else {
                     continue
                 }
-                let factory = CollageFactory(mod: mod, subject: image, background: background, label: subject.label)
+                let factory = CollageFactory(mod: mod, subject: image, background: background, label: subject.label, fileName: "\(subject.label)_\(count).png")
                 set.append(factory.create())
+                count += 1
             }
         }
         return set
@@ -159,19 +142,6 @@ class Project {
             mod.translateY = CGFloat.random(in: settings.translateLowerBound..<settings.translateUpperBound)
         }
         return mod
-    }
-    
-    func createJSON() -> Data  {
-        outputModel.projectData = createCollageSet()
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
-        var count = 0
-        let annotationArray = outputModel.projectData.map {
-            count += 1
-            return CollageData(annotation: $0.annotations, imagefilename: "\(count - 1).png")
-        }
-        let output = try! encoder.encode(annotationArray)
-        return output
     }
 }
 

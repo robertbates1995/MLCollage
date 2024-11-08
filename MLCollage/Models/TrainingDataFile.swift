@@ -11,29 +11,24 @@ import UniformTypeIdentifiers
 
 struct TrainingDataFile: FileDocument {
     static let readableContentTypes: [UTType] = [.json, .png]
-    let project: Project
-    
-    init(project: Project) {
-        self.project = project
-    }
-    
-    init(configuration: ReadConfiguration) throws {
-        fatalError()
-    }
+    let collages: [Collage]
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let json = project.createJSON()
-        let images = project.outputModel.projectData
-        var temp = ["project.json": FileWrapper(regularFileWithContents: json)]
+        var fileStructure = ["project.json": FileWrapper(regularFileWithContents: collages.json)]
         var count = 0
         
-        for i in images {
-            if let data = UIImage(ciImage: i.image).pngData() {
-                temp["\(count).png"] = FileWrapper(regularFileWithContents: data)
+        for i in collages {
+            if let data = i.image.pngData() {
+                fileStructure["\(count).png"] = FileWrapper(regularFileWithContents: data)
                 count += 1
             }
         }
-        
-        return FileWrapper(directoryWithFileWrappers: temp)
+        return FileWrapper(directoryWithFileWrappers: fileStructure)
+    }
+}
+
+extension TrainingDataFile {
+    init(configuration: ReadConfiguration) throws {
+        fatalError()
     }
 }

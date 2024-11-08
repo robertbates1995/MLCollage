@@ -13,6 +13,7 @@ struct CollageFactory {
     let subject: UIImage
     let background: UIImage
     let label: String
+    let fileName: String
     
     //create one annotation and returns one Collage
     func create() -> Collage {
@@ -29,7 +30,7 @@ struct CollageFactory {
         
         let collage = subject.composited(over: background).cropped(to: background.extent)
         let annotation = CollageData.Annotation(label: label, coordinates: .init(subject.extent, backgroundHeight: collage.extent.height))
-        return Collage(image: collage, annotations: [annotation])
+        return Collage(image: collage.toUIImage(), json: .init(annotation: [annotation], imagefilename: fileName))
     }
     
     
