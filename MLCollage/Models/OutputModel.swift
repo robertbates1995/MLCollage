@@ -9,7 +9,11 @@ import SwiftUI
 
 @Observable
 class OutputModel {
+    var projectData: [Collage]
     
+    init(projectData: [Collage] = []) {
+        self.projectData = projectData
+    }
 }
 
 extension OutputModel {

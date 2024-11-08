@@ -36,7 +36,7 @@ struct OutputsView: View {
         }.task {
             if (collages == nil) {
                 await createOutputs()
-                collages = project.projectData
+                collages = project.outputModel.projectData
             }
         }.padding()
     }

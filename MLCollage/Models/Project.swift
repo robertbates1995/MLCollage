@@ -13,20 +13,20 @@ import SwiftUI
 
 @Observable
 class Project {
-    var projectData: [Collage]
     var title: String
     var settings: ProjectSettings
     var inputModel: InputModel
+    var outputModel: OutputModel
     
-    init(projectData: [Collage] = [],
-         title: String = "project title",
+    init(title: String = "project title",
          settings: ProjectSettings = ProjectSettings(),
-         inputModel: InputModel = InputModel(subjects: [:], backgrounds: [])
+         inputModel: InputModel = InputModel(subjects: [:], backgrounds: []),
+         outputModel: OutputModel = OutputModel()
     ) {
-        self.projectData = projectData
         self.title = title
         self.settings = settings
         self.inputModel = inputModel
+        self.outputModel = outputModel
     }
     
     init(url: URL) throws {
@@ -40,11 +40,11 @@ class Project {
         self.settings = try JSONDecoder().decode(ProjectSettings.self, from: data)
         let url = url.deletingLastPathComponent()
         let manager = FileManager.default
-        self.projectData = []
         let backgrounds = try manager.contentsOfDirectory(atPath: url.appending(path:"backgrounds").path).compactMap { fileName in
             UIImage(contentsOfFile: url.appending(path:"backgrounds/\(fileName)").path)
         }
         inputModel = InputModel(subjects: [:], backgrounds: backgrounds)
+        outputModel = OutputModel()
     }
     
     func save(to url: URL) {
@@ -91,7 +91,7 @@ class Project {
         } catch {
             print("Unable to write image data to disk")
         }
-        for i in projectData {
+        for i in outputModel.projectData {
             if let data = UIImage(ciImage: i.image).pngData() {
                 do {
                     try data.write(to: url.appending(path:"\(count).png"))
@@ -162,16 +162,15 @@ class Project {
     }
     
     func createJSON() -> Data  {
-        projectData = createCollageSet()
+        outputModel.projectData = createCollageSet()
         let encoder = JSONEncoder()
         encoder.outputFormatting = .init(arrayLiteral: [.prettyPrinted, .sortedKeys])
         var count = 0
-        let annotationArray = projectData.map {
+        let annotationArray = outputModel.projectData.map {
             count += 1
             return CollageData(annotation: $0.annotations, imagefilename: "\(count - 1).png")
         }
         let output = try! encoder.encode(annotationArray)
-        //return as data(using: .utf8)!
         return output
     }
 }
