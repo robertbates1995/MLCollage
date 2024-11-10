@@ -12,9 +12,6 @@ struct OutputsView: View {
     @Binding var project: Project
     @State var collages: [Collage]?
     @State var showingExporter = false
-    #warning(
-        "todo: use the following to create a slider to dictate minimum photo size"
-    )
     @State var minSize: CGFloat = 100.0
 
     var body: some View {

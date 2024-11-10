@@ -17,7 +17,7 @@ struct CollageFactory {
     
     //create one annotation and returns one Collage
     func create() -> Collage {
-        var background = background.toCIImage()
+        let background = background.toCIImage()
         var subject = subject.toCIImage()
 
         rotate(&subject)
@@ -29,7 +29,7 @@ struct CollageFactory {
         translate(background, &subject)
         
         let collage = subject.composited(over: background).cropped(to: background.extent)
-        let annotation = CollageData.Annotation(label: label, coordinates: .init(subject.extent, backgroundHeight: collage.extent.height))
+        let annotation = Annotation(label: label, coordinates: .init(subject.extent, backgroundHeight: collage.extent.height))
         return Collage(image: collage.toUIImage(), json: .init(annotation: [annotation], imagefilename: fileName))
     }
     
@@ -57,7 +57,7 @@ struct CollageFactory {
     }
     
     private func translate(_ background: CIImage, _ subject: inout CIImage) {
-        var subjectSize = subject.extent
+        let subjectSize = subject.extent
         let backgroundSize = background.extent
         subject = subject.transformed(by: .init(translationX: mod.translateX * (backgroundSize.width - subjectSize.width), y: mod.translateY * (backgroundSize.height - subjectSize.height)))
     }
