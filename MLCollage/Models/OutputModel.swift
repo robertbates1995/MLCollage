@@ -13,11 +13,17 @@ class OutputModel {
     var collages: [Collage]
     var canExport: Bool { state == .ready}
     var state = State.needsUpdate
-    var factories: [CollageBlueprint] = [] {
+    var blueprints: [CollageBlueprint] = [] {
         didSet {
             state = .needsUpdate
             collages.removeAll()
         }
+    }
+    var progress: CGFloat? {
+        guard blueprints.count > 0 else {
+            return nil
+        }
+        return CGFloat(collages.count) / CGFloat(blueprints.count)
     }
     
     enum State {
@@ -29,7 +35,7 @@ class OutputModel {
     init(collages: [Collage], state: State = State.needsUpdate, factories: [CollageBlueprint]) {
         self.collages = collages
         self.state = state
-        self.factories = factories
+        self.blueprints = factories
     }
     
     func updateIfNeeded() {
@@ -38,7 +44,7 @@ class OutputModel {
         }
         state = .loading
         Task {
-            for blueprint in factories {
+            for blueprint in blueprints {
                 collages.append(blueprint.create())
                 await Task.yield()
             }

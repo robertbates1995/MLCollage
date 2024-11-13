@@ -127,7 +127,7 @@ class Project {
                 count += 1
             }
         }
-        outputModel.factories = set
+        outputModel.blueprints = set
     }
 
     func createModList(modifications: [Modification] = [Modification()])

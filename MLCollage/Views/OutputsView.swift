@@ -37,6 +37,10 @@ struct OutputsView: View {
                 ) { _ in
                     
                 }
+            } else {
+                if let progress = model.progress {
+                    ProgressView()
+                }
             }
         }.task {
             model.updateIfNeeded()
