@@ -10,7 +10,6 @@ import UIKit
 import SwiftUI
 
 
-
 @Observable
 class Project {
     var title: String
