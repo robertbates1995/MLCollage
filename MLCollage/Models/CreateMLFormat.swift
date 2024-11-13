@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CollageData: Codable, Equatable {
+struct CreateMLFormat: Codable, Equatable {
     var annotation: [Annotation]
     var imagefilename: String
     

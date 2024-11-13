@@ -14,7 +14,7 @@
 		7A0690CC2CD0322300745674 /* TrainingDataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0690CB2CD0322300745674 /* TrainingDataFile.swift */; };
 		7A0A08CA2CD9FE2D001FC1DA /* NewSubjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08C92CD9FE19001FC1DA /* NewSubjectView.swift */; };
 		7A0A08DC2CE559C7001FC1DA /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08D82CE559C7001FC1DA /* Annotation.swift */; };
-		7A0A08DD2CE559C7001FC1DA /* CollageFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08D92CE559C7001FC1DA /* CollageFactory.swift */; };
+		7A0A08DD2CE559C7001FC1DA /* CollageBlueprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08D92CE559C7001FC1DA /* CollageBlueprint.swift */; };
 		7A0A08DE2CE559C7001FC1DA /* Modification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08DA2CE559C7001FC1DA /* Modification.swift */; };
 		7A0A08DF2CE559C7001FC1DA /* OutputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08DB2CE559C7001FC1DA /* OutputModel.swift */; };
 		7A4FB6962CB06BED0058B6BC /* UIImage+CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4FB6952CB06BED0058B6BC /* UIImage+CIImage.swift */; };
@@ -28,7 +28,7 @@
 		7A8E35412C585E8A00B386EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8E35402C585E8A00B386EF /* Assets.xcassets */; };
 		7A8E35462C585E8A00B386EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8E35452C585E8A00B386EF /* Preview Assets.xcassets */; };
 		7A8E35702C5860D200B386EF /* Collage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E35682C5860D200B386EF /* Collage.swift */; };
-		7A8E35722C5860D200B386EF /* CollageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E356A2C5860D200B386EF /* CollageData.swift */; };
+		7A8E35722C5860D200B386EF /* CreateMLFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E356A2C5860D200B386EF /* CreateMLFormat.swift */; };
 		7A8E35732C5860D200B386EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E356C2C5860D200B386EF /* ContentView.swift */; };
 		7AEA2EB22C586597001C6F89 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEA2EB12C586597001C6F89 /* InlineSnapshotTesting */; };
 		7AEA2EB42C586597001C6F89 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEA2EB32C586597001C6F89 /* SnapshotTesting */; };
@@ -53,7 +53,7 @@
 		7A0690CB2CD0322300745674 /* TrainingDataFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingDataFile.swift; sourceTree = "<group>"; };
 		7A0A08C92CD9FE19001FC1DA /* NewSubjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSubjectView.swift; sourceTree = "<group>"; };
 		7A0A08D82CE559C7001FC1DA /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
-		7A0A08D92CE559C7001FC1DA /* CollageFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageFactory.swift; sourceTree = "<group>"; };
+		7A0A08D92CE559C7001FC1DA /* CollageBlueprint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageBlueprint.swift; sourceTree = "<group>"; };
 		7A0A08DA2CE559C7001FC1DA /* Modification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modification.swift; sourceTree = "<group>"; };
 		7A0A08DB2CE559C7001FC1DA /* OutputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputModel.swift; sourceTree = "<group>"; };
 		7A4FB6952CB06BED0058B6BC /* UIImage+CIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CIImage.swift"; sourceTree = "<group>"; };
@@ -71,7 +71,7 @@
 		7A8E35452C585E8A00B386EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7A8E354B2C585E8A00B386EF /* MLCollageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MLCollageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A8E35682C5860D200B386EF /* Collage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collage.swift; sourceTree = "<group>"; };
-		7A8E356A2C5860D200B386EF /* CollageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollageData.swift; sourceTree = "<group>"; };
+		7A8E356A2C5860D200B386EF /* CreateMLFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMLFormat.swift; sourceTree = "<group>"; };
 		7A8E356C2C5860D200B386EF /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7AEA2EB52C5A9F2F001C6F89 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		7AEA2EB72C5AA59D001C6F89 /* CollageCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreatorTests.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				7A0A08D82CE559C7001FC1DA /* Annotation.swift */,
-				7A0A08D92CE559C7001FC1DA /* CollageFactory.swift */,
+				7A0A08D92CE559C7001FC1DA /* CollageBlueprint.swift */,
 				7A0A08DA2CE559C7001FC1DA /* Modification.swift */,
 				7A0A08DB2CE559C7001FC1DA /* OutputModel.swift */,
 				7A53E0B12CD6E7EE0094CEAE /* MLCImage.swift */,
@@ -168,7 +168,7 @@
 				7A4FB6952CB06BED0058B6BC /* UIImage+CIImage.swift */,
 				7AEA2EB52C5A9F2F001C6F89 /* Project.swift */,
 				7A8E35682C5860D200B386EF /* Collage.swift */,
-				7A8E356A2C5860D200B386EF /* CollageData.swift */,
+				7A8E356A2C5860D200B386EF /* CreateMLFormat.swift */,
 				7A02F8BC2C743A62006A894B /* Subject.swift */,
 				7A02F8BE2C8A8472006A894B /* ProjectSettings.swift */,
 				7A53E0AF2CD2BD530094CEAE /* InputModel.swift */,
@@ -308,14 +308,14 @@
 				7A0690CA2CC0340F00745674 /* HighLowSlider.swift in Sources */,
 				7A53E0B22CD6E8050094CEAE /* MLCImage.swift in Sources */,
 				7A8E35732C5860D200B386EF /* ContentView.swift in Sources */,
-				7A8E35722C5860D200B386EF /* CollageData.swift in Sources */,
+				7A8E35722C5860D200B386EF /* CreateMLFormat.swift in Sources */,
 				7A02F8BF2C8A8472006A894B /* ProjectSettings.swift in Sources */,
 				7A528B642CAF518900A30DB0 /* SubjectView.swift in Sources */,
 				7A0690CC2CD0322300745674 /* TrainingDataFile.swift in Sources */,
 				7A02F8BD2C743A62006A894B /* Subject.swift in Sources */,
 				7A8E353B2C585E8800B386EF /* MLCollageApp.swift in Sources */,
 				7A0A08DC2CE559C7001FC1DA /* Annotation.swift in Sources */,
-				7A0A08DD2CE559C7001FC1DA /* CollageFactory.swift in Sources */,
+				7A0A08DD2CE559C7001FC1DA /* CollageBlueprint.swift in Sources */,
 				7A0A08DE2CE559C7001FC1DA /* Modification.swift in Sources */,
 				7A0A08DF2CE559C7001FC1DA /* OutputModel.swift in Sources */,
 			);

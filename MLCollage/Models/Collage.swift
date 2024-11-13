@@ -21,9 +21,9 @@ import UIKit
 class Collage: Identifiable {
     let id = UUID()
     var image: UIImage
-    var json: CollageData
+    var json: CreateMLFormat
 
-    init(image: UIImage, json: CollageData) {
+    init(image: UIImage, json: CreateMLFormat) {
         self.image = image
         self.json = json
     }

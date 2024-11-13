@@ -8,7 +8,7 @@
 import UIKit
 import CoreImage
 
-struct CollageFactory {
+struct CollageBlueprint {
     let mod: Modification
     let subject: UIImage
     let background: UIImage

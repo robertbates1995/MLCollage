@@ -9,8 +9,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct OutputsView: View {
-    @Binding var project: Project
-    @State var collages: [Collage]?
+    @Binding var model: OutputModel
     @State var showingExporter = false
     @State var minSize: CGFloat = 100.0
 
@@ -21,41 +20,32 @@ struct OutputsView: View {
                     columns: [GridItem(.adaptive(minimum: minSize))],
                     spacing: 20
                 ) {
-                    if let collages {
-                        ForEach(collages) { collage in
-                            Image(uiImage: collage.image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                        }
+                    ForEach(model.collages) { collage in
+                        Image(uiImage: collage.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
                     }
                 }
             }
-            if let collages {
+            if model.canExport {
                 Button("export") {
                     showingExporter.toggle()
                 }.fileExporter(
                     isPresented: $showingExporter,
-                    document: TrainingDataFile(collages: collages),
+                    document: TrainingDataFile(collages: model.collages),
                     defaultFilename: "foo"
                 ) { _ in
-
+                    
                 }
             }
         }.task {
-            if collages == nil {
-                await createOutputs()
-                collages = project.outputModel.projectData
-            }
+            model.updateIfNeeded()
         }.padding()
-    }
-
-    nonisolated func createOutputs() async {
-        let _ = await project.createCollageSet()
     }
 }
 
 #Preview {
     //replace this with actual output photos
-    @Previewable @State var model = Project.mock
-    OutputsView(project: $model)
+    @Previewable @State var model = OutputModel.mock
+    OutputsView(model: $model)
 }

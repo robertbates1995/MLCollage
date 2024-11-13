@@ -20,7 +20,7 @@ struct ContentView: View {
                 SettingsView(settings: $project.settings)
             }
             Tab("Output", systemImage: "text.below.photo") {
-                OutputsView(project: $project)
+                OutputsView(model: $project.outputModel)
             }
         }
     }

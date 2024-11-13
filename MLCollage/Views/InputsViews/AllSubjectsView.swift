@@ -12,18 +12,26 @@ struct AllSubjectsView: View {
     @State var addNewSubject: Bool = false
     @State var editSubject: Bool = false
     @State var newSubject: Subject = Subject(label: "New Subject")
-    
+
     var body: some View {
         List {
-            ForEach(model.subjects.sorted(by: {$0.key < $1.key}), id: \.key) { (key, subject) in
+            ForEach(model.subjects.sorted(by: { $0.key < $1.key }), id: \.key) {
+                (key, subject) in
                 var subject = model.subjects[key]!
-                SubjectView(images: Binding(get: {subject.images},
-                                            set: {
-                    subject.images = $0
-                    model.subjects[key] = subject
-                }))
+                Section(subject.label) {
+                    SubjectView(
+                        images: Binding(
+                            get: { subject.images },
+                            set: {
+                                subject.images = $0
+                                model.subjects[key] = subject
+                            }))
+                }
             }
-            SubjectView(images: $model.backgrounds)
+            Section("Backgrounds") {
+                SubjectView(images: $model.backgrounds)
+
+            }
         }
         .padding()
         HStack {
@@ -31,12 +39,14 @@ struct AllSubjectsView: View {
                 newSubject = model.newSubject
                 addNewSubject.toggle()
             }
-        }.sheet(isPresented: $addNewSubject,
-                onDismiss: didDismiss) {
+        }.sheet(
+            isPresented: $addNewSubject,
+            onDismiss: didDismiss
+        ) {
             NewSubjectView(subject: $newSubject)
         }
     }
-    
+
     func didDismiss() {
         model.add(subject: newSubject)
     }
