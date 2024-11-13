@@ -13,25 +13,33 @@ import UIKit
 @MainActor
 class Project {
     var title: String
-    var settings: ProjectSettings
-    var inputModel: InputModel
+    var settingsModel: SettingsModel {
+        didSet {
+            createBlueprints()
+        }
+    }
+    var inputModel: InputModel {
+        didSet {
+            createBlueprints()
+        }
+    }
     var outputModel: OutputModel
 
     init() {
         title = "project title"
-        settings = ProjectSettings()
+        settingsModel = SettingsModel()
         inputModel = InputModel(subjects: [:], backgrounds: [])
         outputModel = OutputModel(collages: [], factories: [])
     }
 
     init(
         title: String,
-        settings: ProjectSettings,
+        settings: SettingsModel,
         inputModel: InputModel,
         outputModel: OutputModel
     ) {
         self.title = title
-        self.settings = settings
+        self.settingsModel = settings
         self.inputModel = inputModel
         self.outputModel = outputModel
     }
@@ -44,8 +52,8 @@ class Project {
         //create json decoder
         let data = try Data(contentsOf: url)
         //use decoder to load settings
-        self.settings = try JSONDecoder().decode(
-            ProjectSettings.self, from: data)
+        self.settingsModel = try JSONDecoder().decode(
+            SettingsModel.self, from: data)
         let url = url.deletingLastPathComponent()
         let manager = FileManager.default
         let backgrounds = try manager.contentsOfDirectory(
@@ -82,7 +90,7 @@ class Project {
             encoder.outputFormatting = .init(arrayLiteral: [
                 .prettyPrinted, .sortedKeys,
             ])
-            let output = try encoder.encode(settings)
+            let output = try encoder.encode(settingsModel)
             try output.write(to: settingsFile)
         } catch {
             print("Unable to write images to disk")
@@ -101,8 +109,8 @@ class Project {
         }
     }
 
-    func createCollageSet() -> [Collage] {
-        var set = [Collage]()
+    func createBlueprints() {
+        var set = [CollageBlueprint]()
         for subject in inputModel.subjects.values {
             var count = 1
             for mod in createModList() {
@@ -111,44 +119,44 @@ class Project {
                 else {
                     continue
                 }
-                let factory = CollageBlueprint(
+                let blueprint = CollageBlueprint(
                     mod: mod, subject: image, background: background,
                     label: subject.label,
                     fileName: "\(subject.label)_\(count).png")
-                set.append(factory.create())
+                set.append(blueprint)
                 count += 1
             }
         }
-        return set
+        outputModel.factories = set
     }
 
     func createModList(modifications: [Modification] = [Modification()])
         -> [Modification]
     {
-        (1...Int(settings.population)).map { _ in
+        (1...Int(settingsModel.population)).map { _ in
             var newMod = Modification()
-            if settings.scale {
+            if settingsModel.scale {
                 newMod.scale = CGFloat.random(
-                    in: settings.scaleLowerBound..<settings.scaleUpperBound)
+                    in: settingsModel.scaleLowerBound..<settingsModel.scaleUpperBound)
             }
-            if settings.rotate {
+            if settingsModel.rotate {
 
                 newMod.rotate = CGFloat.random(
-                    in: (settings.rotateLowerBound * 2 * .pi)..<(settings
+                    in: (settingsModel.rotateLowerBound * 2 * .pi)..<(settingsModel
                         .rotateUpperBound * 2 * .pi))
             }
-            if settings.flipHorizontal {
+            if settingsModel.flipHorizontal {
                 newMod.flipX = Bool.random()
                 newMod.flipY = Bool.random()
             }
             //translate should be applied last
-            if settings.translate {
+            if settingsModel.translate {
                 newMod.translateX = CGFloat.random(
-                    in: settings
-                        .translateLowerBound..<settings.translateUpperBound)
+                    in: settingsModel
+                        .translateLowerBound..<settingsModel.translateUpperBound)
                 newMod.translateY = CGFloat.random(
-                    in: settings
-                        .translateLowerBound..<settings.translateUpperBound)
+                    in: settingsModel
+                        .translateLowerBound..<settingsModel.translateUpperBound)
             }
             return newMod
         }
@@ -156,26 +164,26 @@ class Project {
 
     func randomMod() -> Modification {
         var mod = Modification()
-        if settings.scale {
+        if settingsModel.scale {
             mod.scale = CGFloat.random(
-                in: settings.scaleLowerBound..<settings.scaleUpperBound)
+                in: settingsModel.scaleLowerBound..<settingsModel.scaleUpperBound)
         }
-        if settings.rotate {
+        if settingsModel.rotate {
             mod.rotate = CGFloat.random(
-                in: (settings.rotateLowerBound * 2 * .pi)..<(settings
+                in: (settingsModel.rotateLowerBound * 2 * .pi)..<(settingsModel
                     .rotateUpperBound * 2 * .pi))
         }
-        if settings.flipHorizontal {
+        if settingsModel.flipHorizontal {
             mod.flipX = Bool.random()
         }
-        if settings.flipVertical {
+        if settingsModel.flipVertical {
             mod.flipY = Bool.random()
         }
-        if settings.translate {
+        if settingsModel.translate {
             mod.translateX = CGFloat.random(
-                in: settings.translateLowerBound..<settings.translateUpperBound)
+                in: settingsModel.translateLowerBound..<settingsModel.translateUpperBound)
             mod.translateY = CGFloat.random(
-                in: settings.translateLowerBound..<settings.translateUpperBound)
+                in: settingsModel.translateLowerBound..<settingsModel.translateUpperBound)
         }
         return mod
     }
@@ -184,9 +192,13 @@ class Project {
 //make backgrounds into subjects
 
 extension Project {
-    static let mock = Project(
+    static let mock = {
+        var temp = Project(
         title: "MockProject",
         settings: .init(),
         inputModel: InputModel.mock,
         outputModel: OutputModel.mock)
+        temp.createBlueprints()
+        return temp
+    }()
 }

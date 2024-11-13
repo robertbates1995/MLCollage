@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Binding var settings: ProjectSettings
+    @Binding var settings: SettingsModel
     @State var width: CGSize = .zero
     
     var body: some View {
@@ -73,6 +73,6 @@ struct SliderView: View {
 }
 
 #Preview {
-    @Previewable @State var model = ProjectSettings()
+    @Previewable @State var model = SettingsModel()
     SettingsView(settings: $model)
 }

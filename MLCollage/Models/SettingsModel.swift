@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ProjectSettings: Equatable, Codable {
+struct SettingsModel: Equatable, Codable {
     var population: Double
     var numberOfEachSubject: Double
     var translate: Bool

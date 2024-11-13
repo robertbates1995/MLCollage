@@ -17,7 +17,7 @@ struct ContentView: View {
                 AllSubjectsView(model: $project.inputModel)
             }
             Tab("Settings", systemImage: "gearshape") {
-                SettingsView(settings: $project.settings)
+                SettingsView(settings: $project.settingsModel)
             }
             Tab("Output", systemImage: "text.below.photo") {
                 OutputsView(model: $project.outputModel)

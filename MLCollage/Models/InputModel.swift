@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-@Observable
-class InputModel {
+struct InputModel {
     var subjects: [String: Subject]
     var backgrounds: [UIImage]
     var newSubject: Subject {
@@ -26,17 +25,17 @@ class InputModel {
         self.backgrounds = backgrounds
     }
     
-    func add(image: UIImage, label: String) {
+    mutating func add(image: UIImage, label: String) {
         var subject = subjects[label] ?? Subject(label: label, images: [])
         subject.images.append(image)
         subjects[label] = subject
     }
     
-    func add(background: UIImage) {
+    mutating func add(background: UIImage) {
         backgrounds.append(background)
     }
     
-    func add(subject: Subject) {
+    mutating func add(subject: Subject) {
         var temp = subject.label
         var counter = 2
         while subjects.keys.contains(temp) {

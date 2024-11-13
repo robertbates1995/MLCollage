@@ -13,7 +13,12 @@ class OutputModel {
     var collages: [Collage]
     var canExport: Bool { state == .ready}
     var state = State.needsUpdate
-    var factories: [CollageBlueprint] = []
+    var factories: [CollageBlueprint] = [] {
+        didSet {
+            state = .needsUpdate
+            collages.removeAll()
+        }
+    }
     
     enum State {
         case needsUpdate
@@ -32,8 +37,13 @@ class OutputModel {
             return
         }
         state = .loading
-        collages = factories.map({$0.create()})
-        state = .ready
+        Task {
+            for blueprint in factories {
+                collages.append(blueprint.create())
+                await Task.yield()
+            }
+            state = .ready
+        }
     }
 }
 
