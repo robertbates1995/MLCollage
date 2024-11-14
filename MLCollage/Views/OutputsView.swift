@@ -12,6 +12,7 @@ struct OutputsView: View {
     @Binding var model: OutputModel
     @State var showingExporter = false
     @State var minSize: CGFloat = 100.0
+    @State var progress: CGFloat = 0.0
 
     var body: some View {
         VStack {
@@ -39,7 +40,7 @@ struct OutputsView: View {
                 }
             } else {
                 if let progress = model.progress {
-                    ProgressView()
+                    ProgressView(value: progress)
                 }
             }
         }.task {
