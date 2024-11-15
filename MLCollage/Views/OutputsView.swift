@@ -11,42 +11,49 @@ import UniformTypeIdentifiers
 struct OutputsView: View {
     @Binding var model: OutputModel
     @State var showingExporter = false
-    @State var minSize: CGFloat = 100.0
+    @State var minSize: Double = 100.0
     @State var progress: CGFloat = 0.0
 
     var body: some View {
-        VStack {
-            ScrollView {
-                LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: minSize))],
-                    spacing: 20
-                ) {
-                    ForEach(model.collages) { collage in
-                        Image(uiImage: collage.image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+        GeometryReader {size in
+            VStack {
+                ScrollView {
+                    LazyVGrid(
+                        columns: [GridItem(.adaptive(minimum: minSize))],
+                        spacing: 20
+                    ) {
+                        ForEach(model.collages) { collage in
+                            Image(uiImage: collage.image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        }
                     }
                 }
-            }
-            if model.canExport {
-                Button("export") {
-                    showingExporter.toggle()
-                }.fileExporter(
-                    isPresented: $showingExporter,
-                    document: TrainingDataFile(collages: model.collages),
-                    defaultFilename: "foo"
-                ) { _ in
-                    
+                HStack {
+                    Text("Preview Size")
+                    Slider(value: $minSize, in: 30.0...size.size.width/2.0)
                 }
-            } else {
-                if let progress = model.progress {
-                    ProgressView(value: progress)
+                if model.canExport {
+                    Button("export") {
+                        showingExporter.toggle()
+                    }.fileExporter(
+                        isPresented: $showingExporter,
+                        document: TrainingDataFile(collages: model.collages),
+                        defaultFilename: "foo"
+                    ) { _ in
+                        
+                    }
+                    .padding()
+                } else {
+                    if let progress = model.progress {
+                        ProgressView(value: progress)
+                    }
                 }
-            }
-        }.task {
-            model.updateIfNeeded()
-        }.padding()
-    }
+            }.task {
+                model.updateIfNeeded()
+            }.padding()
+        }
+        }
 }
 
 #Preview {
