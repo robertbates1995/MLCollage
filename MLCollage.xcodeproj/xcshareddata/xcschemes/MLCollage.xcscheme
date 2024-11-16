@@ -30,7 +30,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:../MLCollage.xctestplan"
+            reference = "container:MLCollage.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>

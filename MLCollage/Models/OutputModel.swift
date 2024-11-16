@@ -55,7 +55,7 @@ class OutputModel {
 
 extension OutputModel {
     static let factory = CollageBlueprint(mod: Modification(),
-                                 subject: .apple1,
+                                 subjectImage: .apple1,
                                  background: .crazyBackground1,
                                  label: "apple",
                                  fileName: "apple_.png")

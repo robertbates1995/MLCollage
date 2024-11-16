@@ -120,7 +120,7 @@ class Project {
                     continue
                 }
                 let blueprint = CollageBlueprint(
-                    mod: mod, subject: image, background: background,
+                    mod: mod, subjectImage: image, background: background,
                     label: subject.label,
                     fileName: "\(subject.label)_\(count).png")
                 set.append(blueprint)

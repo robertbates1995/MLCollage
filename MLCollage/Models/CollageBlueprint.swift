@@ -10,16 +10,17 @@ import CoreImage
 
 struct CollageBlueprint {
     let mod: Modification
-    let subject: UIImage
+    let subjectImage: UIImage
     let background: UIImage
     let label: String
     let fileName: String
-    
-    //create one annotation and returns one Collage
+        
     func create() -> Collage {
         let background = background.toCIImage()
-        var subject = subject.toCIImage()
+        var subject = subjectImage.toCIImage()
 
+        scaleToBackground(background, &subject)
+        
         rotate(&subject)
         
         scale(&subject)
@@ -60,5 +61,14 @@ struct CollageBlueprint {
         let subjectSize = subject.extent
         let backgroundSize = background.extent
         subject = subject.transformed(by: .init(translationX: mod.translateX * (backgroundSize.width - subjectSize.width), y: mod.translateY * (backgroundSize.height - subjectSize.height)))
+    }
+    
+    private func scaleToBackground(_ background: CIImage, _ subject: inout CIImage) {
+        let heightRatio = background.extent.height / subject.extent.height
+        let widthRatio = background.extent.width / subject.extent.width
+        
+        let ratio = min(heightRatio, widthRatio)
+        
+        subject = subject.transformed(by: .init(scaleX: ratio, y: ratio))
     }
 }

@@ -5,42 +5,86 @@
 //  Created by Robert Bates on 7/31/24.
 //
 
+import CoreImage.CIFilterBuiltins
 import CustomDump
 import Foundation
+import SnapshotTesting
+import UIKit
 import XCTest
 
 @testable import MLCollage
 
 @MainActor
 final class CollageTests: XCTestCase {
-    var appleImages: [UIImage] = [
-        CIImage(image: .apple1)!.toUIImage(),
-        CIImage(image: .apple2)!.toUIImage(),
-        CIImage(image: .apple3)!.toUIImage(),
-    ]
+    let recording = true
 
-    var bannanaImages: [UIImage] = [
-        CIImage(image: .banana1)!.toUIImage(),
-        CIImage(image: .banana2)!.toUIImage(),
-        CIImage(image: .banana3)!.toUIImage(),
-    ]
+    let background = {
+        var checkerBoardGenerator = CIFilter.checkerboardGenerator()
+        checkerBoardGenerator.setDefaults()
+        checkerBoardGenerator.center = CGPoint(x: 0, y: 0)
+        checkerBoardGenerator.color0 = .gray
+        checkerBoardGenerator.color1 = .black
+        checkerBoardGenerator.width = 50
+        checkerBoardGenerator.sharpness = 1
+        return checkerBoardGenerator.outputImage!.cropped(
+            to: CGRect(x: 0.0, y: 0.0, width: 200, height: 100)
+        ).toUIImage()
+    }()
+    
+    func makeSubject(width: Double, height: Double) -> UIImage {
+        let bounds = CGRect(
+            origin: .zero, size: CGSize(width: width, height: height))
+        var image = CIImage(color: .white).cropped(to: bounds)
 
-    var pepperImages: [UIImage] = [
-        CIImage(image: .pepper1)!.toUIImage(),
-        CIImage(image: .pepper2)!.toUIImage(),
-        CIImage(image: .pepper3)!.toUIImage(),
-    ]
+        let spotBounds = CGRect(
+            origin: .zero, size: CGSize(width: width / 2, height: height / 2))
+        let blue = CIImage(color: .blue).cropped(to: spotBounds)
+        image = blue.composited(over: image)
 
-    func testProject() {
-        var appleSubject = Subject(label: "apple", images: appleImages)
-        var bannanaSubject = Subject(label: "bannana", images: bannanaImages)
-        var pepperSubject = Subject(label: "pepper", images: pepperImages)
+        let red = CIImage(color: .red).cropped(
+            to: spotBounds.offsetBy(dx: 0, dy: height / 2))
+        image = red.composited(over: image)
+
+        return image.cropped(to: bounds).toUIImage()
+    }
+    
+    func makeSut(mod: Modification? = nil, subject: UIImage? = nil) -> Collage {
+        let sut = CollageBlueprint(
+            mod: mod ?? Modification(),
+            subjectImage: subject ?? makeSubject(width: 100, height: 100),
+            background: background,
+            label: "testLabel",
+            fileName: "testFileName")
+        return sut.create()
+    }
+
+    func testCollageBlueprint() {
+        let collage = makeSut()
         
-        var inputModel = InputModel(subjects: <#T##[String : Subject]#>, backgrounds: <#T##[UIImage]#>)
-        var settingsModel = SettingsModel()
-        var outputModel = OutputModel(collages: <#T##[Collage]#>, factories: <#T##[CollageBlueprint]#>)
+        assertSnapshot(of: collage.image, as: .image, record: false)
+    }
+    
+    func testScaleToBackground() {
+        let collage = makeSut(subject: makeSubject(width: 300, height: 200))
         
-        var project = Project(title: "Test Project", settings: <#T##SettingsModel#>, inputModel: <#T##InputModel#>, outputModel: <#T##OutputModel#>)
+        assertSnapshot(of: collage.image, as: .image, record: false)
+    }
+    
+    func testScaleMin() {
+        let collage = makeSut(mod: Modification(scale: Modification.scaleMin))
         
+        assertSnapshot(of: collage.image, as: .image, record: false)
+    }
+    
+    func testScaleMax() {
+        let collage = makeSut(mod: Modification(scale: Modification.scaleMax))
+        
+        assertSnapshot(of: collage.image, as: .image, record: false)
+    }
+    
+    func testFlip() {
+        let collage = makeSut(mod: Modification(flipX: true, flipY: true))
+        
+        assertSnapshot(of: collage.image, as: .image, record: false)
     }
 }

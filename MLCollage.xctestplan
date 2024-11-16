@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "C8C4323E-43AF-4F41-B6F0-1D80FFBCAC27",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MLCollage.xcodeproj",
+        "identifier" : "7A8E354A2C585E8A00B386EF",
+        "name" : "MLCollageTests"
+      }
+    }
+  ],
+  "version" : 1
+}
