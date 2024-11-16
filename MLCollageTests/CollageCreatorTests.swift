@@ -87,4 +87,12 @@ final class CollageTests: XCTestCase {
         
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
+    
+    func testRotate() {
+        XCTSkip("TODO")
+    }
+    
+    func testTranslate() {
+        XCTSkip("TODO")
+    }
 }
