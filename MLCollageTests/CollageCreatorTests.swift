@@ -5,22 +5,42 @@
 //  Created by Robert Bates on 7/31/24.
 //
 
+import CustomDump
 import Foundation
 import XCTest
-import CustomDump
+
 @testable import MLCollage
 
 @MainActor
 final class CollageTests: XCTestCase {
-    let inputModel: InputModel = .init(subjects: ["apple":.init(label: <#T##String#>, images: <#T##[UIImage]#>)], backgrounds: <#T##[UIImage]#>)
-    let outputModel: OutputModel = .init(collages: [Collage(image: <#T##UIImage#>, json: <#T##CreateMLFormat#>)], factories: [])
-    
-    func testOutputFile() {
-        var appleImages = [CIImage(image: .apple1)!.toUIImage(),
-                           CIImage(image: .apple2)!.toUIImage(),
-                           CIImage(image: .apple3)!.toUIImage()]
-        let appleSubject = Subject(label: "apple", images: appleImages)
+    var appleImages: [UIImage] = [
+        CIImage(image: .apple1)!.toUIImage(),
+        CIImage(image: .apple2)!.toUIImage(),
+        CIImage(image: .apple3)!.toUIImage(),
+    ]
+
+    var bannanaImages: [UIImage] = [
+        CIImage(image: .banana1)!.toUIImage(),
+        CIImage(image: .banana2)!.toUIImage(),
+        CIImage(image: .banana3)!.toUIImage(),
+    ]
+
+    var pepperImages: [UIImage] = [
+        CIImage(image: .pepper1)!.toUIImage(),
+        CIImage(image: .pepper2)!.toUIImage(),
+        CIImage(image: .pepper3)!.toUIImage(),
+    ]
+
+    func testProject() {
+        var appleSubject = Subject(label: "apple", images: appleImages)
+        var bannanaSubject = Subject(label: "bannana", images: bannanaImages)
+        var pepperSubject = Subject(label: "pepper", images: pepperImages)
         
-        let outputModel = OutputModel(collages: <#T##[Collage]#>, factories: <#T##[CollageBlueprint]#>)
+        var inputModel = InputModel(subjects: <#T##[String : Subject]#>, backgrounds: <#T##[UIImage]#>)
+        var settingsModel = SettingsModel()
+        var outputModel = OutputModel(collages: <#T##[Collage]#>, factories: <#T##[CollageBlueprint]#>)
+        
+        var project = Project(title: "Test Project", settings: <#T##SettingsModel#>, inputModel: <#T##InputModel#>, outputModel: <#T##OutputModel#>)
+        
     }
 }

@@ -34,12 +34,12 @@ class Project {
 
     init(
         title: String,
-        settings: SettingsModel,
         inputModel: InputModel,
+        settingsModel: SettingsModel,
         outputModel: OutputModel
     ) {
         self.title = title
-        self.settingsModel = settings
+        self.settingsModel = settingsModel
         self.inputModel = inputModel
         self.outputModel = outputModel
     }
@@ -195,8 +195,8 @@ extension Project {
     static let mock = {
         var temp = Project(
         title: "MockProject",
-        settings: .init(),
         inputModel: InputModel.mock,
+        settingsModel: .init(),
         outputModel: OutputModel.mock)
         temp.createBlueprints()
         return temp
