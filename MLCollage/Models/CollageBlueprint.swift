@@ -37,11 +37,11 @@ struct CollageBlueprint {
     
     private func rotate(_ subject: inout CIImage) {
         var subjectSize = subject.extent
-        subject = subject.transformed(by: .init(translationX: -subjectSize.width / 2, y: -subjectSize.height / 2))
-        subjectSize = subject.extent
-        subject = subject.transformed(by: .init(rotationAngle: mod.rotate))
-        subjectSize = subject.extent
-        subject = subject.transformed(by: .init(translationX: subjectSize.width / 2, y: subjectSize.height / 2))
+        let center: CGPoint = .init(x: subjectSize.width/2, y: subjectSize.height/2)
+        
+        subject = subject.transformed(by: .init(translationX: -center.x, y: -center.y))
+        subject = subject.transformed(by: .init(rotationAngle: mod.rotate * .pi))
+        subject = subject.transformed(by: .init(translationX: center.x, y: center.y))
     }
     
     private func flip(_ subject: inout CIImage) {

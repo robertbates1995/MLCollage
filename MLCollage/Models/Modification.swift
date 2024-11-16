@@ -16,6 +16,7 @@ struct Modification {
     static let scaleMin: CGFloat = 0.10
     static let scaleMax: CGFloat = 1.5
     var rotate: CGFloat = 0.0
+    static let rotateMax: CGFloat = 1.0
     var flipX: Bool = false
     var flipY: Bool = false
 }

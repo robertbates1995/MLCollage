@@ -16,8 +16,7 @@ import XCTest
 
 @MainActor
 final class CollageTests: XCTestCase {
-    let recording = true
-
+    
     let background = {
         var checkerBoardGenerator = CIFilter.checkerboardGenerator()
         checkerBoardGenerator.setDefaults()
@@ -48,7 +47,7 @@ final class CollageTests: XCTestCase {
         return image.cropped(to: bounds).toUIImage()
     }
     
-    func makeSut(mod: Modification? = nil, subject: UIImage? = nil) -> Collage {
+    func makeCollage(mod: Modification? = nil, subject: UIImage? = nil) -> Collage {
         let sut = CollageBlueprint(
             mod: mod ?? Modification(),
             subjectImage: subject ?? makeSubject(width: 100, height: 100),
@@ -59,40 +58,45 @@ final class CollageTests: XCTestCase {
     }
 
     func testCollageBlueprint() {
-        let collage = makeSut()
+        let collage = makeCollage()
         
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
     func testScaleToBackground() {
-        let collage = makeSut(subject: makeSubject(width: 300, height: 200))
+        let collage = makeCollage(subject: makeSubject(width: 300, height: 200))
         
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
     func testScaleMin() {
-        let collage = makeSut(mod: Modification(scale: Modification.scaleMin))
+        let collage = makeCollage(mod: Modification(scale: Modification.scaleMin))
         
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
     func testScaleMax() {
-        let collage = makeSut(mod: Modification(scale: Modification.scaleMax))
+        let collage = makeCollage(mod: Modification(scale: Modification.scaleMax))
         
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
     func testFlip() {
-        let collage = makeSut(mod: Modification(flipX: true, flipY: true))
+        let collage = makeCollage(mod: Modification(flipX: true, flipY: true))
         
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
     func testRotate() {
-        XCTSkip("TODO")
+        let collage = makeCollage(mod: Modification(rotate: Modification.rotateMax/4))
+        
+        assertSnapshot(of: collage.image, as: .image, record: true)
     }
     
+    
     func testTranslate() {
-        XCTSkip("TODO")
+        let collage = makeCollage(mod: Modification(translateX: 0.5, translateY: 0.5))
+        
+        assertSnapshot(of: collage.image, as: .image, record: false)
     }
 }
