@@ -8,9 +8,11 @@
 import Foundation
 
 struct SettingsModel: Equatable, Codable {
+#warning("TODO: remove population, replace where you use it with numberOfEachSubject")
     var population: Double
     var numberOfEachSubject: Double
     var translate: Bool
+#warning("TODO: eliminate manual settings of upper and lower bounds for translate")
     var translateLowerBound: Double
     var translateUpperBound: Double
     var scale: Bool
