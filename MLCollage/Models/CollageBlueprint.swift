@@ -26,7 +26,7 @@ struct CollageBlueprint {
         scale(&subject)
         
         flip(&subject)
-        
+                
         translate(background, &subject)
         
         let collage = subject.composited(over: background).cropped(to: background.extent)

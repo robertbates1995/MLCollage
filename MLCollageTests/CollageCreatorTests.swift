@@ -90,13 +90,31 @@ final class CollageTests: XCTestCase {
     func testRotate() {
         let collage = makeCollage(mod: Modification(rotate: Modification.rotateMax/4))
         
-        assertSnapshot(of: collage.image, as: .image, record: true)
+        assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
     
     func testTranslate() {
-        let collage = makeCollage(mod: Modification(translateX: 0.5, translateY: 0.5))
+        let collage = makeCollage(mod: Modification(translateX: 0.5, translateY: 0.5), subject: makeSubject(width: 200, height: 50))
         
-        assertSnapshot(of: collage.image, as: .image, record: false)
+        assertSnapshot(of: collage.image, as: .image, record: true)
+        
+        let collage2 = makeCollage(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5))
+        
+        assertSnapshot(of: collage2.image, as: .image, record: true)
+        
+        let collage3 = makeCollage(mod: Modification(translateX: 1, translateY: 1, scale: 0.5))
+        
+        assertSnapshot(of: collage3.image, as: .image, record: true)
+        
+        let collage4 = makeCollage(mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.5))
+        
+        assertSnapshot(of: collage4.image, as: .image, record: true)
+    }
+    
+    func testTranslateMax() {
+        let collage = makeCollage(mod: Modification(translateX: Modification.translateMax, translateY: 0.5), subject: makeSubject(width: 200, height: 50))
+        
+        assertSnapshot(of: collage.image, as: .image, record: true)
     }
 }
