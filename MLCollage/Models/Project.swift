@@ -26,23 +26,25 @@ class Project {
     var outputModel: OutputModel
     var storage = Storage()
 
-    init() {
-        title = "project title"
-        settingsModel = SettingsModel()
-        inputModel = InputModel(subjects: [:], backgrounds: [])
-        outputModel = OutputModel(collages: [], factories: [])
+    init(storage: Storage) {
+        title = storage.readTitle()
+        settingsModel = storage.readSettingsModel()
+        inputModel = storage.readInputModel()
+        outputModel = storage.readOutputModel()
     }
 
     init(
         title: String,
         inputModel: InputModel,
         settingsModel: SettingsModel,
-        outputModel: OutputModel
+        outputModel: OutputModel,
+        storage: Storage
     ) {
         self.title = title
         self.settingsModel = settingsModel
         self.inputModel = inputModel
         self.outputModel = outputModel
+        storage
     }
 
     init(url: URL) throws {
@@ -67,7 +69,7 @@ class Project {
         inputModel = InputModel(subjects: [:], backgrounds: backgrounds)
         outputModel = OutputModel(collages: [], factories: [])
     }
-
+    
     func save(to url: URL) {
         let manager = FileManager.default
         do {
