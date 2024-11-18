@@ -37,14 +37,12 @@ class Project {
         title: String,
         inputModel: InputModel,
         settingsModel: SettingsModel,
-        outputModel: OutputModel,
-        storage: Storage
+        outputModel: OutputModel
     ) {
         self.title = title
         self.settingsModel = settingsModel
         self.inputModel = inputModel
         self.outputModel = outputModel
-        storage
     }
 
     init(url: URL) throws {
