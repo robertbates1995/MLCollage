@@ -24,6 +24,7 @@ class Project {
         }
     }
     var outputModel: OutputModel
+    var storage = Storage()
 
     init() {
         title = "project title"
