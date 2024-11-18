@@ -13,8 +13,6 @@ struct SettingsModel: Equatable, Codable {
     var numberOfEachSubject: Double
     var translate: Bool
 #warning("TODO: eliminate manual settings of upper and lower bounds for translate")
-    var translateLowerBound: Double
-    var translateUpperBound: Double
     var scale: Bool
     var scaleLowerBound: Double
     var scaleUpperBound: Double
@@ -40,8 +38,6 @@ struct SettingsModel: Equatable, Codable {
         self.population = population
         self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
-        self.translateLowerBound = translateLowerBound
-        self.translateUpperBound = translateUpperBound
         self.scale = scale
         self.scaleLowerBound = scaleLowerBound
         self.scaleUpperBound = scaleUpperBound

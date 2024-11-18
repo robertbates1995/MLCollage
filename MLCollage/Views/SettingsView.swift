@@ -14,13 +14,23 @@ struct SettingsView: View {
     var body: some View {
         List {
             //number of each subject
-            SliderView(title: "number of each subject", value: $settings.numberOfEachSubject, range: 1...10)
+            SliderView(title: "number of each subject",
+                       value: $settings.numberOfEachSubject,
+                       range: 1...10)
             //translation range
-            HighLowSliderView(title: "translation", value: $settings.translateLowerBound, upperValue: $settings.translateUpperBound, range: 0...1)
+            Section("Translation"){
+                Toggle("Translate", isOn: $settings.translate)
+            }
             //scale range
-            HighLowSliderView(title: "rotation", value: $settings.scaleLowerBound, upperValue: $settings.scaleUpperBound, range: 0.5...1.5)
+            HighLowSliderView(title: "rotation",
+                              value: $settings.scaleLowerBound,
+                              upperValue: $settings.scaleUpperBound,
+                              range: 0.5...1.5)
             //rotate range
-            HighLowSliderView(title: "scale", value: $settings.rotateLowerBound, upperValue: $settings.rotateUpperBound, range: 0.0...0.5)
+            HighLowSliderView(title: "scale",
+                              value: $settings.rotateLowerBound,
+                              upperValue: $settings.rotateUpperBound,
+                              range: 0.0...0.5)
             //flip toggle
             Section("flip"){
                 Toggle("Horizontal", isOn: $settings.flipHorizontal)

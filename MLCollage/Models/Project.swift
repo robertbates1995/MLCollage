@@ -152,11 +152,9 @@ class Project {
             //translate should be applied last
             if settingsModel.translate {
                 newMod.translateX = CGFloat.random(
-                    in: settingsModel
-                        .translateLowerBound..<settingsModel.translateUpperBound)
+                    in: 0.0..<1.0)
                 newMod.translateY = CGFloat.random(
-                    in: settingsModel
-                        .translateLowerBound..<settingsModel.translateUpperBound)
+                    in: 0.0..<1.0)
             }
             return newMod
         }
@@ -181,16 +179,15 @@ class Project {
         }
         if settingsModel.translate {
             mod.translateX = CGFloat.random(
-                in: settingsModel.translateLowerBound..<settingsModel.translateUpperBound)
+                in: 0.0..<1.0)
             mod.translateY = CGFloat.random(
-                in: settingsModel.translateLowerBound..<settingsModel.translateUpperBound)
+                in: 0.0..<1.0)
         }
         return mod
     }
 }
 
 //make backgrounds into subjects
-
 extension Project {
     static let mock = {
         var temp = Project(
