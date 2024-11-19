@@ -17,6 +17,7 @@
 		7A0A08DD2CE559C7001FC1DA /* CollageBlueprint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08D92CE559C7001FC1DA /* CollageBlueprint.swift */; };
 		7A0A08DE2CE559C7001FC1DA /* Modification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08DA2CE559C7001FC1DA /* Modification.swift */; };
 		7A0A08DF2CE559C7001FC1DA /* OutputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08DB2CE559C7001FC1DA /* OutputModel.swift */; };
+		7A0A08ED2CED24CA001FC1DA /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 7A0A08EC2CED24CA001FC1DA /* GRDB */; };
 		7A4FB6962CB06BED0058B6BC /* UIImage+CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4FB6952CB06BED0058B6BC /* UIImage+CIImage.swift */; };
 		7A528B5B2CA4C11500A30DB0 /* AllSubjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A528B5A2CA4C11500A30DB0 /* AllSubjectsView.swift */; };
 		7A528B5D2CA4C12700A30DB0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A528B5C2CA4C12700A30DB0 /* SettingsView.swift */; };
@@ -87,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0A08ED2CED24CA001FC1DA /* GRDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +274,7 @@
 			packageReferences = (
 				7AEA2EB02C586597001C6F89 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				7A02F85F2C6141C9006A894B /* XCRemoteSwiftPackageReference "swift-custom-dump" */,
+				7A0A08EB2CED24CA001FC1DA /* XCRemoteSwiftPackageReference "GRDB" */,
 			);
 			productRefGroup = 7A8E35382C585E8800B386EF /* Products */;
 			projectDirPath = "";
@@ -633,6 +636,14 @@
 				minimumVersion = 1.3.3;
 			};
 		};
+		7A0A08EB2CED24CA001FC1DA /* XCRemoteSwiftPackageReference "GRDB" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "http://github.com/groue/GRDB.swift";
+			requirement = {
+				branch = "v7.0.0-beta.6";
+				kind = branch;
+			};
+		};
 		7AEA2EB02C586597001C6F89 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
@@ -648,6 +659,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7A02F85F2C6141C9006A894B /* XCRemoteSwiftPackageReference "swift-custom-dump" */;
 			productName = CustomDump;
+		};
+		7A0A08EC2CED24CA001FC1DA /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A0A08EB2CED24CA001FC1DA /* XCRemoteSwiftPackageReference "GRDB" */;
+			productName = GRDB;
 		};
 		7AEA2EB12C586597001C6F89 /* InlineSnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
