@@ -16,21 +16,24 @@ class Project {
     var settingsModel: SettingsModel {
         didSet {
             createBlueprints()
+            storage.write(settingsModel: settingsModel)
         }
     }
     var inputModel: InputModel {
         didSet {
             createBlueprints()
+            storage.write(inputModel: inputModel)
         }
     }
     var outputModel: OutputModel
-    var storage = Storage()
+    var storage: StorageProtocol
 
-    init(storage: Storage) {
-        title = storage.readTitle()
-        settingsModel = storage.readSettingsModel()
-        inputModel = storage.readInputModel()
-        outputModel = storage.readOutputModel()
+    init(storage: StorageProtocol) {
+        title = (try? storage.readTitle()) ?? "new_project"
+        settingsModel = (try? storage.readSettingsModel()) ?? SettingsModel()
+        inputModel = (try? storage.readInputModel()) ?? InputModel(subjects: [:], backgrounds: [])
+        outputModel = OutputModel(collages: [], factories: [])
+        self.storage = storage
     }
 
     func createBlueprints() {
@@ -114,10 +117,9 @@ class Project {
 //make backgrounds into subjects
 extension Project {
     static let mock = {
-        var temp = Project(storage: Storage(title: "MockProject",
+        var temp = Project(storage: MockStorage(title: "MockProject",
                                        inputModel: InputModel.mock,
-                                       settingsModel: .init(),
-                                       outputModel: OutputModel.mock))
+                                       settingsModel: .init()))
         temp.createBlueprints()
         return temp
     }()

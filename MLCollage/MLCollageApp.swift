@@ -9,8 +9,12 @@ import SwiftUI
 
 @main
 struct MLCollageApp: App {
-    @State var project = Project.mock
-    
+    @State var project = Project(
+        storage: Storage(
+            folder: FileManager.default.urls(
+                for: .documentDirectory, in: .userDomainMask
+            ).first!))
+
     var body: some Scene {
         WindowGroup {
             ContentView(project: $project)
