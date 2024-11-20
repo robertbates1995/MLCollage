@@ -7,29 +7,12 @@
 
 import Foundation
 
-@MainActor
-class BlueprintFactory {
-    var inputModel: InputModel
-    var settingsModel: SettingsModel
-    var outputModel: OutputModel
-    
-    init(inputModel: InputModel = InputModel(),
-         settingsModel: SettingsModel = SettingsModel(),
-         outputModel: OutputModel? = nil) {
-        self.inputModel = inputModel
-        self.settingsModel = settingsModel
-        if let outputModel = outputModel {
-            self.outputModel = outputModel
-        } else {
-            self.outputModel = OutputModel()
-        }
-    }
-    
-    func createBlueprints() {
+struct BlueprintFactory {
+    func createBlueprints(_ inputModel: InputModel, _ settingsModel: SettingsModel) -> [CollageBlueprint] {
         var set = [CollageBlueprint]()
         for subject in inputModel.subjects.values {
             var count = 1
-            for mod in createModList() {
+            for mod in createModList(settingsModel: settingsModel) {
                 guard let background = inputModel.backgrounds.randomElement(),
                       let image = subject.images.randomElement()
                 else {
@@ -43,12 +26,10 @@ class BlueprintFactory {
                 count += 1
             }
         }
-        outputModel.blueprints = set
+        return set
     }
     
-    func createModList(modifications: [Modification] = [Modification()])
-    -> [Modification]
-    {
+    private func createModList(settingsModel: SettingsModel) -> [Modification] {
         (1...Int(settingsModel.numberOfEachSubject)).map { _ in
             var newMod = Modification()
             if settingsModel.scale {
@@ -74,31 +55,5 @@ class BlueprintFactory {
             }
             return newMod
         }
-    }
-    
-    func randomMod() -> Modification {
-        var mod = Modification()
-        if settingsModel.scale {
-            mod.scale = CGFloat.random(
-                in: settingsModel.scaleLowerBound..<settingsModel.scaleUpperBound)
-        }
-        if settingsModel.rotate {
-            mod.rotate = CGFloat.random(
-                in: (settingsModel.rotateLowerBound * 2 * .pi)..<(settingsModel
-                    .rotateUpperBound * 2 * .pi))
-        }
-        if settingsModel.flipHorizontal {
-            mod.flipX = Bool.random()
-        }
-        if settingsModel.flipVertical {
-            mod.flipY = Bool.random()
-        }
-        if settingsModel.translate {
-            mod.translateX = CGFloat.random(
-                in: 0.0..<1.0)
-            mod.translateY = CGFloat.random(
-                in: 0.0..<1.0)
-        }
-        return mod
     }
 }

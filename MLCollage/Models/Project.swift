@@ -16,13 +16,13 @@ class Project {
     var title: String
     var settingsModel: SettingsModel {
         didSet {
-            blueprintFactory.createBlueprints()
+            outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
             storage.write(settingsModel: settingsModel)
         }
     }
     var inputModel: InputModel {
         didSet {
-            blueprintFactory.createBlueprints()
+            outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
             storage.write(inputModel: inputModel)
         }
     }
@@ -35,20 +35,17 @@ class Project {
         settingsModel = (try? storage.readSettingsModel()) ?? SettingsModel()
         inputModel = (try? storage.readInputModel()) ?? InputModel()
         outputModel = OutputModel()
-        blueprintFactory = BlueprintFactory(inputModel: inputModel, settingsModel: settingsModel, outputModel: outputModel)
+        blueprintFactory = BlueprintFactory()
         self.storage = storage
+        outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
     }
-
-#warning("TODO: migrate non-essential funcs out of project to new file")
 }
 
-//make backgrounds into subjects
 extension Project {
     static let mock = {
         var temp = Project(storage: MockStorage(title: "MockProject",
                                        inputModel: InputModel.mock,
                                        settingsModel: .init()))
-        temp.blueprintFactory.createBlueprints()
         return temp
     }()
 }
