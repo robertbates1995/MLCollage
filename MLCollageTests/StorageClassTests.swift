@@ -19,7 +19,7 @@ import GRDBSnapshotTesting
 
 @MainActor
 final class StorageClassTests: XCTestCase {
-    func testEmpty() throws {
+    func testReadTitle() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
         let title = try sut.readTitle()
         XCTAssertEqual(title, ":memory:")
@@ -43,24 +43,17 @@ final class StorageClassTests: XCTestCase {
     
     func testAddSubject() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
-        sut.write(inputModel: .init(subjects: ["testSubject": .init(label: "testSubject")], backgrounds: []))
-        assertInlineSnapshot(of: sut.databaseQueue, as: .dumpContent(), record: true) {
-            """
-            sqlite_master
-            CREATE TABLE "backgroundImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB);
-            CREATE TABLE "subjectImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB, "subjectID" TEXT);
-            CREATE TABLE "subjects" ("id" TEXT PRIMARY KEY NOT NULL, "label" TEXT);
-
-            backgroundImages
-            - id: 'imageID'
-              image: X'696D61676544617461'
-
-            subjectImages
-
-            subjects
-
-            """
-        }
+        var expected = InputModel(subjects: ["testSubject": .init(label: "testSubject")], backgrounds: [])
+        sut.write(inputModel: expected)
+        let actual = try sut.readInputModel()
+        XCTAssertEqual(actual, expected)
     }
-    
+}
+
+extension InputModel: @retroactive Equatable {
+    public static func == (lhs: MLCollage.InputModel, rhs: MLCollage.InputModel) -> Bool {
+        if lhs.subjects.map(\.value.id) != rhs.subjects.map(\.value.id) { return false }
+        if lhs.subjects.map(\.value.label) != rhs.subjects.map(\.value.label) { return false }
+        return true
+    }
 }
