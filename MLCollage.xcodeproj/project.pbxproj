@@ -18,6 +18,8 @@
 		7A0A08DE2CE559C7001FC1DA /* Modification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08DA2CE559C7001FC1DA /* Modification.swift */; };
 		7A0A08DF2CE559C7001FC1DA /* OutputModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08DB2CE559C7001FC1DA /* OutputModel.swift */; };
 		7A0A08ED2CED24CA001FC1DA /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 7A0A08EC2CED24CA001FC1DA /* GRDB */; };
+		7A0A08EF2CED6E9F001FC1DA /* StorageClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08EE2CED6E83001FC1DA /* StorageClassTests.swift */; };
+		7A0A08F52CED7501001FC1DA /* GRDBSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7A0A08F42CED7501001FC1DA /* GRDBSnapshotTesting */; };
 		7A4FB6962CB06BED0058B6BC /* UIImage+CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4FB6952CB06BED0058B6BC /* UIImage+CIImage.swift */; };
 		7A528B5B2CA4C11500A30DB0 /* AllSubjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A528B5A2CA4C11500A30DB0 /* AllSubjectsView.swift */; };
 		7A528B5D2CA4C12700A30DB0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A528B5C2CA4C12700A30DB0 /* SettingsView.swift */; };
@@ -58,6 +60,7 @@
 		7A0A08DA2CE559C7001FC1DA /* Modification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modification.swift; sourceTree = "<group>"; };
 		7A0A08DB2CE559C7001FC1DA /* OutputModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputModel.swift; sourceTree = "<group>"; };
 		7A0A08E02CE95366001FC1DA /* MLCollage.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MLCollage.xctestplan; sourceTree = "<group>"; };
+		7A0A08EE2CED6E83001FC1DA /* StorageClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageClassTests.swift; sourceTree = "<group>"; };
 		7A4FB6952CB06BED0058B6BC /* UIImage+CIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CIImage.swift"; sourceTree = "<group>"; };
 		7A528B5A2CA4C11500A30DB0 /* AllSubjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllSubjectsView.swift; sourceTree = "<group>"; };
 		7A528B5C2CA4C12700A30DB0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0A08F52CED7501001FC1DA /* GRDBSnapshotTesting in Frameworks */,
 				7AEA2EB22C586597001C6F89 /* InlineSnapshotTesting in Frameworks */,
 				7A02F8612C6141C9006A894B /* CustomDump in Frameworks */,
 				7AEA2EB42C586597001C6F89 /* SnapshotTesting in Frameworks */,
@@ -160,6 +164,7 @@
 		7A8E354E2C585E8A00B386EF /* MLCollageTests */ = {
 			isa = PBXGroup;
 			children = (
+				7A0A08EE2CED6E83001FC1DA /* StorageClassTests.swift */,
 				7AEA2EB72C5AA59D001C6F89 /* CollageCreatorTests.swift */,
 			);
 			path = MLCollageTests;
@@ -238,6 +243,7 @@
 				7AEA2EB12C586597001C6F89 /* InlineSnapshotTesting */,
 				7AEA2EB32C586597001C6F89 /* SnapshotTesting */,
 				7A02F8602C6141C9006A894B /* CustomDump */,
+				7A0A08F42CED7501001FC1DA /* GRDBSnapshotTesting */,
 			);
 			productName = MLCollageTests;
 			productReference = 7A8E354B2C585E8A00B386EF /* MLCollageTests.xctest */;
@@ -275,6 +281,7 @@
 				7AEA2EB02C586597001C6F89 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				7A02F85F2C6141C9006A894B /* XCRemoteSwiftPackageReference "swift-custom-dump" */,
 				7A0A08EB2CED24CA001FC1DA /* XCRemoteSwiftPackageReference "GRDB" */,
+				7A0A08F32CED7501001FC1DA /* XCRemoteSwiftPackageReference "GRDBSnapshotTesting" */,
 			);
 			productRefGroup = 7A8E35382C585E8800B386EF /* Products */;
 			projectDirPath = "";
@@ -338,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0A08EF2CED6E9F001FC1DA /* StorageClassTests.swift in Sources */,
 				7AEA2EB82C5AA59D001C6F89 /* CollageCreatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -644,6 +652,14 @@
 				kind = branch;
 			};
 		};
+		7A0A08F32CED7501001FC1DA /* XCRemoteSwiftPackageReference "GRDBSnapshotTesting" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDBSnapshotTesting.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.2;
+			};
+		};
 		7AEA2EB02C586597001C6F89 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
@@ -664,6 +680,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7A0A08EB2CED24CA001FC1DA /* XCRemoteSwiftPackageReference "GRDB" */;
 			productName = GRDB;
+		};
+		7A0A08F42CED7501001FC1DA /* GRDBSnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A0A08F32CED7501001FC1DA /* XCRemoteSwiftPackageReference "GRDBSnapshotTesting" */;
+			productName = GRDBSnapshotTesting;
 		};
 		7AEA2EB12C586597001C6F89 /* InlineSnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;

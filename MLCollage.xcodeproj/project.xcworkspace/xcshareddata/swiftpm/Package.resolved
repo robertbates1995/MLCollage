@@ -1,5 +1,5 @@
 {
-  "originHash" : "ae3b4ac20d79b11f515e41af9af1ec950122f02ce5c0d49cc10c587a6ae875b4",
+  "originHash" : "c8e13d9b7eed25617e657ef19baa872b15fa7f432f5a9e5975f684516de0f356",
   "pins" : [
     {
       "identity" : "grdb.swift",
@@ -8,6 +8,15 @@
       "state" : {
         "branch" : "v7.0.0-beta.6",
         "revision" : "84d25dfc9dc1766feb8c80fb04b9f7e2337fb83e"
+      }
+    },
+    {
+      "identity" : "grdbsnapshottesting",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDBSnapshotTesting.git",
+      "state" : {
+        "revision" : "dc9c6664160558980ebe6a327e2aef60829e7ee4",
+        "version" : "0.4.2"
       }
     },
     {
