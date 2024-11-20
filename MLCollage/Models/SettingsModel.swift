@@ -8,8 +8,6 @@
 import Foundation
 
 struct SettingsModel: Equatable, Codable {
-#warning("TODO: remove population, replace where you use it with numberOfEachSubject")
-    var population: Double
     var numberOfEachSubject: Double
     var translate: Bool
 #warning("TODO: eliminate manual settings of upper and lower bounds for translate")
@@ -22,8 +20,7 @@ struct SettingsModel: Equatable, Codable {
     var flipHorizontal: Bool
     var flipVertical: Bool
     
-    init(population: Double = 10.0,
-         numberOfEachSubject: Double = 1.0,
+    init(numberOfEachSubject: Double = 1.0,
          translate: Bool = true,
          translateLowerBound: Double = 0.0,
          translateUpperBound: Double = 1.0,
@@ -35,7 +32,6 @@ struct SettingsModel: Equatable, Codable {
          rotateUpperBound: Double = 0.5,
          flipHorizontal: Bool = true,
          flipVertical: Bool = true) {
-        self.population = population
         self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
         self.scale = scale

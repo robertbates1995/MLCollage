@@ -7,8 +7,6 @@
 
 import Foundation
 
-#warning("TODO: create min and max for all params")
-
 struct Modification {
     var translateX: CGFloat = 0.0
     var translateY: CGFloat = 0.0
