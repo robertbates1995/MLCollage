@@ -10,7 +10,6 @@ import Foundation
 struct SettingsModel: Equatable, Codable {
     var numberOfEachSubject: Double
     var translate: Bool
-#warning("TODO: eliminate manual settings of upper and lower bounds for translate")
     var scale: Bool
     var scaleLowerBound: Double
     var scaleUpperBound: Double
