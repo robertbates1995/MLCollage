@@ -27,14 +27,40 @@ final class StorageClassTests: XCTestCase {
     
     func testMigration() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
-        assertInlineSnapshot(of: sut.databaseQueue, as: .dumpContent(), record: false) {
+        assertInlineSnapshot(of: sut.databaseQueue, as: .dumpContent(), record: true) {
             """
             sqlite_master
-            CREATE TABLE "project" ("id" TEXT PRIMARY KEY NOT NULL, "label");
+            CREATE TABLE "subjectImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB, "subjectID" TEXT);
+            CREATE TABLE "subjects" ("id" TEXT PRIMARY KEY NOT NULL, "label" TEXT);
 
-            project
+            subjectImages
+
+            subjects
 
             """
         }
     }
+    
+    func testAddSubject() throws {
+        let sut = try DBStorage(databaseQueue: DatabaseQueue())
+        sut.write(inputModel: .init(subjects: ["testSubject": .init(label: "testSubject")], backgrounds: []))
+        assertInlineSnapshot(of: sut.databaseQueue, as: .dumpContent(), record: true) {
+            """
+            sqlite_master
+            CREATE TABLE "backgroundImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB);
+            CREATE TABLE "subjectImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB, "subjectID" TEXT);
+            CREATE TABLE "subjects" ("id" TEXT PRIMARY KEY NOT NULL, "label" TEXT);
+
+            backgroundImages
+            - id: 'imageID'
+              image: X'696D61676544617461'
+
+            subjectImages
+
+            subjects
+
+            """
+        }
+    }
+    
 }
