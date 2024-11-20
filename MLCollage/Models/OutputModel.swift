@@ -32,7 +32,7 @@ class OutputModel {
         case ready
     }
     
-    init(collages: [Collage], state: State = State.needsUpdate, factories: [CollageBlueprint]) {
+    init(collages: [Collage] = [], state: State = State.needsUpdate, factories: [CollageBlueprint] = []) {
         self.collages = collages
         self.state = state
         self.blueprints = factories

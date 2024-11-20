@@ -20,7 +20,7 @@ struct InputModel {
         return temp
     }
     
-    init(subjects: [String : Subject], backgrounds: [UIImage]) {
+    init(subjects: [String : Subject] = [:], backgrounds: [UIImage] = []) {
         self.subjects = subjects
         self.backgrounds = backgrounds
     }
