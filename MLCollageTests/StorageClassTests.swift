@@ -27,11 +27,14 @@ final class StorageClassTests: XCTestCase {
     
     func testMigration() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
-        assertInlineSnapshot(of: sut.databaseQueue, as: .dumpContent(), record: true) {
+        assertInlineSnapshot(of: sut.databaseQueue, as: .dumpContent(), record: false) {
             """
             sqlite_master
-            CREATE TABLE "subjectImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB, "subjectID" TEXT);
+            CREATE TABLE "backgroundImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB);
+            CREATE TABLE "subjectImages" ("id" TEXT PRIMARY KEY NOT NULL, "subjectID" TEXT, "image" BLOB);
             CREATE TABLE "subjects" ("id" TEXT PRIMARY KEY NOT NULL, "label" TEXT);
+
+            backgroundImages
 
             subjectImages
 

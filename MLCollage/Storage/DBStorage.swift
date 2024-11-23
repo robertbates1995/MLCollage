@@ -25,9 +25,9 @@ class DBStorage: StorageProtocol {
                 table.column("label", .text)  //the string the user sets to represent each subject
             }
             try db.create(table: "subjectImages") { table in
-                table.primaryKey("id", .text)  //the internal 'name' for each subject
-                table.column("image", .blob)  //photo
-                table.column("subjectID", .text)  //the internal 'name' for each subject
+                table.primaryKey("id", .text)  //the image id
+                table.column("subjectID", .text) //the foregn key
+                table.column("image", .blob)  //one image of a subject
             }
             try db.create(table: "backgroundImages") { table in
                 table.primaryKey("id", .text)  //the internal 'name' for each background
