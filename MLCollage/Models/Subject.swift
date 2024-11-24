@@ -8,7 +8,7 @@
 import UIKit
 import GRDB
 
-struct Subject {
+struct Subject: Identifiable {
     var id: String
     var label: String
     var images: [UIImage]
@@ -27,12 +27,3 @@ extension Subject {
     }
 }
 
-struct DBSubject: TableRecord, EncodableRecord, Encodable, MutablePersistableRecord {
-    static let databaseTableName: String = "subject"
-    var id: Int64?
-    var label: String
-    
-    mutating func didInsert(_ inserted: InsertionSuccess) {
-        id = inserted.rowID
-    }
-}

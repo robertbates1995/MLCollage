@@ -7,10 +7,16 @@ import Foundation
 //
 import GRDB
 
-struct BackgroundImage: TableRecord, EncodableRecord, Encodable, MutablePersistableRecord {
-    static let databaseTableName: String = "backgroundImages"
+struct DBBackgroundImage: Codable, FetchableRecord, PersistableRecord {
+    static let databaseTableName: String = "backgroundImage"
     let id: String
     let image: Data
+}
+
+struct DBSubject: Codable, FetchableRecord, PersistableRecord {
+    static let databaseTableName: String = "subjects"
+    var id: String
+    var label: String
 }
 
 class DBStorage: StorageProtocol {
@@ -47,7 +53,12 @@ class DBStorage: StorageProtocol {
     }
 
     func readInputModel() throws -> InputModel {
-        fatalError()
+        try databaseQueue.read { db in
+            let subjects = try DBSubject.fetchAll(db).map { dbsubject in
+                Subject(id: dbsubject.id, label: dbsubject.label, images: [])
+            }
+            return InputModel(subjects: subjects)
+        }
     }
 
     func readSettingsModel() throws -> SettingsModel {
@@ -56,10 +67,12 @@ class DBStorage: StorageProtocol {
 
     func write(inputModel: InputModel) {
         do {
-            var foo = BackgroundImage(
-                id: "imageID", image: "imageData".data(using: .utf8)!)
             try databaseQueue.write { db in
-                try foo.insert(db)
+                try DBSubject.deleteAll(db) //wipe database
+                for subject in inputModel.subjects { //loop over all subjects
+                    var temp = DBSubject(id: subject.id, label: subject.label) //create new subject
+                    try temp.insert(db) //insert new subject
+                }
             }
         } catch {
             print(error.localizedDescription)

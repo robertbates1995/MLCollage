@@ -15,17 +15,10 @@ struct AllSubjectsView: View {
 
     var body: some View {
         List {
-            ForEach(model.subjects.sorted(by: { $0.key < $1.key }), id: \.key) {
-                (key, subject) in
-                var subject = model.subjects[key]!
-                Section(subject.label) {
+            ForEach($model.subjects) { subject in
+                Section(subject.label.wrappedValue) {
                     SubjectView(
-                        images: Binding(
-                            get: { subject.images },
-                            set: {
-                                subject.images = $0
-                                model.subjects[key] = subject
-                            }))
+                        images: subject.images)
                 }
             }
             Section("Backgrounds") {

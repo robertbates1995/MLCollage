@@ -49,7 +49,7 @@ final class StorageClassTests: XCTestCase {
     
     func testAddSubject() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
-        let expected = InputModel(subjects: ["testSubject": .init(label: "testSubject")], backgrounds: [])
+        let expected = InputModel(subjects: [.init(label: "testSubject")], backgrounds: [])
         sut.write(inputModel: expected)
         let actual = try sut.readInputModel()
         XCTAssertEqual(actual, expected)
@@ -58,8 +58,8 @@ final class StorageClassTests: XCTestCase {
 
 extension InputModel: @retroactive Equatable {
     public static func == (lhs: MLCollage.InputModel, rhs: MLCollage.InputModel) -> Bool {
-        if lhs.subjects.map(\.value.id) != rhs.subjects.map(\.value.id) { return false }
-        if lhs.subjects.map(\.value.label) != rhs.subjects.map(\.value.label) { return false }
+        if lhs.subjects.map(\.id) != rhs.subjects.map(\.id) { return false }
+        if lhs.subjects.map(\.label) != rhs.subjects.map(\.label) { return false }
         return true
     }
 }

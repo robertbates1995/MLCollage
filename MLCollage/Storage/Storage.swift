@@ -33,7 +33,7 @@ class Storage: StorageProtocol {
                 )
                 .path)
         }
-        return InputModel(subjects: [:], backgrounds: backgrounds)
+        return InputModel(subjects: [], backgrounds: backgrounds)
     }
 
     func readSettingsModel() throws -> SettingsModel {
@@ -53,10 +53,10 @@ class Storage: StorageProtocol {
             try? manager.createDirectory(
                 at: backgroundDir, withIntermediateDirectories: false)
             for i in inputModel.subjects {
-                let subjectDir = subjectsDir.appending(path: i.key)
+                let subjectDir = subjectsDir.appending(path: i.id)
                 try? manager.createDirectory(
                     at: subjectDir, withIntermediateDirectories: false)
-                try saveToDir(dir: subjectDir, images: i.value.images)
+                try saveToDir(dir: subjectDir, images: i.images)
             }
             try saveToDir(dir: backgroundDir, images: inputModel.backgrounds)
         } catch {

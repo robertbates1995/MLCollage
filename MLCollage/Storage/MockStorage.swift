@@ -12,7 +12,7 @@ class MockStorage: StorageProtocol {
 
     init(
         title: String = "New_Project",
-        inputModel: InputModel = InputModel(subjects: [:], backgrounds: []),
+        inputModel: InputModel = InputModel(subjects: [], backgrounds: []),
         settingsModel: SettingsModel = SettingsModel()
     ) {
         self.title = title
