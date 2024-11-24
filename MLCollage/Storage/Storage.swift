@@ -15,7 +15,7 @@ class Storage: StorageProtocol {
         self.folder = folder
     }
 
-    func readTitle() throws -> String {
+    func readPath() throws -> String {
         return folder.lastPathComponent
     }
 

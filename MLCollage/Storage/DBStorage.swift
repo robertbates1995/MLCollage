@@ -7,7 +7,7 @@ import Foundation
 //
 import GRDB
 
-struct BackgroundImage: FetchableRecord, PersistableRecord, Codable {
+struct BackgroundImage: TableRecord, EncodableRecord, Encodable, MutablePersistableRecord {
     static let databaseTableName: String = "backgroundImages"
     let id: String
     let image: Data
@@ -33,17 +33,16 @@ class DBStorage: StorageProtocol {
                 table.primaryKey("id", .text)  //the internal 'name' for each background
                 table.column("image", .blob)  //one background image
             }
-            try db.create(table: "settings") { table in
+            try db.create(table: "settingsModel") { table in
                 table.primaryKey("id", .text) //the internal 'name' for each setting
                 table.column("label", .text)  //the string the app uses to refer to each subject
                 table.column("value", .text) // the value/range of the setting, as a string
             }
-            
         }
         try migrator.migrate(databaseQueue)
     }
 
-    func readTitle() throws -> String {
+    func readPath() throws -> String {
         databaseQueue.path
     }
 
@@ -57,7 +56,7 @@ class DBStorage: StorageProtocol {
 
     func write(inputModel: InputModel) {
         do {
-            let foo = BackgroundImage(
+            var foo = BackgroundImage(
                 id: "imageID", image: "imageData".data(using: .utf8)!)
             try databaseQueue.write { db in
                 try foo.insert(db)

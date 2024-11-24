@@ -31,7 +31,7 @@ class Project {
     let blueprintFactory: BlueprintFactory
 
     init(storage: StorageProtocol) {
-        title = (try? storage.readTitle()) ?? "new_project"
+        title = (try? storage.readPath()) ?? "new_project"
         settingsModel = (try? storage.readSettingsModel()) ?? SettingsModel()
         inputModel = (try? storage.readInputModel()) ?? InputModel()
         outputModel = OutputModel()

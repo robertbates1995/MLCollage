@@ -32,7 +32,7 @@ class MockStorage: StorageProtocol {
         self.settingsModel = settingsModel
     }
 
-    func readTitle() -> String {
+    func readPath() -> String {
         return title
     }
 

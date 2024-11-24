@@ -6,7 +6,7 @@
 //
 
 protocol StorageProtocol {
-    func readTitle() throws -> String
+    func readPath() throws -> String
     func readInputModel() throws -> InputModel
     func readSettingsModel() throws -> SettingsModel
     func write(inputModel: InputModel)
