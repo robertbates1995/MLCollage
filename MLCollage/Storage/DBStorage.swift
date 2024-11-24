@@ -15,7 +15,7 @@ struct BackgroundImage: FetchableRecord, PersistableRecord, Codable {
 
 class DBStorage: StorageProtocol {
     let databaseQueue: DatabaseQueue
-
+    
     init(databaseQueue: DatabaseQueue) throws {
         self.databaseQueue = databaseQueue
         var migrator = DatabaseMigrator()
@@ -31,8 +31,14 @@ class DBStorage: StorageProtocol {
             }
             try db.create(table: "backgroundImages") { table in
                 table.primaryKey("id", .text)  //the internal 'name' for each background
-                table.column("image", .blob)  //photo
+                table.column("image", .blob)  //one background image
             }
+            try db.create(table: "settings") { table in
+                table.primaryKey("id", .text) //the internal 'name' for each setting
+                table.column("label", .text)  //the string the app uses to refer to each subject
+                table.column("value", .text) // the value/range of the setting, as a string
+            }
+            
         }
         try migrator.migrate(databaseQueue)
     }
