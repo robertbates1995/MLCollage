@@ -28,7 +28,7 @@ struct DBSubjectImage: Codable, FetchableRecord, PersistableRecord {
     
     func asImage() -> UIImage {
         //turn image into UIImage
-        return UIImage(resource: .apple1) //placing this here to allow program to compile
+        return UIImage(data: image)!
     }
 }
 
