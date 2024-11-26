@@ -49,7 +49,7 @@ final class StorageClassTests: XCTestCase {
     
     func testAddSubject() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
-        let expected = InputModel(subjects: [.init(label: "testSubject")], backgrounds: [])
+        let expected = InputModel(subjects: [.init(label: "testSubject", images: [UIImage(resource: .apple1)])])
         sut.write(inputModel: expected)
         let actual = try sut.readInputModel()
         XCTAssertEqual(actual, expected)
