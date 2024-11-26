@@ -1,4 +1,6 @@
 import Foundation
+import SwiftUI
+
 //
 //  DBStorage.swift
 //  MLCollage
@@ -17,6 +19,17 @@ struct DBSubject: Codable, FetchableRecord, PersistableRecord {
     static let databaseTableName: String = "subjects"
     var id: String
     var label: String
+}
+
+struct DBSubjectImage: Codable, FetchableRecord, PersistableRecord {
+    static let databaseTableName: String = "subjects"
+    var id: String
+    var image: Data
+    
+    func asImage() -> UIImage {
+        //turn image into UIImage
+        return UIImage(resource: .apple1) //placing this here to allow program to compile
+    }
 }
 
 class DBStorage: StorageProtocol {
@@ -54,8 +67,11 @@ class DBStorage: StorageProtocol {
 
     func readInputModel() throws -> InputModel {
         try databaseQueue.read { db in
-            let subjects = try DBSubject.fetchAll(db).map { dbsubject in
-                Subject(id: dbsubject.id, label: dbsubject.label, images: [])
+            let subjects = try DBSubject.fetchAll(db).map { dbSubject in
+                Subject(id: dbSubject.id, label: dbSubject.label, images: [])
+            }
+            let subjectImages = try DBSubjectImage.fetchAll(db).map { dbSubjectImage in
+                Image(uiImage: dbSubjectImage.asImage())
             }
             return InputModel(subjects: subjects)
         }
@@ -70,7 +86,7 @@ class DBStorage: StorageProtocol {
             try databaseQueue.write { db in
                 try DBSubject.deleteAll(db) //wipe database
                 for subject in inputModel.subjects { //loop over all subjects
-                    var temp = DBSubject(id: subject.id, label: subject.label) //create new subject
+                    let temp = DBSubject(id: subject.id, label: subject.label) //create new subject
                     try temp.insert(db) //insert new subject
                 }
             }
