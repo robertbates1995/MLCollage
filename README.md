@@ -33,7 +33,7 @@ providing all that data with as few as 30 photos.
 as previously mentioned, MLCollage is designed to be used in tandem with [CreateML](https://developer.apple.com/machine-learning/create-ml/). 
 When a training set is generated, a JSON file is included in the output. This package, including the JSON, can be dropped directly into an ML object detection model's inputs in the create ML app.
 
-### Download the app to your iphone  
+### Download the app to your iPhone  
 
 ### Take photos and isolate them to be used
 
