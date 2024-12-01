@@ -33,9 +33,26 @@ providing all that data with as few as 30 photos.
 as previously mentioned, MLCollage is designed to be used in tandem with [CreateML](https://developer.apple.com/machine-learning/create-ml/). 
 When a training set is generated, a JSON file is included in the output. This package, including the JSON, can be dropped directly into an ML object detection model's inputs in the create ML app.
 
-### Download the app to your iPhone  
+### Download Xcode
+First you will need the Xcode IDE, as that is where CreateML is housed. If you don't already have Xcode, you can download it [here](https://developer.apple.com/xcode/).
+
+### Launch CreateML
+Once you've launched Xcode, you can access CreateML by going to Xcode > Open Developer Tool > Create ML in the menu bar.
+
+### Download MLCollage to your iPhone  
+- download with Xcode
+- sync your device
+- run
 
 ### Take photos and isolate them to be used
+you will now need to take photos of the object you want the detection model to identify. Photos should be taken in neutral lighting, and from as many angles as possible. 
+Remember, we want to allow our algoritim to recognize the object regardless of what angle it is viewed from! I reccomend at least 14 photos if you evenly space the angle between each photo.
+Once these photos have been collected, you will need lift the subject from it's background. This can be easily done thanks to apple's lift feature, just press and hold the subject within the picture then select share > save image.
+You should now have a PNG of your subject with no background. Repeat this for every photo of the subject untill you have isolated an image from every angle.
+
+For backgrounds, you can provide whatever images you'd like. I reccomend choosing photos with varied colors and settings. Even abstract art or camo patterns can be good, the name of the game is finding visualy diverse patterns/scenes.  
+
+### TODO: include example of non-varied vs varied backgrounds, maybe provide default photos in app?  
 
 ### Select subjects and backgrounds in the app  
 
