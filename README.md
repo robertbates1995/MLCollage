@@ -55,10 +55,13 @@ For backgrounds, you can provide whatever images you'd like. I reccomend choosin
 ### TODO: include example of non-varied vs varied backgrounds, maybe provide default photos in app?  
 
 ### Select subjects and backgrounds in the app  
+once you have the app launched, the first screen you come to will be the photo select screen. This is where you will select the photos of your subject as well as the backgrounds you want to use. Multiple subjects to be trained on can be added to a single set of photos. To add a new subject, press the add subject button at the bottom of the screen and enter the name of your new subject. Once that subject has been added to the list, you can then select add photos below it's name to add example photos of your new subject. Once you have all your subject and background photos uploaded, you're ready to move on to the next section.
 
 ### Set parameters for image generation  
+there are many different ways MLCollage can change the example images, and these changes all help train the detection model to see a subject in different environmnents. I recommend turning all of these on, with their paramaters set to maximum or the largest possible range. Unless you want to fine-tune the speciffic ways in which your subject is altered, the only setting you should be concerned with is "number of each subject", which dictatates how many images of each subject the result will contain.
 
 ### Generate images  
+
 
 ### Drop file into CreateML
 
