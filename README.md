@@ -61,8 +61,9 @@ once you have the app launched, the first screen you come to will be the photo s
 there are many different ways MLCollage can change the example images, and these changes all help train the detection model to see a subject in different environmnents. I recommend turning all of these on, with their paramaters set to maximum or the largest possible range. Unless you want to fine-tune the speciffic ways in which your subject is altered, the only setting you should be concerned with is "number of each subject", which dictatates how many images of each subject the result will contain.
 
 ### Generate images  
-
+This part is really easy, simply go to the output tab and press the export button. Select the location you want to save your file in, and press the move button in the top right corner.
 
 ### Drop file into CreateML
-
+Open create CreateML and create a new project. Select Vision ML Model, and create a new one. Once that is done, drag and drop your data into the train box in CreateML. An additional set of data can be generated to provide a validation set, further increasing the model's training effectiveness.
 ### Train
+Press the train button and observe the results.
