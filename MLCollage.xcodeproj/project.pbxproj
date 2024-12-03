@@ -21,6 +21,7 @@
 		7A0A08EF2CED6E9F001FC1DA /* StorageClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08EE2CED6E83001FC1DA /* StorageClassTests.swift */; };
 		7A0A08F52CED7501001FC1DA /* GRDBSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7A0A08F42CED7501001FC1DA /* GRDBSnapshotTesting */; };
 		7A0A08F72CEE5AA9001FC1DA /* BlueprintFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0A08F62CEE5AA9001FC1DA /* BlueprintFactory.swift */; };
+		7A0A09122CFE571D001FC1DA /* Sharing in Frameworks */ = {isa = PBXBuildFile; productRef = 7A0A09112CFE571D001FC1DA /* Sharing */; };
 		7A4FB6962CB06BED0058B6BC /* UIImage+CIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4FB6952CB06BED0058B6BC /* UIImage+CIImage.swift */; };
 		7A528B5B2CA4C11500A30DB0 /* AllSubjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A528B5A2CA4C11500A30DB0 /* AllSubjectsView.swift */; };
 		7A528B5D2CA4C12700A30DB0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A528B5C2CA4C12700A30DB0 /* SettingsView.swift */; };
@@ -94,6 +95,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0A08ED2CED24CA001FC1DA /* GRDB in Frameworks */,
+				7A0A09122CFE571D001FC1DA /* Sharing in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +287,7 @@
 				7A02F85F2C6141C9006A894B /* XCRemoteSwiftPackageReference "swift-custom-dump" */,
 				7A0A08EB2CED24CA001FC1DA /* XCRemoteSwiftPackageReference "GRDB" */,
 				7A0A08F32CED7501001FC1DA /* XCRemoteSwiftPackageReference "GRDBSnapshotTesting" */,
+				7A0A09102CFE571D001FC1DA /* XCRemoteSwiftPackageReference "swift-sharing" */,
 			);
 			productRefGroup = 7A8E35382C585E8800B386EF /* Products */;
 			projectDirPath = "";
@@ -664,6 +667,14 @@
 				minimumVersion = 0.4.2;
 			};
 		};
+		7A0A09102CFE571D001FC1DA /* XCRemoteSwiftPackageReference "swift-sharing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-sharing";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
 		7AEA2EB02C586597001C6F89 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
@@ -689,6 +700,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7A0A08F32CED7501001FC1DA /* XCRemoteSwiftPackageReference "GRDBSnapshotTesting" */;
 			productName = GRDBSnapshotTesting;
+		};
+		7A0A09112CFE571D001FC1DA /* Sharing */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7A0A09102CFE571D001FC1DA /* XCRemoteSwiftPackageReference "swift-sharing" */;
+			productName = Sharing;
 		};
 		7AEA2EB12C586597001C6F89 /* InlineSnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
