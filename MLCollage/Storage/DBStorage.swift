@@ -22,6 +22,7 @@ struct DBSubject: Codable, FetchableRecord, PersistableRecord {
 
 struct DBSubjectImage: Codable, FetchableRecord, PersistableRecord {
     static let databaseTableName: String = "subjectsImages"
+    var subjectsId: String
     var id: String
     var image: Data
 
@@ -50,7 +51,7 @@ class DBStorage: StorageProtocol {
             }
             try db.create(table: "subjectsImages") { table in
                 table.primaryKey("id", .text)  //the image id
-                table.column("subjectID", .text)  //the foregn key
+                table.column("subjectsId", .text)  //the foregn key
                 table.column("image", .blob)  //one image of a subject
             }
             try db.create(table: "backgroundImages") { table in
@@ -71,12 +72,11 @@ class DBStorage: StorageProtocol {
 
     func readInputModel() throws -> InputModel {
         try databaseQueue.read { db in
+            let subjectImages = try DBSubjectImage.fetchAll(db)
             let subjects = try DBSubject.fetchAll(db).map { dbSubject in
-                Subject(id: dbSubject.id, label: dbSubject.label, images: [])
-            }
-            let subjectImages = try DBSubjectImage.fetchAll(db).map {
-                dbSubjectImage in
-                Image(uiImage: dbSubjectImage.asImage())
+                Subject(id: dbSubject.id, label: dbSubject.label, images: subjectImages.filter({ $0.subjectsId == dbSubject.id }).map {
+                    $0.asImage()
+                })
             }
             return InputModel(subjects: subjects)
         }
@@ -96,10 +96,19 @@ class DBStorage: StorageProtocol {
 
     func write(inputModel: InputModel) throws {
         try databaseQueue.write { db in
-            try DBSubject.deleteAll(db)  //wipe database
+            try DBSubject.deleteAll(db) //wipe database
+            try DBSubjectImage.deleteAll(db) //wipe all images
+            var counter = 0
             for subject in inputModel.subjects {  //loop over all subjects
                 let temp = DBSubject(id: subject.id, label: subject.label)  //create new subject
                 try temp.insert(db)  //insert new subject
+                for image in subject.images {
+                    guard let image = image.pngData() else {
+                        continue
+                    }
+                    try DBSubjectImage(subjectsId: subject.id, id: "\(counter)", image: image).insert(db)
+                    counter += 1
+                }
             }
         }
     }

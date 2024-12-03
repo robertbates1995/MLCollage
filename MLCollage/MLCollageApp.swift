@@ -12,18 +12,13 @@ import SwiftUI
 struct MLCollageApp: App {
     @State var project: Project = {
         do {
-            return Project(
-                storage: Storage(
-                    folder: FileManager.default.urls(
-                        for: .documentDirectory, in: .userDomainMask
-                    ).first!))
-//            let databasePath = URL.documentsDirectory.appending(
-//                path: "db.sqlite"
-//            )
-//            .path()
-//            print("open", databasePath)
-//            let databaseQueue = try DatabaseQueue(path: databasePath)
-//            return Project(storage: try DBStorage(databaseQueue: databaseQueue))
+            let databasePath = URL.documentsDirectory.appending(
+                path: "db.sqlite"
+            )
+            .path()
+            print("open", databasePath)
+            let databaseQueue = try DatabaseQueue(path: databasePath)
+            return Project(storage: try DBStorage(databaseQueue: databaseQueue))
         } catch {
             fatalError(error.localizedDescription)
         }

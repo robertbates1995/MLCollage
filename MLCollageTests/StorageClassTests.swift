@@ -33,7 +33,7 @@ final class StorageClassTests: XCTestCase {
             CREATE TABLE "backgroundImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB);
             CREATE TABLE "settings" ("id" TEXT PRIMARY KEY NOT NULL, "settings" BLOB);
             CREATE TABLE "subjects" ("id" TEXT PRIMARY KEY NOT NULL, "label" TEXT);
-            CREATE TABLE "subjectsImages" ("id" TEXT PRIMARY KEY NOT NULL, "subjectID" TEXT, "image" BLOB);
+            CREATE TABLE "subjectsImages" ("id" TEXT PRIMARY KEY NOT NULL, "subjectsId" TEXT, "image" BLOB);
 
             backgroundImages
 
@@ -49,9 +49,25 @@ final class StorageClassTests: XCTestCase {
     
     func testAddSubject() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
-        let expected = InputModel(subjects: [.init(label: "testSubject", images: [UIImage(resource: .apple1)])])
+        let subject1 = Subject(label: "testSubject", images: [.apple1, .apple2])
+        let subject2 = Subject(label: "testSubject2", images: [.banana1, .banana2])
+        let expected = InputModel(subjects: [subject1, subject2])
         try sut.write(inputModel: expected)
-        let actual = try sut.readInputModel()
+        var actual = try sut.readInputModel()
+        XCTAssertEqual(actual, expected)
+        try sut.write(inputModel: expected)
+        actual = try sut.readInputModel()
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func testAddBackground() throws {
+        let sut = try DBStorage(databaseQueue: DatabaseQueue())
+        let expected = InputModel(backgrounds: [.crazyBackground1, .crazyBackground2])
+        try sut.write(inputModel: expected)
+        var actual = try sut.readInputModel()
+        XCTAssertEqual(actual, expected)
+        try sut.write(inputModel: expected)
+        actual = try sut.readInputModel()
         XCTAssertEqual(actual, expected)
     }
     
