@@ -17,13 +17,13 @@ class Project {
     var settingsModel: SettingsModel {
         didSet {
             outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
-            storage.write(settingsModel: settingsModel)
+            try? storage.write(settingsModel: settingsModel)
         }
     }
     var inputModel: InputModel {
         didSet {
             outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
-            storage.write(inputModel: inputModel)
+            try? storage.write(inputModel: inputModel)
         }
     }
     var outputModel: OutputModel

@@ -6,10 +6,9 @@
 //
 
 import Foundation
-import Sharing
 
 struct SettingsModel: Equatable, Codable {
-    @Shared(.appStorage("numberOfEachSubject")) var numberOfEachSubject = 1.0 //TODO: having issues using shared on an equatable object
+    var numberOfEachSubject: Double
     var translate: Bool
     var scale: Bool
     var scaleLowerBound: Double
@@ -32,7 +31,7 @@ struct SettingsModel: Equatable, Codable {
          rotateUpperBound: Double = 0.5,
          flipHorizontal: Bool = true,
          flipVertical: Bool = true) {
-        self.$numberOfEachSubject.withLock { $0 = numberOfEachSubject }
+        self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
         self.scale = scale
         self.scaleLowerBound = scaleLowerBound

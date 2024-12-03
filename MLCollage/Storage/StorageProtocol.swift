@@ -9,7 +9,7 @@ protocol StorageProtocol {
     func readPath() throws -> String
     func readInputModel() throws -> InputModel
     func readSettingsModel() throws -> SettingsModel
-    func write(inputModel: InputModel)
-    func write(settingsModel: SettingsModel)
+    func write(inputModel: InputModel) throws
+    func write(settingsModel: SettingsModel) throws
 }
 
