@@ -29,10 +29,6 @@ struct SubjectView: View {
                             .cornerRadius(5.0)
                     }
                     .onMove { images.move(fromOffsets: $0, toOffset: $1) }
-                    
-                }
-                .toolbar {
-                    EditButton()
                 }
                 HStack {
                     PhotosPicker("add photos", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .ordered)

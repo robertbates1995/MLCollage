@@ -26,6 +26,9 @@ struct AllSubjectsView: View {
                 }
             }
             .navigationTitle("Input")
+            .toolbar {
+                EditButton()
+            }
             HStack {
                 Button("Add Subject") {
                     newSubject = model.newSubject
