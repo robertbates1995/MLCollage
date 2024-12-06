@@ -15,45 +15,48 @@ struct OutputsView: View {
     @State var progress: CGFloat = 0.0
 
     var body: some View {
-        GeometryReader {size in
-            VStack {
-                ScrollView {
-                    LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: minSize))],
-                        spacing: 20
-                    ) {
-                        ForEach(model.collages) { collage in
-                            Image(uiImage: collage.image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
+        GeometryReader { size in
+            NavigationView {
+                VStack {
+                    ScrollView {
+                        LazyVGrid(
+                            columns: [GridItem(.adaptive(minimum: minSize))],
+                            spacing: 20
+                        ) {
+                            ForEach(model.collages) { collage in
+                                Image(uiImage: collage.image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            }
                         }
                     }
-                }
-                HStack {
-                    Text("Preview Size")
-                    Slider(value: $minSize, in: 30.0...size.size.width/2.0)
-                }
-                if model.canExport {
-                    Button("export") {
-                        showingExporter.toggle()
-                    }.fileExporter(
-                        isPresented: $showingExporter,
-                        document: TrainingDataFile(collages: model.collages),
-                        defaultFilename: "foo"
-                    ) { _ in
-                        
+                    .navigationTitle("Output")
+                    HStack {
+                        Text("Preview Size")
+                        Slider(value: $minSize, in: 30.0...size.size.width / 2.0)
                     }
-                    .padding()
-                } else {
-                    if let progress = model.progress {
-                        ProgressView(value: progress)
+                    if model.canExport {
+                        Button("export") {
+                            showingExporter.toggle()
+                        }.fileExporter(
+                            isPresented: $showingExporter,
+                            document: TrainingDataFile(collages: model.collages),
+                            defaultFilename: "foo"
+                        ) { _ in
+                            
+                        }
+                        .padding()
+                    } else {
+                        if let progress = model.progress {
+                            ProgressView(value: progress)
+                        }
                     }
-                }
-            }.task {
-                model.updateIfNeeded()
-            }.padding()
+                }.task {
+                    model.updateIfNeeded()
+                }.padding()
+            }
         }
-        }
+    }
 }
 
 #Preview {

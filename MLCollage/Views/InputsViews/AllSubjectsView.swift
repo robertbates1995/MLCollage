@@ -14,32 +14,32 @@ struct AllSubjectsView: View {
     @State var newSubject: Subject = Subject(label: "New Subject")
 
     var body: some View {
-        List {
-            ForEach($model.subjects) { subject in
-                Section(subject.label.wrappedValue) {
-                    SubjectView(
-                        images: subject.images)
+        NavigationView {
+            List {
+                ForEach($model.subjects) { subject in
+                    Section(subject.label.wrappedValue) {
+                        SubjectView(images: subject.images)
+                    }
+                }
+                Section("Backgrounds") {
+                    SubjectView(images: $model.backgrounds)
                 }
             }
-            Section("Backgrounds") {
-                SubjectView(images: $model.backgrounds)
-
+            .navigationTitle("Inputs")
+            HStack {
+                Button("Add Subject") {
+                    newSubject = model.newSubject
+                    addNewSubject.toggle()
+                }
+            }.sheet(
+                isPresented: $addNewSubject,
+                onDismiss: didDismiss
+            ) {
+                NewSubjectView(subject: $newSubject)
             }
-        }
-        .padding()
-        HStack {
-            Button("Add Subject") {
-                newSubject = model.newSubject
-                addNewSubject.toggle()
-            }
-        }.sheet(
-            isPresented: $addNewSubject,
-            onDismiss: didDismiss
-        ) {
-            NewSubjectView(subject: $newSubject)
         }
     }
-
+    
     func didDismiss() {
         model.add(subject: newSubject)
     }

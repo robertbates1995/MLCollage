@@ -10,33 +10,40 @@ import SwiftUI
 struct SettingsView: View {
     @Binding var settings: SettingsModel
     @State var width: CGSize = .zero
-    
+
     var body: some View {
-        List {
-            //number of each subject
-            SliderView(title: "number of each subject",
-                       value: $settings.numberOfEachSubject,
-                       range: 1...10)
-            //translation range
-            Section("Translation"){
-                Toggle("Translate", isOn: $settings.translate)
+        NavigationView {
+            List {
+                //number of each subject
+                SliderView(
+                    title: "number of each subject",
+                    value: $settings.numberOfEachSubject,
+                    range: 1...10)
+                //translation range
+                Section("Translation") {
+                    Toggle("Translate", isOn: $settings.translate)
+                }
+                //scale range
+                HighLowSliderView(
+                    title: "rotation",
+                    value: $settings.scaleLowerBound,
+                    upperValue: $settings.scaleUpperBound,
+                    range: 0.5...1.5)
+                //rotate range
+                HighLowSliderView(
+                    title: "scale",
+                    value: $settings.rotateLowerBound,
+                    upperValue: $settings.rotateUpperBound,
+                    range: 0.0...0.5)
+                //flip toggle
+                Section("flip") {
+                    Toggle("Horizontal", isOn: $settings.flipHorizontal)
+                    Toggle("Vertical", isOn: $settings.flipVertical)
+                }
             }
-            //scale range
-            HighLowSliderView(title: "rotation",
-                              value: $settings.scaleLowerBound,
-                              upperValue: $settings.scaleUpperBound,
-                              range: 0.5...1.5)
-            //rotate range
-            HighLowSliderView(title: "scale",
-                              value: $settings.rotateLowerBound,
-                              upperValue: $settings.rotateUpperBound,
-                              range: 0.0...0.5)
-            //flip toggle
-            Section("flip"){
-                Toggle("Horizontal", isOn: $settings.flipHorizontal)
-                Toggle("Vertical", isOn: $settings.flipVertical)
-            }
-        }.scrollDisabled(true)
+            .scrollDisabled(true)
+            .navigationTitle("Settings")
+        }
     }
 }
 
@@ -45,7 +52,7 @@ struct HighLowSliderView: View {
     @Binding var value: Double
     @Binding var upperValue: Double
     let range: ClosedRange<Double>
-    
+
     var body: some View {
         Section(title) {
             HStack {
@@ -56,7 +63,8 @@ struct HighLowSliderView: View {
                 Text(String(format: "%g", upperValue))
             }
             VStack {
-                HighLowSlider(highValue: $upperValue, lowValue: $value, range: range)
+                HighLowSlider(
+                    highValue: $upperValue, lowValue: $value, range: range)
             }
         }
     }
@@ -66,7 +74,7 @@ struct SliderView: View {
     let title: String
     @Binding var value: Double
     let range: ClosedRange<Double>
-    
+
     var body: some View {
         Section(title) {
             HStack {

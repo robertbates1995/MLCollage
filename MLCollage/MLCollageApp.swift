@@ -20,7 +20,7 @@ struct MLCollageApp: App {
             let databaseQueue = try DatabaseQueue(path: databasePath)
             return Project(storage: try DBStorage(databaseQueue: databaseQueue))
         } catch {
-            fatalError(error.localizedDescription)
+            return Project.mock
         }
     }()
     
