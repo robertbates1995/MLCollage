@@ -18,33 +18,40 @@ struct SubjectView: View {
     }
     
     var body: some View {
-        VStack {
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20) {
-                ForEach(images, id: \.self) { image in
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .background(Color.gray.opacity(0.5))
-                        .cornerRadius(5.0)
+        
+            VStack {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20) {
+                    ForEach(images, id: \.self) { image in
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .background(Color.gray.opacity(0.5))
+                            .cornerRadius(5.0)
+                    }
+                    .onMove { images.move(fromOffsets: $0, toOffset: $1) }
+                    
+                }
+                .toolbar {
+                    EditButton()
+                }
+                HStack {
+                    PhotosPicker("add photos", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .ordered)
                 }
             }
-            HStack {
-                PhotosPicker("select photos", selection: $photosPickerItems, maxSelectionCount: 10, selectionBehavior: .ordered)
-            }
-        }
-        .onChange(of: photosPickerItems) { _, _ in
-            let localPhotosPickerItems = photosPickerItems
-            photosPickerItems.removeAll()
-            
-            Task {
-                for item in localPhotosPickerItems {
-                    if let data = try? await item.loadTransferable(type: Data.self) {
-                        if let image = UIImage(data: data) {
-                            addImage(image)
+            .onChange(of: photosPickerItems) { _, _ in
+                let localPhotosPickerItems = photosPickerItems
+                photosPickerItems.removeAll()
+                
+                Task {
+                    for item in localPhotosPickerItems {
+                        if let data = try? await item.loadTransferable(type: Data.self) {
+                            if let image = UIImage(data: data) {
+                                addImage(image)
+                            }
                         }
                     }
                 }
-            }
+            
         }
     }
 }

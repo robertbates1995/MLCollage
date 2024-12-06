@@ -25,7 +25,7 @@ struct AllSubjectsView: View {
                     SubjectView(images: $model.backgrounds)
                 }
             }
-            .navigationTitle("Inputs")
+            .navigationTitle("Input")
             HStack {
                 Button("Add Subject") {
                     newSubject = model.newSubject
