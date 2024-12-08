@@ -10,6 +10,7 @@ import SwiftUI
 struct AllSubjectsView: View {
     @Binding var model: InputModel
     @State var addNewSubject: Bool = false
+    @State var addNewBackground: Bool = false
     @State var editSubject: Bool = false
     @State var newSubject: Subject = Subject(label: "New Subject")
 
@@ -18,31 +19,43 @@ struct AllSubjectsView: View {
             List {
                 ForEach($model.subjects) { subject in
                     Section(subject.label.wrappedValue) {
-                        SubjectView(images: subject.images)
+                        ZStack {
+                            Color.white
+                            SubjectView(images: subject.images)
+                        }
+                    }
+                    .onTapGesture {
+                        newSubject = subject.wrappedValue
+                        addNewSubject.toggle()
                     }
                 }
                 Section("Backgrounds") {
                     SubjectView(images: $model.backgrounds)
                 }
+                .onTapGesture {
+                    addNewBackground.toggle()
+                }
             }
             .navigationTitle("Input")
             .toolbar {
-                EditButton()
-            }
-            HStack {
-                Button("Add Subject") {
+                Button("Add") {
                     newSubject = model.newSubject
                     addNewSubject.toggle()
                 }
-            }.sheet(
+            }
+            .sheet(
                 isPresented: $addNewSubject,
                 onDismiss: didDismiss
             ) {
-                NewSubjectView(subject: $newSubject)
+                EditSubjectView(subject: $newSubject)
+            }
+            .sheet(
+                isPresented: $addNewBackground
+            ) {
+                EditBackgroundView(backgrounds: $model.backgrounds)
             }
         }
     }
-    
     func didDismiss() {
         model.add(subject: newSubject)
     }

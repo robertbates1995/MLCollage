@@ -30,13 +30,17 @@ struct InputModel {
     }
     
     mutating func add(subject: Subject) {
-        var temp = subject.label
-        var counter = 2
-        while subjects.map(\.label).contains(temp) {
-            temp = "\(subject.label) \(counter)"
-            counter += 1
+        if let index = subjects.firstIndex(where: { $0.id == subject.id }) {
+            subjects[index] = subject
+        } else {
+            var temp = subject.label
+            var counter = 2
+            while subjects.map(\.label).contains(temp) {
+                temp = "\(subject.label) \(counter)"
+                counter += 1
+            }
+            subjects.append(Subject(label: temp, images: subject.images))
         }
-        subjects.append(Subject(label: temp, images: subject.images))
     }
 }
 
