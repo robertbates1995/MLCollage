@@ -30,7 +30,10 @@ struct AllSubjectsView: View {
                     }
                 }
                 Section("Backgrounds") {
-                    SubjectView(images: $model.backgrounds)
+                    ZStack {
+                        Color.white
+                        SubjectView(images: $model.backgrounds)
+                    }
                 }
                 .onTapGesture {
                     addNewBackground.toggle()

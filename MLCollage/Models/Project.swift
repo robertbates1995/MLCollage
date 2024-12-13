@@ -23,7 +23,11 @@ class Project {
     var inputModel: InputModel {
         didSet {
             outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
-            try? storage.write(inputModel: inputModel)
+            do {
+                try storage.write(inputModel: inputModel)
+            } catch {
+                print(error)
+            }
         }
     }
     var outputModel: OutputModel

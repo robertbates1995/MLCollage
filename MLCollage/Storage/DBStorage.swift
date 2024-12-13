@@ -94,22 +94,39 @@ class DBStorage: StorageProtocol {
         }
     }
 
+    fileprivate func writeSubjects(_ db: Database, inputModel: InputModel) throws {
+        try DBSubject.deleteAll(db) //wipe database
+        try DBSubjectImage.deleteAll(db) //wipe all images
+        var counter = 0
+        for subject in inputModel.subjects {  //loop over all subjects
+            let temp = DBSubject(id: subject.id, label: subject.label)  //create new subject
+            try temp.insert(db)  //insert new subject
+            for image in subject.images {
+                guard let image = image.pngData() else {
+                    continue
+                }
+                try DBSubjectImage(subjectsId: subject.id, id: "\(counter)", image: image).insert(db)
+                counter += 1
+            }
+        }
+    }
+    
+    fileprivate func writeBackgrounds(_ db: Database, inputModel: InputModel) throws {
+        try DBBackgroundImage.deleteAll(db) //wipe database
+        var counter = 0
+        for image in subject.images {
+                guard let image = image.pngData() else {
+                    continue
+                }
+                try DBSubjectImage(subjectsId: subject.id, id: "\(counter)", image: image).insert(db)
+                counter += 1
+        }
+    }
+    
     func write(inputModel: InputModel) throws {
         try databaseQueue.write { db in
-            try DBSubject.deleteAll(db) //wipe database
-            try DBSubjectImage.deleteAll(db) //wipe all images
-            var counter = 0
-            for subject in inputModel.subjects {  //loop over all subjects
-                let temp = DBSubject(id: subject.id, label: subject.label)  //create new subject
-                try temp.insert(db)  //insert new subject
-                for image in subject.images {
-                    guard let image = image.pngData() else {
-                        continue
-                    }
-                    try DBSubjectImage(subjectsId: subject.id, id: "\(counter)", image: image).insert(db)
-                    counter += 1
-                }
-            }
+            try writeSubjects(db, inputModel: inputModel)
+            try writeBackgrounds(db, inputModel: inputModel)
         }
     }
 
