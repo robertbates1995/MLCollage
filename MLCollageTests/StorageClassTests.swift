@@ -25,9 +25,13 @@ final class StorageClassTests: XCTestCase {
         XCTAssertEqual(title, ":memory:")
     }
     
+    func testMockData() throws {
+        let sut = try DBStorage(databaseQueue: DatabaseQueue())
+    }
+    
     func testMigration() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
-        assertInlineSnapshot(of: sut.databaseQueue, as: .dumpContent(), record: true) {
+        assertInlineSnapshot(of: sut.databaseQueue, as: .dumpContent(), record: false) {
             """
             sqlite_master
             CREATE TABLE "backgroundImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB);

@@ -8,8 +8,8 @@ import Foundation
 import GRDB
 import SwiftUI
 
-struct DBBackgroundImage: Codable, FetchableRecord, PersistableRecord {
-    static let databaseTableName: String = "backgroundImage"
+struct DBBackgroundImages: Codable, FetchableRecord, PersistableRecord {
+    static let databaseTableName: String = "backgroundImages"
     let id: String
     let image: Data
 }
@@ -112,13 +112,13 @@ class DBStorage: StorageProtocol {
     }
     
     fileprivate func writeBackgrounds(_ db: Database, inputModel: InputModel) throws {
-        try DBBackgroundImage.deleteAll(db) //wipe database
+        try DBBackgroundImages.deleteAll(db) //wipe database
         var counter = 0
-        for image in subject.images {
-                guard let image = image.pngData() else {
+        for background in inputModel.backgrounds {
+                guard let image = background.pngData() else {
                     continue
                 }
-                try DBSubjectImage(subjectsId: subject.id, id: "\(counter)", image: image).insert(db)
+            try DBBackgroundImages(id: "\(counter)", image: image).insert(db)
                 counter += 1
         }
     }
