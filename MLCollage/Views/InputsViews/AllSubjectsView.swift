@@ -29,6 +29,9 @@ struct AllSubjectsView: View {
                         addNewSubject.toggle()
                     }
                 }
+                .onDelete { indexSet in
+                    model.subjects.remove(atOffsets: indexSet)
+                }
                 Section("Backgrounds") {
                     ZStack {
                         Color.white
