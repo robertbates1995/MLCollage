@@ -95,6 +95,7 @@ final class StorageClassTests: XCTestCase {
 extension InputModel: @retroactive Equatable {
     public static func == (lhs: MLCollage.InputModel, rhs: MLCollage.InputModel) -> Bool {
         if lhs.subjects != rhs.subjects { return false }
+        if lhs.backgrounds.map({ $0.pngData() }) != rhs.backgrounds.map({ $0.pngData() }) { return false }
         return true
     }
 }

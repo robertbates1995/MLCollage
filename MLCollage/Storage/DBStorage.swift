@@ -12,6 +12,11 @@ struct DBBackgroundImages: Codable, FetchableRecord, PersistableRecord {
     static let databaseTableName: String = "backgroundImages"
     let id: String
     let image: Data
+    
+    func asImage() -> UIImage {
+        //turn image into UIImage
+        return UIImage(data: image)!
+    }
 }
 
 struct DBSubject: Codable, FetchableRecord, PersistableRecord {
@@ -78,7 +83,10 @@ class DBStorage: StorageProtocol {
                     $0.asImage()
                 })
             }
-            return InputModel(subjects: subjects)
+            let backgrounds = try DBBackgroundImages.fetchAll(db).map {
+                $0.asImage()
+            }
+            return InputModel(subjects: subjects, backgrounds: backgrounds)
         }
     }
 
