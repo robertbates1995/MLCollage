@@ -10,7 +10,13 @@ import _PhotosUI_SwiftUI
 
 struct EditSubjectView: View {
     @Binding var subject: Subject
-    @State var photosPickerItems: [PhotosPickerItem] = []
+    @State private var isEditing = false
+    
+    private static let initialColumns = 3
+    @State private var numColumns = initialColumns
+    @State private var gridColumns = Array(repeating: GridItem(.flexible()), count: initialColumns)
+
+    @State private var photosPickerItems: [PhotosPickerItem] = []
     
     func addImage(_ image: UIImage) {
         subject.images.append(image)
@@ -51,6 +57,31 @@ struct EditSubjectView: View {
                 }
             }
         }
+    }
+}
+
+struct SubjectView: View {
+    @Binding var images: [UIImage]
+
+    var body: some View {
+        ScrollView {
+            VStack {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20)
+                {
+                    ForEach(images, id: \.self) { image in
+                        subjectImage(image)
+                    }
+                }
+            }
+        }
+    }
+    
+    fileprivate func subjectImage(_ image: UIImage) -> some View {
+        return Image(uiImage: image)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .background(Color.gray.opacity(0.5))
+            .cornerRadius(5.0)
     }
 }
 
