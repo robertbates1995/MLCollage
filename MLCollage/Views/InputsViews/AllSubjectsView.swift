@@ -21,7 +21,7 @@ struct AllSubjectsView: View {
                     Section(subject.label.wrappedValue) {
                         ZStack {
                             Color.white
-                            SubjectView(images: subject.images)
+                            SubjectView(images: subject.images, isEditing: false)
                         }
                     }
                     .onTapGesture {
@@ -35,7 +35,7 @@ struct AllSubjectsView: View {
                 Section("Backgrounds") {
                     ZStack {
                         Color.white
-                        SubjectView(images: $model.backgrounds)
+                        SubjectView(images: $model.backgrounds, isEditing: false)
                     }
                 }
                 .onTapGesture {
@@ -53,19 +53,16 @@ struct AllSubjectsView: View {
                 isPresented: $addNewSubject,
                 onDismiss: didDismiss
             ) {
-                HStack {
-                    Spacer()
-                    Button("Save") {
-                        addNewSubject.toggle()
-                    }
-                    .padding()
+                NavigationView {
+                    EditSubjectView(subject: $newSubject)
                 }
-                EditSubjectView(subject: $newSubject)
             }
             .sheet(
                 isPresented: $addNewBackground
             ) {
-                EditBackgroundView(backgrounds: $model.backgrounds)
+                NavigationView {
+                    EditBackgroundView(backgrounds: $model.backgrounds)
+                }
             }
         }
     }

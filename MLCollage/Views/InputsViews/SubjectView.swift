@@ -9,32 +9,41 @@ import PhotosUI
 import SwiftUI
 import UIKit
 
-//struct SubjectView: View {
-//    @Binding var images: [UIImage]
-//
-//    var body: some View {
-//        ScrollView {
-//            VStack {
-//                LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20)
-//                {
-//                    ForEach(images, id: \.self) { image in
-//                        subjectImage(image)
-//                    }
-//                }
-//            }
-//        }
-//    }
-//    
-//    fileprivate func subjectImage(_ image: UIImage) -> some View {
-//        return Image(uiImage: image)
-//            .resizable()
-//            .aspectRatio(contentMode: .fit)
-//            .background(Color.gray.opacity(0.5))
-//            .cornerRadius(5.0)
-//    }
-//}
+struct SubjectView: View {
+    @Binding var images: [UIImage]
+    let isEditing: Bool
+    
+    var body: some View {
+        ScrollView {
+            VStack {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20)
+                {
+                    ForEach(images, id: \.self) { image in
+                            if isEditing {
+                                NavigationLink(destination: subjectImage(image)) {
+                                    subjectImage(image)
+                                }
+                            } else {
+                                subjectImage(image)
+                            }
+                        }
+                    }
+            }
+        }
+    }
+    
+    fileprivate func subjectImage(_ image: UIImage) -> some View {
+        return Image(uiImage: image)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .background(Color.gray.opacity(0.5))
+            .cornerRadius(5.0)
+    }
+}
 
 #Preview {
     @Previewable @State var model = InputModel.mock.backgrounds
-    SubjectView(images: $model)
+    NavigationView {
+        SubjectView(images: $model, isEditing: true)
+    }
 }

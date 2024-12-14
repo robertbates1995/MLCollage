@@ -25,7 +25,7 @@ struct EditBackgroundView: View {
                     maxSelectionCount: 10, selectionBehavior: .ordered)
                 Spacer()
             }
-            SubjectView(images: $backgrounds)
+            SubjectView(images: $backgrounds, isEditing: true)
             Spacer()
         }
         .padding()

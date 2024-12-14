@@ -10,7 +10,6 @@ import _PhotosUI_SwiftUI
 
 struct EditSubjectView: View {
     @Binding var subject: Subject
-    @State private var isEditing = false
     
     private static let initialColumns = 3
     @State private var numColumns = initialColumns
@@ -30,7 +29,7 @@ struct EditSubjectView: View {
                     .padding()
                     .background(Color.black.opacity(0.1))
             }
-            SubjectView(images: $subject.images)
+            SubjectView(images: $subject.images, isEditing: true)
             Spacer()
             HStack() {
                 Spacer()
@@ -60,32 +59,9 @@ struct EditSubjectView: View {
     }
 }
 
-struct SubjectView: View {
-    @Binding var images: [UIImage]
-
-    var body: some View {
-        ScrollView {
-            VStack {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20)
-                {
-                    ForEach(images, id: \.self) { image in
-                        subjectImage(image)
-                    }
-                }
-            }
-        }
-    }
-    
-    fileprivate func subjectImage(_ image: UIImage) -> some View {
-        return Image(uiImage: image)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .background(Color.gray.opacity(0.5))
-            .cornerRadius(5.0)
-    }
-}
-
 #Preview {
     @Previewable @State var model = Subject(label: "")
-    EditSubjectView(subject: $model)
+    NavigationView {
+        EditSubjectView(subject: $model)
+    }
 }
