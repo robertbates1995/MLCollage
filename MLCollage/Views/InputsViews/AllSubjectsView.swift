@@ -53,6 +53,13 @@ struct AllSubjectsView: View {
                 isPresented: $addNewSubject,
                 onDismiss: didDismiss
             ) {
+                HStack {
+                    Spacer()
+                    Button("Save") {
+                        
+                    }
+                    .padding()
+                }
                 EditSubjectView(subject: $newSubject)
             }
             .sheet(

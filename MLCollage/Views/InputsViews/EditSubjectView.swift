@@ -24,13 +24,15 @@ struct EditSubjectView: View {
                     .padding()
                     .background(Color.black.opacity(0.1))
             }
-            HStack {
+            SubjectView(images: $subject.images)
+            Spacer()
+            HStack() {
+                Spacer()
                 PhotosPicker(
                     "add photos", selection: $photosPickerItems,
                     maxSelectionCount: 10, selectionBehavior: .ordered)
                 Spacer()
             }
-            SubjectView(images: $subject.images)
             Spacer()
         }
         .padding()
