@@ -56,7 +56,7 @@ struct AllSubjectsView: View {
                 HStack {
                     Spacer()
                     Button("Save") {
-                        
+                        addNewSubject.toggle()
                     }
                     .padding()
                 }
