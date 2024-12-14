@@ -21,7 +21,7 @@ struct AllSubjectsView: View {
                     Section(subject.label.wrappedValue) {
                         ZStack {
                             Color.white
-                            SubjectView(images: subject.images, isEditing: false)
+                            SubjectView(images: subject.images, isClickable: false, isDeleting: false)
                         }
                     }
                     .onTapGesture {
@@ -35,7 +35,7 @@ struct AllSubjectsView: View {
                 Section("Backgrounds") {
                     ZStack {
                         Color.white
-                        SubjectView(images: $model.backgrounds, isEditing: false)
+                        SubjectView(images: $model.backgrounds, isClickable: false, isDeleting: false)
                     }
                 }
                 .onTapGesture {

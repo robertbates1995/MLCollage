@@ -10,6 +10,7 @@ import _PhotosUI_SwiftUI
 
 struct EditSubjectView: View {
     @Binding var subject: Subject
+    @State private var isDeleting = false
     
     private static let initialColumns = 3
     @State private var numColumns = initialColumns
@@ -29,7 +30,7 @@ struct EditSubjectView: View {
                     .padding()
                     .background(Color.black.opacity(0.1))
             }
-            SubjectView(images: $subject.images, isEditing: true)
+            SubjectView(images: $subject.images, isClickable: true, isDeleting: isDeleting)
             Spacer()
             HStack() {
                 Spacer()
@@ -40,6 +41,7 @@ struct EditSubjectView: View {
             }
             Spacer()
         }
+        
         .padding()
         .onChange(of: photosPickerItems) { _, _ in
             let localPhotosPickerItems = photosPickerItems
@@ -53,6 +55,18 @@ struct EditSubjectView: View {
                             addImage(image)
                         }
                     }
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(isDeleting ? "Done" : "Edit") {
+                    withAnimation { isDeleting.toggle() }
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("save") {
+                    withAnimation { isDeleting.toggle() }
                 }
             }
         }

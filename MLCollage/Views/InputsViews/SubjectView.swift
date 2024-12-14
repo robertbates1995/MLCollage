@@ -11,7 +11,8 @@ import UIKit
 
 struct SubjectView: View {
     @Binding var images: [UIImage]
-    let isEditing: Bool
+    let isClickable: Bool
+    var isDeleting: Bool
     
     var body: some View {
         ScrollView {
@@ -19,7 +20,7 @@ struct SubjectView: View {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20)
                 {
                     ForEach(images, id: \.self) { image in
-                            if isEditing {
+                            if isClickable {
                                 NavigationLink(destination: subjectImage(image)) {
                                     subjectImage(image)
                                 }
@@ -33,17 +34,33 @@ struct SubjectView: View {
     }
     
     fileprivate func subjectImage(_ image: UIImage) -> some View {
-        return Image(uiImage: image)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .background(Color.gray.opacity(0.5))
-            .cornerRadius(5.0)
+        ZStack {
+            Image(uiImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .background(Color.gray.opacity(0.5))
+                .cornerRadius(5.0)
+            if isDeleting {
+                Button {
+                    guard let index = images.firstIndex(of: image) else { return }
+                    withAnimation {
+                        _ = images.remove(at: index)
+                    }
+                } label: {
+                    Image(systemName: "xmark.square.fill")
+                        .font(.title)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.white, Color.red)
+                }
+                .offset(x: 7, y: -7)
+            }
+        }
     }
 }
 
 #Preview {
     @Previewable @State var model = InputModel.mock.backgrounds
     NavigationView {
-        SubjectView(images: $model, isEditing: true)
+        SubjectView(images: $model, isClickable: true, isDeleting: false)
     }
 }
