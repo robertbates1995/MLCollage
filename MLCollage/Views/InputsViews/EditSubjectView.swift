@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import _PhotosUI_SwiftUI
+import PhotosUI
 
 struct EditSubjectView: View {
     @Binding var subject: Subject
@@ -45,7 +45,6 @@ struct EditSubjectView: View {
             }
             Spacer()
         }
-
         .padding()
         .onChange(of: photosPickerItems) { _, _ in
             let localPhotosPickerItems = photosPickerItems
@@ -78,7 +77,7 @@ struct EditSubjectView: View {
 }
 
 #Preview {
-    @Previewable @State var model = Subject(label: "")
+    @Previewable @State var model = Subject(label: "", images: [.apple1, .apple2])
     NavigationView {
         EditSubjectView(subject: $model)
     }

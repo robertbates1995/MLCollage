@@ -13,28 +13,29 @@ struct SubjectView: View {
     @Binding var images: [UIImage]
     let isClickable: Bool
     var isDeleting: Bool
-    
+
     var body: some View {
         ScrollView {
             VStack {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 50))], spacing: 20)
-                {
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: 50))], spacing: 20
+                ) {
                     ForEach(images, id: \.self) { image in
-                            if isClickable {
-                                NavigationLink(destination: subjectImage(image)) {
-                                    subjectImage(image)
-                                }
-                            } else {
+                        if isClickable {
+                            NavigationLink(destination: subjectImage(image)) {
                                 subjectImage(image)
                             }
+                        } else {
+                            subjectImage(image)
                         }
                     }
+                }
             }
         }
     }
-    
+
     fileprivate func subjectImage(_ image: UIImage) -> some View {
-        ZStack {
+        ZStack() {
             Image(uiImage: image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -42,17 +43,25 @@ struct SubjectView: View {
                 .cornerRadius(5.0)
             if isDeleting {
                 Button {
-                    guard let index = images.firstIndex(of: image) else { return }
+                    guard let index = images.firstIndex(of: image) else {
+                        return
+                    }
                     withAnimation {
                         _ = images.remove(at: index)
                     }
                 } label: {
-                    Image(systemName: "xmark.square.fill")
-                        .font(.title)
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.white, Color.red)
+                    VStack {
+                        HStack {
+                            Image(systemName: "xmark.square.fill")
+                                .font(.title)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.white, Color.red)
+                        }
+                        Spacer()
+                    }
+                    Spacer()
                 }
-                .offset(x: 7, y: -7)
+                .offset(x: -2.0, y: -2.0)
             }
         }
     }
