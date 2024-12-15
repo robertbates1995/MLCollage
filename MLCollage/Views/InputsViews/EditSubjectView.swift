@@ -11,17 +11,19 @@ import _PhotosUI_SwiftUI
 struct EditSubjectView: View {
     @Binding var subject: Subject
     @State private var isDeleting = false
-    
+    @Environment(\.dismiss) var dismiss
+
     private static let initialColumns = 3
     @State private var numColumns = initialColumns
-    @State private var gridColumns = Array(repeating: GridItem(.flexible()), count: initialColumns)
+    @State private var gridColumns = Array(
+        repeating: GridItem(.flexible()), count: initialColumns)
 
     @State private var photosPickerItems: [PhotosPickerItem] = []
-    
+
     func addImage(_ image: UIImage) {
         subject.images.append(image)
     }
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -30,9 +32,11 @@ struct EditSubjectView: View {
                     .padding()
                     .background(Color.black.opacity(0.1))
             }
-            SubjectView(images: $subject.images, isClickable: true, isDeleting: isDeleting)
+            SubjectView(
+                images: $subject.images, isClickable: true,
+                isDeleting: isDeleting)
             Spacer()
-            HStack() {
+            HStack {
                 Spacer()
                 PhotosPicker(
                     "add photos", selection: $photosPickerItems,
@@ -41,7 +45,7 @@ struct EditSubjectView: View {
             }
             Spacer()
         }
-        
+
         .padding()
         .onChange(of: photosPickerItems) { _, _ in
             let localPhotosPickerItems = photosPickerItems
@@ -66,7 +70,7 @@ struct EditSubjectView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("save") {
-                    withAnimation { isDeleting.toggle() }
+                    dismiss()
                 }
             }
         }
