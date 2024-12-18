@@ -18,7 +18,7 @@ extension UIImage {
         }
         return self
     }
-
+    
     func toCIImage() -> CIImage {
         if let temp = self.ciImage { return temp }
         return CIImage(

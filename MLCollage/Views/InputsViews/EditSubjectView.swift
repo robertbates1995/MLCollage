@@ -34,16 +34,8 @@ struct EditSubjectView: View {
             }
             SubjectView(
                 images: $subject.images, isClickable: true,
-                isDeleting: isDeleting)
-            Spacer()
-            HStack {
-                Spacer()
-                PhotosPicker(
-                    "add photos", selection: $photosPickerItems,
-                    maxSelectionCount: 10, selectionBehavior: .ordered)
-                Spacer()
-            }
-            Spacer()
+                isDeleting: isDeleting
+            )
         }
         .padding()
         .onChange(of: photosPickerItems) { _, _ in
@@ -66,6 +58,11 @@ struct EditSubjectView: View {
                 Button(isDeleting ? "Done" : "Edit") {
                     withAnimation { isDeleting.toggle() }
                 }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                PhotosPicker(
+                    "add", selection: $photosPickerItems,
+                    maxSelectionCount: 10, selectionBehavior: .ordered)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("save") {
