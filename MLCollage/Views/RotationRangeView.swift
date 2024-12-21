@@ -5,7 +5,6 @@
 //  Created by Robert Bates on 12/20/24.
 //
 
-
 import SwiftUI
 
 struct RotationRangeView: View {
@@ -31,15 +30,27 @@ struct RotationRangeView: View {
             }
             .padding()
 
-            Button(action: applyMinRotation) {
-                Text("Apply Rotation")
-                    .fontWeight(.bold)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+            HStack {
+                Button(action: applyMinRotation) {
+                    Text("min")
+                        .fontWeight(.bold)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
+
+                Button(action: applyMaxRotation) {
+                    Text("max")
+                        .fontWeight(.bold)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+                .padding()
             }
-            .padding()
 
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
@@ -49,6 +60,7 @@ struct RotationRangeView: View {
                 Text("Object")
                     .foregroundColor(.white)
                     .font(.headline)
+                    .rotationEffect(.degrees(currentRotation))
             }
             .animation(.easeInOut(duration: 0.5), value: currentRotation)
             .padding()
@@ -63,13 +75,13 @@ struct RotationRangeView: View {
         guard minRotation <= maxRotation else { return }
         currentRotation = Double.random(in: minRotation...maxRotation)
     }
-    
+
     func applyMinRotation() {
         // Generate the minimum rotation within the selected range
         guard minRotation <= maxRotation else { return }
         currentRotation = minRotation
     }
-    
+
     func applyMaxRotation() {
         // Generate the maximum rotation within the selected range
         guard minRotation <= maxRotation else { return }
