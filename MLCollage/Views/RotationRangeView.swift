@@ -31,7 +31,7 @@ struct RotationRangeView: View {
             }
             .padding()
 
-            Button(action: applyRotation) {
+            Button(action: applyMinRotation) {
                 Text("Apply Rotation")
                     .fontWeight(.bold)
                     .padding()
@@ -62,6 +62,18 @@ struct RotationRangeView: View {
         // Generate a random rotation within the selected range
         guard minRotation <= maxRotation else { return }
         currentRotation = Double.random(in: minRotation...maxRotation)
+    }
+    
+    func applyMinRotation() {
+        // Generate the minimum rotation within the selected range
+        guard minRotation <= maxRotation else { return }
+        currentRotation = minRotation
+    }
+    
+    func applyMaxRotation() {
+        // Generate the maximum rotation within the selected range
+        guard minRotation <= maxRotation else { return }
+        currentRotation = maxRotation
     }
 }
 
