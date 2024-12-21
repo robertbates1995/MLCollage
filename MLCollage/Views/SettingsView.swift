@@ -33,7 +33,9 @@ struct SettingsView: View {
                 }
                 //scale range
                 Section("rotation") {
-                    RotationRangeView()
+                    RotationRangeView(minRotation: $settings.rotateLowerBound,
+                                      maxRotation: $settings.rotateUpperBound
+                    )
                 }
                 //rotate range
                 HighLowSliderView(

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RotationRangeView: View {
-    @State private var minRotation: Double = 0
-    @State private var maxRotation: Double = 360
+    @Binding var minRotation: Double
+    @Binding var maxRotation: Double
     @State private var currentRotation: Double = 0
 
     var body: some View {
@@ -89,8 +89,8 @@ struct RotationRangeView: View {
     }
 }
 
-struct RotationRangeView_Previews: PreviewProvider {
-    static var previews: some View {
-        RotationRangeView()
-    }
+#Preview {
+    @Previewable @State var model = SettingsModel()
+    RotationRangeView(minRotation: $model.rotateLowerBound,
+                      maxRotation: $model.rotateUpperBound)
 }
