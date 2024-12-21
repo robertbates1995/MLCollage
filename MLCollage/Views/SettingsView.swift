@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+enum NumberOfSubject: String, CaseIterable, Identifiable {
+    case chocolate, vanilla, strawberry
+    var id: Self { self }
+}
+
+
+
+
 struct SettingsView: View {
     @Binding var settings: SettingsModel
     @State var width: CGSize = .zero
@@ -18,7 +26,7 @@ struct SettingsView: View {
                 SliderView(
                     title: "number of each subject",
                     value: $settings.numberOfEachSubject,
-                    range: 1...10)
+                    range: 5...100)
                 //translation range
                 Section("Translation") {
                     Toggle("Translate", isOn: $settings.translate)
