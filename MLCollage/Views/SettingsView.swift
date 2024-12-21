@@ -32,11 +32,9 @@ struct SettingsView: View {
                     Toggle("Translate", isOn: $settings.translate)
                 }
                 //scale range
-                HighLowSliderView(
-                    title: "rotation",
-                    value: $settings.scaleLowerBound,
-                    upperValue: $settings.scaleUpperBound,
-                    range: 0.5...1.5)
+                Section("rotation") {
+                    RotationRangeView()
+                }
                 //rotate range
                 HighLowSliderView(
                     title: "scale",
@@ -49,7 +47,6 @@ struct SettingsView: View {
                     Toggle("Vertical", isOn: $settings.flipVertical)
                 }
             }
-            .scrollDisabled(true)
             .navigationTitle("Settings")
         }
     }
