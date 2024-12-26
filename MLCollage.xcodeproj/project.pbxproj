@@ -120,10 +120,10 @@
 		7A528B602CAF50F700A30DB0 /* InputsViews */ = {
 			isa = PBXGroup;
 			children = (
-				7A5E27362D0663C800C70B3F /* EditBackgroundView.swift */,
 				7A528B5A2CA4C11500A30DB0 /* AllSubjectsView.swift */,
 				7A528B632CAF518900A30DB0 /* SubjectView.swift */,
 				7A0A08C92CD9FE19001FC1DA /* EditSubjectView.swift */,
+				7A5E27362D0663C800C70B3F /* EditBackgroundView.swift */,
 			);
 			path = InputsViews;
 			sourceTree = "<group>";

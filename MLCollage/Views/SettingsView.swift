@@ -51,7 +51,7 @@ struct HighLowSliderView: View {
     @Binding var value: Double
     @Binding var upperValue: Double
     let range: ClosedRange<Double>
-
+    
     var body: some View {
         Section(title) {
             HStack {

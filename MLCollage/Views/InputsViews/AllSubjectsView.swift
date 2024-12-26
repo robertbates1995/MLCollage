@@ -22,6 +22,7 @@ struct AllSubjectsView: View {
                         ZStack {
                             Color.white
                             SubjectView(images: subject.images, isClickable: false, isDeleting: false)
+                                .padding([.top], 7)
                         }
                     }
                     .onTapGesture {
@@ -36,6 +37,7 @@ struct AllSubjectsView: View {
                     ZStack {
                         Color.white
                         SubjectView(images: $model.backgrounds, isClickable: false, isDeleting: false)
+                            .padding([.top], 7)
                     }
                 }
                 .onTapGesture {
