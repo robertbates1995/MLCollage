@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-enum NumberOfSubject: String, CaseIterable, Identifiable {
-    case chocolate, vanilla, strawberry
-    var id: Self { self }
-}
-
-
-
-
 struct SettingsView: View {
     @Binding var settings: SettingsModel
     @State var width: CGSize = .zero
