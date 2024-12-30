@@ -7,7 +7,14 @@
 
 import UIKit
 
-struct MLCImage: Identifiable {
+struct MLCImage: Identifiable, Hashable, Equatable {
     var id: String = ""
     var uiImage: UIImage
+}
+
+extension MLCImage {
+    init(uiImage: UIImage) {
+        id = UUID().uuidString
+        self.uiImage = uiImage
+    }
 }

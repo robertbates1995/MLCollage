@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InputModel {
     var subjects: [Subject]
-    var backgrounds: [UIImage]
+    var backgrounds: [MLCImage]
     var newSubject: Subject {
         var temp = Subject(label: "New Subject")
         var counter = 2
@@ -20,12 +20,12 @@ struct InputModel {
         return temp
     }
     
-    init(subjects: [Subject] = [], backgrounds: [UIImage] = []) {
+    init(subjects: [Subject] = [], backgrounds: [MLCImage] = []) {
         self.subjects = subjects
         self.backgrounds = backgrounds
     }
     
-    mutating func add(background: UIImage) {
+    mutating func add(background: MLCImage) {
         backgrounds.append(background)
     }
     
@@ -48,5 +48,5 @@ extension InputModel {
     static let mock = InputModel(subjects: [.init(label: "apple", images: [.apple1]),
                                             .init(label: "bannana", images: [.banana1]),
                                             .init(label: "pepper", images: [.pepper1])],
-                                 backgrounds: [.crazyBackground1, .crazyBackground2, .crazyBackground3])
+                                 backgrounds: [.crazyBackground1, .crazyBackground2, .crazyBackground3].map({MLCImage(uiImage: $0)}))
 }

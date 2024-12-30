@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 
 struct SubjectView: View {
-    @Binding var images: [UIImage]
+    @Binding var images: [MLCImage]
     let isClickable: Bool
     var isDeleting: Bool
 
@@ -34,9 +34,9 @@ struct SubjectView: View {
         }
     }
 
-    fileprivate func subjectImage(_ image: UIImage) -> some View {
+    fileprivate func subjectImage(_ image: MLCImage) -> some View {
         ZStack() {
-            Image(uiImage: image)
+            Image(uiImage: image.uiImage)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .background(Color.gray.opacity(0.5))
@@ -67,9 +67,9 @@ struct SubjectView: View {
     }
 }
 
-#Preview {
-    @Previewable @State var model = InputModel.mock.backgrounds
-    NavigationView {
-        SubjectView(images: $model, isClickable: true, isDeleting: false)
-    }
-}
+//#Preview {
+//    @Previewable @State var model = InputModel.mock.backgrounds
+//    NavigationView {
+//        SubjectView(images: $model.map(\.uiImage), isClickable: true, isDeleting: false)
+//    }
+//}

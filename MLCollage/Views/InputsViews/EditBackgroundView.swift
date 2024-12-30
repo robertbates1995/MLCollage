@@ -10,10 +10,10 @@ import SwiftUI
 import PhotosUI
 
 struct EditBackgroundView: View {
-    @Binding var backgrounds: [UIImage]
+    @Binding var backgrounds: [MLCImage]
     @State var photosPickerItems: [PhotosPickerItem] = []
     
-    func addImage(_ image: UIImage) {
+    func addImage(_ image: MLCImage) {
         backgrounds.append(image)
     }
     
@@ -38,7 +38,7 @@ struct EditBackgroundView: View {
                         type: Data.self)
                     {
                         if let image = UIImage(data: data) {
-                            addImage(image)
+                            addImage(MLCImage(uiImage: image))
                         }
                     }
                 }
@@ -50,6 +50,6 @@ struct EditBackgroundView: View {
 #Preview {
     @Previewable @State var model = [UIImage.crazyBackground1,
                                      .crazyBackground2,
-                                     .crazyBackground3]
+                                     .crazyBackground3].map({MLCImage(uiImage: $0)})
     EditBackgroundView(backgrounds: $model)
 }

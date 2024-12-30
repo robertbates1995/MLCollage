@@ -19,7 +19,7 @@ struct BlueprintFactory {
                     continue
                 }
                 let blueprint = CollageBlueprint(
-                    mod: mod, subjectImage: image, background: background,
+                    mod: mod, subjectImage: image.uiImage, background: background.uiImage,
                     label: subject.label,
                     fileName: "\(subject.label)_\(count).png")
                 set.append(blueprint)

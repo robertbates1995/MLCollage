@@ -21,7 +21,7 @@ struct EditSubjectView: View {
     @State private var photosPickerItems: [PhotosPickerItem] = []
 
     func addImage(_ image: UIImage) {
-        subject.images.append(image)
+        subject.images.append(MLCImage(uiImage: image))
     }
 
     var body: some View {

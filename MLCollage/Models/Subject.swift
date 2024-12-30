@@ -11,14 +11,20 @@ import GRDB
 struct Subject: Identifiable {
     var id: String
     var label: String
-    var images: [UIImage]
+    var images: [MLCImage]
 }
 
 extension Subject {
-    init(label: String, images: [UIImage] = []) {
+    init(label: String, images: [MLCImage] = []) {
         id = UUID().uuidString
         self.label = label
         self.images = images
+    }
+    
+    init(label: String, images: [UIImage]) {
+        id = UUID().uuidString
+        self.label = label
+        self.images = images.map({MLCImage(uiImage: $0)})
     }
     
     public static func == (lhs: Subject, rhs: Subject) -> Bool {

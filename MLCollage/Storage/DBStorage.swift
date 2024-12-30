@@ -80,11 +80,11 @@ class DBStorage: StorageProtocol {
             let subjectImages = try DBSubjectImage.fetchAll(db)
             let subjects = try DBSubject.fetchAll(db).map { dbSubject in
                 Subject(id: dbSubject.id, label: dbSubject.label, images: subjectImages.filter({ $0.subjectsId == dbSubject.id }).map {
-                    $0.asImage()
+                    MLCImage(id: $0.id, uiImage: $0.asImage())
                 })
             }
             let backgrounds = try DBBackgroundImages.fetchAll(db).map {
-                $0.asImage()
+                MLCImage(id: $0.id, uiImage: $0.asImage())
             }
             return InputModel(subjects: subjects, backgrounds: backgrounds)
         }
@@ -102,6 +102,9 @@ class DBStorage: StorageProtocol {
         }
     }
 
+    
+    //get id of all pre existing subject images
+    //reference images being uploaded vs what is already up there.
     fileprivate func writeSubjects(_ db: Database, inputModel: InputModel) throws {
         try DBSubject.deleteAll(db) //wipe database
         try DBSubjectImage.deleteAll(db) //wipe all images
@@ -110,7 +113,7 @@ class DBStorage: StorageProtocol {
             let temp = DBSubject(id: subject.id, label: subject.label)  //create new subject
             try temp.insert(db)  //insert new subject
             for image in subject.images {
-                guard let image = image.pngData() else {
+                guard let image = image.uiImage.pngData() else {
                     continue
                 }
                 try DBSubjectImage(subjectsId: subject.id, id: "\(counter)", image: image).insert(db)
@@ -120,14 +123,14 @@ class DBStorage: StorageProtocol {
     }
     
     fileprivate func writeBackgrounds(_ db: Database, inputModel: InputModel) throws {
-        try DBBackgroundImages.deleteAll(db) //wipe database
-        var counter = 0
         for background in inputModel.backgrounds {
-                guard let image = background.pngData() else {
+            if try DBBackgroundImages.exists(db, key: background.id) {
+                continue
+            }
+            guard let image = background.uiImage.pngData() else {
                     continue
                 }
-            try DBBackgroundImages(id: "\(counter)", image: image).insert(db)
-                counter += 1
+            try DBBackgroundImages(id: background.id, image: image).insert(db)
         }
     }
     
