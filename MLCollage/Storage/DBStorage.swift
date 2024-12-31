@@ -102,22 +102,26 @@ class DBStorage: StorageProtocol {
         }
     }
 
-    
-    //get id of all pre existing subject images
-    //reference images being uploaded vs what is already up there.
+    //TODO: DO THE SAME THING AS writeBackgrounds
+    //make sure to not be re-writing images
     fileprivate func writeSubjects(_ db: Database, inputModel: InputModel) throws {
-        try DBSubject.deleteAll(db) //wipe database
-        try DBSubjectImage.deleteAll(db) //wipe all images
-        var counter = 0
         for subject in inputModel.subjects {  //loop over all subjects
+            if try DBSubjectImage.exists(db, key: subject.id) { //if already in table, continue
+                continue
+            }
             let temp = DBSubject(id: subject.id, label: subject.label)  //create new subject
             try temp.insert(db)  //insert new subject
-            for image in subject.images {
+            for image in subject.images { //populate images for current subject
                 guard let image = image.uiImage.pngData() else {
                     continue
                 }
-                try DBSubjectImage(subjectsId: subject.id, id: "\(counter)", image: image).insert(db)
-                counter += 1
+                try DBSubjectImage(subjectsId: subject.id, id: "", image: image).insert(db)
+            }
+            for i in try DBSubjectImage.fetchAll(db) {
+                if subject.images.map({$0.id}).contains(i.id) {
+                    continue
+                }
+                try i.delete(db)
             }
         }
     }
@@ -128,9 +132,15 @@ class DBStorage: StorageProtocol {
                 continue
             }
             guard let image = background.uiImage.pngData() else {
-                    continue
-                }
+                continue
+            }
             try DBBackgroundImages(id: background.id, image: image).insert(db)
+        }
+        for i in try DBBackgroundImages.fetchAll(db) {
+            if inputModel.backgrounds.map({$0.id}).contains(i.id) {
+                continue
+            }
+            try i.delete(db)
         }
     }
     
