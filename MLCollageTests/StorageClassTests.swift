@@ -66,7 +66,9 @@ final class StorageClassTests: XCTestCase {
     
     func testAddBackground() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
-        let expected = InputModel(backgrounds: [.crazyBackground1, .crazyBackground2])
+        let expectedBackground1 = MLCImage(uiImage: .crazyBackground1)
+        let expectedBackground2 = MLCImage(uiImage: .crazyBackground1)
+        let expected = InputModel(backgrounds: [expectedBackground1, expectedBackground2])
         try sut.write(inputModel: expected)
         var actual = try sut.readInputModel()
         XCTAssertEqual(actual, expected)
@@ -95,7 +97,7 @@ final class StorageClassTests: XCTestCase {
 extension InputModel: @retroactive Equatable {
     public static func == (lhs: MLCollage.InputModel, rhs: MLCollage.InputModel) -> Bool {
         if lhs.subjects != rhs.subjects { return false }
-        if lhs.backgrounds.map({ $0.pngData() }) != rhs.backgrounds.map({ $0.pngData() }) { return false }
+        if lhs.backgrounds.map({ $0.uiImage.pngData() }) != rhs.backgrounds.map({ $0.uiImage.pngData() }) { return false }
         return true
     }
 }
@@ -104,7 +106,7 @@ extension Subject: @retroactive Equatable {
     public static func == (lhs: MLCollage.Subject, rhs: MLCollage.Subject) -> Bool {
         if lhs.id != rhs.id { return false }
         if lhs.label != rhs.label { return false }
-        if lhs.images.map({ $0.pngData() }) != rhs.images.map({ $0.pngData() }) { return false }
+        if lhs.images.map({ $0.uiImage.pngData() }) != rhs.images.map({ $0.uiImage.pngData() }) { return false }
         return true
     }
 }
