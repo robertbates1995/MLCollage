@@ -37,7 +37,7 @@ final class StorageClassTests: XCTestCase {
             CREATE TABLE "backgroundImages" ("id" TEXT PRIMARY KEY NOT NULL, "image" BLOB);
             CREATE TABLE "settings" ("id" TEXT PRIMARY KEY NOT NULL, "settings" BLOB);
             CREATE TABLE "subjects" ("id" TEXT PRIMARY KEY NOT NULL, "label" TEXT);
-            CREATE TABLE "subjectsImages" ("id" TEXT PRIMARY KEY NOT NULL, "subjectsId" TEXT, "image" BLOB);
+            CREATE TABLE "subjectImages" ("id" TEXT PRIMARY KEY NOT NULL, "subjectsId" TEXT, "image" BLOB);
 
             backgroundImages
 
@@ -45,7 +45,7 @@ final class StorageClassTests: XCTestCase {
 
             subjects
 
-            subjectsImages
+            subjectImages
 
             """
         }
