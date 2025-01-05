@@ -54,9 +54,9 @@ class DBStorage: StorageProtocol {
                 table.primaryKey("id", .text)  //the internal 'name' for each subject
                 table.column("label", .text)  //the string the user sets to represent each subject
             }
-            try db.create(table: "subjectImages") { table in
+            try db.create(table: "subjectsImages") { table in
                 table.primaryKey("id", .text)  //the image id
-                table.column("subjectId", .text)  //the foregn key
+                table.column("subjectsId", .text)  //the foregn key
                 table.column("image", .blob)  //one image of a subject
             }
             try db.create(table: "backgroundImages") { table in
@@ -65,7 +65,7 @@ class DBStorage: StorageProtocol {
             }
             try db.create(table: "settings") { table in
                 table.primaryKey("id", .text)  //the internal 'name' for each setting
-                table.column("setting", .blob)  // the value/range of the setting, as a string
+                table.column("settings", .blob)  // the value/range of the setting, as a string
             }
         }
         try migrator.migrate(databaseQueue)
