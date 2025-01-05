@@ -12,7 +12,7 @@ struct DBBackgroundImages: Codable, FetchableRecord, PersistableRecord {
     static let databaseTableName: String = "backgroundImages"
     let id: String
     let image: Data
-    
+
     func asImage() -> UIImage {
         //turn image into UIImage
         return UIImage(data: image)!
@@ -45,7 +45,7 @@ struct DBSettings: Codable, FetchableRecord, PersistableRecord {
 
 class DBStorage: StorageProtocol {
     let databaseQueue: DatabaseQueue
-
+    
     init(databaseQueue: DatabaseQueue) throws {
         self.databaseQueue = databaseQueue
         var migrator = DatabaseMigrator()
@@ -70,18 +70,22 @@ class DBStorage: StorageProtocol {
         }
         try migrator.migrate(databaseQueue)
     }
-
+    
     func readPath() throws -> String {
         databaseQueue.path
     }
-
+    
     func readInputModel() throws -> InputModel {
         try databaseQueue.read { db in
             let subjectImages = try DBSubjectImage.fetchAll(db)
             let subjects = try DBSubject.fetchAll(db).map { dbSubject in
-                Subject(id: dbSubject.id, label: dbSubject.label, images: subjectImages.filter({ $0.subjectsId == dbSubject.id }).map {
-                    MLCImage(id: $0.id, uiImage: $0.asImage())
-                })
+                Subject(
+                    id: dbSubject.id, label: dbSubject.label,
+                    images: subjectImages.filter({
+                        $0.subjectsId == dbSubject.id
+                    }).map {
+                        MLCImage(id: $0.id, uiImage: $0.asImage())
+                    })
             }
             let backgrounds = try DBBackgroundImages.fetchAll(db).map {
                 MLCImage(id: $0.id, uiImage: $0.asImage())
@@ -89,7 +93,7 @@ class DBStorage: StorageProtocol {
             return InputModel(subjects: subjects, backgrounds: backgrounds)
         }
     }
-
+    
     func readSettingsModel() throws -> SettingsModel {
         try databaseQueue.read { db in
             let settings = try DBSettings.fetchOne(db)
@@ -101,32 +105,47 @@ class DBStorage: StorageProtocol {
             }
         }
     }
-
+    
     //TODO: DO THE SAME THING AS writeBackgrounds
     //make sure to not be re-writing images
-    fileprivate func writeSubjects(_ db: Database, inputModel: InputModel) throws {
-        for subject in inputModel.subjects {  //loop over all subjects
-            if try DBSubjectImage.exists(db, key: subject.id) { //if already in table, continue
-                continue
-            }
-            let temp = DBSubject(id: subject.id, label: subject.label)  //create new subject
-            try temp.insert(db)  //insert new subject
-            for image in subject.images { //populate images for current subject
-                guard let image = image.uiImage.pngData() else {
-                    continue
+    fileprivate func writeSubjects(_ db: Database, inputModel: InputModel)
+    throws
+    {
+        for subject in inputModel.subjects {  //loop over all inputModel subjects
+            if try DBSubject.exists(db, key: subject.id) {  //check if subject is in db
+                for image in subject.images {  //loop ovar all images per subject
+                    if try DBSubjectImage.exists(db, key: image.id) {  //if already in table, continue to next image
+                        continue
+                    }
+                    guard let image = image.uiImage.pngData() else {  //create png to insert, otherwise continue
+                        continue
+                    }
+                    try DBSubjectImage(
+                        subjectsId: subject.id, id: "", image: image
+                    ).insert(db)  //insert image into db
                 }
-                try DBSubjectImage(subjectsId: subject.id, id: "", image: image).insert(db)
+            } else {  //case where the subject is in the inputModel, but not already in the db
+                let newSubject = DBSubject(id: subject.id, label: subject.label)  //create new DBSubject
+                try newSubject.insert(db)  //insert subject to db
             }
-            for i in try DBSubjectImage.fetchAll(db) {
-                if subject.images.map({$0.id}).contains(i.id) {
-                    continue
+        }
+        //next, remove subjects in the db that are not in the inputModel
+        for subject in try DBSubject.fetchAll(db) { //itterate over all subjects in the db
+            var delete = true //set delete flag, default to true
+            for id in inputModel.subjects.map({ $0.id }) { //loop over subject id's in inputModel
+                if subject.id == id { //if subject id exists in inputModel, change delete flag to false
+                    delete = false
                 }
-                try i.delete(db)
+            }
+            if delete { //remove subject that has been found to exist in db, but not in inputModel
+                try subject.delete(db)
             }
         }
     }
-    
-    fileprivate func writeBackgrounds(_ db: Database, inputModel: InputModel) throws {
+
+    fileprivate func writeBackgrounds(_ db: Database, inputModel: InputModel)
+        throws
+    {
         for background in inputModel.backgrounds {
             if try DBBackgroundImages.exists(db, key: background.id) {
                 continue
@@ -137,13 +156,13 @@ class DBStorage: StorageProtocol {
             try DBBackgroundImages(id: background.id, image: image).insert(db)
         }
         for i in try DBBackgroundImages.fetchAll(db) {
-            if inputModel.backgrounds.map({$0.id}).contains(i.id) {
+            if inputModel.backgrounds.map({ $0.id }).contains(i.id) {
                 continue
             }
             try i.delete(db)
         }
     }
-    
+
     func write(inputModel: InputModel) throws {
         try databaseQueue.write { db in
             try writeSubjects(db, inputModel: inputModel)
@@ -158,7 +177,7 @@ class DBStorage: StorageProtocol {
                 .prettyPrinted, .sortedKeys,
             ])
             let output = try encoder.encode(settingsModel)
-            let temp = DBSettings(id: "SettingsID", settings: output) //create settings object
+            let temp = DBSettings(id: "SettingsID", settings: output)  //create settings object
             try temp.upsert(db)  //upsert settings
         }
     }
