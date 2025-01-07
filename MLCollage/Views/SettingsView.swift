@@ -23,12 +23,15 @@ struct SettingsView: View {
                     value: $settings.numberOfEachSubject,
                     range: 5...100)
                 //resolution of output image
-                Picker(
-                    "Please choose a resolution", selection: $selectedResolution
-                ) {
-                    ForEach(resolutions, id: \.self) {
-                        Text(String($0))
+                Section("output resolution") {
+                    Picker("Please choose a resolution",
+                           selection: $selectedResolution
+                    ) {
+                        ForEach(resolutions, id: \.self) {
+                            Text(String($0))
+                        }
                     }
+                    .pickerStyle(.segmented)
                 }
                 //translation range
                 Section("Translation") {
