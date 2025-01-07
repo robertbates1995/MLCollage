@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum Resolution: Double {
+    case small = 100
+    case medium = 200
+    case large = 300
+}
+
 struct SettingsModel: Equatable, Codable {
     var numberOfEachSubject: Double
     var translate: Bool
@@ -32,7 +38,7 @@ struct SettingsModel: Equatable, Codable {
          rotateUpperBound: Double = 0.5,
          flipHorizontal: Bool = true,
          flipVertical: Bool = true,
-         resolution: Double = 100) {
+         resolution: Double = Resolution.medium) {
         self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
         self.scale = scale
