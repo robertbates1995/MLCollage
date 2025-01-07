@@ -16,7 +16,6 @@ import XCTest
 
 @MainActor
 final class CollageTests: XCTestCase {
-    
     let background = {
         var checkerBoardGenerator = CIFilter.checkerboardGenerator()
         checkerBoardGenerator.setDefaults()
@@ -115,6 +114,12 @@ final class CollageTests: XCTestCase {
     func testTranslateMax() {
         let collage = makeCollage(mod: Modification(translateX: Modification.translateMax, translateY: 0.5), subject: makeSubject(width: 200, height: 50))
         
-        assertSnapshot(of: collage.image, as: .image, record: true)
+        assertSnapshot(of: collage.image, as: .image, record: false)
     }
+    
+//    func testScaleSubjectImage() {
+//        let settingsModel = SettingsModel()
+//        var image = UIImage(resource: .apple1)
+//        image.scale(settingsModel.scale)
+//    }
 }

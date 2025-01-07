@@ -37,7 +37,6 @@ struct BlueprintFactory {
                     in: settingsModel.scaleLowerBound..<settingsModel.scaleUpperBound)
             }
             if settingsModel.rotate {
-                
                 newMod.rotate = CGFloat.random(
                     in: (settingsModel.rotateLowerBound * 2 * .pi)..<(settingsModel
                         .rotateUpperBound * 2 * .pi))

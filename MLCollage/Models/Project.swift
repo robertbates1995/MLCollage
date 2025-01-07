@@ -17,22 +17,20 @@ class Project {
     var settingsModel: SettingsModel {
         didSet {
             outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
-            try? storage.write(settingsModel: settingsModel)
+            writeSettings()
         }
     }
     var inputModel: InputModel {
         didSet {
             outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
-            do {
-                try storage.write(inputModel: inputModel)
-            } catch {
-                print(error)
-            }
+            writeInputs()
         }
     }
     var outputModel: OutputModel
     var storage: StorageProtocol
     let blueprintFactory: BlueprintFactory
+    var settingsTask: Task<Void, Never>?
+    var inputTask: Task<Void, Never>?
 
     init(storage: StorageProtocol) {
         title = (try? storage.readPath()) ?? "new_project"
@@ -42,6 +40,28 @@ class Project {
         blueprintFactory = BlueprintFactory()
         self.storage = storage
         outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
+    }
+    
+    func writeSettings() {
+        let settingsModel = settingsModel
+        let storage = storage
+        settingsTask?.cancel()
+        settingsTask = Task.detached {
+            try? storage.write(settingsModel: settingsModel)
+        }
+    }
+    
+    func writeInputs() {
+        let inputModel = inputModel
+        let storage = storage
+        inputTask?.cancel()
+        inputTask = Task.detached {
+            do {
+                try storage.write(inputModel: inputModel)
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 

@@ -53,6 +53,38 @@ final class StorageClassTests: XCTestCase {
     
     func testAddSubject() throws {
         let sut = try DBStorage(databaseQueue: DatabaseQueue())
+        let subject1 = Subject(label: "testSubject", images: [.apple1])
+        let expected = InputModel(subjects: [subject1])
+        try sut.write(inputModel: expected)
+        let actual = try sut.readInputModel()
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func testAddSubjectImage() throws {
+        let sut = try DBStorage(databaseQueue: DatabaseQueue())
+        var subject1 = Subject(label: "testSubject")
+        try sut.write(inputModel: InputModel(subjects: [subject1]))
+        subject1.images.append(MLCImage(uiImage: .apple1))
+        subject1.images.append(MLCImage(uiImage: .apple2))
+        let expected = InputModel(subjects: [subject1])
+        try sut.write(inputModel: expected)
+        let actual = try sut.readInputModel()
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func testRemoveSubjectImage() throws {
+        let sut = try DBStorage(databaseQueue: DatabaseQueue())
+        var subject1 = Subject(label: "testSubject", images: [.apple1])
+        try sut.write(inputModel: InputModel(subjects: [subject1]))
+        subject1.images.removeAll()
+        let expected = InputModel(subjects: [subject1])
+        try sut.write(inputModel: expected)
+        let actual = try sut.readInputModel()
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func testAddTwoSubjects() throws {
+        let sut = try DBStorage(databaseQueue: DatabaseQueue())
         let subject1 = Subject(label: "testSubject", images: [.apple1, .apple2])
         let subject2 = Subject(label: "testSubject2", images: [.banana1, .banana2])
         let expected = InputModel(subjects: [subject1, subject2])
@@ -61,6 +93,18 @@ final class StorageClassTests: XCTestCase {
         XCTAssertEqual(actual, expected)
         try sut.write(inputModel: expected)
         actual = try sut.readInputModel()
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func testRemoveSubject() throws {
+        let sut = try DBStorage(databaseQueue: DatabaseQueue())
+        let subject1 = Subject(label: "testSubject", images: [. apple1, .apple2])
+        let subject2 = Subject(label: "testSubject2", images: [.banana1, .banana2])
+        let inital = InputModel(subjects: [subject1, subject2])
+        try sut.write(inputModel: inital)
+        let expected = InputModel(subjects: [subject1])
+        try sut.write(inputModel: expected)
+        let actual = try sut.readInputModel()
         XCTAssertEqual(actual, expected)
     }
     

@@ -18,6 +18,7 @@ struct SettingsModel: Equatable, Codable {
     var rotateUpperBound: Double
     var flipHorizontal: Bool
     var flipVertical: Bool
+    var resolution: Double
     
     init(numberOfEachSubject: Double = 1.0,
          translate: Bool = true,
@@ -30,7 +31,8 @@ struct SettingsModel: Equatable, Codable {
          rotateLowerBound: Double = 0.0,
          rotateUpperBound: Double = 0.5,
          flipHorizontal: Bool = true,
-         flipVertical: Bool = true) {
+         flipVertical: Bool = true,
+         resolution: Double = 100) {
         self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
         self.scale = scale
@@ -41,5 +43,6 @@ struct SettingsModel: Equatable, Codable {
         self.rotateUpperBound = rotateUpperBound
         self.flipHorizontal = flipHorizontal
         self.flipVertical = flipVertical
+        self.resolution = resolution
     }
 }
