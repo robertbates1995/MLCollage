@@ -11,6 +11,9 @@ struct SettingsView: View {
     @Binding var settings: SettingsModel
     @State var width: CGSize = .zero
 
+    var resolutions = [100, 200, 300]
+    @State private var selectedResolution = 200
+
     var body: some View {
         NavigationView {
             List {
@@ -19,14 +22,23 @@ struct SettingsView: View {
                     title: "number of each subject",
                     value: $settings.numberOfEachSubject,
                     range: 5...100)
+                //resolution of output image
+                Picker(
+                    "Please choose a resolution", selection: $selectedResolution
+                ) {
+                    ForEach(resolutions, id: \.self) {
+                        Text(String($0))
+                    }
+                }
                 //translation range
                 Section("Translation") {
                     Toggle("Translate", isOn: $settings.translate)
                 }
                 //scale range
                 Section("rotation") {
-                    RotationRangeView(minRotation: $settings.rotateLowerBound,
-                                      maxRotation: $settings.rotateUpperBound
+                    RotationRangeView(
+                        minRotation: $settings.rotateLowerBound,
+                        maxRotation: $settings.rotateUpperBound
                     )
                 }
                 //rotate range
@@ -51,7 +63,7 @@ struct HighLowSliderView: View {
     @Binding var value: Double
     @Binding var upperValue: Double
     let range: ClosedRange<Double>
-    
+
     var body: some View {
         Section(title) {
             HStack {
