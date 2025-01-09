@@ -117,9 +117,17 @@ final class CollageTests: XCTestCase {
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
-//    func testScaleSubjectImage() {
-//        let settingsModel = SettingsModel()
-//        var image = UIImage(resource: .apple1)
-//        image.scale(settingsModel.scale)
-//    }
+    func testScaleSubjectImage() {
+        let sut = CollageBlueprint(
+            mod: Modification(scale: 0.5),
+            subjectImage: makeSubject(width: 100, height: 100),
+            background: background,
+            label: "testLabel",
+            fileName: "testFileName")
+        let collage = sut.create(size: 50)
+        
+        XCTAssertEqual(collage.image.size, CGSize(width: 50, height: 50))
+        assertSnapshot(of: collage.image, as: .image, record: true)
+
+    }
 }
