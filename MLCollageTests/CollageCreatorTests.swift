@@ -127,7 +127,7 @@ final class CollageTests: XCTestCase {
         let collage = sut.create(size: 50)
         
         XCTAssertEqual(collage.image.size, CGSize(width: 50, height: 50))
-        assertSnapshot(of: collage.image, as: .image, record: true)
+        assertSnapshot(of: collage.image, as: .image, record: false)
 
     }
 }

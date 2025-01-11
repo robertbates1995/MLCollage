@@ -25,6 +25,7 @@ class OutputModel {
         }
         return CGFloat(collages.count) / CGFloat(blueprints.count)
     }
+    var outputSize: CGFloat = 100
     
     enum State {
         case needsUpdate
@@ -42,13 +43,19 @@ class OutputModel {
         guard state == .needsUpdate else {
             return
         }
-        state = .loading
         Task {
-            for blueprint in blueprints {
-                collages.append(blueprint.create())
-                await Task.yield()
-            }
+            state = .loading
+            await foo(blueprints: blueprints, size: outputSize)
             state = .ready
+        }
+    }
+    
+    nonisolated func foo(blueprints: [CollageBlueprint], size: CGFloat) async {
+        for blueprint in blueprints {
+            let collage = blueprint.create(size: size)
+            await MainActor.run {
+                collages.append(collage)
+            }
         }
     }
 }

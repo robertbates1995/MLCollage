@@ -24,9 +24,7 @@ struct OutputsView: View {
                             spacing: 20
                         ) {
                             ForEach(model.collages) { collage in
-                                Image(uiImage: collage.image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
+                                ThumbnailView(collage: collage)
                             }
                         }
                     }

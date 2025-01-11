@@ -17,6 +17,7 @@ class Project {
     var settingsModel: SettingsModel {
         didSet {
             outputModel.blueprints = blueprintFactory.createBlueprints(inputModel, settingsModel)
+            outputModel.outputSize = settingsModel.outputSize
             writeSettings()
         }
     }

@@ -7,12 +7,6 @@
 
 import Foundation
 
-enum Resolution: Double {
-    case small = 100
-    case medium = 200
-    case large = 300
-}
-
 struct SettingsModel: Equatable, Codable {
     var numberOfEachSubject: Double
     var translate: Bool
@@ -24,7 +18,7 @@ struct SettingsModel: Equatable, Codable {
     var rotateUpperBound: Double
     var flipHorizontal: Bool
     var flipVertical: Bool
-    var resolution: Double
+    var outputSize: CGFloat
     
     init(numberOfEachSubject: Double = 1.0,
          translate: Bool = true,
@@ -38,7 +32,7 @@ struct SettingsModel: Equatable, Codable {
          rotateUpperBound: Double = 0.5,
          flipHorizontal: Bool = true,
          flipVertical: Bool = true,
-         resolution: Double = Resolution.medium.rawValue) {
+         outputSize: CGFloat = 100) {
         self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
         self.scale = scale
@@ -49,6 +43,6 @@ struct SettingsModel: Equatable, Codable {
         self.rotateUpperBound = rotateUpperBound
         self.flipHorizontal = flipHorizontal
         self.flipVertical = flipVertical
-        self.resolution = resolution
+        self.outputSize = outputSize
     }
 }
