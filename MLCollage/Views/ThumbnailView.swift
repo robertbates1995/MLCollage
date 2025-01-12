@@ -7,21 +7,41 @@
 
 import SwiftUI
 
+@Observable
+@MainActor
+class ThumbnailCache {
+    @ObservationIgnored var cache: UIImage?
+    var size: CGFloat = 10.0
+
+    func thumbnail(from source: Collage) -> UIImage {
+
+        if let cache, cache.size.width == size, cache.size.height == size {
+            return cache
+        }
+
+        UIGraphicsBeginImageContextWithOptions(
+            CGSize(width: size, height: size), true, 1.0)
+        source.image.draw(
+            in: CGRect(origin: .zero, size: CGSize(width: size, height: size)))
+        defer { UIGraphicsEndImageContext() }
+        cache = UIGraphicsGetImageFromCurrentImageContext()
+
+        return cache ?? .apple1
+    }
+}
+
 struct ThumbnailView: View {
     let collage: Collage
-    @State var cache: UIImage?
-    var thumbnail: UIImage {
-        if let cache {
-            return cache
-        } else {
-            let temp = collage.image
-            //scale temp
-            cache = temp
-            return temp
-        }
-    }
+    @State var cache = ThumbnailCache()
 
     var body: some View {
-        Image(uiImage: thumbnail)
+        Image(uiImage: cache.thumbnail(from: collage))
+            .resizable()
+            .scaledToFill()
+            .onGeometryChange(for: CGFloat.self) { proxy in
+                proxy.size.width
+            } action: { newWidth in
+                cache.size = newWidth
+            }
     }
 }
