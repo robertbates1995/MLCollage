@@ -21,7 +21,7 @@ struct SettingsView: View {
                 SliderView(
                     title: "number of each subject",
                     value: $settings.numberOfEachSubject,
-                    range: 5...100)
+                    range: 5...10000)
                 //resolution of output image
                 Section("output resolution") {
                     Picker("Please choose a resolution",

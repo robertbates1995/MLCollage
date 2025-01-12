@@ -51,10 +51,15 @@ class OutputModel {
     }
     
     nonisolated func foo(blueprints: [CollageBlueprint], size: CGFloat) async {
-        for blueprint in blueprints {
-            let collage = blueprint.create(size: size)
-            await MainActor.run {
-                collages.append(collage)
+        await withDiscardingTaskGroup { group in
+            for blueprint in blueprints {
+                group.addTask {
+                    let collage = blueprint.create(size: size)
+                    await MainActor.run {
+                        guard !Task.isCancelled else { return }
+                        self.collages.append(collage)
+                    }
+                }
             }
         }
     }
