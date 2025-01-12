@@ -15,10 +15,12 @@ class OutputModel {
     var state = State.needsUpdate
     var blueprints: [CollageBlueprint] = [] {
         didSet {
+            task?.cancel()
             state = .needsUpdate
             collages.removeAll()
         }
     }
+    var task: Task<Void,Never>?
     var progress: CGFloat? {
         guard blueprints.count > 0 else {
             return nil
@@ -43,24 +45,21 @@ class OutputModel {
         guard state == .needsUpdate else {
             return
         }
-        Task {
+        task = Task {
             state = .loading
-            await foo(blueprints: blueprints, size: outputSize)
-            state = .ready
-        }
-    }
-    
-    nonisolated func foo(blueprints: [CollageBlueprint], size: CGFloat) async {
-        await withDiscardingTaskGroup { group in
-            for blueprint in blueprints {
-                group.addTask {
-                    let collage = blueprint.create(size: size)
-                    await MainActor.run {
+            await withDiscardingTaskGroup { group in
+                for blueprint in blueprints {
+                    group.addTask { [outputSize] in
                         guard !Task.isCancelled else { return }
-                        self.collages.append(collage)
+                        let collage = blueprint.create(size: outputSize)
+                        await MainActor.run {
+                            guard !Task.isCancelled else { return }
+                            self.collages.append(collage)
+                        }
                     }
                 }
             }
+            state = .ready
         }
     }
 }
