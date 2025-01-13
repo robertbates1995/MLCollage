@@ -32,4 +32,3 @@ extension Subject {
         return true
     }
 }
-
