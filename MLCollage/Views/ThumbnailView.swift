@@ -26,7 +26,7 @@ class ThumbnailCache {
         defer { UIGraphicsEndImageContext() }
         cache = UIGraphicsGetImageFromCurrentImageContext()
 
-        return cache ?? .apple1
+        return cache ?? .errorIcon
     }
 }
 

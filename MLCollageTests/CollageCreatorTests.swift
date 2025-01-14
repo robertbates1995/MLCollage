@@ -59,12 +59,14 @@ final class CollageTests: XCTestCase {
     func testCollageBlueprint() {
         let collage = makeCollage()
         
+        XCTAssertEqual(collage.json.annotation[0].coordinates, .init(x: 50, y: 50, width: 100, height: 100))
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
     func testScaleToBackground() {
         let collage = makeCollage(subject: makeSubject(width: 300, height: 200))
         
+        XCTAssertEqual(collage.json.annotation[0].coordinates, .init(x: 75, y: 50, width: 150, height: 100))
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
@@ -124,10 +126,10 @@ final class CollageTests: XCTestCase {
             background: background,
             label: "testLabel",
             fileName: "testFileName")
-        let collage = sut.create(size: 50)
+        let collage = sut.create(size: 50.0)
         
+        XCTAssertEqual(collage.json.annotation[0].coordinates, .init(x: 12.5, y: 37.5, width: 25, height: 25))
         XCTAssertEqual(collage.image.size, CGSize(width: 50, height: 50))
-        assertSnapshot(of: collage.image, as: .image, record: false)
-
+        assertSnapshot(of: collage.image, as: .image, record: true)
     }
 }

@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 
 
 struct TrainingDataFile: FileDocument {
-    static let readableContentTypes: [UTType] = [.json, .png, .folder]
+    static let readableContentTypes: [UTType] = [.folder, .json, .png]
     let collages: [Collage]
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
