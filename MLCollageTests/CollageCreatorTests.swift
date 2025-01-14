@@ -130,6 +130,6 @@ final class CollageTests: XCTestCase {
         
         XCTAssertEqual(collage.json.annotation[0].coordinates, .init(x: 12.5, y: 37.5, width: 25, height: 25))
         XCTAssertEqual(collage.image.size, CGSize(width: 50, height: 50))
-        assertSnapshot(of: collage.image, as: .image, record: true)
+        assertSnapshot(of: collage.image, as: .image, record: false)
     }
 }

@@ -10,8 +10,8 @@ import Foundation
 struct BlueprintFactory {
     func createBlueprints(_ inputModel: InputModel, _ settingsModel: SettingsModel) -> [CollageBlueprint] {
         var set = [CollageBlueprint]()
+        var count = 1
         for subject in inputModel.subjects {
-            var count = 1
             for mod in createModList(settingsModel: settingsModel) {
                 guard let background = inputModel.backgrounds.randomElement(),
                       let image = subject.images.randomElement()

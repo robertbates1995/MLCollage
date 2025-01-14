@@ -15,12 +15,10 @@ struct TrainingDataFile: FileDocument {
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         var fileStructure = ["project.json": FileWrapper(regularFileWithContents: collages.json)]
-        var count = 0
         
         for i in collages {
             if let data = i.image.pngData() {
-                fileStructure["\(count).png"] = FileWrapper(regularFileWithContents: data)
-                count += 1
+                fileStructure[i.json.imagefilename] = FileWrapper(regularFileWithContents: data)
             }
         }
         return FileWrapper(directoryWithFileWrappers: fileStructure)
