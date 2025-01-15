@@ -40,7 +40,6 @@
 		7AEA2EB42C586597001C6F89 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEA2EB32C586597001C6F89 /* SnapshotTesting */; };
 		7AEA2EB62C5A9F2F001C6F89 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA2EB52C5A9F2F001C6F89 /* Project.swift */; };
 		7AEA2EB82C5AA59D001C6F89 /* CollageCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA2EB72C5AA59D001C6F89 /* CollageCreatorTests.swift */; };
-		7AF0C5BC2D163C4F0074A9A7 /* RotationRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0C5BB2D163C4F0074A9A7 /* RotationRangeView.swift */; };
 		7AF0C5BE2D3232D20074A9A7 /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0C5BD2D3232D20074A9A7 /* ThumbnailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +86,6 @@
 		7A8E356C2C5860D200B386EF /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7AEA2EB52C5A9F2F001C6F89 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		7AEA2EB72C5AA59D001C6F89 /* CollageCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreatorTests.swift; sourceTree = "<group>"; };
-		7AF0C5BB2D163C4F0074A9A7 /* RotationRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationRangeView.swift; sourceTree = "<group>"; };
 		7AF0C5BD2D3232D20074A9A7 /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,7 +203,6 @@
 		7A8E356F2C5860D200B386EF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				7AF0C5BB2D163C4F0074A9A7 /* RotationRangeView.swift */,
 				7A8E356C2C5860D200B386EF /* ContentView.swift */,
 				7A528B602CAF50F700A30DB0 /* InputsViews */,
 				7A528B5C2CA4C12700A30DB0 /* SettingsView.swift */,
@@ -336,7 +333,6 @@
 				7A0A08CA2CD9FE2D001FC1DA /* EditSubjectView.swift in Sources */,
 				7A4FB6962CB06BED0058B6BC /* UIImage+CIImage.swift in Sources */,
 				7A528B5F2CA4C13D00A30DB0 /* OutputsView.swift in Sources */,
-				7AF0C5BC2D163C4F0074A9A7 /* RotationRangeView.swift in Sources */,
 				7A528B5B2CA4C11500A30DB0 /* AllSubjectsView.swift in Sources */,
 				7AF0C5BE2D3232D20074A9A7 /* ThumbnailView.swift in Sources */,
 				7A8E35702C5860D200B386EF /* Collage.swift in Sources */,

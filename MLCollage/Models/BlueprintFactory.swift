@@ -34,12 +34,11 @@ struct BlueprintFactory {
             var newMod = Modification()
             if settingsModel.scale {
                 newMod.scale = CGFloat.random(
-                    in: settingsModel.scaleLowerBound..<settingsModel.scaleUpperBound)
+                    in: 0.1 ..< 2.0)
             }
             if settingsModel.rotate {
                 newMod.rotate = CGFloat.random(
-                    in: (settingsModel.rotateLowerBound * 2 * .pi)..<(settingsModel
-                        .rotateUpperBound * 2 * .pi))
+                    in: (0.1 * 2 * .pi) ..< (1.0 * 2 * .pi))
             }
             if settingsModel.flipHorizontal {
                 newMod.flipX = Bool.random()

@@ -33,23 +33,12 @@ struct SettingsView: View {
                     }
                     .pickerStyle(.segmented)
                 }
-                //translation range
-                Section("Translation") {
-                    Toggle("Translate", isOn: $settings.translate)
-                }
-                //scale range
-                Section("rotation") {
-                    RotationRangeView(
-                        minRotation: $settings.rotateLowerBound,
-                        maxRotation: $settings.rotateUpperBound
-                    )
-                }
-                //rotate range
-                HighLowSliderView(
-                    title: "scale",
-                    value: $settings.rotateLowerBound,
-                    upperValue: $settings.rotateUpperBound,
-                    range: 0.0...0.5)
+                //translation toggle
+                Toggle("Translate", isOn: $settings.translate)
+                //rotate toggle
+                Toggle("rotate", isOn: $settings.rotate)
+                //scale toggle
+                Toggle("scale", isOn: $settings.scale)
                 //flip toggle
                 Section("flip") {
                     Toggle("Horizontal", isOn: $settings.flipHorizontal)
