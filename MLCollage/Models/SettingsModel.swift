@@ -22,7 +22,7 @@ struct SettingsModel: Equatable, Codable {
          rotate: Bool = true,
          flipHorizontal: Bool = true,
          flipVertical: Bool = true,
-         outputSize: CGFloat = 100) {
+         outputSize: CGFloat = 299) {
         self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
         self.scale = scale

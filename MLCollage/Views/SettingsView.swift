@@ -22,17 +22,6 @@ struct SettingsView: View {
                     title: "number of each subject",
                     value: $settings.numberOfEachSubject,
                     range: 5...10000)
-                //resolution of output image
-                Section("output resolution") {
-                    Picker("Please choose a resolution",
-                           selection: $selectedResolution
-                    ) {
-                        ForEach(resolutions, id: \.self) {
-                            Text(String($0))
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                }
                 //translation toggle
                 Toggle("Translate", isOn: $settings.translate)
                 //rotate toggle
