@@ -46,6 +46,7 @@ final class CollageTests: XCTestCase {
         return image.cropped(to: bounds).toUIImage()
     }
     
+    
     func makeCollage(mod: Modification? = nil, subject: UIImage? = nil) -> Collage {
         let sut = CollageBlueprint(
             mod: mod ?? Modification(),
@@ -54,6 +55,29 @@ final class CollageTests: XCTestCase {
             label: "testLabel",
             fileName: "testFileName")
         return sut.create()
+    }
+    
+    func createTestPNG() -> UIImage? {
+        let size = CGSize(width: 100, height: 100)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        
+        // Draw a red circle
+        context.setFillColor(UIColor.red.cgColor)
+        context.fillEllipse(in: CGRect(origin: .zero, size: size))
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    func savePNGImage(url: URL) {
+        if let uiImage = createTestPNG(),
+           let pngData = uiImage.pngData() {
+            try? pngData.write(to: url)
+            print("Image saved to: \(url)")
+        }
     }
 
     func testCollageBlueprint() {
@@ -131,5 +155,11 @@ final class CollageTests: XCTestCase {
         XCTAssertEqual(collage.json.annotation[0].coordinates, .init(x: 12.5, y: 37.5, width: 25, height: 25))
         XCTAssertEqual(collage.image.size, CGSize(width: 50, height: 50))
         assertSnapshot(of: collage.image, as: .image, record: false)
+    }
+    
+    func testCreatePngImage() {
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent("testImage.png")
+        savePNGImage(url: url)
+        assertSnapshot(of: url.dataRepresentation, as: .data, record: true)
     }
 }
