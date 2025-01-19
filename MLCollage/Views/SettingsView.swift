@@ -29,9 +29,8 @@ struct SettingsView: View {
                 //scale toggle
                 Toggle("scale", isOn: $settings.scale)
                 //flip toggle
-                Section("flip") {
-                    Toggle("Horizontal", isOn: $settings.flipHorizontal)
-                    Toggle("Vertical", isOn: $settings.flipVertical)
+                Section("mirror") {
+                    Toggle("Mirror", isOn: $settings.mirror)
                 }
             }
             .navigationTitle("Settings")

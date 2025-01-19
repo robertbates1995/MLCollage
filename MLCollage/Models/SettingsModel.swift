@@ -12,23 +12,20 @@ struct SettingsModel: Equatable, Codable {
     var translate: Bool
     var scale: Bool
     var rotate: Bool
-    var flipHorizontal: Bool
-    var flipVertical: Bool
+    var mirror: Bool
     var outputSize: CGFloat
     
     init(numberOfEachSubject: Double = 1.0,
          translate: Bool = true,
          scale: Bool = true,
          rotate: Bool = true,
-         flipHorizontal: Bool = true,
-         flipVertical: Bool = true,
+         mirror: Bool = true,
          outputSize: CGFloat = 299) {
         self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
         self.scale = scale
         self.rotate = rotate
-        self.flipHorizontal = flipHorizontal
-        self.flipVertical = flipVertical
+        self.mirror = mirror
         self.outputSize = outputSize
     }
 }

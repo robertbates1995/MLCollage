@@ -40,9 +40,8 @@ struct BlueprintFactory {
                 newMod.rotate = CGFloat.random(
                     in: (0.0) ..< (1.0 * 2 * .pi))
             }
-            if settingsModel.flipHorizontal {
+            if settingsModel.mirror {
                 newMod.flipX = Bool.random()
-                newMod.flipY = Bool.random()
             }
             //translate should be applied last
             if settingsModel.translate {
