@@ -137,11 +137,7 @@ final class CollageTests: XCTestCase {
     
     /// -------
     
-    func createTestImage() -> UIImage? {
-        //establish sizes
-        let canvasSize = CGSize(width: 100, height: 100)
-        let shapeSize = CGSize(width: 50, height: 50)
-        
+    func createTestImage(canvasSize: CGSize, shapeSize: CGSize) -> UIImage? {
         //create canvas
         UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0.0)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
@@ -155,15 +151,6 @@ final class CollageTests: XCTestCase {
         
         return image
     }
-    
-    func savePNGImage(url: URL) {
-        if let uiImage = createTestImage(),
-           let pngData = uiImage.pngData() {
-            try? pngData.write(to: url)
-            print("Image saved to: \(url)")
-        }
-    }
-
     
     func isPointVisible(point: CGPoint, in image: UIImage) -> Bool {
             guard let cgImage = image.cgImage else { return false }
@@ -184,10 +171,15 @@ final class CollageTests: XCTestCase {
             return alpha > 0
         }
     
-    func testCreatePngImage() {
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent("testImage.png")
-        savePNGImage(url: url)
-        let sut = Image(url)
+    func FindSubjectSize(image: UIImage) -> CGSize {
+        
+    }
+    
+    func testFindSubjectSize() {
+        let testImage = createTestImage(canvasSize: CGSize(width: 100, height: 100),
+                                        shapeSize: CGSize(width: 50, height: 50))
+        let sut = Fin
+        
         assertSnapshot(of: url.dataRepresentation, as: .image, record: true)
     }
 }
