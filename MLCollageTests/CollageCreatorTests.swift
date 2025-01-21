@@ -172,14 +172,15 @@ final class CollageTests: XCTestCase {
         }
     
     func FindSubjectSize(image: UIImage) -> CGSize {
-        
+        var subjectSize = image.size
+        return subjectSize
     }
     
     func testFindSubjectSize() {
-        let testImage = createTestImage(canvasSize: CGSize(width: 100, height: 100),
-                                        shapeSize: CGSize(width: 50, height: 50))
-        let sut = Fin
-        
-        assertSnapshot(of: url.dataRepresentation, as: .image, record: true)
+        let expected = CGSize(width: 50, height: 50)
+        guard let testImage = createTestImage(canvasSize: CGSize(width: 100, height: 100),
+                                              shapeSize: expected) else { return }
+        let actual = FindSubjectSize(image: testImage)
+        XCTAssertEqual(actual, expected)
     }
 }
