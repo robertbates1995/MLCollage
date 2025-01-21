@@ -13,6 +13,7 @@ import UIKit
 import XCTest
 
 @testable import MLCollage
+import SwiftUICore
 
 @MainActor
 final class CollageTests: XCTestCase {
@@ -57,29 +58,6 @@ final class CollageTests: XCTestCase {
         return sut.create()
     }
     
-    func createTestPNG() -> UIImage? {
-        let size = CGSize(width: 100, height: 100)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
-        
-        // Draw a red circle
-        context.setFillColor(UIColor.red.cgColor)
-        context.fillEllipse(in: CGRect(origin: .zero, size: size))
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image
-    }
-    
-    func savePNGImage(url: URL) {
-        if let uiImage = createTestPNG(),
-           let pngData = uiImage.pngData() {
-            try? pngData.write(to: url)
-            print("Image saved to: \(url)")
-        }
-    }
-
     func testCollageBlueprint() {
         let collage = makeCollage()
         
@@ -157,9 +135,59 @@ final class CollageTests: XCTestCase {
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
+    /// -------
+    
+    func createTestImage() -> UIImage? {
+        //establish sizes
+        let canvasSize = CGSize(width: 100, height: 100)
+        let shapeSize = CGSize(width: 50, height: 50)
+        
+        //create canvas
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, 0.0)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        
+        // Draw a red circle
+        context.setFillColor(UIColor.red.cgColor)
+        context.fillEllipse(in: CGRect(origin: .zero, size: shapeSize))
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return image
+    }
+    
+    func savePNGImage(url: URL) {
+        if let uiImage = createTestImage(),
+           let pngData = uiImage.pngData() {
+            try? pngData.write(to: url)
+            print("Image saved to: \(url)")
+        }
+    }
+
+    
+    func isPointVisible(point: CGPoint, in image: UIImage) -> Bool {
+            guard let cgImage = image.cgImage else { return false }
+            
+            let pixelData = cgImage.dataProvider?.data
+            let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
+            
+            let width = cgImage.width
+            let height = cgImage.height
+            
+            guard point.x >= 0, point.x < CGFloat(width), point.y >= 0, point.y < CGFloat(height) else {
+                return false
+            }
+            
+            let pixelIndex = ((Int(point.y) * width) + Int(point.x)) * 4
+            
+            let alpha = data[pixelIndex + 3]
+            return alpha > 0
+        }
+    
     func testCreatePngImage() {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("testImage.png")
         savePNGImage(url: url)
-        assertSnapshot(of: url.dataRepresentation, as: .data, record: true)
+        let sut = Image(url)
+        assertSnapshot(of: url.dataRepresentation, as: .image, record: true)
     }
 }
