@@ -152,7 +152,7 @@ final class CollageTests: XCTestCase {
         return image
     }
     
-    func isPointVisible(point: CGPoint, in image: UIImage) -> Bool {
+    func isPointInvisible(point: CGPoint, in image: UIImage) -> Bool {
             guard let cgImage = image.cgImage else { return false }
             
             let pixelData = cgImage.dataProvider?.data
@@ -168,18 +168,38 @@ final class CollageTests: XCTestCase {
             let pixelIndex = ((Int(point.y) * width) + Int(point.x)) * 4
             
             let alpha = data[pixelIndex + 3]
-            return alpha > 0
-        }
+            return alpha == 0
+    }
     
     func FindSubjectSize(image: UIImage) -> CGSize {
-        var subjectSize = image.size
-        return subjectSize
+        let canvasWidth = image.size.width
+        let canvasHeight = image.size.height
+        var subjectWidth: CGFloat = 0.0
+        var subjectHeight: CGFloat = 0.0
+        //find subject width
+        for x in stride(from: 0.0, to: canvasWidth, by: 1.0) {
+            for y in stride(from: 0.0, to: canvasHeight, by: 1.0) {
+                if isPointInvisible(point: CGPoint(x: x, y: y), in: image) {
+                    subjectWidth = x
+                }
+            }
+        }
+        
+        //find subject height
+        for y in stride(from: 0.0, to: canvasHeight, by: 1.0) {
+            for x in stride(from: 0.0, to: canvasWidth, by: 1.0) {
+                if isPointInvisible(point: CGPoint(x: x, y: y), in: image) {
+                    subjectHeight = y
+                }
+            }
+        }
+        return CGSize(width: subjectWidth, height: subjectHeight)
     }
     
     func testFindSubjectSize() {
         let expected = CGSize(width: 50, height: 50)
-        guard let testImage = createTestImage(canvasSize: CGSize(width: 100, height: 100),
-                                              shapeSize: expected) else { return }
+        let canvas = CGSize(width: 100, height: 100)
+        guard let testImage = createTestImage(canvasSize: canvas, shapeSize: expected) else { return }
         let actual = FindSubjectSize(image: testImage)
         XCTAssertEqual(actual, expected)
     }
