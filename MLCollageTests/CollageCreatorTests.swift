@@ -143,8 +143,9 @@ final class CollageTests: XCTestCase {
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         
         // Draw a red circle
+        let center = CGPoint(x: shapeSize.width/2, y: shapeSize.height/2)
         context.setFillColor(UIColor.red.cgColor)
-        context.fillEllipse(in: CGRect(origin: .zero, size: shapeSize))
+        context.fillEllipse(in: CGRect(origin: center, size: shapeSize))
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -152,7 +153,7 @@ final class CollageTests: XCTestCase {
         return image
     }
     
-    func isPointVisible(point: CGPoint, in image: UIImage) -> Bool {
+    func isPointInvisible(point: CGPoint, in image: UIImage) -> Bool {
             guard let cgImage = image.cgImage else { return false }
             
             let pixelData = cgImage.dataProvider?.data
@@ -168,37 +169,38 @@ final class CollageTests: XCTestCase {
             let pixelIndex = ((Int(point.y) * width) + Int(point.x)) * 4
             
             let alpha = data[pixelIndex + 3]
-            return alpha > 0
+            return alpha == 0
     }
     
     func FindSubjectSize(image: UIImage) -> CGSize {
         let canvasWidth = image.size.width
         let canvasHeight = image.size.height
-        var subjectSeen = false
+        var subjectNotSeen = true
         var subjectStartWidth: CGFloat = 0.0
         var subjectEndWidth: CGFloat = 0.0
         var subjectStartHeight: CGFloat = 0.0
         var subjectEndHeight: CGFloat = 0.0
         //find subject width
-        for x in stride(from: 0.0, to: canvasWidth, by: 1.0) {
-            for y in stride(from: 0.0, to: canvasHeight, by: 1.0) {
-                if isPointVisible(point: CGPoint(x: x, y: y), in: image) {
-                    if !subjectSeen {
+        for y in stride(from: 0.0, to: canvasWidth, by: 1.0) {
+            for x in stride(from: 0.0, to: canvasHeight, by: 1.0) {
+                if !isPointInvisible(point: CGPoint(x: x, y: y), in: image) {
+                    if subjectNotSeen {
                         subjectStartWidth = y
-                        subjectSeen = true
+                        subjectNotSeen.toggle()
+                    } else {
+                        subjectEndWidth = x
                     }
-                    subjectEndWidth = y
                 }
             }
         }
-        subjectSeen = false
+        subjectNotSeen.toggle()
         //find subject height
-        for y in stride(from: 0.0, to: canvasHeight, by: 1.0) {
-            for x in stride(from: 0.0, to: canvasWidth, by: 1.0) {
-                if isPointVisible(point: CGPoint(x: x, y: y), in: image) {
-                    if !subjectSeen {
+        for x in stride(from: 0.0, to: canvasHeight, by: 1.0) {
+            for y in stride(from: 0.0, to: canvasWidth, by: 1.0) {
+                if !isPointInvisible(point: CGPoint(x: x, y: y), in: image) {
+                    if !subjectNotSeen {
                         subjectStartHeight = x
-                        subjectSeen = true
+                        subjectNotSeen.toggle()
                     }
                     subjectEndHeight = x
                 }
