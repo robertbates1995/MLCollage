@@ -143,7 +143,7 @@ final class CollageTests: XCTestCase {
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         
         // Draw a red circle
-        let center = CGPoint(x: shapeSize.width/2, y: shapeSize.height/2)
+        let center = CGPoint(x: canvasSize.width/2, y: canvasSize.height/2)
         context.setFillColor(UIColor.red.cgColor)
         context.fillEllipse(in: CGRect(origin: center, size: shapeSize))
         
@@ -172,7 +172,7 @@ final class CollageTests: XCTestCase {
             return alpha == 0
     }
     
-    func FindSubjectSize(image: UIImage) -> CGSize {
+    func findSubjectSize(image: UIImage) -> CGSize {
         let canvasWidth = image.size.width
         let canvasHeight = image.size.height
         var subjectNotSeen = true
@@ -186,21 +186,21 @@ final class CollageTests: XCTestCase {
                 if !isPointInvisible(point: CGPoint(x: x, y: y), in: image) {
                     if subjectNotSeen {
                         subjectStartWidth = y
-                        subjectNotSeen.toggle()
+                        subjectNotSeen = false
                     } else {
                         subjectEndWidth = x
                     }
                 }
             }
         }
-        subjectNotSeen.toggle()
+        subjectNotSeen = true
         //find subject height
         for x in stride(from: 0.0, to: canvasHeight, by: 1.0) {
             for y in stride(from: 0.0, to: canvasWidth, by: 1.0) {
                 if !isPointInvisible(point: CGPoint(x: x, y: y), in: image) {
                     if !subjectNotSeen {
                         subjectStartHeight = x
-                        subjectNotSeen.toggle()
+                        subjectNotSeen = false
                     }
                     subjectEndHeight = x
                 }
@@ -210,11 +210,18 @@ final class CollageTests: XCTestCase {
                       height:  (subjectEndHeight - subjectStartHeight))
     }
     
+    func testTestImage() {
+        let shape = CGSize(width: 2.0, height: 2.0)
+        let canvas = CGSize(width: 10, height: 10)
+        let sut = createTestImage(canvasSize: canvas, shapeSize: shape)
+        assertSnapshot(of: sut!, as: .image, record: false)
+    }
+    
     func testFindSubjectSize() {
         let expected = CGSize(width: 2.0, height: 2.0)
         let canvas = CGSize(width: 10, height: 10)
         guard let testImage = createTestImage(canvasSize: canvas, shapeSize: expected) else { return }
-        let actual = FindSubjectSize(image: testImage)
+        let actual = findSubjectSize(image: testImage)
         XCTAssertEqual(actual, expected)
     }
 }
