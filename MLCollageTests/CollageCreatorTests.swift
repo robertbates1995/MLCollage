@@ -208,7 +208,7 @@ final class CollageTests: XCTestCase {
     
     func verticalSlice(image: UIImage, x: CGFloat) -> Bool {
         for y in stride(from: 0.0, to: image.size.height, by: 1.0) {
-            if isPointInvisible(point: CGPoint(x: y, y: x), in: image) { return true }
+            if !isPointInvisible(point: CGPoint(x: x, y: y), in: image) { return true }
         }
         return false
     }
@@ -235,6 +235,6 @@ final class CollageTests: XCTestCase {
         let shape = CGSize(width: 5.0, height: 5.0)
         let canvas = CGSize(width: 10, height: 10)
         guard let sut = createTestImage(canvasSize: canvas, shapeSize: shape) else { return }
-        assertSnapshot(of: sut, as: .image, record: true)
+        assertSnapshot(of: sut, as: .image, record: false)
     }
 }
