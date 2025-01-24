@@ -173,6 +173,13 @@ final class CollageTests: XCTestCase {
             return alpha == 0
     }
     
+    func verticalSlice(image: UIImage, x: CGFloat) -> Bool {
+        for y in stride(from: 0.0, to: image.size.height, by: 1.0) {
+            if !isPointInvisible(point: CGPoint(x: x, y: y), in: image) { return true }
+        }
+        return false
+    }
+    
     func findSubjectSize(image: UIImage) -> CGSize {
         let canvasWidth = image.size.width
         let canvasHeight = image.size.height
@@ -185,8 +192,11 @@ final class CollageTests: XCTestCase {
         //iterate over all x values
         for x in stride(from: 0.0, to: canvasWidth, by: 1.0) {
             //find if subject in vertical slice
-            for x in stride(from: 0.0, to: canvasHeight, by: 1.0) {
-                
+            if verticalSlice(image: image, x: x) {
+                if subjectNotSeen {
+                    subjectStartWidth = x
+                    subjectNotSeen = false
+                }
             }
         }
         subjectNotSeen = true
@@ -206,11 +216,12 @@ final class CollageTests: XCTestCase {
                       height:  (subjectEndHeight - subjectStartHeight))
     }
     
-    func verticalSlice(image: UIImage, x: CGFloat) -> Bool {
-        for y in stride(from: 0.0, to: image.size.height, by: 1.0) {
-            if !isPointInvisible(point: CGPoint(x: x, y: y), in: image) { return true }
-        }
-        return false
+    func testFindSubjectSize() {
+        let expected = CGSize(width: 5.0, height: 5.0)
+        let canvas = CGSize(width: 10, height: 10)
+        guard let testImage = createTestImage(canvasSize: canvas, shapeSize: expected) else { return }
+        let actual = findSubjectSize(image: testImage)
+        XCTAssertEqual(actual, expected)
     }
     
     func testSlice() {
@@ -221,14 +232,6 @@ final class CollageTests: XCTestCase {
         let miss = verticalSlice(image: testImage, x: testImage.size.width - 1)
         XCTAssertEqual(hit, true)
         XCTAssertEqual(miss, false)
-    }
-    
-    func testFindSubjectSize() {
-        let expected = CGSize(width: 5.0, height: 5.0)
-        let canvas = CGSize(width: 10, height: 10)
-        guard let testImage = createTestImage(canvasSize: canvas, shapeSize: expected) else { return }
-        let actual = findSubjectSize(image: testImage)
-        XCTAssertEqual(actual, expected)
     }
     
     func testTestImage() {
