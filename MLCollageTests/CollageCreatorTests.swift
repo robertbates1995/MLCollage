@@ -143,7 +143,8 @@ final class CollageTests: XCTestCase {
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         
         // Draw a red circle
-        let center = CGPoint(x: canvasSize.width/2, y: canvasSize.height/2)
+        let offset = canvasSize.width/2 - shapeSize.width/2
+        let center = CGPoint(x: offset, y: offset)
         context.setFillColor(UIColor.red.cgColor)
         context.fillEllipse(in: CGRect(origin: center, size: shapeSize))
         
@@ -181,16 +182,11 @@ final class CollageTests: XCTestCase {
         var subjectStartHeight: CGFloat = 0.0
         var subjectEndHeight: CGFloat = 0.0
         //find subject width
-        for y in stride(from: 0.0, to: canvasWidth, by: 1.0) {
+        //iterate over all x values
+        for x in stride(from: 0.0, to: canvasWidth, by: 1.0) {
+            //find if subject in vertical slice
             for x in stride(from: 0.0, to: canvasHeight, by: 1.0) {
-                if !isPointInvisible(point: CGPoint(x: x, y: y), in: image) {
-                    if subjectNotSeen {
-                        subjectStartWidth = y
-                        subjectNotSeen = false
-                    } else {
-                        subjectEndWidth = x
-                    }
-                }
+                
             }
         }
         subjectNotSeen = true
@@ -210,18 +206,35 @@ final class CollageTests: XCTestCase {
                       height:  (subjectEndHeight - subjectStartHeight))
     }
     
-    func testTestImage() {
-        let shape = CGSize(width: 2.0, height: 2.0)
+    func verticalSlice(image: UIImage, x: CGFloat) -> Bool {
+        for y in stride(from: 0.0, to: image.size.height, by: 1.0) {
+            if isPointInvisible(point: CGPoint(x: y, y: x), in: image) { return true }
+        }
+        return false
+    }
+    
+    func testSlice() {
+        let expected = CGSize(width: 5.0, height: 5.0)
         let canvas = CGSize(width: 10, height: 10)
-        let sut = createTestImage(canvasSize: canvas, shapeSize: shape)
-        assertSnapshot(of: sut!, as: .image, record: false)
+        guard let testImage = createTestImage(canvasSize: canvas, shapeSize: expected) else { return }
+        let hit = verticalSlice(image: testImage, x: testImage.size.width/2)
+        let miss = verticalSlice(image: testImage, x: testImage.size.width - 1)
+        XCTAssertEqual(hit, true)
+        XCTAssertEqual(miss, false)
     }
     
     func testFindSubjectSize() {
-        let expected = CGSize(width: 2.0, height: 2.0)
+        let expected = CGSize(width: 5.0, height: 5.0)
         let canvas = CGSize(width: 10, height: 10)
         guard let testImage = createTestImage(canvasSize: canvas, shapeSize: expected) else { return }
         let actual = findSubjectSize(image: testImage)
         XCTAssertEqual(actual, expected)
+    }
+    
+    func testTestImage() {
+        let shape = CGSize(width: 5.0, height: 5.0)
+        let canvas = CGSize(width: 10, height: 10)
+        guard let sut = createTestImage(canvasSize: canvas, shapeSize: shape) else { return }
+        assertSnapshot(of: sut, as: .image, record: true)
     }
 }
