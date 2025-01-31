@@ -44,7 +44,7 @@ struct CollageBlueprint {
             image: collage.toUIImage(),
             json: .init(annotation: [annotation], imagefilename: fileName))
     }
-
+    
     private func rotate(_ subject: inout CIImage) {
         let subjectSize = subject.extent
         let center: CGPoint = .init(

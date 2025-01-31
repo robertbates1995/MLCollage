@@ -60,14 +60,14 @@ struct Scanner {
         var bottom = 0
         //find subject width
         //iterate over all x values
-        for x in 0...canvasWidth {
+        for x in 0..<canvasWidth {
             //find if subject in vertical slice
             if verticalSlice(image: cgImage, x: x) {
                 if subjectNotSeen {
                     left = x
                     subjectNotSeen = false
                 } else {
-                    right = x
+                    right = x + 1
                 }
             }
         }
@@ -80,13 +80,13 @@ struct Scanner {
                     top = y
                     subjectNotSeen = false
                 } else {
-                    bottom = y
+                    bottom = y + 1
                 }
             }
         }
         let size = CGSize(
-            width: (1 + right - left),
-            height: (1 + bottom - top))
+            width: (right - left),
+            height: (bottom - top))
         
         return CGRect(origin: CGPoint(x: left, y: top), size: size)
         
