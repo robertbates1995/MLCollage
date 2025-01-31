@@ -44,48 +44,51 @@ struct Scanner {
         return false
     }
 
-    func findSubjectSize(image: UIImage) -> CGSize {
+    func findSubjectSize(image: UIImage) -> CGRect {
         guard let cgImage = image.cgImage,
             cgImage.colorSpace?.model == .rgb,
             cgImage.bitsPerPixel == 32,
             cgImage.bitsPerComponent == 8
-        else { return image.size }
+        else { return CGRect(origin: CGPoint(x: 0, y: 0), size: image.size) }
 
         let canvasWidth = cgImage.width
         let canvasHeight = cgImage.height
         var subjectNotSeen = true
-        var subjectStartWidth = 0
-        var subjectEndWidth = 0
-        var subjectStartHeight = 0
-        var subjectEndHeight = 0
+        var left = 0
+        var right = 0
+        var top = 0
+        var bottom = 0
         //find subject width
         //iterate over all x values
         for x in 0...canvasWidth {
             //find if subject in vertical slice
             if verticalSlice(image: cgImage, x: x) {
                 if subjectNotSeen {
-                    subjectStartWidth = x
+                    left = x
                     subjectNotSeen = false
                 } else {
-                    subjectEndWidth = x
+                    right = x
                 }
             }
         }
         subjectNotSeen = true
         //find subject height
-        for y in 0...canvasHeight - 1 {
+        for y in 0..<canvasHeight {
             //find if subject in vertical slice
             if horizontalSlice(image: cgImage, y: y) {
                 if subjectNotSeen {
-                    subjectStartHeight = y
+                    top = y
                     subjectNotSeen = false
                 } else {
-                    subjectEndHeight = y
+                    bottom = y
                 }
             }
         }
-        return CGSize(
-            width: (subjectEndWidth - subjectStartWidth),
-            height: (subjectEndHeight - subjectStartHeight))
+        let size = CGSize(
+            width: (right - left),
+            height: (bottom - top))
+        
+        return CGRect(origin: CGPoint(x: left, y: top), size: size)
+        
     }
 }

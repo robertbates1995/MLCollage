@@ -30,6 +30,10 @@ struct CollageBlueprint {
         flip(&subject)
 
         translate(background, &subject)
+        
+        let scanner = Scanner()
+        let trimmedExtent = scanner.findSubjectSize(image: subject.toUIImage()).offsetBy(dx: subject.extent.origin.x,
+                                                                                         dy: subject.extent.origin.y)
 
         let collage = subject.composited(over: background).cropped(
             to: background.extent)
@@ -54,7 +58,7 @@ struct CollageBlueprint {
         subject = subject.transformed(
             by: .init(translationX: center.x, y: center.y))
     }
-
+    
     private func flip(_ subject: inout CIImage) {
         if mod.flipY {
             subject = subject.oriented(.downMirrored)
