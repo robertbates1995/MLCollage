@@ -237,8 +237,10 @@ final class CollageTests: XCTestCase {
         }
         subjectNotSeen = true
         //find subject height
-        for y in 0...canvasHeight {
+        print("-- start height --")
+        for y in 0...canvasHeight - 1 {
             //find if subject in vertical slice
+            print("new line")
             if horizontalSlice(image: cgImage, y: y) {
                 if subjectNotSeen {
                     subjectStartHeight = y
