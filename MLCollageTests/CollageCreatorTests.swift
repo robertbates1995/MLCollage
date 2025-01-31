@@ -186,7 +186,6 @@ final class CollageTests: XCTestCase {
         let pixelIndex = y * width + x * 4
 
         let alpha = data[pixelIndex + 3]
-        print(alpha)
         return alpha == 0
     }
 
@@ -237,10 +236,8 @@ final class CollageTests: XCTestCase {
         }
         subjectNotSeen = true
         //find subject height
-        print("-- start height --")
         for y in 0...canvasHeight - 1 {
             //find if subject in vertical slice
-            print("new line")
             if horizontalSlice(image: cgImage, y: y) {
                 if subjectNotSeen {
                     subjectStartHeight = y
