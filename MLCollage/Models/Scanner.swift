@@ -85,8 +85,8 @@ struct Scanner {
             }
         }
         let size = CGSize(
-            width: (right - left),
-            height: (bottom - top))
+            width: (1 + right - left),
+            height: (1 + bottom - top))
         
         return CGRect(origin: CGPoint(x: left, y: top), size: size)
         

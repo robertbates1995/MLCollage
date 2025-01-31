@@ -171,12 +171,13 @@ final class CollageTests: XCTestCase {
 
     func testFindSubjectSize() {
         let sut = Scanner()
-        let expectedSize = CGSize(width: 5.0, height: 5.0)
+        let subjectSize = CGSize(width: 5.0, height: 5.0)
+        let expectedSize = CGSize(width: 6.0, height: 6.0)
         let canvas = CGSize(width: 10, height: 10)
-        let expected = CGRect(origin: .init(x: 2.5, y: 2.5), size: expectedSize)
+        let expected = CGRect(origin: .init(x: 2.0, y: 2.0), size: expectedSize)
         guard
             let testImage = createTestImage(
-                canvasSize: canvas, shapeSize: expectedSize)
+                canvasSize: canvas, shapeSize: subjectSize)
         else { return }
         let actual = sut.findSubjectSize(image: testImage)
         XCTAssertEqual(actual, expected)
