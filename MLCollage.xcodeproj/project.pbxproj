@@ -36,6 +36,7 @@
 		7A8E35702C5860D200B386EF /* Collage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E35682C5860D200B386EF /* Collage.swift */; };
 		7A8E35722C5860D200B386EF /* CreateMLFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E356A2C5860D200B386EF /* CreateMLFormat.swift */; };
 		7A8E35732C5860D200B386EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E356C2C5860D200B386EF /* ContentView.swift */; };
+		7A90AB302D4D5B89000B0049 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A90AB2F2D4D5B89000B0049 /* Scanner.swift */; };
 		7AEA2EB22C586597001C6F89 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEA2EB12C586597001C6F89 /* InlineSnapshotTesting */; };
 		7AEA2EB42C586597001C6F89 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEA2EB32C586597001C6F89 /* SnapshotTesting */; };
 		7AEA2EB62C5A9F2F001C6F89 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA2EB52C5A9F2F001C6F89 /* Project.swift */; };
@@ -84,6 +85,7 @@
 		7A8E35682C5860D200B386EF /* Collage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collage.swift; sourceTree = "<group>"; };
 		7A8E356A2C5860D200B386EF /* CreateMLFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMLFormat.swift; sourceTree = "<group>"; };
 		7A8E356C2C5860D200B386EF /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7A90AB2F2D4D5B89000B0049 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
 		7AEA2EB52C5A9F2F001C6F89 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		7AEA2EB72C5AA59D001C6F89 /* CollageCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreatorTests.swift; sourceTree = "<group>"; };
 		7AF0C5BD2D3232D20074A9A7 /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 		7A8E356B2C5860D200B386EF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7A90AB2F2D4D5B89000B0049 /* Scanner.swift */,
 				7A0A08F62CEE5AA9001FC1DA /* BlueprintFactory.swift */,
 				7A0A08D82CE559C7001FC1DA /* Annotation.swift */,
 				7A0A08D92CE559C7001FC1DA /* CollageBlueprint.swift */,
@@ -338,6 +341,7 @@
 				7A8E35702C5860D200B386EF /* Collage.swift in Sources */,
 				7A528B5D2CA4C12700A30DB0 /* SettingsView.swift in Sources */,
 				7A53E0B02CD2BD530094CEAE /* InputModel.swift in Sources */,
+				7A90AB302D4D5B89000B0049 /* Scanner.swift in Sources */,
 				7A0690CA2CC0340F00745674 /* HighLowSlider.swift in Sources */,
 				7A53E0B22CD6E8050094CEAE /* MLCImage.swift in Sources */,
 				7A8E35732C5860D200B386EF /* ContentView.swift in Sources */,
