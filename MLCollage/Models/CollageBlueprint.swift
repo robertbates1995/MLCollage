@@ -34,20 +34,19 @@ struct CollageBlueprint {
         let scanner = Scanner()
         let trimmedExtent = scanner.findSubjectSize(image: subject.toUIImage()).offsetBy(dx: subject.extent.origin.x,
                                                                                          dy: subject.extent.origin.y)
-
         let collage = subject.composited(over: background).cropped(
             to: background.extent)
         let annotation = Annotation(
             label: label,
             coordinates: .init(
-                subject.extent, backgroundHeight: collage.extent.height))
+                trimmedExtent, backgroundHeight: collage.extent.height))
         return Collage(
             image: collage.toUIImage(),
             json: .init(annotation: [annotation], imagefilename: fileName))
     }
 
     private func rotate(_ subject: inout CIImage) {
-        var subjectSize = subject.extent
+        let subjectSize = subject.extent
         let center: CGPoint = .init(
             x: subjectSize.width / 2, y: subjectSize.height / 2)
 
