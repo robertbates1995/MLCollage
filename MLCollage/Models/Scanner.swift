@@ -10,22 +10,22 @@ import UIKit
 struct Scanner {
     func isPointInvisible(x: Int, y: Int, in image: CGImage) -> Bool {
         guard let pixelData = image.dataProvider?.data else { return false }
-        
+
         let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-        
+
         let width = image.bytesPerRow
         let height = image.height
-        
+
         guard x >= 0, x < width, y >= 0, y < height else {
             return false
         }
-        
+
         let pixelIndex = y * width + x * 4
-        
+
         let alpha = data[pixelIndex + 3]
         return alpha == 0
     }
-    
+
     func verticalSlice(image: CGImage, x: Int) -> Bool {
         for y in 0..<image.height {
             if !isPointInvisible(x: x, y: y, in: image) {
@@ -34,7 +34,7 @@ struct Scanner {
         }
         return false
     }
-    
+
     func horizontalSlice(image: CGImage, y: Int) -> Bool {
         for x in 0..<image.width {
             if !isPointInvisible(x: x, y: y, in: image) {
@@ -43,14 +43,14 @@ struct Scanner {
         }
         return false
     }
-    
+
     func findSubjectSize(image: UIImage) -> CGSize {
         guard let cgImage = image.cgImage,
-              cgImage.colorSpace?.model == .rgb,
-              cgImage.bitsPerPixel == 32,
-              cgImage.bitsPerComponent == 8
+            cgImage.colorSpace?.model == .rgb,
+            cgImage.bitsPerPixel == 32,
+            cgImage.bitsPerComponent == 8
         else { return image.size }
-        
+
         let canvasWidth = cgImage.width
         let canvasHeight = cgImage.height
         var subjectNotSeen = true
