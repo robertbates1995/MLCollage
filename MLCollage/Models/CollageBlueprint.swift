@@ -32,16 +32,19 @@ struct CollageBlueprint {
         translate(background, &subject)
         
         let scanner = Scanner()
-        let trimmedExtent = scanner.findSubjectSize(image: subject.toUIImage()).offsetBy(dx: subject.extent.origin.x,
-                                                                                         dy: subject.extent.origin.y)
+        let trimmedExtent = scanner.findSubjectSize(image: subject.toUIImage())
+            .offsetBy(dx: subject.extent.origin.x,
+                      dy: subject.extent.origin.y)
         let collage = subject.composited(over: background).cropped(
             to: background.extent)
+        let previewImage = CGRect(origin: .zero, size: CGSize(width: 10.0, height: 10.0)).composited(over: collage).cropped(to: background.extent)
         let annotation = Annotation(
             label: label,
             coordinates: .init(
                 trimmedExtent, backgroundHeight: collage.extent.height))
         return Collage(
             image: collage.toUIImage(),
+            previewImage: previewImage.toUIImage(),
             json: .init(annotation: [annotation], imagefilename: fileName))
     }
     

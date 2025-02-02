@@ -21,10 +21,12 @@ import UIKit
 class Collage: Identifiable {
     let id = UUID()
     var image: UIImage
+    var previewImage: UIImage
     var json: CreateMLFormat
 
-    init(image: UIImage, json: CreateMLFormat) {
+    init(image: UIImage, previewImage: UIImage, json: CreateMLFormat) {
         self.image = image
+        self.previewImage = previewImage
         self.json = json
     }
 }
