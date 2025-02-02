@@ -65,7 +65,7 @@ class OutputModel {
 }
 
 extension OutputModel {
-    static let factory = CollageBlueprint(mod: Modification(),
+    static let factory = CollageBlueprint(mod: Modification(scale: 0.5),
                                  subjectImage: .apple1,
                                  background: .crazyBackground1,
                                  label: "apple",
