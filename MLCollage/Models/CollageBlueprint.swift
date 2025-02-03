@@ -6,6 +6,7 @@
 //
 
 import CoreImage
+import CoreImage.CIFilterBuiltins
 import UIKit
 
 struct CollageBlueprint {
@@ -37,7 +38,19 @@ struct CollageBlueprint {
                       dy: subject.extent.origin.y)
         let collage = subject.composited(over: background).cropped(
             to: background.extent)
-        let previewImage = CGRect(origin: .zero, size: CGSize(width: 10.0, height: 10.0)).composited(over: collage).cropped(to: background.extent)
+        
+        
+        var border = CIImage(color: .white).cropped(to: trimmedExtent.insetBy(dx: -2, dy: -2))
+        let innerBorder = CIImage(color: .black).cropped(to: trimmedExtent)
+        border = innerBorder.composited(over: border)
+        let maskToAlphaFilter = CIFilter.maskToAlpha()
+        maskToAlphaFilter.inputImage = border
+        border = maskToAlphaFilter.outputImage!
+        border = border.composited(over: background)
+        
+        let previewImage = subject.composited(over: border).cropped(
+            to: background.extent)
+        
         let annotation = Annotation(
             label: label,
             coordinates: .init(

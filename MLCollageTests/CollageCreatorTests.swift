@@ -206,4 +206,10 @@ final class CollageTests: XCTestCase {
         else { return }
         assertSnapshot(of: sut, as: .image, record: false)
     }
+    
+    func testPreviewImage() {
+        let collage = makeCollage()
+        
+        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+    }
 }

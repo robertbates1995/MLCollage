@@ -21,7 +21,7 @@ class ThumbnailCache {
 
         UIGraphicsBeginImageContextWithOptions(
             CGSize(width: size, height: size), true, 1.0)
-        source.image.draw(
+        source.previewImage.draw(
             in: CGRect(origin: .zero, size: CGSize(width: size, height: size)))
         defer { UIGraphicsEndImageContext() }
         cache = UIGraphicsGetImageFromCurrentImageContext()
