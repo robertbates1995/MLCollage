@@ -29,26 +29,26 @@ final class CollageTests: XCTestCase {
             to: CGRect(x: 0.0, y: 0.0, width: 200, height: 100)
         ).toUIImage()
     }()
-
+    
     func makeSubject(width: Double, height: Double) -> UIImage {
         let bounds = CGRect(
             origin: .zero, size: CGSize(width: width, height: height))
         var image = CIImage(color: .white).cropped(to: bounds)
-
+        
         let spotBounds = CGRect(
             origin: .zero, size: CGSize(width: width / 2, height: height / 2))
         let blue = CIImage(color: .blue).cropped(to: spotBounds)
         image = blue.composited(over: image)
-
+        
         let red = CIImage(color: .red).cropped(
             to: spotBounds.offsetBy(dx: 0, dy: height / 2))
         image = red.composited(over: image)
-
+        
         return image.cropped(to: bounds).toUIImage()
     }
-
+    
     func makeCollage(mod: Modification? = nil, subject: UIImage? = nil)
-        -> Collage
+    -> Collage
     {
         let sut = CollageBlueprint(
             mod: mod ?? Modification(),
@@ -58,84 +58,84 @@ final class CollageTests: XCTestCase {
             fileName: "testFileName")
         return sut.create()
     }
-
+    
     func testCollageBlueprint() {
         let collage = makeCollage()
-
+        
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
             .init(x: 50, y: 50, width: 100, height: 100))
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
-
+    
     func testScaleToBackground() {
         let collage = makeCollage(subject: makeSubject(width: 300, height: 200))
-
+        
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
             .init(x: 75, y: 50, width: 150, height: 100))
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
-
+    
     func testScaleMin() {
         let collage = makeCollage(
             mod: Modification(scale: Modification.scaleMin))
-
+        
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
-
+    
     func testScaleMax() {
         let collage = makeCollage(
             mod: Modification(scale: Modification.scaleMax))
-
+        
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
-
+    
     func testFlip() {
         let collage = makeCollage(mod: Modification(flipX: true, flipY: true))
-
+        
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
-
+    
     func testRotate() {
         let collage = makeCollage(
             mod: Modification(rotate: Modification.rotateMax / 4))
-
+        
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
-
+    
     func testTranslate() {
         let collage = makeCollage(
             mod: Modification(translateX: 0.5, translateY: 0.5),
             subject: makeSubject(width: 200, height: 50))
-
+        
         assertSnapshot(of: collage.image, as: .image, record: false)
-
+        
         let collage2 = makeCollage(
             mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5))
-
+        
         assertSnapshot(of: collage2.image, as: .image, record: false)
-
+        
         let collage3 = makeCollage(
             mod: Modification(translateX: 1, translateY: 1, scale: 0.5))
-
+        
         assertSnapshot(of: collage3.image, as: .image, record: false)
-
+        
         let collage4 = makeCollage(
             mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.5))
-
+        
         assertSnapshot(of: collage4.image, as: .image, record: false)
     }
-
+    
     func testTranslateMax() {
         let collage = makeCollage(
             mod: Modification(
                 translateX: Modification.translateMax, translateY: 0.5),
             subject: makeSubject(width: 200, height: 50))
-
+        
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
-
+    
     func testScaleSubjectImage() {
         let sut = CollageBlueprint(
             mod: Modification(scale: 0.5),
@@ -144,31 +144,31 @@ final class CollageTests: XCTestCase {
             label: "testLabel",
             fileName: "testFileName")
         let collage = sut.create(size: 50.0)
-
+        
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
             .init(x: 12.5, y: 37.5, width: 25, height: 25))
         XCTAssertEqual(collage.image.size, CGSize(width: 50, height: 50))
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
-
+    
     func createTestImage(canvasSize: CGSize, shapeSize: CGSize) -> UIImage? {
         //create canvas
         UIGraphicsBeginImageContextWithOptions(canvasSize, false, 1.0)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
-
+        
         // Draw a red circle
         let offset = canvasSize.width / 2 - shapeSize.width / 2
         let center = CGPoint(x: offset, y: offset)
         context.setFillColor(UIColor.red.cgColor)
         context.fillEllipse(in: CGRect(origin: center, size: shapeSize))
-
+        
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
         return image
     }
-
+    
     func testFindSubjectSize() {
         let sut = Scanner()
         let subjectSize = CGSize(width: 5.0, height: 5.0)
@@ -198,7 +198,7 @@ final class CollageTests: XCTestCase {
         XCTAssertEqual(miss, false)
         assertSnapshot(of: testImage, as: .image, record: false)
     }
-
+    
     func testTestImage() {
         let shape = CGSize(width: 5.0, height: 5.0)
         let canvas = CGSize(width: 10, height: 10)
@@ -211,5 +211,61 @@ final class CollageTests: XCTestCase {
         let collage = makeCollage()
         
         assertSnapshot(of: collage.previewImage, as: .image, record: false)
+    }
+    
+    func testFlipAndTrim() {
+        let width = 100.0
+        let height = 100.0
+        
+        let bounds = CGRect(
+            origin: .zero, size: CGSize(width: width, height: height))
+        var image = CIImage(color: .clear).cropped(to: bounds)
+        
+        let spotBounds = CGRect(
+            origin: .zero, size: CGSize(width: width / 2, height: height / 2))
+        let blue = CIImage(color: .blue).cropped(to: spotBounds)
+        image = blue.composited(over: image)
+        
+        let red = CIImage(color: .red).cropped(
+            to:  CGRect(
+                origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
+        image = red.composited(over: image)
+        
+        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, flipY: true),
+                                         subjectImage: image.toUIImage(),
+                                         background: .crazyBackground1,
+                                         label: "apple",
+                                         fileName: "apple_.png")
+        let collage = blueprint.create()
+        
+        assertSnapshot(of: collage.previewImage, as: .image, record: true)
+    }
+    
+    func testRotateAndTrim() {
+        let width = 100.0
+        let height = 100.0
+        
+        let bounds = CGRect(
+            origin: .zero, size: CGSize(width: width, height: height))
+        var image = CIImage(color: .clear).cropped(to: bounds)
+        
+        let spotBounds = CGRect(
+            origin: .zero, size: CGSize(width: width / 2, height: height / 2))
+        let blue = CIImage(color: .blue).cropped(to: spotBounds)
+        image = blue.composited(over: image)
+        
+        let red = CIImage(color: .red).cropped(
+            to:  CGRect(
+                origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
+        image = red.composited(over: image)
+        
+        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, rotate: 0.25),
+                                         subjectImage: image.toUIImage(),
+                                         background: .crazyBackground1,
+                                         label: "apple",
+                                         fileName: "apple_.png")
+        let collage = blueprint.create()
+        
+        assertSnapshot(of: collage.previewImage, as: .image, record: true)
     }
 }

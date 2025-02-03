@@ -22,26 +22,23 @@ struct CollageBlueprint {
 
         var subject = subjectImage.toCIImage()
 
-        scaleToBackground(background, &subject)
-
         rotate(&subject)
-
+        
+        scaleToBackground(background, &subject)
+        
         scale(&subject)
 
         flip(&subject)
 
         translate(background, &subject)
         
-        let scanner = Scanner()
-        let trimmedExtent = scanner.findSubjectSize(image: subject.toUIImage())
-            .offsetBy(dx: subject.extent.origin.x,
-                      dy: subject.extent.origin.y)
+        
         let collage = subject.composited(over: background).cropped(
             to: background.extent)
         
         
-        var border = CIImage(color: .white).cropped(to: trimmedExtent.insetBy(dx: -2, dy: -2))
-        let innerBorder = CIImage(color: .black).cropped(to: trimmedExtent)
+        var border = CIImage(color: .white).cropped(to: subject.extent.insetBy(dx: -2, dy: -2))
+        let innerBorder = CIImage(color: .black).cropped(to: subject.extent)
         border = innerBorder.composited(over: border)
         let maskToAlphaFilter = CIFilter.maskToAlpha()
         maskToAlphaFilter.inputImage = border
@@ -54,7 +51,7 @@ struct CollageBlueprint {
         let annotation = Annotation(
             label: label,
             coordinates: .init(
-                trimmedExtent, backgroundHeight: collage.extent.height))
+                subject.extent, backgroundHeight: collage.extent.height))
         return Collage(
             image: collage.toUIImage(),
             previewImage: previewImage.toUIImage(),
@@ -72,6 +69,10 @@ struct CollageBlueprint {
             by: .init(rotationAngle: mod.rotate * .pi))
         subject = subject.transformed(
             by: .init(translationX: center.x, y: center.y))
+        
+        let scanner = Scanner()
+        let trimmedExtent = scanner.findSubjectSize(image: subject.toUIImage())
+        //subject = subject.cropped(to: trimmedExtent)
     }
     
     private func flip(_ subject: inout CIImage) {

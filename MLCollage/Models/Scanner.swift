@@ -20,7 +20,7 @@ struct Scanner {
             return false
         }
 
-        let pixelIndex = y * width + x * 4
+        let pixelIndex = (height - y - 1) * width + x * 4
 
         let alpha = data[pixelIndex + 3]
         return alpha == 0
@@ -35,7 +35,7 @@ struct Scanner {
         return false
     }
 
-    func horizontalSlice(image: CGImage, y: Int) -> Bool {
+    func horizontalVisible(image: CGImage, y: Int) -> Bool {
         for x in 0..<image.width {
             if !isPointInvisible(x: x, y: y, in: image) {
                 return true
@@ -75,7 +75,7 @@ struct Scanner {
         //find subject height
         for y in 0..<canvasHeight {
             //find if subject in vertical slice
-            if horizontalSlice(image: cgImage, y: y) {
+            if horizontalVisible(image: cgImage, y: y) {
                 if subjectNotSeen {
                     top = y
                     subjectNotSeen = false
@@ -89,6 +89,5 @@ struct Scanner {
             height: (bottom - top))
         
         return CGRect(origin: CGPoint(x: left, y: top), size: size)
-        
     }
 }

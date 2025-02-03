@@ -54,7 +54,7 @@ extension CIImage {
             return UIImage(cgImage: cgImage)
         }
         //return error image
-        return .banana1
+        return .errorIcon
     }
 }
 

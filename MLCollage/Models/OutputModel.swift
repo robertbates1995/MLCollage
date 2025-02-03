@@ -35,10 +35,10 @@ class OutputModel {
         case ready
     }
     
-    init(collages: [Collage] = [], state: State = State.needsUpdate, factories: [CollageBlueprint] = []) {
+    init(collages: [Collage] = [], state: State = State.needsUpdate, blueprints: [CollageBlueprint] = []) {
         self.collages = collages
         self.state = state
-        self.blueprints = factories
+        self.blueprints = blueprints
     }
     
     func updateIfNeeded() {
@@ -65,10 +65,34 @@ class OutputModel {
 }
 
 extension OutputModel {
-    static let factory = CollageBlueprint(mod: Modification(scale: 0.5),
-                                 subjectImage: .apple1,
+    static func makeSubject(width: Double, height: Double) -> UIImage {
+        let bounds = CGRect(
+            origin: .zero, size: CGSize(width: width, height: height))
+        var image = CIImage(color: .clear).cropped(to: bounds)
+        
+        let spotBounds = CGRect(
+            origin: .zero, size: CGSize(width: width / 1.5, height: height / 1.5))
+        let blue = CIImage(color: .blue).cropped(to: spotBounds)
+        image = blue.composited(over: image)
+        
+        let red = CIImage(color: .red).cropped(
+            to:  CGRect(
+                origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
+        image = red.composited(over: image)
+
+        return image.cropped(to: bounds).toUIImage()
+    }
+    
+    static let flip = CollageBlueprint(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, flipY: true),
+                                          subjectImage: makeSubject(width: 200, height: 200),
                                  background: .crazyBackground1,
                                  label: "apple",
                                  fileName: "apple_.png")
-    static let mock = OutputModel(collages: [], factories: [factory])
+    static let rotate = CollageBlueprint(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, rotate: 0.5),
+                                          subjectImage: makeSubject(width: 200, height: 200),
+                                 background: .crazyBackground1,
+                                 label: "apple",
+                                 fileName: "apple_.png")
+
+    static let mock = OutputModel(collages: [], blueprints: [flip, rotate])
 }
