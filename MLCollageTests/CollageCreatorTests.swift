@@ -26,7 +26,7 @@ final class CollageTests: XCTestCase {
         checkerBoardGenerator.width = 50
         checkerBoardGenerator.sharpness = 1
         return checkerBoardGenerator.outputImage!.cropped(
-            to: CGRect(x: 0.0, y: 0.0, width: 200, height: 100)
+            to: CGRect(x: 0.0, y: 0.0, width: 400, height: 200)
         ).toUIImage()
     }()
     
@@ -80,26 +80,27 @@ final class CollageTests: XCTestCase {
     //TODO: The following will need to be updated...
     //as well as checked to be accurate after
     //fixing rotation anchor point issue.
-    func testRotate() {
-        let collage = makeCollage(
-            mod: Modification(rotate: 0)).image
-        let collage1 = makeCollage(
-            mod: Modification(rotate: 1)).image
-        let collage2 = makeCollage(
-            mod: Modification(rotate: 0)).image
-        let collage3 = makeCollage(
-            mod: Modification(rotate: 0.25)).image
-        let collage4 = makeCollage(
-            mod: Modification(rotate: 0.75)).image
+    
+    func testRotateAndTranslate() {
+        let image = makeCollage(
+            mod: Modification(translateX: -1, translateY: 1, rotate: 0)).image
+        let image1 = makeCollage(
+            mod: Modification(translateX: 1, translateY: 1, rotate: 1)).image
+        let image2 = makeCollage(
+            mod: Modification(translateX: 1, translateY: 1, rotate: 0)).image
+        let image3 = makeCollage(
+            mod: Modification(translateX: 1, translateY: 1, rotate: 0.25)).image
+        let image4 = makeCollage(
+            mod: Modification(translateX: 1, translateY: 1, rotate: 0.75)).image
         
-        let collages = [collage, collage1, collage2, collage3, collage4]
+        let images = [image, image1, image2, image3, image4]
         
-        for collage in collages {
-            assertSnapshot(of: collage, as: .image, record: false)
+        for image in images {
+            assertSnapshot(of: image, as: .image, record: true)
         }
-        XCTAssertEqual(collage.pngData(), collage.pngData())
-        XCTAssertEqual(collage.pngData(), collage1.pngData())
-        XCTAssertEqual(collage.pngData(), collage2.pngData())
+        XCTAssertEqual(image.pngData(), image.pngData())
+        XCTAssertEqual(image.pngData(), image1.pngData())
+        XCTAssertEqual(image.pngData(), image2.pngData())
     }
     
     func testPreviewImage() {
@@ -239,6 +240,28 @@ final class CollageTests: XCTestCase {
             subject: makeSubject(width: 200, height: 50))
         
         assertSnapshot(of: collage.image, as: .image, record: false)
+    }
+    
+    func testRotate() {
+        let collage = makeCollage(
+            mod: Modification(rotate: 0)).image
+        let collage1 = makeCollage(
+            mod: Modification(rotate: 1)).image
+        let collage2 = makeCollage(
+            mod: Modification(rotate: 0)).image
+        let collage3 = makeCollage(
+            mod: Modification(rotate: 0.25)).image
+        let collage4 = makeCollage(
+            mod: Modification(rotate: 0.75)).image
+        
+        let collages = [collage, collage1, collage2, collage3, collage4]
+        
+        for collage in collages {
+            assertSnapshot(of: collage, as: .image, record: false)
+        }
+        XCTAssertEqual(collage.pngData(), collage.pngData())
+        XCTAssertEqual(collage.pngData(), collage1.pngData())
+        XCTAssertEqual(collage.pngData(), collage2.pngData())
     }
     
     func testScaleSubjectImage() {
