@@ -231,7 +231,10 @@ final class CollageTests: XCTestCase {
                 origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
         image = red.composited(over: image)
         
-        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, flipY: true),
+        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
+                                                           translateY: 0.5,
+                                                           scale: 0.5,
+                                                           flipY: true),
                                          subjectImage: image.toUIImage(),
                                          background: .crazyBackground1,
                                          label: "apple",
@@ -245,8 +248,7 @@ final class CollageTests: XCTestCase {
         let width = 100.0
         let height = 100.0
         
-        let bounds = CGRect(
-            origin: .zero, size: CGSize(width: width, height: height))
+        let bounds = CGRect(origin: .zero, size: CGSize(width: width, height: height))
         var image = CIImage(color: .clear).cropped(to: bounds)
         
         let spotBounds = CGRect(
@@ -259,7 +261,10 @@ final class CollageTests: XCTestCase {
                 origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
         image = red.composited(over: image)
         
-        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, rotate: 0.25),
+        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
+                                                           translateY: 0.5,
+                                                           scale: 0.5,
+                                                           rotate: 0.25),
                                          subjectImage: image.toUIImage(),
                                          background: .crazyBackground1,
                                          label: "apple",
