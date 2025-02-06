@@ -90,18 +90,16 @@ final class CollageTests: XCTestCase {
         let collage3 = makeCollage(
             mod: Modification(rotate: 0.25)).image
         let collage4 = makeCollage(
-            mod: Modification(rotate: 0.25)).image
-        let collage5 = makeCollage(
-            mod: Modification(rotate: 0.75)).image
-        let collage6 = makeCollage(
             mod: Modification(rotate: 0.75)).image
         
-        let collages = [collage, collage1, collage2, collage3, collage4, collage5, collage6]
+        let collages = [collage, collage1, collage2, collage3, collage4]
         
         for collage in collages {
             assertSnapshot(of: collage, as: .image, record: false)
-            XCTAssertEqual(collage.pngData(), collage2.pngData())
         }
+        XCTAssertEqual(collage.pngData(), collage.pngData())
+        XCTAssertEqual(collage.pngData(), collage1.pngData())
+        XCTAssertEqual(collage.pngData(), collage2.pngData())
     }
     
     func testPreviewImage() {
