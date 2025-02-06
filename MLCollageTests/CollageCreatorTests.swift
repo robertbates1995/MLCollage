@@ -87,27 +87,21 @@ final class CollageTests: XCTestCase {
             mod: Modification(rotate: 1)).image
         let collage2 = makeCollage(
             mod: Modification(rotate: 0)).image
+        let collage3 = makeCollage(
+            mod: Modification(rotate: 0.25)).image
+        let collage4 = makeCollage(
+            mod: Modification(rotate: 0.25)).image
+        let collage5 = makeCollage(
+            mod: Modification(rotate: 0.75)).image
+        let collage6 = makeCollage(
+            mod: Modification(rotate: 0.75)).image
         
-        assertSnapshot(of: collage, as: .image, record: false)
-        assertSnapshot(of: collage1, as: .image, record: false)
-        assertSnapshot(of: collage2, as: .image, record: false)
-
-        guard let collage = collage.pngData() else {
-            XCTFail("PNG data should not be nil")
-            return
-        }
-        guard let collage1 = collage1.pngData() else {
-            XCTFail("PNG data should not be nil")
-            return
-        }
-        guard let collage2 = collage2.pngData() else {
-            XCTFail("PNG data should not be nil")
-            return
-        }
+        let collages = [collage, collage1, collage2, collage3, collage4, collage5, collage6]
         
-        XCTAssertEqual(collage, collage2)
-        XCTAssertEqual(collage, collage2)
-        XCTAssertEqual(collage1, collage2)
+        for collage in collages {
+            assertSnapshot(of: collage, as: .image, record: false)
+            XCTAssertEqual(collage.pngData(), collage2.pngData())
+        }
     }
     
     func testPreviewImage() {
