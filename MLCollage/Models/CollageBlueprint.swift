@@ -66,7 +66,7 @@ struct CollageBlueprint {
         subject = subject.transformed(
             by: .init(translationX: -center.x, y: -center.y))
         subject = subject.transformed(
-            by: .init(rotationAngle: mod.rotate * .pi))
+            by: .init(rotationAngle: mod.rotate * 2 * .pi))
         subject = subject.transformed(
             by: .init(translationX: center.x, y: center.y))
         
