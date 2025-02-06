@@ -97,13 +97,6 @@ final class CollageTests: XCTestCase {
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
-    func testRotate() {
-        let collage = makeCollage(
-            mod: Modification(rotate: Modification.rotateMax / 4))
-        
-        assertSnapshot(of: collage.image, as: .image, record: false)
-    }
-    
     func testTranslate() {
         let collage = makeCollage(
             mod: Modification(translateX: 0.5, translateY: 0.5),
@@ -207,12 +200,23 @@ final class CollageTests: XCTestCase {
         assertSnapshot(of: sut, as: .image, record: false)
     }
     
+    //------------------------//
+    //The following will need to be updated and checked
+    //to be accurate after fixing rotation anchor point issue
+    
+    func testRotate() {
+        let collage = makeCollage(
+            mod: Modification(rotate: Modification.rotateMax / 4))
+        
+        assertSnapshot(of: collage.image, as: .image, record: false)
+    }
+    
     func testPreviewImage() {
         let collage = makeCollage()
         
         assertSnapshot(of: collage.previewImage, as: .image, record: false)
     }
-    
+        
     func testFlipAndTrim() {
         let width = 100.0
         let height = 100.0
@@ -241,7 +245,7 @@ final class CollageTests: XCTestCase {
                                          fileName: "apple_.png")
         let collage = blueprint.create()
         
-        assertSnapshot(of: collage.previewImage, as: .image, record: true)
+        assertSnapshot(of: collage.previewImage, as: .image, record: false)
     }
     
     func testRotateAndTrim() {
@@ -271,6 +275,8 @@ final class CollageTests: XCTestCase {
                                          fileName: "apple_.png")
         let collage = blueprint.create()
         
-        assertSnapshot(of: collage.previewImage, as: .image, record: true)
+        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+        //------------------------//
+
     }
 }
