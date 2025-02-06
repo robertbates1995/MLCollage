@@ -82,15 +82,32 @@ final class CollageTests: XCTestCase {
     //fixing rotation anchor point issue.
     func testRotate() {
         let collage = makeCollage(
-            mod: Modification(rotate: 0))
+            mod: Modification(rotate: 0)).image
         let collage1 = makeCollage(
-            mod: Modification(rotate: 1))
+            mod: Modification(rotate: 1)).image
         let collage2 = makeCollage(
-            mod: Modification(rotate: 0))
-        assertSnapshot(of: collage.image, as: .image, record: false)
-        assertSnapshot(of: collage1.image, as: .image, record: false)
-        XCTAssertEqual(collage.image.ciImage?.debugDescription, collage2.image.ciImage?.debugDescription)
-        XCTAssertEqual(collage1.image.ciImage?.debugDescription, collage2.image.ciImage?.debugDescription)
+            mod: Modification(rotate: 0)).image
+        
+        assertSnapshot(of: collage, as: .image, record: false)
+        assertSnapshot(of: collage1, as: .image, record: false)
+        assertSnapshot(of: collage2, as: .image, record: false)
+
+        guard let collage = collage.pngData() else {
+            XCTFail("PNG data should not be nil")
+            return
+        }
+        guard let collage1 = collage1.pngData() else {
+            XCTFail("PNG data should not be nil")
+            return
+        }
+        guard let collage2 = collage2.pngData() else {
+            XCTFail("PNG data should not be nil")
+            return
+        }
+        
+        XCTAssertEqual(collage, collage2)
+        XCTAssertEqual(collage, collage2)
+        XCTAssertEqual(collage1, collage2)
     }
     
     func testPreviewImage() {
