@@ -181,7 +181,7 @@ final class CollageTests: XCTestCase {
         
         //centered
         let collage1 = makeCollage(
-            mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.25),
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25),
             subject: makeSubject(width: 50, height: 50))
         
         assertSnapshot(of: collage1.image, as: .image, record: true)
@@ -194,19 +194,19 @@ final class CollageTests: XCTestCase {
         
         //top left
         let collage3 = makeCollage(
-            mod: Modification(translateX: -1.0, translateY: 1.0, scale: 0.25))
+            mod: Modification(translateX: 0.0, translateY: 1.0, scale: 0.25))
         
         assertSnapshot(of: collage3.image, as: .image, record: true)
         
         //bottom right
         let collage4 = makeCollage(
-            mod: Modification(translateX: 1.0, translateY: -1.0, scale: 0.25))
+            mod: Modification(translateX: 1.0, translateY: 0.0, scale: 0.25))
         
         assertSnapshot(of: collage4.image, as: .image, record: true)
         
         //bottom left
         let collage5 = makeCollage(
-            mod: Modification(translateX: -1.0, translateY: -1.0, scale: 0.25))
+            mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.25))
         
         assertSnapshot(of: collage5.image, as: .image, record: true)
         
