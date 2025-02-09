@@ -18,14 +18,18 @@ extension UIImage {
         }
         return self
     }
-    
+
     func toCIImage() -> CIImage {
         if let temp = self.ciImage { return temp }
         return CIImage(
             image: self,
             options: [
                 .applyOrientationProperty: true,
-                .properties: [kCGImagePropertyOrientation: CGImagePropertyOrientation(imageOrientation).rawValue],
+                .properties: [
+                    kCGImagePropertyOrientation: CGImagePropertyOrientation(
+                        imageOrientation
+                    ).rawValue
+                ],
             ])!
     }
 }
@@ -33,14 +37,14 @@ extension UIImage {
 extension CGImagePropertyOrientation {
     init(_ uiOrientation: UIImage.Orientation) {
         switch uiOrientation {
-            case .up: self = .up
-            case .upMirrored: self = .upMirrored
-            case .down: self = .down
-            case .downMirrored: self = .downMirrored
-            case .left: self = .left
-            case .leftMirrored: self = .leftMirrored
-            case .right: self = .right
-            case .rightMirrored: self = .rightMirrored
+        case .up: self = .up
+        case .upMirrored: self = .upMirrored
+        case .down: self = .down
+        case .downMirrored: self = .downMirrored
+        case .left: self = .left
+        case .leftMirrored: self = .leftMirrored
+        case .right: self = .right
+        case .rightMirrored: self = .rightMirrored
         @unknown default:
             self = .up
         }
@@ -49,12 +53,15 @@ extension CGImagePropertyOrientation {
 
 extension CIImage {
     func toUIImage() -> UIImage {
-        let context = CIContext(options: nil)
-        if let cgImage = context.createCGImage(self, from: extent) {
-            return UIImage(cgImage: cgImage)
+
+        if let uiImage = UIImage(ciImage: self) {
+            return uiImage
         }
+        //        let context = CIContext(options: nil)
+        //        if let cgImage = context.createCGImage(self, from: extent) {
+        //            return UIImage(cgImage: cgImage)
+        //        }
         //return error image
         return .errorIcon
     }
 }
-
