@@ -83,24 +83,30 @@ final class CollageTests: XCTestCase {
     
     func testRotateAndTranslate() {
         let image = makeCollage(
-            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, rotate: 0)).image
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0)).image
         let image1 = makeCollage(
-            mod: Modification(translateX: 1, translateY: 1, rotate: 1)).image
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 1)).image
         let image2 = makeCollage(
-            mod: Modification(translateX: 1, translateY: 1, rotate: 0)).image
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0)).image
         let image3 = makeCollage(
-            mod: Modification(translateX: 1, translateY: 1, rotate: 0.25)).image
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0.25)).image
         let image4 = makeCollage(
-            mod: Modification(translateX: 1, translateY: 1, rotate: 0.75)).image
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0.75)).image
         
-        let images = [image, image1, image2, image3, image4]
+        let image5 = makeCollage(
+            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0)).image
+        let image6 = makeCollage(
+            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0.25)).image
+        let image7 = makeCollage(
+            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0.5)).image
+        let image8 = makeCollage(
+            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0.75)).image
+        
+        let images = [image, image1, image2, image3, image4, image5, image6, image7, image8]
         
         for image in images {
-            assertSnapshot(of: image, as: .image, record: true)
+            assertSnapshot(of: image, as: .image, record: false)
         }
-        XCTAssertEqual(image.pngData(), image.pngData())
-        XCTAssertEqual(image.pngData(), image1.pngData())
-        XCTAssertEqual(image.pngData(), image2.pngData())
     }
     
     func testPreviewImage() {
