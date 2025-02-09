@@ -26,7 +26,7 @@ final class CollageTests: XCTestCase {
         checkerBoardGenerator.width = 50
         checkerBoardGenerator.sharpness = 1
         return checkerBoardGenerator.outputImage!.cropped(
-            to: CGRect(x: 0.0, y: 0.0, width: 400, height: 200)
+            to: CGRect(x: 0.0, y: 0.0, width: 400, height: 400)
         ).toUIImage()
     }()
     
@@ -52,7 +52,7 @@ final class CollageTests: XCTestCase {
     {
         let sut = CollageBlueprint(
             mod: mod ?? Modification(),
-            subjectImage: subject ?? makeSubject(width: 100, height: 100),
+            subjectImage: subject ?? makeSubject(width: 200, height: 100),
             background: background,
             label: "testLabel",
             fileName: "testFileName")
