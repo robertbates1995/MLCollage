@@ -98,13 +98,13 @@ final class CollageTests: XCTestCase {
         let red = CIImage(color: .red).cropped(
             to:  CGRect(
                 origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
-        image = red.composited(over: image)
+        let uiImage = UIImage(ciImage: red.composited(over: image).cropped(to: bounds))
         
         let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
                                                            translateY: 0.5,
                                                            scale: 0.5,
                                                            rotate: 0.25),
-                                         subjectImage: UIImage(ciImage: image),
+                                         subjectImage: uiImage,
                                          background: background,
                                          label: "apple",
                                          fileName: "apple_.png")
@@ -142,7 +142,7 @@ final class CollageTests: XCTestCase {
                                                            translateY: 0.5,
                                                            scale: 0.5,
                                                            flipY: true),
-                                         subjectImage:  UIImage(ciImage: image),
+                                         subjectImage:  UIImage(ciImage: image.cropped(to: bounds)),
                                          background: .crazyBackground1,
                                          label: "apple",
                                          fileName: "apple_.png")
