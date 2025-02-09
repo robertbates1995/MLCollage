@@ -52,7 +52,7 @@ final class CollageTests: XCTestCase {
     {
         let sut = CollageBlueprint(
             mod: mod ?? Modification(),
-            subjectImage: subject ?? makeSubject(width: 200, height: 100),
+            subjectImage: subject ?? makeSubject(width: 100, height: 100),
             background: background,
             label: "testLabel",
             fileName: "testFileName")
@@ -83,7 +83,7 @@ final class CollageTests: XCTestCase {
     
     func testRotateAndTranslate() {
         let image = makeCollage(
-            mod: Modification(translateX: -1, translateY: 1, rotate: 0)).image
+            mod: Modification(translateX: -1, translateY: 1, scale: 0.5, rotate: 0)).image
         let image1 = makeCollage(
             mod: Modification(translateX: 1, translateY: 1, rotate: 1)).image
         let image2 = makeCollage(
