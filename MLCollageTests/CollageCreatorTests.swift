@@ -171,6 +171,46 @@ final class CollageTests: XCTestCase {
     }
     //------------------------//
 
+    func testScale() {
+        testScaleToBackground()
+        testScaleMin()
+        testScaleMax()
+    }
+    
+    func testTranslate() {
+        
+        //centered
+        let collage1 = makeCollage(
+            mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.25),
+            subject: makeSubject(width: 50, height: 50))
+        
+        assertSnapshot(of: collage1.image, as: .image, record: true)
+        
+        //top right
+        let collage2 = makeCollage(
+            mod: Modification(translateX: 1.0, translateY: 1.0, scale: 0.25))
+        
+        assertSnapshot(of: collage2.image, as: .image, record: true)
+        
+        //top left
+        let collage3 = makeCollage(
+            mod: Modification(translateX: -1.0, translateY: 1.0, scale: 0.25))
+        
+        assertSnapshot(of: collage3.image, as: .image, record: true)
+        
+        //bottom right
+        let collage4 = makeCollage(
+            mod: Modification(translateX: 1.0, translateY: -1.0, scale: 0.25))
+        
+        assertSnapshot(of: collage4.image, as: .image, record: true)
+        
+        //bottom left
+        let collage5 = makeCollage(
+            mod: Modification(translateX: -1.0, translateY: -1.0, scale: 0.25))
+        
+        assertSnapshot(of: collage5.image, as: .image, record: true)
+        
+    }
     
     func testCollageBlueprint() {
         let collage = makeCollage()
@@ -210,28 +250,7 @@ final class CollageTests: XCTestCase {
         assertSnapshot(of: collage.image, as: .image, record: false)
     }
     
-    func testTranslate() {
-        let collage = makeCollage(
-            mod: Modification(translateX: 0.5, translateY: 0.5),
-            subject: makeSubject(width: 200, height: 50))
-        
-        assertSnapshot(of: collage.image, as: .image, record: false)
-        
-        let collage2 = makeCollage(
-            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5))
-        
-        assertSnapshot(of: collage2.image, as: .image, record: false)
-        
-        let collage3 = makeCollage(
-            mod: Modification(translateX: 1, translateY: 1, scale: 0.5))
-        
-        assertSnapshot(of: collage3.image, as: .image, record: false)
-        
-        let collage4 = makeCollage(
-            mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.5))
-        
-        assertSnapshot(of: collage4.image, as: .image, record: false)
-    }
+    
     
     func testTranslateMax() {
         let collage = makeCollage(
