@@ -80,7 +80,7 @@ extension OutputModel {
                 origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
         image = red.composited(over: image)
 
-        return image.cropped(to: bounds).toUIImage()
+        return UIImage(ciImage: image.cropped(to: bounds))
     }
     
     static let flip = CollageBlueprint(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, flipY: true),

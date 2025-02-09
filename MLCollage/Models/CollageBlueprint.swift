@@ -53,8 +53,8 @@ struct CollageBlueprint {
             coordinates: .init(
                 subject.extent, backgroundHeight: collage.extent.height))
         return Collage(
-            image: collage.toUIImage(),
-            previewImage: previewImage.toUIImage(),
+            image: UIImage(ciImage: collage),
+            previewImage: UIImage(ciImage: previewImage),
             json: .init(annotation: [annotation], imagefilename: fileName))
     }
     
@@ -71,7 +71,7 @@ struct CollageBlueprint {
             by: .init(translationX: center.x, y: center.y))
         
         let scanner = Scanner()
-        let trimmedExtent = scanner.findSubjectSize(image: subject.toUIImage())
+        let trimmedExtent = scanner.findSubjectSize(image: UIImage(ciImage: subject))
         //subject = subject.cropped(to: trimmedExtent)
     }
     

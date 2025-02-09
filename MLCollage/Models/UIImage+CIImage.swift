@@ -50,18 +50,3 @@ extension CGImagePropertyOrientation {
         }
     }
 }
-
-extension CIImage {
-    func toUIImage() -> UIImage {
-
-        if let uiImage = UIImage(ciImage: self) {
-            return uiImage
-        }
-        //        let context = CIContext(options: nil)
-        //        if let cgImage = context.createCGImage(self, from: extent) {
-        //            return UIImage(cgImage: cgImage)
-        //        }
-        //return error image
-        return .errorIcon
-    }
-}

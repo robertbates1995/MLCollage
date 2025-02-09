@@ -18,6 +18,7 @@ import XCTest
 @MainActor
 final class CollageTests: XCTestCase {
     let background = {
+        
         var checkerBoardGenerator = CIFilter.checkerboardGenerator()
         checkerBoardGenerator.setDefaults()
         checkerBoardGenerator.center = CGPoint(x: 0, y: 0)
@@ -25,9 +26,10 @@ final class CollageTests: XCTestCase {
         checkerBoardGenerator.color1 = .black
         checkerBoardGenerator.width = 50
         checkerBoardGenerator.sharpness = 1
-        return checkerBoardGenerator.outputImage!.cropped(
+        let ciImage = checkerBoardGenerator.outputImage!.cropped(
             to: CGRect(x: 0.0, y: 0.0, width: 400, height: 400)
-        ).toUIImage()
+        )
+        return UIImage(ciImage: ciImage)
     }()
     
     func makeSubject(width: Double, height: Double) -> UIImage {
@@ -44,7 +46,7 @@ final class CollageTests: XCTestCase {
             to: spotBounds.offsetBy(dx: 0, dy: height / 2))
         image = red.composited(over: image)
         
-        return image.cropped(to: bounds).toUIImage()
+        return  UIImage(ciImage: image.cropped(to: bounds))
     }
     
     func makeCollage(mod: Modification? = nil, subject: UIImage? = nil)
@@ -102,13 +104,13 @@ final class CollageTests: XCTestCase {
                                                            translateY: 0.5,
                                                            scale: 0.5,
                                                            rotate: 0.25),
-                                         subjectImage: image.toUIImage(),
+                                         subjectImage: UIImage(ciImage: image),
                                          background: background,
                                          label: "apple",
                                          fileName: "apple_.png")
         let collage = blueprint.create()
         
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+        assertSnapshot(of: collage.previewImage, as: .image, record: true)
     }
     //------------------------//
 
@@ -140,7 +142,7 @@ final class CollageTests: XCTestCase {
                                                            translateY: 0.5,
                                                            scale: 0.5,
                                                            flipY: true),
-                                         subjectImage: image.toUIImage(),
+                                         subjectImage:  UIImage(ciImage: image),
                                          background: .crazyBackground1,
                                          label: "apple",
                                          fileName: "apple_.png")
