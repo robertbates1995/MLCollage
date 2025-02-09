@@ -103,7 +103,7 @@ final class CollageTests: XCTestCase {
                                                            scale: 0.5,
                                                            rotate: 0.25),
                                          subjectImage: image.toUIImage(),
-                                         background: .crazyBackground1,
+                                         background: background,
                                          label: "apple",
                                          fileName: "apple_.png")
         let collage = blueprint.create()
