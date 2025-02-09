@@ -83,7 +83,7 @@ final class CollageTests: XCTestCase {
     
     func testRotateAndTranslate() {
         let image = makeCollage(
-            mod: Modification(translateX: -1, translateY: 1, scale: 0.5, rotate: 0)).image
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, rotate: 0)).image
         let image1 = makeCollage(
             mod: Modification(translateX: 1, translateY: 1, rotate: 1)).image
         let image2 = makeCollage(
