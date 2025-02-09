@@ -51,7 +51,7 @@ final class CollageTests: XCTestCase {
     -> Collage
     {
         let sut = CollageBlueprint(
-            mod: mod ?? Modification(),
+            mod: mod ?? Modification(scale: 0.5),
             subjectImage: subject ?? makeSubject(width: 100, height: 100),
             background: background,
             label: "testLabel",
@@ -80,71 +80,6 @@ final class CollageTests: XCTestCase {
     //TODO: The following will need to be updated...
     //as well as checked to be accurate after
     //fixing rotation anchor point issue.
-    
-    func testRotateAndTranslate() {
-        let image = makeCollage(
-            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0)).image
-        let image1 = makeCollage(
-            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 1)).image
-        let image2 = makeCollage(
-            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0)).image
-        let image3 = makeCollage(
-            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0.25)).image
-        let image4 = makeCollage(
-            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0.75)).image
-        
-        let image5 = makeCollage(
-            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0)).image
-        let image6 = makeCollage(
-            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0.25)).image
-        let image7 = makeCollage(
-            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0.5)).image
-        let image8 = makeCollage(
-            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0.75)).image
-        
-        let images = [image, image1, image2, image3, image4, image5, image6, image7, image8]
-        
-        for image in images {
-            assertSnapshot(of: image, as: .image, record: false)
-        }
-    }
-    
-    func testPreviewImage() {
-        let collage = makeCollage()
-        
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
-    }
-        
-    func testFlipAndTrim() {
-        let width = 100.0
-        let height = 100.0
-        
-        let bounds = CGRect(
-            origin: .zero, size: CGSize(width: width, height: height))
-        var image = CIImage(color: .clear).cropped(to: bounds)
-        
-        let spotBounds = CGRect(
-            origin: .zero, size: CGSize(width: width / 2, height: height / 2))
-        let blue = CIImage(color: .blue).cropped(to: spotBounds)
-        image = blue.composited(over: image)
-        
-        let red = CIImage(color: .red).cropped(
-            to:  CGRect(
-                origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
-        image = red.composited(over: image)
-        
-        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
-                                                           translateY: 0.5,
-                                                           scale: 0.5,
-                                                           flipY: true),
-                                         subjectImage: image.toUIImage(),
-                                         background: .crazyBackground1,
-                                         label: "apple",
-                                         fileName: "apple_.png")
-        let collage = blueprint.create()
-        
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
-    }
     
     func testRotateAndTrim() {
         let width = 100.0
@@ -177,10 +112,75 @@ final class CollageTests: XCTestCase {
     }
     //------------------------//
 
+    func testPreviewImage() {
+        let collage = makeCollage()
+        
+        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+    }
+    
+    func testFlipAndTrim() {
+        let width = 100.0
+        let height = 100.0
+        
+        let bounds = CGRect(
+            origin: .zero, size: CGSize(width: width, height: height))
+        var image = CIImage(color: .clear).cropped(to: bounds)
+        
+        let spotBounds = CGRect(
+            origin: .zero, size: CGSize(width: width / 2, height: height / 2))
+        let blue = CIImage(color: .blue).cropped(to: spotBounds)
+        image = blue.composited(over: image)
+        
+        let red = CIImage(color: .red).cropped(
+            to:  CGRect(
+                origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
+        image = red.composited(over: image)
+        
+        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
+                                                           translateY: 0.5,
+                                                           scale: 0.5,
+                                                           flipY: true),
+                                         subjectImage: image.toUIImage(),
+                                         background: .crazyBackground1,
+                                         label: "apple",
+                                         fileName: "apple_.png")
+        let collage = blueprint.create()
+        
+        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+    }
+    
     func testScale() {
         testScaleToBackground()
         testScaleMin()
         testScaleMax()
+    }
+    
+    func testRotateAndTranslate() {
+        let image = makeCollage(
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0)).image
+        let image1 = makeCollage(
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 1)).image
+        let image2 = makeCollage(
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0.5)).image
+        let image3 = makeCollage(
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0.25)).image
+        let image4 = makeCollage(
+            mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25, rotate: 0.75)).image
+        
+        let image5 = makeCollage(
+            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0)).image
+        let image6 = makeCollage(
+            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0.25)).image
+        let image7 = makeCollage(
+            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0.5)).image
+        let image8 = makeCollage(
+            mod: Modification(translateX: 0.83, translateY: 0.83, scale: 0.25, rotate: 0.75)).image
+        
+        let images = [image, image1, image2, image3, image4, image5, image6, image7, image8]
+        
+        for image in images {
+            assertSnapshot(of: image, as: .image, record: false)
+        }
     }
     
     func testTranslate() {
