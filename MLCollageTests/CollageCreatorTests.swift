@@ -184,32 +184,37 @@ final class CollageTests: XCTestCase {
             mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25),
             subject: makeSubject(width: 50, height: 50))
         
-        assertSnapshot(of: collage1.image, as: .image, record: true)
+        assertSnapshot(of: collage1.image, as: .image, record: false)
         
         //top right
         let collage2 = makeCollage(
             mod: Modification(translateX: 1.0, translateY: 1.0, scale: 0.25))
         
-        assertSnapshot(of: collage2.image, as: .image, record: true)
+        assertSnapshot(of: collage2.image, as: .image, record: false)
         
         //top left
         let collage3 = makeCollage(
             mod: Modification(translateX: 0.0, translateY: 1.0, scale: 0.25))
         
-        assertSnapshot(of: collage3.image, as: .image, record: true)
+        assertSnapshot(of: collage3.image, as: .image, record: false)
         
         //bottom right
         let collage4 = makeCollage(
             mod: Modification(translateX: 1.0, translateY: 0.0, scale: 0.25))
         
-        assertSnapshot(of: collage4.image, as: .image, record: true)
+        assertSnapshot(of: collage4.image, as: .image, record: false)
         
         //bottom left
         let collage5 = makeCollage(
             mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.25))
         
-        assertSnapshot(of: collage5.image, as: .image, record: true)
+        assertSnapshot(of: collage5.image, as: .image, record: false)
         
+        //top right, partially off
+        let collage6 = makeCollage(
+            mod: Modification(translateX: 1.1, translateY: 1.1, scale: 0.25))
+        
+        assertSnapshot(of: collage6.image, as: .image, record: false)
     }
     
     func testCollageBlueprint() {
