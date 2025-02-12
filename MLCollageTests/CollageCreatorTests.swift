@@ -78,17 +78,11 @@ final class CollageTests: XCTestCase {
         return image
     }
     
-    //------------------------//
-    //TODO: The following will need to be updated...
-    //as well as checked to be accurate after
-    //fixing rotation anchor point issue.
-    
-    func testRotateAndTrim() {
-        let width = 100.0
+    func makeTestSubject() -> UIImage {
         let height = 100.0
-        
+        let width = 100.0
         let bounds = CGRect(origin: .zero, size: CGSize(width: width, height: height))
-        var image = CIImage(color: .clear).cropped(to: bounds)
+        var image = CIImage(color: .white).cropped(to: bounds)
         
         let spotBounds = CGRect(
             origin: .zero, size: CGSize(width: width / 2, height: height / 2))
@@ -97,14 +91,22 @@ final class CollageTests: XCTestCase {
         
         let red = CIImage(color: .red).cropped(
             to: spotBounds.offsetBy(dx: 0, dy: height / 2))
-        let uiImage1 = UIImage(ciImage: red.composited(over: image))
-        let uiImage = makeSubject(width: 100, height: 100)
+        return UIImage(ciImage: red.composited(over: image))
+    }
+    
+    //------------------------//
+    //TODO: The following will need to be updated...
+    //as well as checked to be accurate after
+    //fixing rotation anchor point issue.
+    
+    func testRotateAndTrim() {
+        let testImage = makeTestSubject()
         
         let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
                                                            translateY: 0.5,
                                                            scale: 0.5,
                                                            rotate: 0.25),
-                                         subjectImage: uiImage1,
+                                         subjectImage: testImage,
                                          background: background,
                                          label: "apple",
                                          fileName: "apple_.png")
@@ -126,7 +128,7 @@ final class CollageTests: XCTestCase {
         
         let bounds = CGRect(
             origin: .zero, size: CGSize(width: width, height: height))
-        var image = CIImage(color: .clear).cropped(to: bounds)
+        var image = CIImage(color: .white).cropped(to: bounds)
         
         let spotBounds = CGRect(
             origin: .zero, size: CGSize(width: width / 2, height: height / 2))
@@ -134,13 +136,13 @@ final class CollageTests: XCTestCase {
         image = blue.composited(over: image)
         
         let red = CIImage(color: .red).cropped(
-            to:  CGRect(
-                origin: .zero, size: CGSize(width: width / 4, height: height / 4)))
+            to:  spotBounds.offsetBy(dx: 0, dy: height / 2))
         image = red.composited(over: image)
         
         let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
                                                            translateY: 0.5,
                                                            scale: 0.5,
+                                                           flipX: true,
                                                            flipY: true),
                                          subjectImage:  UIImage(ciImage: image.cropped(to: bounds)),
                                          background: .crazyBackground1,
