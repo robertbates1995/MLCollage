@@ -98,26 +98,6 @@ final class CollageTests: XCTestCase {
     //TODO: The following will need to be updated...
     //as well as checked to be accurate after
     //fixing rotation anchor point issue.
-    func testSpecial() {
-        let cross = {
-            let width = 500.0
-            let height = 500.0
-            
-            let bounds = CGRect(origin: .zero, size: CGSize(width: width, height: height))
-            var image = CIImage(color: .clear).cropped(to: bounds)
-            
-            let white = CIImage(color: .white).cropped(
-                to: CGRect(origin: CGPoint(x: 0, y: height/2 - 5),
-                           size: CGSize(width: width, height: 10)))
-            image = white.composited(over: image)
-            
-            let spotBounds = CGRect(
-                origin: CGPoint(x: width/2 - 5, y: 0), size: CGSize(width: 10, height: height / 2))
-            let blue = CIImage(color: .blue).cropped(to: spotBounds)
-            image = blue.composited(over: image)
-            let red = CIImage(color: .red).cropped(to: spotBounds.offsetBy(dx: 0, dy: height / 2))
-            return UIImage(ciImage: red.composited(over: image))    }()
-    }
     
     func testRotateAndTrim() {
         let cross = {
@@ -140,9 +120,9 @@ final class CollageTests: XCTestCase {
             return UIImage(ciImage: red.composited(over: image))    }()
         
         let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
-                                                           translateY: 0.5,
+                                                           translateY: 0.125,
                                                            scale: 0.5,
-                                                           rotate: 0.125),
+                                                           rotate: 0.25),
                                          subjectImage: cross,
                                          background: background,
                                          label: "apple",

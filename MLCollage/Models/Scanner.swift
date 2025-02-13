@@ -23,6 +23,7 @@ struct Scanner {
         let pixelIndex = (height - y - 1) * width + x * 4
 
         let alpha = data[pixelIndex + 3]
+        print(alpha)
         return alpha == 0
     }
 

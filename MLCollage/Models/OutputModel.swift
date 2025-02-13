@@ -68,7 +68,7 @@ extension OutputModel {
     static func makeSubject(width: Double, height: Double) -> UIImage {
         let bounds = CGRect(
             origin: .zero, size: CGSize(width: width, height: height))
-        var image = CIImage(color: .clear).cropped(to: bounds)
+        var image = CIImage(color: .cyan).cropped(to: bounds)
         
         let spotBounds = CGRect(
             origin: .zero, size: CGSize(width: width / 1.5, height: height / 1.5))
