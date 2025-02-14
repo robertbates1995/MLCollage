@@ -23,7 +23,6 @@ struct Scanner {
         let pixelIndex = (height - y - 1) * width + x * 4
 
         let alpha = data[pixelIndex + 3]
-        print(alpha)
         return alpha == 0
     }
 
@@ -46,7 +45,7 @@ struct Scanner {
     }
 
     func findSubjectSize(image: UIImage) -> CGRect {
-        guard let cgImage = image.cgImage,
+        guard let cgImage = image.toCGImage().cgImage,
             cgImage.colorSpace?.model == .rgb,
             cgImage.bitsPerPixel == 32,
             cgImage.bitsPerComponent == 8

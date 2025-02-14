@@ -120,9 +120,9 @@ final class CollageTests: XCTestCase {
             return UIImage(ciImage: red.composited(over: image))    }()
         
         let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
-                                                           translateY: 0.125,
+                                                           translateY: 0.5,
                                                            scale: 0.5,
-                                                           rotate: 0.25),
+                                                           rotate: 0.125),
                                          subjectImage: cross,
                                          background: background,
                                          label: "apple",

@@ -60,20 +60,19 @@ struct CollageBlueprint {
     
     private func rotate(_ subject: inout CIImage) {
         let subjectSize = subject.extent
-        let center: CGPoint = .init(
-            x: subjectSize.width / 2, y: subjectSize.height / 2)
 
         subject = subject.transformed(
-            by: .init(translationX: -center.x, y: -center.y))
+            by: .init(translationX: -subjectSize.width / 2, y: -subjectSize.height / 2))
         subject = subject.transformed(
             by: .init(rotationAngle: mod.rotate * 2 * .pi))
         subject = subject.transformed(
-            by: .init(translationX: center.x, y: center.y))
+            by: .init(translationX: -subject.extent.minX, y: -subject.extent.minY))
         
         let scanner = Scanner()
         let trimmedExtent = scanner.findSubjectSize(image: UIImage(ciImage: subject))
-        //subject = subject.cropped(to: trimmedExtent)
-    }
+        subject = subject.cropped(to: trimmedExtent)
+        subject = subject.transformed(
+            by: .init(translationX: -subject.extent.minX, y: -subject.extent.minY))    }
     
     private func flip(_ subject: inout CIImage) {
         if mod.flipY {
