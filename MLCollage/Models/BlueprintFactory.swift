@@ -8,8 +8,8 @@
 import Foundation
 
 struct BlueprintFactory {
-    func createBlueprints(_ inputModel: InputModel, _ settingsModel: SettingsModel) -> [CollageBlueprint] {
-        var set = [CollageBlueprint]()
+    func createBlueprints(_ inputModel: InputModel, _ settingsModel: SettingsModel) -> [CollageFactory] {
+        var set = [CollageFactory]()
         var count = 1
         for subject in inputModel.subjects {
             for mod in createModList(settingsModel: settingsModel) {
@@ -18,7 +18,7 @@ struct BlueprintFactory {
                 else {
                     continue
                 }
-                let blueprint = CollageBlueprint(
+                let blueprint = CollageFactory(
                     mod: mod, subjectImage: image.uiImage, background: background.uiImage,
                     label: subject.label,
                     fileName: "\(count).png")

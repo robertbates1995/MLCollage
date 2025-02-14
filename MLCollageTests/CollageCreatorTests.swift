@@ -52,7 +52,7 @@ final class CollageTests: XCTestCase {
     func makeCollage(mod: Modification? = nil, subject: UIImage? = nil)
     -> Collage
     {
-        let sut = CollageBlueprint(
+        let sut = CollageFactory(
             mod: mod ?? Modification(scale: 0.5),
             subjectImage: subject ?? makeSubject(width: 100, height: 100),
             background: background,
@@ -94,8 +94,8 @@ final class CollageTests: XCTestCase {
         return UIImage(ciImage: red.composited(over: image))
     }
     
-    func testRotateAndTrim() {
-        let cross = {
+    func makeCross() -> UIImage {
+        
             let width = 500.0
             let height = 500.0
             
@@ -112,13 +112,15 @@ final class CollageTests: XCTestCase {
             let blue = CIImage(color: .blue).cropped(to: spotBounds)
             image = blue.composited(over: image)
             let red = CIImage(color: .red).cropped(to: spotBounds.offsetBy(dx: 0, dy: height / 2))
-            return UIImage(ciImage: red.composited(over: image))    }()
-        
-        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
+            return UIImage(ciImage: red.composited(over: image))
+    }
+    
+    func testRotateAndTrim() {
+        let blueprint = CollageFactory(mod: Modification(translateX: 0.5,
                                                            translateY: 0.5,
                                                            scale: 0.5,
                                                            rotate: 0.125),
-                                         subjectImage: cross,
+                                         subjectImage: makeCross(),
                                          background: background,
                                          label: "apple",
                                          fileName: "apple_.png")
@@ -149,7 +151,7 @@ final class CollageTests: XCTestCase {
             to:  spotBounds.offsetBy(dx: 0, dy: height / 2))
         image = red.composited(over: image)
         
-        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
+        let blueprint = CollageFactory(mod: Modification(translateX: 0.5,
                                                            translateY: 0.5,
                                                            scale: 0.5,
                                                            flipX: true,
@@ -309,7 +311,7 @@ final class CollageTests: XCTestCase {
     }
     
     func testScaleSubjectImage() {
-        let sut = CollageBlueprint(
+        let sut = CollageFactory(
             mod: Modification(scale: 0.5),
             subjectImage: makeSubject(width: 100, height: 100),
             background: background,
@@ -360,5 +362,18 @@ final class CollageTests: XCTestCase {
         guard let sut = makeTestImage(canvasSize: canvas, shapeSize: shape)
         else { return }
         assertSnapshot(of: sut, as: .image, record: false)
+    }
+    
+    func testNewScan() {
+        let blueprint = CollageFactory(mod: Modification(translateX: 0.5,
+                                                           translateY: 0.5,
+                                                           scale: 0.5,
+                                                           rotate: 0.125),
+                                         subjectImage: makeCross(),
+                                         background: background,
+                                         label: "apple",
+                                         fileName: "apple_.png")
+        let collage = blueprint.create()
+        assertSnapshot(of: collage.previewImage, as: .image, record: false)
     }
 }

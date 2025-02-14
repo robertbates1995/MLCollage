@@ -13,7 +13,7 @@ class OutputModel {
     var collages: [Collage]
     var canExport: Bool { state == .ready}
     var state = State.needsUpdate
-    var blueprints: [CollageBlueprint] = [] {
+    var blueprints: [CollageFactory] = [] {
         didSet {
             task?.cancel()
             state = .needsUpdate
@@ -35,7 +35,7 @@ class OutputModel {
         case ready
     }
     
-    init(collages: [Collage] = [], state: State = State.needsUpdate, blueprints: [CollageBlueprint] = []) {
+    init(collages: [Collage] = [], state: State = State.needsUpdate, blueprints: [CollageFactory] = []) {
         self.collages = collages
         self.state = state
         self.blueprints = blueprints
@@ -83,12 +83,12 @@ extension OutputModel {
         return UIImage(ciImage: image.cropped(to: bounds))
     }
     
-    static let flip = CollageBlueprint(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, flipY: true),
+    static let flip = CollageFactory(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, flipY: true),
                                           subjectImage: makeSubject(width: 200, height: 200),
                                  background: .crazyBackground1,
                                  label: "apple",
                                  fileName: "apple_.png")
-    static let rotate = CollageBlueprint(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, rotate: 0.5),
+    static let rotate = CollageFactory(mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.5, rotate: 0.5),
                                           subjectImage: makeSubject(width: 200, height: 200),
                                  background: .crazyBackground1,
                                  label: "apple",

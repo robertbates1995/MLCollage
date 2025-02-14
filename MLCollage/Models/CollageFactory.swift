@@ -9,7 +9,7 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import UIKit
 
-struct CollageBlueprint {
+struct CollageFactory {
     let mod: Modification
     let subjectImage: UIImage
     let background: UIImage
@@ -17,9 +17,8 @@ struct CollageBlueprint {
     let fileName: String
 
     func create(size: CGFloat? = nil) -> Collage {
-
+        
         let background = scaleBackground(size: size)
-
         var subject = subjectImage.toCIImage()
 
         rotate(&subject)
@@ -32,10 +31,8 @@ struct CollageBlueprint {
 
         translate(background, &subject)
         
-        
         let collage = subject.composited(over: background).cropped(
             to: background.extent)
-        
         
         var border = CIImage(color: .white).cropped(to: subject.extent.insetBy(dx: -2, dy: -2))
         let innerBorder = CIImage(color: .black).cropped(to: subject.extent)
@@ -43,19 +40,21 @@ struct CollageBlueprint {
         let maskToAlphaFilter = CIFilter.maskToAlpha()
         maskToAlphaFilter.inputImage = border
         border = maskToAlphaFilter.outputImage!
-        border = border.composited(over: background)
+        let backgroundWithBorder = border.composited(over: background)
         
-        let previewImage = subject.composited(over: border).cropped(
+        let previewImage = subject.composited(over: backgroundWithBorder).cropped(
             to: background.extent)
         
         let annotation = Annotation(
             label: label,
             coordinates: .init(
                 subject.extent, backgroundHeight: collage.extent.height))
+        
         return Collage(
             image: UIImage(ciImage: collage),
             previewImage: UIImage(ciImage: previewImage),
             json: .init(annotation: [annotation], imagefilename: fileName))
+        
     }
     
     private func rotate(_ subject: inout CIImage) {
