@@ -43,14 +43,67 @@ struct Scanner {
         }
         return false
     }
+    
+    
+    
+    func newFindSubjectSize(image: UIImage) -> CGRect {
+        guard let cgImage = image.toCGImage().cgImage,
+            cgImage.colorSpace?.model == .rgb,
+            cgImage.bitsPerPixel == 32,
+            cgImage.bitsPerComponent == 8
+        else { return CGRect(origin: CGPoint(x: 0, y: 0), size: image.size) }
+        
+        let canvasWidth = cgImage.width
+        let canvasHeight = cgImage.height
+        
+        var leftNotHit = true
 
+        var left = 0
+        var right = 0
+        var top = 0
+        var bottom = 0
+        
+        for x in 0 ..< canvasWidth {
+            for y in 0 ..< canvasHeight {
+                //this scan will go from left to right, bottom to top.
+                if !isPointInvisible(x: x, y: y, in: cgImage) {
+                    //left value is first point seen
+                    if leftNotHit {
+                        left = x
+                        leftNotHit = false
+                    }
+                    //bottom value is lowest seen height value
+                    if bottom > y {
+                        bottom = y
+                    }
+                    //top value is highest seen height value
+                    if top < y {
+                        top = y
+                    }
+                    //right value is last point seen
+                    if right < x {
+                        right = x
+                    }
+                }
+            }
+        }
+        
+        let size = CGSize(
+            width: (right - left),
+            height: (bottom - top))
+        
+        return CGRect(origin: CGPoint(x: left, y: top), size: size)
+    }
+    
+    
+    
     func findSubjectSize(image: UIImage) -> CGRect {
         guard let cgImage = image.toCGImage().cgImage,
             cgImage.colorSpace?.model == .rgb,
             cgImage.bitsPerPixel == 32,
             cgImage.bitsPerComponent == 8
         else { return CGRect(origin: CGPoint(x: 0, y: 0), size: image.size) }
-
+        
         let canvasWidth = cgImage.width
         let canvasHeight = cgImage.height
         var subjectNotSeen = true
@@ -58,6 +111,7 @@ struct Scanner {
         var right = 0
         var top = 0
         var bottom = 0
+        
         //find subject width
         //iterate over all x values
         for x in 0..<canvasWidth {

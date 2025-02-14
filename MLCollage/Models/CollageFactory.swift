@@ -10,12 +10,13 @@ import CoreImage.CIFilterBuiltins
 import UIKit
 
 struct CollageFactory {
+    
     let mod: Modification
     let subjectImage: UIImage
     let background: UIImage
     let label: String
     let fileName: String
-
+    
     func create(size: CGFloat? = nil) -> Collage {
         
         let background = scaleBackground(size: size)
@@ -68,7 +69,15 @@ struct CollageFactory {
             by: .init(translationX: -subject.extent.minX, y: -subject.extent.minY))
         
         let scanner = Scanner()
-        let trimmedExtent = scanner.findSubjectSize(image: UIImage(ciImage: subject))
+        
+        
+        
+        //TODO: Change this line back to findSubjectSize after testing/fixing!!
+        let trimmedExtent = scanner.newFindSubjectSize(image: UIImage(ciImage: subject))
+        //-----============------
+        
+        
+        
         subject = subject.cropped(to: trimmedExtent)
         subject = subject.transformed(
             by: .init(translationX: -subject.extent.minX, y: -subject.extent.minY))    }

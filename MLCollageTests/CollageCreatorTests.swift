@@ -364,7 +364,7 @@ final class CollageTests: XCTestCase {
         assertSnapshot(of: sut, as: .image, record: false)
     }
     
-    func testNewScan() {
+    func testNewScan() {        
         let blueprint = CollageFactory(mod: Modification(translateX: 0.5,
                                                            translateY: 0.5,
                                                            scale: 0.5,
@@ -374,6 +374,7 @@ final class CollageTests: XCTestCase {
                                          label: "apple",
                                          fileName: "apple_.png")
         let collage = blueprint.create()
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+        
+        assertSnapshot(of: collage.previewImage, as: .image, record: true)
     }
 }
