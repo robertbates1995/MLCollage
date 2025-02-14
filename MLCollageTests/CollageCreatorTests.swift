@@ -94,11 +94,6 @@ final class CollageTests: XCTestCase {
         return UIImage(ciImage: red.composited(over: image))
     }
     
-    //------------------------//
-    //TODO: The following will need to be updated...
-    //as well as checked to be accurate after
-    //fixing rotation anchor point issue.
-    
     func testRotateAndTrim() {
         let cross = {
             let width = 500.0
@@ -128,26 +123,8 @@ final class CollageTests: XCTestCase {
                                          label: "apple",
                                          fileName: "apple_.png")
         let collage = blueprint.create()
-        assertSnapshot(of: collage.previewImage, as: .image, record: true)
+        assertSnapshot(of: collage.previewImage, as: .image, record: false)
     }
-
-    
-//    func testRotateAndTrim() {
-//        let testImage = makeTestSubject()
-//        
-//        let blueprint = CollageBlueprint(mod: Modification(translateX: 0.5,
-//                                                           translateY: 0.5,
-//                                                           scale: 0.5,
-//                                                           rotate: 0.25),
-//                                         subjectImage: testImage,
-//                                         background: background,
-//                                         label: "apple",
-//                                         fileName: "apple_.png")
-//        let collage = blueprint.create()
-//        
-//        assertSnapshot(of: collage.previewImage, as: .image, record: true)
-//    }
-    //------------------------//
 
     func testPreviewImage() {
         let collage = makeCollage()
