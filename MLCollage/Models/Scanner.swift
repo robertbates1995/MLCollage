@@ -56,7 +56,8 @@ struct Scanner {
         let canvasWidth = cgImage.width
         let canvasHeight = cgImage.height
         
-        var leftNotHit = true
+        var leftHit = false
+        var bottomHit = false
 
         var left = 0
         var right = 0
@@ -68,21 +69,22 @@ struct Scanner {
                 //this scan will go from left to right, bottom to top.
                 if !isPointInvisible(x: x, y: y, in: cgImage) {
                     //left value is first point seen
-                    if leftNotHit {
-                        left = x
-                        leftNotHit = false
+                    if !leftHit {
+                        left = x - 1
+                        leftHit = true
                     }
                     //bottom value is lowest seen height value
-                    if bottom > y {
-                        bottom = y
+                    if !bottomHit {
+                        bottom = y - 1
+                        bottomHit = true
                     }
                     //top value is highest seen height value
-                    if top < y {
-                        top = y
+                    if top <= y {
+                        top = y + 1
                     }
                     //right value is last point seen
-                    if right < x {
-                        right = x
+                    if right <= x {
+                        right = x + 1
                     }
                 }
             }
