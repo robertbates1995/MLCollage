@@ -94,7 +94,7 @@ struct Scanner {
             width: (right - left),
             height: (top - bottom))
         
-        return CGRect(origin: CGPoint(x: left, y: top), size: size)
+        return CGRect(origin: CGPoint(x: left, y: bottom), size: size)
     }
     
     
