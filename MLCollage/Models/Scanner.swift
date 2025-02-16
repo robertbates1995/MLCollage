@@ -79,12 +79,12 @@ struct Scanner {
                         bottomHit = true
                     }
                     //top value is highest seen height value
-                    if top <= y {
-                        top = y + 1
+                    if top <= x {
+                        top = x + 1
                     }
                     //right value is last point seen
-                    if right <= x {
-                        right = x + 1
+                    if right <= y {
+                        right = y + 1
                     }
                 }
             }
@@ -92,7 +92,7 @@ struct Scanner {
         
         let size = CGSize(
             width: (right - left),
-            height: (bottom - top))
+            height: (top - bottom))
         
         return CGRect(origin: CGPoint(x: left, y: top), size: size)
     }
