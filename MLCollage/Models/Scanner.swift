@@ -57,8 +57,6 @@ struct Scanner {
         let canvasHeight = cgImage.height
         
         var leftHit = false
-        var bottomHit = false
-
         var left = 0
         var right = 0
         var top = 0
@@ -90,8 +88,8 @@ struct Scanner {
         }
         
         let size = CGSize(
-            width: (right - left),
-            height: (top - bottom))
+            width: (top - bottom),
+            height: (right - left))
         
         return CGRect(origin: CGPoint(x: left, y: bottom), size: size)
     }

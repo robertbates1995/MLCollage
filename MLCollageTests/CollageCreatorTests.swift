@@ -365,16 +365,34 @@ final class CollageTests: XCTestCase {
     }
     
     func testNewScan() {        
-        let blueprint = CollageFactory(mod: Modification(translateX: 0.5,
+        let collage1 = CollageFactory(mod: Modification(translateX: 0.5,
                                                            translateY: 0.5,
                                                            scale: 0.5,
-                                                           rotate: 0.125),
+                                                           rotate: 0.1),
+                                      subjectImage: makeSubject(width: 500, height: 100),
+                                         background: background,
+                                         label: "apple",
+                                       fileName: "apple_.png").create()
+        let collage2 = CollageFactory(mod: Modification(translateX: 0.25,
+                                                           translateY: 0.25,
+                                                           scale: 0.5,
+                                                           rotate: 0.1),
                                          subjectImage: makeCross(),
                                          background: background,
                                          label: "apple",
-                                         fileName: "apple_.png")
-        let collage = blueprint.create()
+                                       fileName: "apple_.png").create()
+        let collage3 = CollageFactory(mod: Modification(translateX: 0.75,
+                                                           translateY: 0.75,
+                                                           scale: 0.5,
+                                                           rotate: 0.1),
+                                         subjectImage: makeCross(),
+                                         background: background,
+                                         label: "apple",
+                                       fileName: "apple_.png").create()
         
-        assertSnapshot(of: collage.previewImage, as: .image, record: true)
+        assertSnapshot(of: collage1.previewImage, as: .image, record: true)
+        assertSnapshot(of: collage2.previewImage, as: .image, record: true)
+        assertSnapshot(of: collage3.previewImage, as: .image, record: true)
+
     }
 }
