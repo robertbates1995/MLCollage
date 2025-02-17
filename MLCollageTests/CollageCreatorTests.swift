@@ -377,7 +377,7 @@ final class CollageTests: XCTestCase {
                                                            translateY: 0.25,
                                                            scale: 0.5,
                                                            rotate: 0.1),
-                                         subjectImage: makeCross(),
+                                         subjectImage: makeSubject(width: 500, height: 100),
                                          background: background,
                                          label: "apple",
                                        fileName: "apple_.png").create()
@@ -385,7 +385,7 @@ final class CollageTests: XCTestCase {
                                                            translateY: 0.75,
                                                            scale: 0.5,
                                                            rotate: 0.1),
-                                         subjectImage: makeCross(),
+                                         subjectImage: makeSubject(width: 500, height: 100),
                                          background: background,
                                          label: "apple",
                                        fileName: "apple_.png").create()
