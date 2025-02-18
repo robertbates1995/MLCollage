@@ -70,13 +70,7 @@ struct CollageFactory {
         
         let scanner = Scanner()
         
-        
-        
-        //TODO: Change this line back to findSubjectSize after testing/fixing!!
-        let trimmedExtent = scanner.newFindSubjectSize(image: UIImage(ciImage: subject))
-        //-----============------
-        
-        
+        let trimmedExtent = scanner.findSubjectSize(image: UIImage(ciImage: subject))
         
         subject = subject.cropped(to: trimmedExtent)
         subject = subject.transformed(

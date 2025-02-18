@@ -44,9 +44,7 @@ struct Scanner {
         return false
     }
     
-    
-    
-    func newFindSubjectSize(image: UIImage) -> CGRect {
+    func findSubjectSize(image: UIImage) -> CGRect {
         guard let cgImage = image.toCGImage().cgImage,
             cgImage.colorSpace?.model == .rgb,
             cgImage.bitsPerPixel == 32,
@@ -92,55 +90,5 @@ struct Scanner {
             height: (right - left))
         
         return CGRect(origin: CGPoint(x: left, y: bottom), size: size)
-    }
-    
-    
-    
-    func findSubjectSize(image: UIImage) -> CGRect {
-        guard let cgImage = image.toCGImage().cgImage,
-            cgImage.colorSpace?.model == .rgb,
-            cgImage.bitsPerPixel == 32,
-            cgImage.bitsPerComponent == 8
-        else { return CGRect(origin: CGPoint(x: 0, y: 0), size: image.size) }
-        
-        let canvasWidth = cgImage.width
-        let canvasHeight = cgImage.height
-        var subjectNotSeen = true
-        var left = 0
-        var right = 0
-        var top = 0
-        var bottom = 0
-        
-        //find subject width
-        //iterate over all x values
-        for x in 0..<canvasWidth {
-            //find if subject in vertical slice
-            if verticalSlice(image: cgImage, x: x) {
-                if subjectNotSeen {
-                    left = x
-                    subjectNotSeen = false
-                } else {
-                    right = x + 1
-                }
-            }
-        }
-        subjectNotSeen = true
-        //find subject height
-        for y in 0..<canvasHeight {
-            //find if subject in vertical slice
-            if horizontalVisible(image: cgImage, y: y) {
-                if subjectNotSeen {
-                    top = y
-                    subjectNotSeen = false
-                } else {
-                    bottom = y + 1
-                }
-            }
-        }
-        let size = CGSize(
-            width: (right - left),
-            height: (bottom - top))
-        
-        return CGRect(origin: CGPoint(x: left, y: top), size: size)
     }
 }
