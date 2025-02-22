@@ -8,12 +8,12 @@
 import SwiftUI
 
 @Observable
-@MainActor
 class ThumbnailCache {
     @ObservationIgnored var cache: UIImage?
     var size: CGFloat = 10.0
 
-    func thumbnail(from source: Collage) -> UIImage {
+    nonisolated
+    func thumbnail(from source: Collage) async -> UIImage {
 
         if let cache, cache.size.width == size, cache.size.height == size {
             return cache
@@ -33,15 +33,21 @@ class ThumbnailCache {
 struct ThumbnailView: View {
     let collage: Collage
     @State var cache = ThumbnailCache()
+    @State var image: UIImage?
 
     var body: some View {
-        Image(uiImage: cache.thumbnail(from: collage))
+        Image(uiImage: (image ?? .errorIcon))
             .resizable()
             .scaledToFill()
             .onGeometryChange(for: CGFloat.self) { proxy in
                 proxy.size.width
             } action: { newWidth in
                 cache.size = newWidth
+            }
+            .task {
+                if image == nil, !Task.isCancelled {
+                    image = await cache.thumbnail(from: collage)
+                }
             }
     }
 }

@@ -10,72 +10,80 @@ import CoreImage.CIFilterBuiltins
 import UIKit
 
 struct CollageFactory {
-    
+
     let mod: Modification
     let subjectImage: UIImage
     let background: UIImage
     let label: String
     let fileName: String
-    
+
     func create(size: CGFloat? = nil) -> Collage {
-        
+
         let background = scaleBackground(size: size)
         var subject = subjectImage.toCIImage()
 
         rotate(&subject)
-        
+
         scaleToBackground(background, &subject)
-        
+
         scale(&subject)
 
         flip(&subject)
 
         translate(background, &subject)
-        
+
         let collage = subject.composited(over: background).cropped(
             to: background.extent)
-        
-        var border = CIImage(color: .white).cropped(to: subject.extent.insetBy(dx: -2, dy: -2))
+
+        var border = CIImage(color: .white).cropped(
+            to: subject.extent.insetBy(dx: -2, dy: -2))
         let innerBorder = CIImage(color: .black).cropped(to: subject.extent)
         border = innerBorder.composited(over: border)
         let maskToAlphaFilter = CIFilter.maskToAlpha()
         maskToAlphaFilter.inputImage = border
         border = maskToAlphaFilter.outputImage!
         let backgroundWithBorder = border.composited(over: background)
-        
-        let previewImage = subject.composited(over: backgroundWithBorder).cropped(
-            to: background.extent)
-        
+
+        let previewImage = subject.composited(over: backgroundWithBorder)
+            .cropped(
+                to: background.extent)
+
         let annotation = Annotation(
             label: label,
             coordinates: .init(
                 subject.extent, backgroundHeight: collage.extent.height))
-        
+
         return Collage(
             image: UIImage(ciImage: collage),
             previewImage: UIImage(ciImage: previewImage),
             json: .init(annotation: [annotation], imagefilename: fileName))
-        
+
     }
-    
+
     private func rotate(_ subject: inout CIImage) {
         let subjectSize = subject.extent
 
         subject = subject.transformed(
-            by: .init(translationX: -subjectSize.width / 2, y: -subjectSize.height / 2))
+            by: .init(
+                translationX: -subjectSize.width / 2, y: -subjectSize.height / 2
+            ))
         subject = subject.transformed(
             by: .init(rotationAngle: mod.rotate * 2 * .pi))
         subject = subject.transformed(
-            by: .init(translationX: -subject.extent.minX, y: -subject.extent.minY))
-        
+            by: .init(
+                translationX: -subject.extent.minX, y: -subject.extent.minY))
+
         let scanner = Scanner()
-        
-        let trimmedExtent = scanner.findSubjectSize(image: UIImage(ciImage: subject))
-        
+
+        let trimmedExtent = scanner.findSubjectSize(
+            image: UIImage(ciImage: subject))
+
         subject = subject.cropped(to: trimmedExtent)
         subject = subject.transformed(
-            by: .init(translationX: -subject.extent.minX, y: -subject.extent.minY))    }
-    
+            by: .init(
+                translationX: -subject.extent.minX, y: -subject.extent.minY))
+    }
+
     private func flip(_ subject: inout CIImage) {
         if mod.flipY {
             subject = subject.oriented(.downMirrored)
@@ -123,10 +131,11 @@ struct CollageFactory {
         let ratio = max(xRatio, yRatio)
 
         image = image.transformed(by: .init(scaleX: ratio, y: ratio))
-        image = image.transformed(by: .init(
-            translationX: -(image.extent.width - size) / 2,
-            y: -(image.extent.height - size) / 2
-        ))
+        image = image.transformed(
+            by: .init(
+                translationX: -(image.extent.width - size) / 2,
+                y: -(image.extent.height - size) / 2
+            ))
 
         return image.cropped(
             to: CGRect(
