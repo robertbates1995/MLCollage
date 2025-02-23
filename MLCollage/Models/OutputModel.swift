@@ -53,7 +53,7 @@ class OutputModel {
             await withTaskGroup(of: Void.self) { group in
                 var remaining = blueprints[...]
 
-                for _ in 0..<3 {
+                for _ in 0..<6 {
                     guard let blueprint = remaining.popFirst() else { break }
                     group.addTask(priority: .background) { [outputSize] in
                         guard !Task.isCancelled else { return }

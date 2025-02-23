@@ -54,10 +54,9 @@ struct CollageFactory {
                 subject.extent, backgroundHeight: collage.extent.height))
 
         return Collage(
-            image: UIImage(ciImage: collage),
-            previewImage: UIImage(ciImage: previewImage),
+            image: UIImage(ciImage: collage).toCGImage(),
+            previewImage: UIImage(ciImage: previewImage).toCGImage(),
             json: .init(annotation: [annotation], imagefilename: fileName))
-
     }
 
     private func rotate(_ subject: inout CIImage) {
