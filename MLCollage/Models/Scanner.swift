@@ -32,7 +32,7 @@ struct Scanner {
             for y in 0..<height {
                 //this scan will go from left to right, bottom to top.
                 
-                let pixelIndex = (height - y - 1) * width + x * 4
+                let pixelIndex = (height - y - 1) * cgImage.bytesPerRow + x * 4
 
                 let alpha = data[pixelIndex + 3]
                 
@@ -47,20 +47,20 @@ struct Scanner {
                         bottom = y
                     }
                     //top value is highest seen height value
-                    if top <= x {
-                        top = x + 1
+                    if top <= y {
+                        top = y + 1
                     }
                     //right value is last point seen
-                    if right <= y {
-                        right = y + 1
+                    if right <= x {
+                        right = x + 1
                     }
                 }
             }
         }
 
         let size = CGSize(
-            width: (top - bottom),
-            height: (right - left))
+            width: (right - left),
+            height: (top - bottom))
 
         return CGRect(origin: CGPoint(x: left, y: bottom), size: size)
     }
