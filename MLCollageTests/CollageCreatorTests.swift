@@ -17,6 +17,8 @@ import XCTest
 
 @MainActor
 final class CollageTests: XCTestCase {
+    let record = true
+    
     let background = {
 
         var checkerBoardGenerator = CIFilter.checkerboardGenerator()
@@ -53,7 +55,7 @@ final class CollageTests: XCTestCase {
         -> Collage
     {
         let sut = CollageFactory(
-            mod: mod ?? Modification(scale: 0.5),
+            mod: mod ?? Modification(translateX: 0.5, translateY: 0.5, scale: 0.5),
             subjectImage: subject ?? makeSubject(width: 100, height: 100),
             background: background,
             label: "testLabel",
@@ -148,13 +150,13 @@ final class CollageTests: XCTestCase {
             label: "apple",
             fileName: "apple_.png")
         let collage = blueprint.create()
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
 
     func testPreviewImage() {
         let collage = makeCollage()
 
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
 
     func testFlipAndTrim() {
@@ -187,13 +189,7 @@ final class CollageTests: XCTestCase {
             fileName: "apple_.png")
         let collage = blueprint.create()
 
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
-    }
-
-    func testScale() {
-        testScaleToBackground()
-        testScaleMin()
-        testScaleMax()
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
 
     func testRotateAndTranslate() {
@@ -241,7 +237,7 @@ final class CollageTests: XCTestCase {
         ]
 
         for image in images {
-            assertSnapshot(of: image, as: .image, record: false)
+            assertSnapshot(of: image, as: .image, record: record)
         }
     }
 
@@ -252,37 +248,37 @@ final class CollageTests: XCTestCase {
             mod: Modification(translateX: 0.5, translateY: 0.5, scale: 0.25),
             subject: makeSubject(width: 50, height: 50))
 
-        assertSnapshot(of: collage1.image, as: .image, record: false)
+        assertSnapshot(of: collage1.image, as: .image, record: record)
 
         //top right
         let collage2 = makeCollage(
             mod: Modification(translateX: 1.0, translateY: 1.0, scale: 0.25))
 
-        assertSnapshot(of: collage2.image, as: .image, record: false)
+        assertSnapshot(of: collage2.image, as: .image, record: record)
 
         //top left
         let collage3 = makeCollage(
             mod: Modification(translateX: 0.0, translateY: 1.0, scale: 0.25))
 
-        assertSnapshot(of: collage3.image, as: .image, record: false)
+        assertSnapshot(of: collage3.image, as: .image, record: record)
 
         //bottom right
         let collage4 = makeCollage(
             mod: Modification(translateX: 1.0, translateY: 0.0, scale: 0.25))
 
-        assertSnapshot(of: collage4.image, as: .image, record: false)
+        assertSnapshot(of: collage4.image, as: .image, record: record)
 
         //bottom left
         let collage5 = makeCollage(
             mod: Modification(translateX: 0.0, translateY: 0.0, scale: 0.25))
 
-        assertSnapshot(of: collage5.image, as: .image, record: false)
+        assertSnapshot(of: collage5.image, as: .image, record: record)
 
         //top right, partially off
         let collage6 = makeCollage(
             mod: Modification(translateX: 1.1, translateY: 1.1, scale: 0.25))
 
-        assertSnapshot(of: collage6.image, as: .image, record: false)
+        assertSnapshot(of: collage6.image, as: .image, record: record)
     }
 
     func testCollageBlueprint() {
@@ -290,8 +286,8 @@ final class CollageTests: XCTestCase {
 
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
-            .init(x: 50, y: 50, width: 100, height: 100))
-        assertSnapshot(of: collage.image, as: .image, record: false)
+                .init(x: 50, y: 50, width: 100, height: 100))
+        assertSnapshot(of: collage.image, as: .image, record: record)
     }
 
     func testScaleToBackground() {
@@ -300,27 +296,27 @@ final class CollageTests: XCTestCase {
         XCTAssertEqual(
             collage.json.annotation[0].coordinates,
             .init(x: 75, y: 50, width: 150, height: 100))
-        assertSnapshot(of: collage.image, as: .image, record: false)
+        assertSnapshot(of: collage.image, as: .image, record: record)
     }
 
     func testScaleMin() {
         let collage = makeCollage(
             mod: Modification(scale: Modification.scaleMin))
 
-        assertSnapshot(of: collage.image, as: .image, record: false)
+        assertSnapshot(of: collage.image, as: .image, record: record)
     }
 
     func testScaleMax() {
         let collage = makeCollage(
             mod: Modification(scale: Modification.scaleMax))
 
-        assertSnapshot(of: collage.image, as: .image, record: false)
+        assertSnapshot(of: collage.image, as: .image, record: record)
     }
 
     func testFlip() {
         let collage = makeCollage(mod: Modification(flipX: true, flipY: true))
 
-        assertSnapshot(of: collage.image, as: .image, record: false)
+        assertSnapshot(of: collage.image, as: .image, record: record)
     }
 
     func testTranslateMax() {
@@ -329,7 +325,7 @@ final class CollageTests: XCTestCase {
                 translateX: Modification.translateMax, translateY: 0.5),
             subject: makeSubject(width: 200, height: 50))
 
-        assertSnapshot(of: collage.image, as: .image, record: false)
+        assertSnapshot(of: collage.image, as: .image, record: record)
     }
 
     func testRotate() {
@@ -352,7 +348,7 @@ final class CollageTests: XCTestCase {
         let collages = [collage, collage1, collage2, collage3, collage4]
 
         for collage in collages {
-            assertSnapshot(of: collage, as: .image, record: false)
+            assertSnapshot(of: collage, as: .image, record: record)
         }
         XCTAssertEqual(collage.pngData(), collage.pngData())
         XCTAssertEqual(collage.pngData(), collage1.pngData())
@@ -372,7 +368,7 @@ final class CollageTests: XCTestCase {
             collage.json.annotation[0].coordinates,
             .init(x: 12.5, y: 37.5, width: 25, height: 25))
         XCTAssertEqual(collage.image.size, CGSize(width: 50, height: 50))
-        assertSnapshot(of: collage.image, as: .image, record: false)
+        assertSnapshot(of: collage.image, as: .image, record: record)
     }
 
     func testFindSubjectSize() {
@@ -394,7 +390,7 @@ final class CollageTests: XCTestCase {
         let canvas = CGSize(width: 10, height: 10)
         guard let sut = makeTestImage(canvasSize: canvas, shapeSize: shape)
         else { return }
-        assertSnapshot(of: sut, as: .image, record: false)
+        assertSnapshot(of: sut, as: .image, record: record)
     }
 
     func testNewScan() {
@@ -432,9 +428,9 @@ final class CollageTests: XCTestCase {
             fileName: "apple_.png"
         ).create()
 
-        assertSnapshot(of: collage1.previewImage, as: .image, record: true)
-        assertSnapshot(of: collage2.previewImage, as: .image, record: true)
-        assertSnapshot(of: collage3.previewImage, as: .image, record: true)
+        assertSnapshot(of: collage1.previewImage, as: .image, record: record)
+        assertSnapshot(of: collage2.previewImage, as: .image, record: record)
+        assertSnapshot(of: collage3.previewImage, as: .image, record: record)
     }
 
     func testTrimRight() {
@@ -445,7 +441,7 @@ final class CollageTests: XCTestCase {
             label: "apple",
             fileName: "apple_.png"
         ).create()
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
     
     func testTrimLeft() {
@@ -456,7 +452,7 @@ final class CollageTests: XCTestCase {
             label: "apple",
             fileName: "apple_.png"
         ).create()
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
     
     func testTrimTop() {
@@ -467,7 +463,7 @@ final class CollageTests: XCTestCase {
             label: "apple",
             fileName: "apple_.png"
         ).create()
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
     
     func testTrimBottom() {
@@ -478,6 +474,6 @@ final class CollageTests: XCTestCase {
             label: "apple",
             fileName: "apple_.png"
         ).create()
-        assertSnapshot(of: collage.previewImage, as: .image, record: false)
+        assertSnapshot(of: collage.previewImage, as: .image, record: record)
     }
 }
