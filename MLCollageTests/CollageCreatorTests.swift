@@ -33,7 +33,7 @@ final class CollageTests: XCTestCase {
         )
         return UIImage(ciImage: ciImage)
     }()
-
+    
     func makeSubject(width: Double, height: Double) -> UIImage {
         let bounds = CGRect(
             origin: .zero, size: CGSize(width: width, height: height))
