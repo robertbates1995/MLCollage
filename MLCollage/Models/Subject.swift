@@ -31,4 +31,6 @@ extension Subject {
         if lhs.id.map(\.asciiValue) != lhs.id.map(\.asciiValue) { return false}
         return true
     }
+    
+    static let mock = Subject(label: "mock", images: [.apple2, .apple3, .apple4])
 }

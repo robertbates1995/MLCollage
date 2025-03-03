@@ -10,10 +10,12 @@ import XCTest
 import SwiftUI
 
 final class InputModelTests: XCTestCase {
-    var sut = InputModel.mock
+    var sut = InputModel()
 
     func testAddSubject() {
-        
+        let expected = InputModel(subjects: [.mock])
+        sut.add(subject: .mock)
+        XCTAssertEqual(sut, expected)
     }
     
     func testAddMultipleSubjects() {
@@ -45,6 +47,9 @@ final class InputModelTests: XCTestCase {
     }
     
     func testClearAll() {
-        
+        let expected = InputModel()
+        var sut = InputModel.mock
+        sut.clearAll()
+        XCTAssertEqual(sut, expected)
     }
 }

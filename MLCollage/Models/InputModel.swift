@@ -42,6 +42,11 @@ struct InputModel {
             subjects.append(Subject(label: temp, images: subject.images))
         }
     }
+    
+    mutating func clearAll() {
+        subjects = []
+        backgrounds = []
+    }
 }
 
 extension InputModel {
