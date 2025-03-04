@@ -51,50 +51,37 @@ struct AllSubjectsView: View {
                     addNewBackground.toggle()
                 }
             }
-            .navigationTitle("Input")
             .toolbar {
-                Button("Remove all") {
-
-                    showConfirmation = true  // Show the confirmation dialog when the button is tapped
-
-                }
-                .confirmationDialog(
-                    "Are you sure?", isPresented: $showConfirmation
-                ) {
-
-                    Button("Delete") {
-
-                        // Perform the delete action here
-
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button("Remove all") {
+                        showConfirmation = true
                     }
-
-                    Button("Cancel", role: .cancel) {}  // Cancel button
-
-                } message: {
-
-                    Text("This action cannot be undone.")  // Optional message
-
+                    .confirmationDialog(
+                        "Are you sure?", isPresented: $showConfirmation
+                    ) {
+                        Button("Remove all") {
+                            model.clearAll()
+                        }
+                        Button("Cancel", role: .cancel) {}
+                    } message: {
+                        Text("This action cannot be undone.")
+                    }
                 }
-                Spacer()
-                Button("Add") {
-                    newSubject = model.newSubject
-                    addNewSubject.toggle()
+
+                ToolbarItem(placement: .principal) {
+                    Text("Input")
+                        .font(.headline)
+                }
+
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Add") {
+                        newSubject = model.newSubject
+                        addNewSubject.toggle()
+                    }
                 }
             }
-            .sheet(
-                isPresented: $addNewSubject,
-                onDismiss: didDismiss
-            ) {
-                NavigationView {
-                    EditSubjectView(subject: $newSubject)
-                }
-            }
-            .sheet(
-                isPresented: $addNewBackground
-            ) {
-                NavigationView {
-                    EditBackgroundView(backgrounds: $model.backgrounds)
-                }
+            .sheet(isPresented: $addNewSubject) {
+                EditSubjectView(subject: $newSubject)
             }
         }
     }
