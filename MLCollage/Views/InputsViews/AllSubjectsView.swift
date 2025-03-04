@@ -13,6 +13,7 @@ struct AllSubjectsView: View {
     @State var addNewBackground: Bool = false
     @State var editSubject: Bool = false
     @State var newSubject: Subject = Subject(label: "New Subject")
+    @State var showConfirmation = false
 
     var body: some View {
         NavigationView {
@@ -21,8 +22,11 @@ struct AllSubjectsView: View {
                     Section(subject.label.wrappedValue) {
                         ZStack {
                             Color.white
-                            SubjectView(images: subject.images, isClickable: false, isDeleting: false)
-                                .padding([.top], 7)
+                            SubjectView(
+                                images: subject.images, isClickable: false,
+                                isDeleting: false
+                            )
+                            .padding([.top], 7)
                         }
                     }
                     .onTapGesture {
@@ -36,8 +40,11 @@ struct AllSubjectsView: View {
                 Section("Backgrounds") {
                     ZStack {
                         Color.white
-                        SubjectView(images: $model.backgrounds, isClickable: false, isDeleting: false)
-                            .padding([.top], 7)
+                        SubjectView(
+                            images: $model.backgrounds, isClickable: false,
+                            isDeleting: false
+                        )
+                        .padding([.top], 7)
                     }
                 }
                 .onTapGesture {
@@ -46,9 +53,29 @@ struct AllSubjectsView: View {
             }
             .navigationTitle("Input")
             .toolbar {
-                Button("Clear All") {
-                    model.clearAll()
+                Button("Remove all") {
+
+                    showConfirmation = true  // Show the confirmation dialog when the button is tapped
+
                 }
+                .confirmationDialog(
+                    "Are you sure?", isPresented: $showConfirmation
+                ) {
+
+                    Button("Delete") {
+
+                        // Perform the delete action here
+
+                    }
+
+                    Button("Cancel", role: .cancel) {}  // Cancel button
+
+                } message: {
+
+                    Text("This action cannot be undone.")  // Optional message
+
+                }
+                Spacer()
                 Button("Add") {
                     newSubject = model.newSubject
                     addNewSubject.toggle()
