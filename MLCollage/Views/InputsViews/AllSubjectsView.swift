@@ -46,6 +46,9 @@ struct AllSubjectsView: View {
             }
             .navigationTitle("Input")
             .toolbar {
+                Button("Clear All") {
+                    model.clearAll()
+                }
                 Button("Add") {
                     newSubject = model.newSubject
                     addNewSubject.toggle()
