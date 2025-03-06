@@ -1,17 +1,12 @@
-//
-//  EditBackgroundView.swift
-//  MLCollage
-//
-//  Created by Robert Bates on 12/8/24.
-//
-
 import UIKit
 import SwiftUI
 import PhotosUI
 
 struct EditBackgroundView: View {
     @Binding var backgrounds: [MLCImage]
-    @State var photosPickerItems: [PhotosPickerItem] = []
+    @State private var isDeleting = false
+    @Environment(\.dismiss) var dismiss
+    @State private var photosPickerItems: [PhotosPickerItem] = []
     
     func addImage(_ image: MLCImage) {
         backgrounds.append(image)
@@ -20,12 +15,16 @@ struct EditBackgroundView: View {
     var body: some View {
         VStack {
             HStack {
-                PhotosPicker(
-                    "add backgrounds", selection: $photosPickerItems,
-                    maxSelectionCount: 10, selectionBehavior: .ordered)
+                Text("Backgrounds")
+                    .font(.headline)
                 Spacer()
             }
-            SubjectView(images: $backgrounds, isClickable: true, isDeleting: false)
+            .padding()
+            
+            SubjectView(
+                images: $backgrounds, isClickable: true,
+                isDeleting: isDeleting
+            )
             Spacer()
         }
         .padding()
@@ -44,6 +43,23 @@ struct EditBackgroundView: View {
                 }
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(isDeleting ? "Done" : "Edit") {
+                    withAnimation { isDeleting.toggle() }
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                PhotosPicker(
+                    "Add Backgrounds", selection: $photosPickerItems,
+                    maxSelectionCount: 10, selectionBehavior: .ordered)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Save") {
+                    dismiss()
+                }
+            }
+        }
     }
 }
 
@@ -51,5 +67,7 @@ struct EditBackgroundView: View {
     @Previewable @State var model = [UIImage.crazyBackground1,
                                      .crazyBackground2,
                                      .crazyBackground3].map({MLCImage(uiImage: $0)})
-    EditBackgroundView(backgrounds: $model)
+    NavigationView {
+        EditBackgroundView(backgrounds: $model)
+    }
 }
