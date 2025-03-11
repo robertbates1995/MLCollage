@@ -8,20 +8,21 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-class viewController: UIViewController {
-    private let size: CGFloat = 200
-    
-    private let myView: UIView = {
-        let myView = UIView()
-        myView.backgroundColor = .systemPurple
-        return myView
-    }()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(myView)
-        myView.frame = CGRect(x: 0, y: 0, width: size, height: size)
-        myView.center = view.center
+struct PinchGesture: UIGestureRecognizerRepresentable {
+    @Binding var scale: Double
+    @Binding var velocity: Double
+    @Binding var state: UIGestureRecognizer.State
+
+    func makeUIGestureRecognizer(context: Context) -> UIPinchGestureRecognizer {
+        UIPinchGestureRecognizer()
+    }
+
+    func handleUIGestureRecognizerAction(
+        _ recognizer: UIPinchGestureRecognizer, context: Context
+    ) {
+        scale = recognizer.scale
+        velocity = recognizer.velocity
+        state = recognizer.state
     }
 }
 
@@ -29,39 +30,41 @@ struct OutputsView: View {
     @Binding var model: OutputModel
     @State var showingExporter = false
     @State var minSize: Double = 100.0
+    @State var scale: Double = 1.0
+    @State var velocity: Double = 0.0
+    @State var state: UIGestureRecognizer.State = .ended
     @State var progress: CGFloat = 0.0
 
     var body: some View {
+        let pinch = PinchGesture(
+            scale: $scale.animation(.spring(.smooth(extraBounce: 0.2))),
+            velocity: $velocity,
+            state: $state.animation(.spring(.smooth(extraBounce: 0.5))))
+
         GeometryReader { size in
             NavigationView {
                 VStack {
                     ScrollView {
                         LazyVGrid(
-                            columns: [GridItem(.adaptive(minimum: minSize))],
+                            columns: [GridItem(.adaptive(minimum: minSize * scale))],
                             spacing: 20
                         ) {
                             ForEach(model.collages) { collage in
                                 ThumbnailView(collage: collage)
                             }
                         }
-                    }
+                    }.gesture(pinch)
                     .navigationTitle("Output")
-                    HStack {
-                        Text("Preview Size")
-                        Button("test") {
-                            minSize = minSize - 10
-                        }
-                        Slider(value: $minSize, in: 30.0...size.size.width / 2.0)
-                    }
                     if model.canExport {
                         Button("export") {
                             showingExporter.toggle()
                         }.fileExporter(
                             isPresented: $showingExporter,
-                            document: TrainingDataFile(collages: model.collages),
+                            document: TrainingDataFile(
+                                collages: model.collages),
                             defaultFilename: "foo"
                         ) { _ in
-                            
+
                         }
                         .padding()
                     } else {
@@ -71,8 +74,6 @@ struct OutputsView: View {
                     }
                 }.task {
                     model.updateIfNeeded()
-                }.onTapGesture {
-                    minSize = minSize - 10
                 }
                 .padding()
             }
