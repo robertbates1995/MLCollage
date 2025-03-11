@@ -31,6 +31,9 @@ struct OutputsView: View {
                     .navigationTitle("Output")
                     HStack {
                         Text("Preview Size")
+                        Button("test") {
+                            minSize = minSize - 10
+                        }
                         Slider(value: $minSize, in: 30.0...size.size.width / 2.0)
                     }
                     if model.canExport {
@@ -51,7 +54,10 @@ struct OutputsView: View {
                     }
                 }.task {
                     model.updateIfNeeded()
-                }.padding()
+                }.onTapGesture {
+                    minSize = minSize - 10
+                }
+                .padding()
             }
         }
     }

@@ -80,8 +80,19 @@ struct AllSubjectsView: View {
                     }
                 }
             }
-            .sheet(isPresented: $addNewSubject) {
-                EditSubjectView(subject: $newSubject)
+            .sheet(isPresented: $addNewSubject,
+                   onDismiss: didDismiss
+            ) {
+                NavigationView {
+                    EditSubjectView(subject: $newSubject)
+                }
+            }
+            .sheet(
+                isPresented: $addNewBackground
+            ) {
+                NavigationView {
+                    EditBackgroundView(backgrounds: $model.backgrounds)
+                }
             }
         }
     }
