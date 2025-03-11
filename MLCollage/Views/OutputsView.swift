@@ -8,6 +8,23 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+class viewController: UIViewController {
+    private let size: CGFloat = 200
+    
+    private let myView: UIView = {
+        let myView = UIView()
+        myView.backgroundColor = .systemPurple
+        return myView
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(myView)
+        myView.frame = CGRect(x: 0, y: 0, width: size, height: size)
+        myView.center = view.center
+    }
+}
+
 struct OutputsView: View {
     @Binding var model: OutputModel
     @State var showingExporter = false
