@@ -17,10 +17,11 @@ struct SubjectView: View {
     var body: some View {
         ScrollView {
             if images.isEmpty {
-                Image(systemName: "doc")
+                Image(systemName: "photo")
                     .foregroundColor(.white)
                     .padding()
                     .background(Circle().fill(Color.secondary))
+                Text("add images")
             } else {
                 VStack {
                     LazyVGrid(
