@@ -15,26 +15,27 @@ struct SubjectView: View {
     var isDeleting: Bool
 
     var body: some View {
-        VStack {
-            LazyVGrid(
-                columns: [GridItem(.adaptive(minimum: 50))], spacing: 20
-            ) {
-                ForEach(images, id: \.self) { image in
-                    if isClickable {
-                        NavigationLink(destination: subjectImage(image)) {
+        ScrollView {
+            VStack {
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: 50))], spacing: 20
+                ) {
+                    ForEach(images, id: \.self) { image in
+                        if isClickable {
+                            NavigationLink(destination: subjectImage(image)) {
+                                subjectImage(image)
+                            }
+                        } else {
                             subjectImage(image)
                         }
-                    } else {
-                        subjectImage(image)
                     }
                 }
             }
-
         }
     }
 
     fileprivate func subjectImage(_ image: MLCImage) -> some View {
-        ZStack {
+        ZStack() {
             Image(uiImage: image.uiImage)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
