@@ -14,7 +14,7 @@ struct AllSubjectsView: View {
     @State var editSubject: Bool = false
     @State var newSubject: Subject = Subject(label: "New Subject")
     @State var showConfirmation = false
-    
+
     var body: some View {
         NavigationView {
             List {
@@ -74,12 +74,12 @@ struct AllSubjectsView: View {
                         Text("This action cannot be undone.")
                     }
                 }
-                
+
                 ToolbarItem(placement: .principal) {
                     Text("Input")
                         .font(.headline)
                 }
-                
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
                         newSubject = model.newSubject
@@ -87,8 +87,9 @@ struct AllSubjectsView: View {
                     }
                 }
             }
-            .sheet(isPresented: $addNewSubject,
-                   onDismiss: didDismiss
+            .sheet(
+                isPresented: $addNewSubject,
+                onDismiss: didDismiss
             ) {
                 NavigationView {
                     EditSubjectView(subject: $newSubject)
