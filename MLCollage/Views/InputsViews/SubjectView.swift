@@ -16,17 +16,24 @@ struct SubjectView: View {
 
     var body: some View {
         ScrollView {
-            VStack {
-                LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 50))], spacing: 20
-                ) {
-                    ForEach(images, id: \.self) { image in
-                        if isClickable {
-                            NavigationLink(destination: subjectImage(image)) {
+            if images.isEmpty {
+                Image(systemName: "doc")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Circle().fill(Color.secondary))
+            } else {
+                VStack {
+                    LazyVGrid(
+                        columns: [GridItem(.adaptive(minimum: 50))], spacing: 20
+                    ) {
+                        ForEach(images, id: \.self) { image in
+                            if isClickable {
+                                NavigationLink(destination: subjectImage(image)) {
+                                    subjectImage(image)
+                                }
+                            } else {
                                 subjectImage(image)
                             }
-                        } else {
-                            subjectImage(image)
                         }
                     }
                 }

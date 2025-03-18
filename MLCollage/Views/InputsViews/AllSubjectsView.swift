@@ -22,19 +22,13 @@ struct AllSubjectsView: View {
                     Section(subject.label.wrappedValue) {
                         ZStack {
                             Color.white
-                            if subject.images.isEmpty {
-                                Image(systemName: "doc")
-                                    .foregroundColor(.white)
-                                    .padding()
-                                    .background(Circle().fill(Color.secondary))
-                            } else {
-                                SubjectView(
-                                    images: subject.images, isClickable: false,
-                                    isDeleting: false
-                                )
-                                .padding([.top], 7)
-                            }
+                            SubjectView(
+                                images: subject.images, isClickable: false,
+                                isDeleting: false
+                            )
+                            .padding([.top], 7)
                         }
+
                     }
                     .onTapGesture {
                         newSubject = subject.wrappedValue
