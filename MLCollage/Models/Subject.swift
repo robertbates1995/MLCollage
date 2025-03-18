@@ -32,5 +32,5 @@ extension Subject {
         return true
     }
     
-    static let mock = Subject(label: "mock", images: [.apple2, .apple3, .apple4])
+    //static let mock = Subject(label: "mock", images: [.apple2, .apple3, .apple4])
 }

@@ -14,7 +14,7 @@ struct AllSubjectsView: View {
     @State var editSubject: Bool = false
     @State var newSubject: Subject = Subject(label: "New Subject")
     @State var showConfirmation = false
-
+    
     var body: some View {
         NavigationView {
             List {
@@ -22,11 +22,18 @@ struct AllSubjectsView: View {
                     Section(subject.label.wrappedValue) {
                         ZStack {
                             Color.white
-                            SubjectView(
-                                images: subject.images, isClickable: false,
-                                isDeleting: false
-                            )
-                            .padding([.top], 7)
+                            if subject.images.isEmpty {
+                                Image(systemName: "doc")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Circle().fill(Color.secondary))
+                            } else {
+                                SubjectView(
+                                    images: subject.images, isClickable: false,
+                                    isDeleting: false
+                                )
+                                .padding([.top], 7)
+                            }
                         }
                     }
                     .onTapGesture {
@@ -67,12 +74,12 @@ struct AllSubjectsView: View {
                         Text("This action cannot be undone.")
                     }
                 }
-
+                
                 ToolbarItem(placement: .principal) {
                     Text("Input")
                         .font(.headline)
                 }
-
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
                         newSubject = model.newSubject
