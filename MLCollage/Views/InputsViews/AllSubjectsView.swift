@@ -28,7 +28,7 @@ struct AllSubjectsView: View {
                             )
                             .padding([.top], 7)
                         }
-
+                        
                     }
                     .onTapGesture {
                         newSubject = subject.wrappedValue
@@ -68,12 +68,7 @@ struct AllSubjectsView: View {
                         Text("This action cannot be undone.")
                     }
                 }
-
-                ToolbarItem(placement: .principal) {
-                    Text("Input")
-                        .font(.headline)
-                }
-
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
                         newSubject = model.newSubject
@@ -96,8 +91,10 @@ struct AllSubjectsView: View {
                     EditBackgroundView(backgrounds: $model.backgrounds)
                 }
             }
+            .navigationTitle("settings")
         }
     }
+    
     func didDismiss() {
         model.add(subject: newSubject)
     }

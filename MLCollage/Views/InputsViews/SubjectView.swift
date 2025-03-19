@@ -13,7 +13,7 @@ struct SubjectView: View {
     @Binding var images: [MLCImage]
     let isClickable: Bool
     var isDeleting: Bool
-
+    
     var body: some View {
         ScrollView {
             if images.isEmpty {
