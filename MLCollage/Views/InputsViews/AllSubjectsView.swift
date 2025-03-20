@@ -18,21 +18,53 @@ struct AllSubjectsView: View {
     var body: some View {
         NavigationView {
             List {
+                //                ForEach($model.subjects) { subject in
+                //                    Section(subject.label.wrappedValue) {
+                //                        ZStack {
+                //                            Color.white
+                //                            SubjectView(
+                //                                images: subject.images, isClickable: false,
+                //                                isDeleting: false
+                //                            )
+                //                            .padding([.top], 7)
+                //                        }
+                //                    }
+                //                    .onTapGesture {
+                //                        newSubject = subject.wrappedValue
+                //                        addNewSubject.toggle()
+                //                    }
+                //                }
                 ForEach($model.subjects) { subject in
-                    Section(subject.label.wrappedValue) {
-                        ZStack {
-                            Color.white
-                            SubjectView(
-                                images: subject.images, isClickable: false,
-                                isDeleting: false
-                            )
-                            .padding([.top], 7)
+                    HStack(spacing: 10) {
+                        SubjectView(
+                            images: subject.images, isClickable: false,
+                            isDeleting: false
+                        )
+                        //                            .renderingMode(.original)
+                        //                            .resizable()
+                        //                            .aspectRatio(contentMode: .fill)
+                        //                            .frame(width: 70, height: 70)
+                        //                            .clipped()
+                        //                            .mask { RoundedRectangle(cornerRadius: 8, style: .continuous) }
+                        VStack(alignment: .leading) {
+                            Text("New York City")
+                                .font(
+                                    .system(
+                                        size: 16, weight: .medium,
+                                        design: .default))
+                            Text("March 9th")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
                         }
-                        
-                    }
-                    .onTapGesture {
-                        newSubject = subject.wrappedValue
-                        addNewSubject.toggle()
+                        .font(.subheadline)
+                        Spacer()
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(
+                                Color(
+                                    .displayP3, red: 234 / 255, green: 76 / 255,
+                                    blue: 97 / 255)
+                            )
+                            .font(.title3)
                     }
                 }
                 .onDelete { indexSet in
@@ -68,7 +100,7 @@ struct AllSubjectsView: View {
                         Text("This action cannot be undone.")
                     }
                 }
-                
+
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Add") {
                         newSubject = model.newSubject
@@ -94,7 +126,7 @@ struct AllSubjectsView: View {
             .navigationTitle("settings")
         }
     }
-    
+
     func didDismiss() {
         model.add(subject: newSubject)
     }
