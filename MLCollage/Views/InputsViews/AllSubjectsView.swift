@@ -40,31 +40,27 @@ struct AllSubjectsView: View {
                             images: subject.images, isClickable: false,
                             isDeleting: false
                         )
-                        //                            .renderingMode(.original)
-                        //                            .resizable()
-                        //                            .aspectRatio(contentMode: .fill)
-                        //                            .frame(width: 70, height: 70)
-                        //                            .clipped()
-                        //                            .mask { RoundedRectangle(cornerRadius: 8, style: .continuous) }
+                        .mask {
+                            RoundedRectangle(
+                                cornerRadius: 8, style: .continuous)
+                        }
                         VStack(alignment: .leading) {
-                            Text("New York City")
+                            Text(subject.label.wrappedValue)
                                 .font(
                                     .system(
                                         size: 16, weight: .medium,
                                         design: .default))
-                            Text("March 9th")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
                         }
                         .font(.subheadline)
+                        .onTapGesture {
+                            newSubject = subject.wrappedValue
+                            addNewSubject.toggle()
+                        }
                         Spacer()
-                        Image(systemName: "ellipsis")
-                            .foregroundStyle(
-                                Color(
-                                    .displayP3, red: 234 / 255, green: 76 / 255,
-                                    blue: 97 / 255)
-                            )
-                            .font(.title3)
+                    }
+                    .onTapGesture {
+                        newSubject = subject.wrappedValue
+                        addNewSubject.toggle()
                     }
                 }
                 .onDelete { indexSet in
@@ -123,7 +119,7 @@ struct AllSubjectsView: View {
                     EditBackgroundView(backgrounds: $model.backgrounds)
                 }
             }
-            .navigationTitle("settings")
+            .navigationTitle("subjects")
         }
     }
 
