@@ -51,9 +51,9 @@ struct SubjectRowView: View {
         Image(uiImage: image.uiImage)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .cornerRadius(5.0)
             .frame(width: size, height: size)
             .background(.black.opacity(0.3))
+            .cornerRadius(size/10)
     }
 }
 

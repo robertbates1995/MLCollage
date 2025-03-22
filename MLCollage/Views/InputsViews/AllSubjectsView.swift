@@ -44,18 +44,18 @@ struct AllSubjectsView: View {
                 .onDelete { indexSet in
                     model.subjects.remove(atOffsets: indexSet)
                 }
-                Section("Backgrounds") {
-                    ZStack {
-                        Color.white
-                        SubjectView(
-                            images: $model.backgrounds, isClickable: false,
-                            isDeleting: false
-                        )
-                        .padding([.top], 7)
+            }
+            .overlay {
+                if model.subjects.isEmpty {
+                    ContentUnavailableView(
+                        "No Subjects",
+                        systemImage: "photo",
+                        description: Text("Please add a subject to continue")
+                    )
+                    .onTapGesture {
+                        newSubject = model.newSubject
+                        addNewSubject.toggle()
                     }
-                }
-                .onTapGesture {
-                    addNewBackground.toggle()
                 }
             }
             .toolbar {
@@ -108,5 +108,10 @@ struct AllSubjectsView: View {
 
 #Preview {
     @Previewable @State var model = InputModel.mock
+    AllSubjectsView(model: $model)
+}
+
+#Preview {
+    @Previewable @State var model = InputModel(subjects: [], backgrounds: [])
     AllSubjectsView(model: $model)
 }
