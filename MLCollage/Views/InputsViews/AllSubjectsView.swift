@@ -18,46 +18,24 @@ struct AllSubjectsView: View {
     var body: some View {
         NavigationView {
             List {
-                //                ForEach($model.subjects) { subject in
-                //                    Section(subject.label.wrappedValue) {
-                //                        ZStack {
-                //                            Color.white
-                //                            SubjectView(
-                //                                images: subject.images, isClickable: false,
-                //                                isDeleting: false
-                //                            )
-                //                            .padding([.top], 7)
-                //                        }
-                //                    }
-                //                    .onTapGesture {
-                //                        newSubject = subject.wrappedValue
-                //                        addNewSubject.toggle()
-                //                    }
-                //                }
                 ForEach($model.subjects) { subject in
-                    HStack(spacing: 10) {
-                        SubjectView(
-                            images: subject.images, isClickable: false,
-                            isDeleting: false
-                        )
-                        .mask {
-                            RoundedRectangle(
-                                cornerRadius: 8, style: .continuous)
+                    Section {
+                        HStack(spacing: 10) {
+                            SubjectRowView(
+                                images: subject.images,
+                                size: 100
+                            )
                         }
-                        VStack(alignment: .leading) {
-                            Text(subject.label.wrappedValue)
-                                .font(
-                                    .system(
-                                        size: 16, weight: .medium,
-                                        design: .default))
-                        }
-                        .font(.subheadline)
-                        .onTapGesture {
-                            newSubject = subject.wrappedValue
-                            addNewSubject.toggle()
-                        }
-                        Spacer()
+                    } header: {
+                        Text(subject.label.wrappedValue.uppercased())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .clipped()
+                            .font(
+                                .system(.headline, weight: .medium).width(
+                                    .expanded)
+                            )
                     }
+                    .contentShape(.rect())
                     .onTapGesture {
                         newSubject = subject.wrappedValue
                         addNewSubject.toggle()
@@ -119,7 +97,7 @@ struct AllSubjectsView: View {
                     EditBackgroundView(backgrounds: $model.backgrounds)
                 }
             }
-            .navigationTitle("subjects")
+            .navigationTitle("Subjects")
         }
     }
 
