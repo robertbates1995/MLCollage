@@ -39,6 +39,7 @@
 		7A8E35722C5860D200B386EF /* CreateMLFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E356A2C5860D200B386EF /* CreateMLFormat.swift */; };
 		7A8E35732C5860D200B386EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8E356C2C5860D200B386EF /* ContentView.swift */; };
 		7A90AB302D4D5B89000B0049 /* Scanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A90AB2F2D4D5B89000B0049 /* Scanner.swift */; };
+		7AC4F0932D920F9F006659D5 /* BackgroundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC4F0922D920F9F006659D5 /* BackgroundsView.swift */; };
 		7AEA2EB22C586597001C6F89 /* InlineSnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEA2EB12C586597001C6F89 /* InlineSnapshotTesting */; };
 		7AEA2EB42C586597001C6F89 /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 7AEA2EB32C586597001C6F89 /* SnapshotTesting */; };
 		7AEA2EB62C5A9F2F001C6F89 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AEA2EB52C5A9F2F001C6F89 /* Project.swift */; };
@@ -90,6 +91,7 @@
 		7A8E356A2C5860D200B386EF /* CreateMLFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateMLFormat.swift; sourceTree = "<group>"; };
 		7A8E356C2C5860D200B386EF /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7A90AB2F2D4D5B89000B0049 /* Scanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner.swift; sourceTree = "<group>"; };
+		7AC4F0922D920F9F006659D5 /* BackgroundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BackgroundsView.swift; path = MLCollage/Views/BackgroundsView.swift; sourceTree = SOURCE_ROOT; };
 		7AEA2EB52C5A9F2F001C6F89 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		7AEA2EB72C5AA59D001C6F89 /* CollageCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollageCreatorTests.swift; sourceTree = "<group>"; };
 		7AF0C5BD2D3232D20074A9A7 /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				7A528B5A2CA4C11500A30DB0 /* AllSubjectsView.swift */,
+				7AC4F0922D920F9F006659D5 /* BackgroundsView.swift */,
 				7A528B632CAF518900A30DB0 /* SubjectView.swift */,
 				7A8091FA2D8F652C00DDE529 /* SubjectRowView.swift */,
 				7A0A08C92CD9FE19001FC1DA /* EditSubjectView.swift */,
@@ -352,6 +355,7 @@
 				7A53E0B22CD6E8050094CEAE /* MLCImage.swift in Sources */,
 				7A8E35732C5860D200B386EF /* ContentView.swift in Sources */,
 				7A5E27372D0663CF00C70B3F /* EditBackgroundView.swift in Sources */,
+				7AC4F0932D920F9F006659D5 /* BackgroundsView.swift in Sources */,
 				7A8E35722C5860D200B386EF /* CreateMLFormat.swift in Sources */,
 				7A02F8BF2C8A8472006A894B /* SettingsModel.swift in Sources */,
 				7A528B642CAF518900A30DB0 /* SubjectView.swift in Sources */,
