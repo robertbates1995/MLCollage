@@ -74,7 +74,6 @@ struct AllSubjectsView: View {
                         Text("This action cannot be undone.")
                     }
                 }
-
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         newSubject = model.newSubject
