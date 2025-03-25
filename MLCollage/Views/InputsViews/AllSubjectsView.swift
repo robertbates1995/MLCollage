@@ -76,10 +76,13 @@ struct AllSubjectsView: View {
                 }
 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Add") {
+                    Button(action: {
                         newSubject = model.newSubject
                         addNewSubject.toggle()
-                    }
+                    },
+                           label: {
+                        Image(systemName: "plus")
+                    })
                 }
             }
             .sheet(

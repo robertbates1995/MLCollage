@@ -36,6 +36,7 @@ struct BackgroundsView: View {
                 }
             }
             .padding()
+            .navigationTitle("Backgrounds")
         }
     }
 }
