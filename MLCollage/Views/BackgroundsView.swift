@@ -31,40 +31,9 @@ struct BackgroundsView: View {
                     ) {
                         ForEach(model.backgrounds) { image in
                             if (selectedUUID.contains(image.id)) {
-                                Image(uiImage: image.uiImage)
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(
-                                        minWidth: 0, maxWidth: .infinity,
-                                        minHeight: 0,
-                                        maxHeight: .infinity, alignment: .center
-                                    )
-                                    .aspectRatio(1 / 1, contentMode: .fit)
-                                    .border(.blue, width: 3)
-                                    .clipped()
-                                    .mask {
-                                        RoundedRectangle(
-                                            cornerRadius: 10, style: .continuous)
-                                    }
-                                    .padding(5.0)
+                                selectedImage(image: image)
                             } else {
-                                Image(uiImage: image.uiImage)
-                                    .renderingMode(.original)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(
-                                        minWidth: 0, maxWidth: .infinity,
-                                        minHeight: 0,
-                                        maxHeight: .infinity, alignment: .center
-                                    )
-                                    .aspectRatio(1 / 1, contentMode: .fit)
-                                    .clipped()
-                                    .mask {
-                                        RoundedRectangle(
-                                            cornerRadius: 10, style: .continuous)
-                                    }
-                                    .padding(5.0)
+                                unSelectedImage(image: image)
                             }
                         }
                     }
@@ -72,8 +41,15 @@ struct BackgroundsView: View {
             }
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button("Select") {
-                        
+                    if selecting {
+                        Button("Done") {
+                            selectedUUID.removeAll()
+                            selecting.toggle()
+                        }
+                    } else {
+                        Button("Select") {
+                            selecting.toggle()
+                        }
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -96,6 +72,45 @@ struct BackgroundsView: View {
             }
             .navigationTitle("Backgrounds")
         }
+    }
+    
+    func unSelectedImage(image: MLCImage) -> some View {
+        Image(uiImage: image.uiImage)
+            .renderingMode(.original)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(
+                minWidth: 0, maxWidth: .infinity,
+                minHeight: 0,
+                maxHeight: .infinity, alignment: .center
+            )
+            .aspectRatio(1 / 1, contentMode: .fit)
+            .clipped()
+            .mask {
+                RoundedRectangle(
+                    cornerRadius: 10, style: .continuous)
+            }
+            .padding(5.0)
+    }
+    
+    func selectedImage(image: MLCImage) -> some View {
+        Image(uiImage: image.uiImage)
+            .renderingMode(.original)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(
+                minWidth: 0, maxWidth: .infinity,
+                minHeight: 0,
+                maxHeight: .infinity, alignment: .center
+            )
+            .aspectRatio(1 / 1, contentMode: .fit)
+            .border(.blue, width: 3)
+            .clipped()
+            .mask {
+                RoundedRectangle(
+                    cornerRadius: 10, style: .continuous)
+            }
+            .padding(5.0)
     }
 }
 
