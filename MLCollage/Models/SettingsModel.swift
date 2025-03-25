@@ -15,7 +15,7 @@ struct SettingsModel: Equatable, Codable {
     var mirror: Bool
     var outputSize: CGFloat
     
-    init(numberOfEachSubject: Double = 1.0,
+    init(numberOfEachSubject: Double = 30.0,
          translate: Bool = true,
          scale: Bool = true,
          rotate: Bool = true,

@@ -14,7 +14,7 @@ struct BackgroundsView: View {
 
     var body: some View {
         NavigationView {
-            List {
+            ScrollView{
                 ZStack {
                     LinearGradient(
                         gradient: Gradient(colors: [
@@ -41,7 +41,7 @@ struct BackgroundsView: View {
                                 .clipped()
                                 .mask {
                                     RoundedRectangle(
-                                        cornerRadius: 6, style: .continuous)
+                                        cornerRadius: 10, style: .continuous)
                                 }
                         }
                     }

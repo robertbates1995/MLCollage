@@ -21,7 +21,7 @@ struct SettingsView: View {
                 SliderView(
                     title: "number of each subject",
                     value: $settings.numberOfEachSubject,
-                    range: 5...10000)
+                    range: 10...1000)
                 //translation toggle
                 Toggle("Translate", isOn: $settings.translate)
                 //rotate toggle

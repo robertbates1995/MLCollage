@@ -16,6 +16,9 @@ struct ContentView: View {
             Tab("Inputs", systemImage: "square.and.arrow.down.on.square") {
                 AllSubjectsView(model: $project.inputModel)
             }
+            Tab("Backgrounds", systemImage: "photo") {
+                BackgroundsView(model: $project.inputModel)
+            }
             Tab("Settings", systemImage: "gearshape") {
                 SettingsView(settings: $project.settingsModel)
             }
