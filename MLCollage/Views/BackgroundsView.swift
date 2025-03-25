@@ -11,6 +11,8 @@ import SwiftUI
 struct BackgroundsView: View {
     @Binding var model: InputModel
     @State var addNewBackground: Bool = false
+    @State var selecting: Bool = false
+    @State var selectedUUID: [String] = []
 
     var body: some View {
         NavigationView {
@@ -28,21 +30,42 @@ struct BackgroundsView: View {
                         spacing: 10
                     ) {
                         ForEach(model.backgrounds) { image in
-                            Image(uiImage: image.uiImage)
-                                .renderingMode(.original)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(
-                                    minWidth: 0, maxWidth: .infinity,
-                                    minHeight: 0,
-                                    maxHeight: .infinity, alignment: .center
-                                )
-                                .aspectRatio(1 / 1, contentMode: .fit)
-                                .clipped()
-                                .mask {
-                                    RoundedRectangle(
-                                        cornerRadius: 10, style: .continuous)
-                                }
+                            if (selectedUUID.contains(image.id)) {
+                                Image(uiImage: image.uiImage)
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(
+                                        minWidth: 0, maxWidth: .infinity,
+                                        minHeight: 0,
+                                        maxHeight: .infinity, alignment: .center
+                                    )
+                                    .aspectRatio(1 / 1, contentMode: .fit)
+                                    .border(.blue, width: 3)
+                                    .clipped()
+                                    .mask {
+                                        RoundedRectangle(
+                                            cornerRadius: 10, style: .continuous)
+                                    }
+                                    .padding(5.0)
+                            } else {
+                                Image(uiImage: image.uiImage)
+                                    .renderingMode(.original)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(
+                                        minWidth: 0, maxWidth: .infinity,
+                                        minHeight: 0,
+                                        maxHeight: .infinity, alignment: .center
+                                    )
+                                    .aspectRatio(1 / 1, contentMode: .fit)
+                                    .clipped()
+                                    .mask {
+                                        RoundedRectangle(
+                                            cornerRadius: 10, style: .continuous)
+                                    }
+                                    .padding(5.0)
+                            }
                         }
                     }
                 }
@@ -50,7 +73,7 @@ struct BackgroundsView: View {
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button("Select") {
-
+                        
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
