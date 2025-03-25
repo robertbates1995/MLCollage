@@ -12,7 +12,7 @@ struct BackgroundsView: View {
     @Binding var model: InputModel
     @State var addNewBackground: Bool = false
     @State var selecting: Bool = false
-    @State var selectedUUID: [String] = []
+    @State var selectedUUID: Set<String> = []
 
     var body: some View {
         NavigationView {
@@ -30,11 +30,22 @@ struct BackgroundsView: View {
                         spacing: 10
                     ) {
                         ForEach(model.backgrounds) { image in
-                            if (selectedUUID.contains(image.id)) {
-                                selectedImage(image: image)
-                            } else {
-                                unSelectedImage(image: image)
-                            }
+                            Button( action: {
+                                if selecting {
+                                    if selectedUUID.contains(image.id) {
+                                        selectedUUID.remove(image.id)
+                                    } else {
+                                        selectedUUID.insert(image.id)
+                                    }
+                                }
+                            },
+                                    label: {
+                                if (selectedUUID.contains(image.id)) {
+                                    selectedImage(image: image)
+                                } else {
+                                    unSelectedImage(image: image)
+                                }
+                            })
                         }
                     }
                 }
