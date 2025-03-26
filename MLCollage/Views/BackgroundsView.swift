@@ -75,12 +75,13 @@ struct BackgroundsView: View {
                     .confirmationDialog(
                         "Are you sure?", isPresented: $showConfirmation
                     ) {
-                        Button("Remove all") {
-                            model.clearAll()
+                        Button("Remove Selected") {
+                            model.clearBackgrounds(idArray: Array(selectedUUID))
+                            selecting.toggle()
                         }
-                        Button("Cancel", role: .cancel) {}
+                        Button("Cancel", role: .cancel) { }
                     } message: {
-                        Text("This action cannot be undone.")
+                        Text("Delete selected elements?")
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
