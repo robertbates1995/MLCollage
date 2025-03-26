@@ -13,10 +13,11 @@ struct BackgroundsView: View {
     @State var addNewBackground: Bool = false
     @State var selecting: Bool = false
     @State var selectedUUID: Set<String> = []
+    @State var showConfirmation = false
 
     var body: some View {
         NavigationView {
-            ScrollView{
+            ScrollView {
                 ZStack {
                     LinearGradient(
                         gradient: Gradient(colors: [
@@ -30,46 +31,75 @@ struct BackgroundsView: View {
                         spacing: 10
                     ) {
                         ForEach(model.backgrounds) { image in
-                            Button( action: {
-                                if selecting {
-                                    if selectedUUID.contains(image.id) {
-                                        selectedUUID.remove(image.id)
-                                    } else {
-                                        selectedUUID.insert(image.id)
+                            Button(
+                                action: {
+                                    if selecting {
+                                        if selectedUUID.contains(image.id) {
+                                            selectedUUID.remove(image.id)
+                                        } else {
+                                            selectedUUID.insert(image.id)
+                                        }
                                     }
-                                }
-                            },
-                                    label: {
-                                if (selectedUUID.contains(image.id)) {
-                                    selectedImage(image: image)
-                                } else {
-                                    unSelectedImage(image: image)
-                                }
-                            })
+                                },
+                                label: {
+                                    if selectedUUID.contains(image.id) {
+                                        selectedImage(image: image)
+                                    } else {
+                                        unSelectedImage(image: image)
+                                    }
+                                })
                         }
                     }
                 }
             }
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
-                    if selecting {
-                        Button("Done") {
-                            selectedUUID.removeAll()
-                            selecting.toggle()
+                    Button (
+                        action: {
+                            if selecting {
+                                selectedUUID.removeAll()
+                                selecting.toggle()
+                            }
+                            else {
+                                selecting.toggle()
+                            }
+                        },
+                        label: {
+                            if selecting {
+                                Text("Done")
+                            } else {
+                                Text("Select")
+                            }
                         }
-                    } else {
-                        Button("Select") {
-                            selecting.toggle()
+                    )
+                    .confirmationDialog(
+                        "Are you sure?", isPresented: $showConfirmation
+                    ) {
+                        Button("Remove all") {
+                            model.clearAll()
                         }
+                        Button("Cancel", role: .cancel) {}
+                    } message: {
+                        Text("This action cannot be undone.")
                     }
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(
                         action: {
-                            addNewBackground.toggle()
+                            if selecting {
+                                if selectedUUID.count > 0 {
+                                    showConfirmation.toggle()
+                                }
+                            } else {
+                                addNewBackground.toggle()
+                            }
                         },
                         label: {
-                            Image(systemName: "plus")
+                            if selecting {
+                                Image(systemName: "trash")
+                            } else {
+                                Image(systemName: "plus")
+                            }
                         }
                     )
                 }
@@ -84,7 +114,7 @@ struct BackgroundsView: View {
             .navigationTitle("Backgrounds")
         }
     }
-    
+
     func unSelectedImage(image: MLCImage) -> some View {
         Image(uiImage: image.uiImage)
             .renderingMode(.original)
@@ -103,7 +133,7 @@ struct BackgroundsView: View {
             }
             .padding(5.0)
     }
-    
+
     func selectedImage(image: MLCImage) -> some View {
         Image(uiImage: image.uiImage)
             .renderingMode(.original)
