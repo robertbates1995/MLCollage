@@ -5,7 +5,7 @@
 //  Created by Robert Bates on 3/24/25.
 //
 
-import Foundation
+import PhotosUI
 import SwiftUI
 
 struct BackgroundsView: View {
@@ -14,6 +14,7 @@ struct BackgroundsView: View {
     @State var selecting: Bool = false
     @State var selectedUUID: Set<String> = []
     @State var showConfirmation = false
+    @State private var photosPickerItems: [PhotosPickerItem] = []
 
     var body: some View {
         NavigationView {
@@ -52,15 +53,29 @@ struct BackgroundsView: View {
                     }
                 }
             }
+            .onChange(of: photosPickerItems) { _, _ in
+                let localPhotosPickerItems = photosPickerItems
+                photosPickerItems.removeAll()
+                Task {
+                    for item in localPhotosPickerItems {
+                        if let data = try? await item.loadTransferable(
+                            type: Data.self)
+                        {
+                            if let image = UIImage(data: data) {
+                                addImage(image)
+                            }
+                        }
+                    }
+                }
+            }
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Button (
+                    Button(
                         action: {
                             if selecting {
                                 selectedUUID.removeAll()
                                 selecting.toggle()
-                            }
-                            else {
+                            } else {
                                 selecting.toggle()
                             }
                         },
@@ -79,30 +94,29 @@ struct BackgroundsView: View {
                             model.clearBackgrounds(idArray: Array(selectedUUID))
                             selecting.toggle()
                         }
-                        Button("Cancel", role: .cancel) { }
+                        Button("Cancel", role: .cancel) {}
                     } message: {
                         Text("Delete selected elements?")
                     }
                 }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    Button(
-                        action: {
-                            if selecting {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if selecting {
+                        Button(
+                            action: {
                                 if selectedUUID.count > 0 {
                                     showConfirmation.toggle()
                                 }
-                            } else {
-                                addNewBackground.toggle()
-                            }
-                        },
-                        label: {
-                            if selecting {
+                            },
+                            label: {
                                 Image(systemName: "trash")
-                            } else {
-                                Image(systemName: "plus")
                             }
-                        }
-                    )
+                        )
+                    } else {
+                        PhotosPicker(
+                            "add", selection: $photosPickerItems,
+                            maxSelectionCount: 10, selectionBehavior: .ordered)
+                    }
+
                 }
             }
             .sheet(
@@ -116,6 +130,10 @@ struct BackgroundsView: View {
         }
     }
 
+    func addImage(_ image: UIImage) {
+        model.backgrounds.append(MLCImage(uiImage: image))
+    }
+    
     func unSelectedImage(image: MLCImage) -> some View {
         Image(uiImage: image.uiImage)
             .renderingMode(.original)

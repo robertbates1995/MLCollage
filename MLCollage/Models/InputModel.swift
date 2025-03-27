@@ -49,11 +49,7 @@ struct InputModel {
     }
     
     mutating func clearBackgrounds(idArray: [String]) {
-        for i in backgrounds {
-            if idArray.contains(i.id) {
-                backgrounds.remove(at: backgrounds.firstIndex(of: i)!)
-            }
-        }
+        backgrounds = backgrounds.filter { !idArray.contains($0.id) }
     }
 }
 
