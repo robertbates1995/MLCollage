@@ -75,13 +75,14 @@ struct AllSubjectsView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        newSubject = model.newSubject
-                        addNewSubject.toggle()
-                    },
-                           label: {
-                        Image(systemName: "plus")
-                    })
+                    Button(
+                        action: {
+                            newSubject = model.newSubject
+                            addNewSubject.toggle()
+                        },
+                        label: {
+                            Image(systemName: "plus")
+                        })
                 }
             }
             .sheet(

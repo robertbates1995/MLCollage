@@ -50,7 +50,9 @@ struct OutputsView: View {
                             spacing: 20
                         ) {
                             ForEach(model.collages) { collage in
-                                ThumbnailView(collage: collage)
+                                VStack {
+                                    ThumbnailView(collage: collage)
+                                }
                             }
                         }
                     }.gesture(pinch)
