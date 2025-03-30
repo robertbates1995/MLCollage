@@ -11,19 +11,50 @@ struct ContentView: View {
     @State var visibility: NavigationSplitViewVisibility = .all
     @Binding var project: Project
     
+    //splash screen variables
+    @State var isActive = false
+    @State var size = 0.8
+    @State var opacity = 0.5
+    
     var body: some View {
-        TabView {
-            Tab("Inputs", systemImage: "square.and.arrow.down.on.square") {
-                AllSubjectsView(model: $project.inputModel)
+        if isActive {
+            TabView {
+                Tab("Inputs", systemImage: "square.and.arrow.down.on.square") {
+                    AllSubjectsView(model: $project.inputModel)
+                }
+                Tab("Backgrounds", systemImage: "photo") {
+                    BackgroundsView(model: $project.inputModel)
+                }
+                Tab("Settings", systemImage: "gearshape") {
+                    SettingsView(settings: $project.settingsModel)
+                }
+                Tab("Output", systemImage: "text.below.photo") {
+                    OutputsView(model: $project.outputModel)
+                }
             }
-            Tab("Backgrounds", systemImage: "photo") {
-                BackgroundsView(model: $project.inputModel)
+        } else {
+            VStack {
+                VStack {
+                    Image(.mlCollageIconLight)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    Text("ML Collage")
+                        .font(.title)
+                }
+                .padding(120.0)
+                .scaleEffect(size)
+                .opacity(opacity)
+                .onAppear {
+                    withAnimation(.easeIn(duration: 1.2)) {
+                        self.size = 0.9
+                        self.opacity = 1.0
+                    }
+                }
             }
-            Tab("Settings", systemImage: "gearshape") {
-                SettingsView(settings: $project.settingsModel)
-            }
-            Tab("Output", systemImage: "text.below.photo") {
-                OutputsView(model: $project.outputModel)
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    self.isActive = true
+                }
             }
         }
     }

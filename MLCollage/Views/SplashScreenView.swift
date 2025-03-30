@@ -21,6 +21,7 @@ struct SplashScreenView: View {
                 Text("ML Collage")
                     .font(.title)
             }
+            .padding(120.0)
             .scaleEffect(size)
             .opacity(opacity)
             .onAppear {
@@ -28,6 +29,11 @@ struct SplashScreenView: View {
                     self.size = 0.9
                     self.opacity = 1.0
                 }
+            }
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.isActive = true
             }
         }
     }
