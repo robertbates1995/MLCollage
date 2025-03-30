@@ -15,7 +15,7 @@ struct SplashScreenView: View {
     var body: some View {
         VStack {
             VStack {
-                Image(.apple1)
+                Image(.mlCollageIconLight)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 Text("ML Collage")
