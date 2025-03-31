@@ -34,6 +34,7 @@ struct AllSubjectsView: View {
                                 .system(.headline, weight: .medium).width(
                                     .expanded)
                             )
+                            .tint(.accentColor)
                     }
                     .contentShape(.rect())
                     .onTapGesture {

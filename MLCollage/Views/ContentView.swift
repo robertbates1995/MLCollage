@@ -32,11 +32,14 @@ struct ContentView: View {
                 }
                 Tab("Settings", systemImage: "gearshape") {
                     SettingsView(settings: $project.settingsModel)
+                        
                 }
                 Tab("Output", systemImage: "text.below.photo") {
                     OutputsView(model: $project.outputModel)
                 }
+                
             }
+            .tint(.accent)
         } else {
             VStack {
                 VStack {
