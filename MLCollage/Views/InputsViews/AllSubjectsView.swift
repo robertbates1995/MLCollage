@@ -27,14 +27,12 @@ struct AllSubjectsView: View {
                             )
                         }
                     } header: {
-                        Text(subject.label.wrappedValue.uppercased())
+                        Text(subject.label.wrappedValue)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .clipped()
                             .font(
-                                .system(.headline, weight: .medium).width(
-                                    .expanded)
-                            )
-                            .tint(.accentColor)
+                                .system(.headline, weight: .medium))
+                            .foregroundColor(.accentColor)
                     }
                     .contentShape(.rect())
                     .onTapGesture {
@@ -104,7 +102,7 @@ struct AllSubjectsView: View {
             .navigationTitle("Subjects")
         }
     }
-
+    
     func didDismiss() {
         model.add(subject: newSubject)
     }

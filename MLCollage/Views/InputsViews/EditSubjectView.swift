@@ -60,9 +60,10 @@ struct EditSubjectView: View {
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                PhotosPicker(
-                    "add", selection: $photosPickerItems,
-                    maxSelectionCount: 10, selectionBehavior: .ordered)
+                PhotosPicker( selection: $photosPickerItems,
+                              maxSelectionCount: 10, selectionBehavior: .ordered) {
+                    Image(systemName: "plus")
+                }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("save") {
