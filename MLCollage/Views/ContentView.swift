@@ -10,7 +10,10 @@ import SwiftUI
 struct ContentView: View {
     @State var visibility: NavigationSplitViewVisibility = .all
     @Binding var project: Project
+    
     @State private var isDarkMode = false
+    @Environment(\.colorScheme) private var colorScheme
+
 
     //splash screen variables
     @State var isActive = false
@@ -37,7 +40,7 @@ struct ContentView: View {
         } else {
             VStack {
                 VStack {
-                    Image(isDarkMode ? .mlCollageIconDark : .mlCollageIconLight)
+                    Image(colorScheme == .dark ? .mlCollageIconDark : .mlCollageIconLight)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
@@ -70,5 +73,4 @@ struct ContentView: View {
 #Preview {
     @Previewable @State var model = Project.mock
     ContentView(project: $model).preferredColorScheme(.dark)
-
 }
