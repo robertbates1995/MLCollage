@@ -71,6 +71,7 @@ struct EditSubjectView: View {
                 }
             }
         }
+        .foregroundColor(.accent)
     }
 }
 

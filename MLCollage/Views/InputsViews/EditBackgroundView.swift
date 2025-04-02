@@ -14,13 +14,6 @@ struct EditBackgroundView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Text("Backgrounds")
-                    .font(.headline)
-                Spacer()
-            }
-            .padding()
-            
             SubjectView(
                 images: $backgrounds, isClickable: true,
                 isDeleting: isDeleting
@@ -60,6 +53,7 @@ struct EditBackgroundView: View {
                 }
             }
         }
+        .foregroundColor(.accent)
     }
 }
 

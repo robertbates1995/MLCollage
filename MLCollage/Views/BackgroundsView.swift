@@ -127,6 +127,7 @@ struct BackgroundsView: View {
                 }
             }
             .navigationTitle("Backgrounds")
+            .foregroundColor(.accent)
         }
     }
 

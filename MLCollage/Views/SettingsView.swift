@@ -34,29 +34,7 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Settings")
-        }
-    }
-}
-
-struct HighLowSliderView: View {
-    let title: String
-    @Binding var value: Double
-    @Binding var upperValue: Double
-    let range: ClosedRange<Double>
-
-    var body: some View {
-        Section(title) {
-            HStack {
-                Text("Lower Value: ")
-                Text(String(format: "%g", value))
-                Spacer()
-                Text("Upper Value: ")
-                Text(String(format: "%g", upperValue))
-            }
-            VStack {
-                HighLowSlider(
-                    highValue: $upperValue, lowValue: $value, range: range)
-            }
+            .foregroundColor(.accent)
         }
     }
 }

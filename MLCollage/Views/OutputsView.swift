@@ -80,6 +80,7 @@ struct OutputsView: View {
                 .padding()
             }
         }
+        .foregroundColor(.accent)
     }
 }
 
