@@ -30,9 +30,6 @@ struct AllSubjectsView: View {
                         Text(subject.label.wrappedValue)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .clipped()
-                            .font(
-                                .system(.headline, weight: .medium))
-                            .foregroundColor(.accentColor)
                     }
                     .contentShape(.rect())
                     .onTapGesture {
@@ -100,6 +97,7 @@ struct AllSubjectsView: View {
                 }
             }
             .navigationTitle("Subjects")
+            .foregroundColor(.accent)
         }
     }
     
