@@ -13,18 +13,16 @@ struct ContentView: View {
     
     @State private var isDarkMode = false
     @Environment(\.colorScheme) private var colorScheme
-
-
+    
     //splash screen variables
     @State var isActive = false
     @State var size = 0.7
     @State var opacity = 0.5
-
+    
     var body: some View {
         if isActive {
             TabView {
-                Tab("Subjects", systemImage: "square.and.arrow.down.on.square")
-                {
+                Tab("Subjects", systemImage: "square.and.arrow.down.on.square") {
                     AllSubjectsView(model: $project.inputModel)
                 }
                 Tab("Backgrounds", systemImage: "photo") {
@@ -32,7 +30,6 @@ struct ContentView: View {
                 }
                 Tab("Settings", systemImage: "gearshape") {
                     SettingsView(settings: $project.settingsModel)
-                        
                 }
                 Tab("Output", systemImage: "text.below.photo") {
                     OutputsView(model: $project.outputModel)
