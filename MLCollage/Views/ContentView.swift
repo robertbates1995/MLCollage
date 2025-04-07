@@ -34,7 +34,9 @@ struct ContentView: View {
                 Tab("Output", systemImage: "text.below.photo") {
                     OutputsView(model: $project.outputModel)
                 }
-                
+                Tab("About", systemImage: "questionmark.circle") {
+                    AboutView()
+                }
             }
             .tint(.accent)
         } else {
