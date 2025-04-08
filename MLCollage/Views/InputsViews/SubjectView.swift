@@ -25,7 +25,7 @@ struct SubjectView: View {
             } else {
                 VStack {
                     LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 50))], spacing: 20
+                        columns: [GridItem(.adaptive(minimum: 80))], spacing: 20
                     ) {
                         ForEach(images, id: \.self) { image in
                             if isClickable {
@@ -37,6 +37,7 @@ struct SubjectView: View {
                             }
                         }
                     }
+                    .padding(10)
                 }
             }
         }
@@ -60,7 +61,7 @@ struct SubjectView: View {
                 } label: {
                     VStack {
                         HStack {
-                            Image(systemName: "xmark.square.fill")
+                            Image(systemName: "xmark.circle.fill")
                                 .font(.title)
                                 .symbolRenderingMode(.palette)
                                 .foregroundStyle(.white, Color.red)
@@ -69,8 +70,9 @@ struct SubjectView: View {
                     }
                     Spacer()
                 }
-                .offset(x: -2.0, y: -2.0)
+                .offset(x: -12.0, y: -10.0)
             }
+            
         }
     }
 }
