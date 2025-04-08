@@ -5,8 +5,8 @@
 //  Created by Robert Bates on 11/4/24.
 //
 
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct EditSubjectView: View {
     @Binding var subject: Subject
@@ -16,7 +16,9 @@ struct EditSubjectView: View {
     private static let initialColumns = 3
     @State private var numColumns = initialColumns
     @State private var gridColumns = Array(
-        repeating: GridItem(.flexible()), count: initialColumns)
+        repeating: GridItem(.flexible()),
+        count: initialColumns
+    )
 
     @State private var photosPickerItems: [PhotosPickerItem] = []
 
@@ -32,10 +34,23 @@ struct EditSubjectView: View {
                     .padding()
                     .background(Color.black.opacity(0.1))
             }
-            SubjectView(
-                images: $subject.images, isClickable: true,
-                isDeleting: isDeleting
-            )
+            if subject.images.isEmpty {
+                HStack {
+                    Spacer()
+                    VStack {
+                        Image(systemName: "photo")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Circle().fill(Color.secondary))
+                        Text("add images")
+                    }
+                    .padding()
+                    Spacer()
+                }
+            } else {
+                SubjectRowView(images: $subject.images, size: 90)
+            }
+            Spacer()
         }
         .padding()
         .onChange(of: photosPickerItems) { _, _ in
@@ -44,8 +59,8 @@ struct EditSubjectView: View {
             Task {
                 for item in localPhotosPickerItems {
                     if let data = try? await item.loadTransferable(
-                        type: Data.self)
-                    {
+                        type: Data.self
+                    ) {
                         if let image = UIImage(data: data) {
                             addImage(image)
                         }
@@ -55,13 +70,21 @@ struct EditSubjectView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(isDeleting ? "Done" : "Edit") {
-                    withAnimation { isDeleting.toggle() }
+                if subject.images.isEmpty {
+                    Text("Edit")
+                        .foregroundStyle(.black.opacity(0.5))
+                } else {
+                    Button(isDeleting ? "Done" : "Edit") {
+                        withAnimation { isDeleting.toggle() }
+                    }
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                PhotosPicker( selection: $photosPickerItems,
-                              maxSelectionCount: 10, selectionBehavior: .ordered) {
+                PhotosPicker(
+                    selection: $photosPickerItems,
+                    maxSelectionCount: 10,
+                    selectionBehavior: .ordered
+                ) {
                     Image(systemName: "plus")
                 }
             }
@@ -76,7 +99,17 @@ struct EditSubjectView: View {
 }
 
 #Preview {
-    @Previewable @State var model = Subject(label: "", images: [.apple1, .apple2])
+    @Previewable @State var model = Subject(
+        label: "",
+        images: [.apple1, .apple2]
+    )
+    NavigationView {
+        EditSubjectView(subject: $model)
+    }
+}
+
+#Preview {
+    @Previewable @State var model = Subject(label: "")
     NavigationView {
         EditSubjectView(subject: $model)
     }

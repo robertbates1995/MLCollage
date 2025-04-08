@@ -24,26 +24,16 @@ struct SubjectRowView: View {
         ScrollView {
             VStack {
                 Spacer()
-            if images.isEmpty {
-                HStack {
-                    Spacer()
-                    Image(systemName: "photo")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Circle().fill(Color.secondary))
-                    Text("add images")
-                    Spacer()
-                }
-            } else {
-                    LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: size))], spacing: 20
-                    ) {
-                        ForEach(images, id: \.self) { image in
-                            subjectImage(image)
-                        }
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: size))],
+                    spacing: 20
+                ) {
+                    ForEach(images, id: \.self) { image in
+                        subjectImage(image)
                     }
                 }
             }
+
         }
     }
 
@@ -53,7 +43,7 @@ struct SubjectRowView: View {
             .aspectRatio(contentMode: .fit)
             .frame(width: size, height: size)
             .background(.black.opacity(0.3))
-            .cornerRadius(size/10)
+            .cornerRadius(size / 10)
     }
 }
 
