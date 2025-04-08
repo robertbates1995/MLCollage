@@ -31,12 +31,14 @@ struct SettingsView: View {
                 Toggle("scale", isOn: $settings.scale)
                 //flip toggle
                 Toggle("Mirror", isOn: $settings.mirror)
-                Picker("Resolution", selection: $settings.outputSize) {
-                    ForEach(Outputsize.allCases, id: \.self) {
-                        Text($0.rawValue)
+                Section("Resolution") {
+                    Picker("Resolution", selection: $settings.outputSize) {
+                        ForEach(Outputsize.allCases, id: \.self) {
+                            Text($0.rawValue)
+                        }
                     }
+                    .pickerStyle(.segmented)
                 }
-                .pickerStyle(.segmented)
             }
         }
         .navigationTitle("Settings")
