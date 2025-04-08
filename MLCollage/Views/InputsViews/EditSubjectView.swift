@@ -25,7 +25,7 @@ struct EditSubjectView: View {
     func addImage(_ image: UIImage) {
         subject.images.append(MLCImage(uiImage: image))
     }
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -35,17 +35,23 @@ struct EditSubjectView: View {
                     .background(Color.black.opacity(0.1))
             }
             if subject.images.isEmpty {
-                HStack {
-                    Spacer()
-                    VStack {
-                        Image(systemName: "photo")
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Circle().fill(Color.secondary))
-                        Text("add images")
+                PhotosPicker(
+                    selection: $photosPickerItems,
+                    maxSelectionCount: 10,
+                    selectionBehavior: .ordered
+                ) {
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Image(systemName: "photo")
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Circle().fill(Color.secondary))
+                            Text("add images")
+                        }
+                        .padding()
+                        Spacer()
                     }
-                    .padding()
-                    Spacer()
                 }
             } else {
                 SubjectRowView(images: $subject.images, size: 90)
