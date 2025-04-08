@@ -54,7 +54,10 @@ struct EditSubjectView: View {
                     }
                 }
             } else {
-                SubjectRowView(images: $subject.images, size: 90)
+                SubjectView(
+                    images: $subject.images, isClickable: true,
+                    isDeleting: isDeleting
+                )
             }
             Spacer()
         }

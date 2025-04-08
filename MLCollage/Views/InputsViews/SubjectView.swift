@@ -81,3 +81,10 @@ struct SubjectView: View {
         SubjectView(images: $model, isClickable: true, isDeleting: false)
     }
 }
+
+#Preview {
+    @Previewable @State var model = InputModel.mock.backgrounds
+    NavigationView {
+        SubjectView(images: $model, isClickable: true, isDeleting: true)
+    }
+}
