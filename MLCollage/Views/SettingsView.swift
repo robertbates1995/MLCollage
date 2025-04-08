@@ -21,7 +21,8 @@ struct SettingsView: View {
                 SliderView(
                     title: "number of each subject",
                     value: $settings.numberOfEachSubject,
-                    range: 10...1000)
+                    range: 10...1000
+                )
                 //translation toggle
                 Toggle("Translate", isOn: $settings.translate)
                 //rotate toggle
@@ -29,13 +30,17 @@ struct SettingsView: View {
                 //scale toggle
                 Toggle("scale", isOn: $settings.scale)
                 //flip toggle
-                Section("mirror") {
-                    Toggle("Mirror", isOn: $settings.mirror)
+                Toggle("Mirror", isOn: $settings.mirror)
+                Picker("Resolution", selection: $settings.outputSize) {
+                    ForEach(Outputsize.allCases, id: \.self) {
+                        Text($0.rawValue)
+                    }
                 }
+                .pickerStyle(.segmented)
             }
-            .navigationTitle("Settings")
-            .foregroundColor(.accent)
         }
+        .navigationTitle("Settings")
+        .foregroundColor(.accent)
     }
 }
 

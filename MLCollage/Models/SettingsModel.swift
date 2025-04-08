@@ -13,19 +13,35 @@ struct SettingsModel: Equatable, Codable {
     var scale: Bool
     var rotate: Bool
     var mirror: Bool
-    var outputSize: CGFloat
-    
-    init(numberOfEachSubject: Double = 30.0,
-         translate: Bool = true,
-         scale: Bool = true,
-         rotate: Bool = true,
-         mirror: Bool = true,
-         outputSize: CGFloat = 299) {
+    var outputSize: Outputsize
+
+    init(
+        numberOfEachSubject: Double = 30.0,
+        translate: Bool = true,
+        scale: Bool = true,
+        rotate: Bool = true,
+        mirror: Bool = true,
+        outputSize: Outputsize = Outputsize.s299
+    ) {
         self.numberOfEachSubject = numberOfEachSubject
         self.translate = translate
         self.scale = scale
         self.rotate = rotate
         self.mirror = mirror
         self.outputSize = outputSize
+    }
+}
+
+enum Outputsize: String, CaseIterable, Codable {
+    case s299 = "299"
+    case s512 = "512"
+    case s1024 = "1024"
+    
+    var asFloat: CGFloat {
+        switch self {
+            case .s299: return 299
+            case .s512: return 512
+            case .s1024: return 1024
+        }
     }
 }
