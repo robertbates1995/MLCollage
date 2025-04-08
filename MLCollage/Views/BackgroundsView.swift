@@ -20,10 +20,6 @@ struct BackgroundsView: View {
         NavigationView {
             ScrollView {
                 ZStack {
-                    LinearGradient(
-                        gradient: Gradient(colors: [
-                            .black.opacity(0.05), .black.opacity(0),
-                        ]), startPoint: .top, endPoint: .bottom)
                     LazyVGrid(
                         columns: [
                             GridItem(.flexible()),
@@ -177,5 +173,10 @@ struct BackgroundsView: View {
 
 #Preview {
     @Previewable @State var model = InputModel.mock
+    BackgroundsView(model: $model)
+}
+
+#Preview {
+    @Previewable @State var model = InputModel()
     BackgroundsView(model: $model)
 }
