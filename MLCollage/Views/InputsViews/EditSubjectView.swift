@@ -19,7 +19,7 @@ struct EditSubjectView: View {
         repeating: GridItem(.flexible()),
         count: initialColumns
     )
-
+    
     @State private var photosPickerItems: [PhotosPickerItem] = []
 
     func addImage(_ image: UIImage) {

@@ -11,7 +11,7 @@ import SwiftUI
 struct BackgroundsView: View {
     @Binding var model: InputModel
     @State var addNewBackground: Bool = false
-    @State var selecting: Bool = false
+    @State var editing: Bool = false
     @State var selectedUUID: Set<String> = []
     @State var showConfirmation = false
     @State private var photosPickerItems: [PhotosPickerItem] = []
@@ -28,23 +28,28 @@ struct BackgroundsView: View {
                         spacing: 10
                     ) {
                         ForEach(model.backgrounds) { image in
-                            Button(
-                                action: {
-                                    if selecting {
+                            if editing {
+                                Button(
+                                    action: {
+                                        if editing {
+                                            if selectedUUID.contains(image.id) {
+                                                selectedUUID.remove(image.id)
+                                            } else {
+                                                selectedUUID.insert(image.id)
+                                            }
+                                        }
+                                    },
+                                    label: {
                                         if selectedUUID.contains(image.id) {
-                                            selectedUUID.remove(image.id)
+                                            selectedImage(image: image)
                                         } else {
-                                            selectedUUID.insert(image.id)
+                                            unSelectedImage(image: image)
                                         }
                                     }
-                                },
-                                label: {
-                                    if selectedUUID.contains(image.id) {
-                                        selectedImage(image: image)
-                                    } else {
-                                        unSelectedImage(image: image)
-                                    }
-                                })
+                                )
+                            } else {
+                                regularImage(image: image)
+                            }
                         }
                     }
                 }
@@ -68,18 +73,18 @@ struct BackgroundsView: View {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
                     Button(
                         action: {
-                            if selecting {
+                            if editing {
                                 selectedUUID.removeAll()
-                                selecting.toggle()
+                                editing.toggle()
                             } else {
-                                selecting.toggle()
+                                editing.toggle()
                             }
                         },
                         label: {
-                            if selecting {
+                            if editing {
                                 Text("Done")
                             } else {
-                                Text("Select")
+                                Text("Edit")
                             }
                         }
                     )
@@ -88,7 +93,7 @@ struct BackgroundsView: View {
                     ) {
                         Button("Remove Selected") {
                             model.clearBackgrounds(idArray: Array(selectedUUID))
-                            selecting.toggle()
+                            editing.toggle()
                         }
                         Button("Cancel", role: .cancel) {}
                     } message: {
@@ -96,7 +101,7 @@ struct BackgroundsView: View {
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    if selecting {
+                    if editing {
                         Button(
                             action: {
                                 if selectedUUID.count > 0 {
@@ -131,43 +136,90 @@ struct BackgroundsView: View {
         model.backgrounds.append(MLCImage(uiImage: image))
     }
     
-    func unSelectedImage(image: MLCImage) -> some View {
-        Image(uiImage: image.uiImage)
-            .renderingMode(.original)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(
-                minWidth: 0, maxWidth: .infinity,
-                minHeight: 0,
-                maxHeight: .infinity, alignment: .center
-            )
-            .aspectRatio(1 / 1, contentMode: .fit)
-            .clipped()
-            .mask {
-                RoundedRectangle(
-                    cornerRadius: 10, style: .continuous)
-            }
-            .padding(5.0)
+    func regularImage(image: MLCImage) -> some View {
+        ZStack {
+            Image(uiImage: image.uiImage)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(
+                    minWidth: 0, maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity, alignment: .center
+                )
+                .aspectRatio(1 / 1, contentMode: .fit)
+                .clipped()
+                .mask {
+                    RoundedRectangle(
+                        cornerRadius: 10, style: .continuous)
+                }
+                .padding(5.0)
+        }
     }
-
-    func selectedImage(image: MLCImage) -> some View {
-        Image(uiImage: image.uiImage)
-            .renderingMode(.original)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(
-                minWidth: 0, maxWidth: .infinity,
-                minHeight: 0,
-                maxHeight: .infinity, alignment: .center
-            )
-            .aspectRatio(1 / 1, contentMode: .fit)
-            .border(.blue, width: 3)
-            .clipped()
-            .mask {
-                RoundedRectangle(
-                    cornerRadius: 10, style: .continuous)
+    
+    func unSelectedImage(image: MLCImage) -> some View {
+        ZStack {
+            Image(uiImage: image.uiImage)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(
+                    minWidth: 0, maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity, alignment: .center
+                )
+                .aspectRatio(1 / 1, contentMode: .fit)
+                .clipped()
+                .mask {
+                    RoundedRectangle(
+                        cornerRadius: 10, style: .continuous)
+                }
+                .padding(5.0)
+            HStack {
+                Spacer()
+                VStack {
+                    Spacer()
+                    Image(systemName: "circle")
+                        .font(.title)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.white)
+                        .padding()
+                }
             }
-            .padding(5.0)
+        }
+    }
+    
+    func selectedImage(image: MLCImage) -> some View {
+        ZStack {
+            Image(uiImage: image.uiImage)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(
+                    minWidth: 0, maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity, alignment: .center
+                )
+                .aspectRatio(1 / 1, contentMode: .fit)
+                .border(.blue, width: 3)
+                .clipped()
+                .mask {
+                    RoundedRectangle(
+                        cornerRadius: 10, style: .continuous)
+                }
+                .padding(5.0)
+            HStack {
+                Spacer()
+                VStack {
+                    Spacer()
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.title)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.white, .blue)
+                        .padding()
+                }
+            }
+        }
     }
 }
 
