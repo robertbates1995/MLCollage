@@ -15,8 +15,7 @@ struct EditBackgroundView: View {
     var body: some View {
         VStack {
             SubjectView(
-                images: $backgrounds, isClickable: true,
-                isDeleting: isDeleting
+                images: $backgrounds, editing: isDeleting
             )
             Spacer()
         }

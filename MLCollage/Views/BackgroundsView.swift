@@ -60,8 +60,8 @@ struct BackgroundsView: View {
                 Task {
                     for item in localPhotosPickerItems {
                         if let data = try? await item.loadTransferable(
-                            type: Data.self)
-                        {
+                            type: Data.self
+                        ) {
                             if let image = UIImage(data: data) {
                                 addImage(image)
                             }
@@ -89,7 +89,8 @@ struct BackgroundsView: View {
                         }
                     )
                     .confirmationDialog(
-                        "Are you sure?", isPresented: $showConfirmation
+                        "Are you sure?",
+                        isPresented: $showConfirmation
                     ) {
                         Button("Remove Selected") {
                             model.clearBackgrounds(idArray: Array(selectedUUID))
@@ -114,8 +115,11 @@ struct BackgroundsView: View {
                         )
                     } else {
                         PhotosPicker(
-                            "add", selection: $photosPickerItems,
-                            maxSelectionCount: 10, selectionBehavior: .ordered)
+                            "add",
+                            selection: $photosPickerItems,
+                            maxSelectionCount: 10,
+                            selectionBehavior: .ordered
+                        )
                     }
 
                 }
@@ -135,7 +139,7 @@ struct BackgroundsView: View {
     func addImage(_ image: UIImage) {
         model.backgrounds.append(MLCImage(uiImage: image))
     }
-    
+
     func regularImage(image: MLCImage) -> some View {
         ZStack {
             Image(uiImage: image.uiImage)
@@ -143,20 +147,24 @@ struct BackgroundsView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(
-                    minWidth: 0, maxWidth: .infinity,
+                    minWidth: 0,
+                    maxWidth: .infinity,
                     minHeight: 0,
-                    maxHeight: .infinity, alignment: .center
+                    maxHeight: .infinity,
+                    alignment: .center
                 )
                 .aspectRatio(1 / 1, contentMode: .fit)
                 .clipped()
                 .mask {
                     RoundedRectangle(
-                        cornerRadius: 10, style: .continuous)
+                        cornerRadius: 10,
+                        style: .continuous
+                    )
                 }
                 .padding(5.0)
         }
     }
-    
+
     func unSelectedImage(image: MLCImage) -> some View {
         ZStack {
             Image(uiImage: image.uiImage)
@@ -164,15 +172,19 @@ struct BackgroundsView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(
-                    minWidth: 0, maxWidth: .infinity,
+                    minWidth: 0,
+                    maxWidth: .infinity,
                     minHeight: 0,
-                    maxHeight: .infinity, alignment: .center
+                    maxHeight: .infinity,
+                    alignment: .center
                 )
                 .aspectRatio(1 / 1, contentMode: .fit)
                 .clipped()
                 .mask {
                     RoundedRectangle(
-                        cornerRadius: 10, style: .continuous)
+                        cornerRadius: 10,
+                        style: .continuous
+                    )
                 }
                 .padding(5.0)
             HStack {
@@ -188,7 +200,7 @@ struct BackgroundsView: View {
             }
         }
     }
-    
+
     func selectedImage(image: MLCImage) -> some View {
         ZStack {
             Image(uiImage: image.uiImage)
@@ -196,16 +208,20 @@ struct BackgroundsView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(
-                    minWidth: 0, maxWidth: .infinity,
+                    minWidth: 0,
+                    maxWidth: .infinity,
                     minHeight: 0,
-                    maxHeight: .infinity, alignment: .center
+                    maxHeight: .infinity,
+                    alignment: .center
                 )
                 .aspectRatio(1 / 1, contentMode: .fit)
                 .border(.blue, width: 3)
                 .clipped()
                 .mask {
                     RoundedRectangle(
-                        cornerRadius: 10, style: .continuous)
+                        cornerRadius: 10,
+                        style: .continuous
+                    )
                 }
                 .padding(5.0)
             HStack {

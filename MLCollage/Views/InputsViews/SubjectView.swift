@@ -11,9 +11,9 @@ import UIKit
 
 struct SubjectView: View {
     @Binding var images: [MLCImage]
-    let isClickable: Bool
-    var isDeleting: Bool
-    
+    let editing: Bool
+    @State var selectedUUID: Set<String> = []
+
     var body: some View {
         ScrollView {
             if images.isEmpty {
@@ -25,15 +25,38 @@ struct SubjectView: View {
             } else {
                 VStack {
                     LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 80))], spacing: 20
+                        columns: [GridItem(.adaptive(minimum: 80))],
+                        spacing: 20
                     ) {
                         ForEach(images, id: \.self) { image in
-                            if isClickable {
-                                NavigationLink(destination: subjectImage(image)) {
+                            if !editing {
+                                NavigationLink(destination: subjectImage(image))
+                                {
                                     subjectImage(image)
                                 }
                             } else {
-                                subjectImage(image)
+                                Button(
+                                    action: {
+                                        if selectedUUID.contains(
+                                            image.id
+                                        ) {
+                                            selectedUUID.remove(
+                                                image.id
+                                            )
+                                        } else {
+                                            selectedUUID.insert(
+                                                image.id
+                                            )
+                                        }
+                                    },
+                                    label: {
+                                        if selectedUUID.contains(image.id) {
+                                            selectedImage(image: image)
+                                        } else {
+                                            unSelectedImage(image: image)
+                                        }
+                                    }
+                                )
                             }
                         }
                     }
@@ -44,35 +67,82 @@ struct SubjectView: View {
     }
 
     fileprivate func subjectImage(_ image: MLCImage) -> some View {
-        ZStack() {
+        ZStack(alignment: .bottomTrailing) {
             Image(uiImage: image.uiImage)
+                .renderingMode(.original)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .background(Color.gray.opacity(0.5))
-                .cornerRadius(5.0)
-            if isDeleting {
-                Button {
-                    guard let index = images.firstIndex(of: image) else {
-                        return
-                    }
-                    withAnimation {
-                        _ = images.remove(at: index)
-                    }
-                } label: {
-                    VStack {
-                        HStack {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.title)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.white, Color.red)
-                        }
-                        Spacer()
-                    }
-                    Spacer()
+                .aspectRatio(contentMode: .fill)
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .center
+                )
+                .mask {
+                    RoundedRectangle(
+                        cornerRadius: 10,
+                        style: .continuous
+                    )
                 }
-                .offset(x: -12.0, y: -10.0)
-            }
-            
+                .padding(5.0)
+        }
+    }
+
+    func unSelectedImage(image: MLCImage) -> some View {
+        ZStack(alignment: .bottomTrailing) {
+            Image(uiImage: image.uiImage)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .center
+                )
+                .mask {
+                    RoundedRectangle(
+                        cornerRadius: 10,
+                        style: .continuous
+                    )
+                }
+                .padding(5.0)
+            Image(systemName: "circle")
+                .font(.title)
+                .symbolRenderingMode(.palette)
+                .foregroundStyle(.white)
+                .padding(7)
+        }
+    }
+
+    func selectedImage(image: MLCImage) -> some View {
+        ZStack(alignment: .bottomTrailing) {
+            Image(uiImage: image.uiImage)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .center
+                )
+                .border(.blue, width: 3)
+                .mask {
+                    RoundedRectangle(
+                        cornerRadius: 10,
+                        style: .continuous
+                    )
+                }
+                .padding(5.0)
+            Image(systemName: "checkmark.circle.fill")
+                .font(.title)
+                .symbolRenderingMode(.palette)
+                .foregroundStyle(.white, .blue)
+                .padding(7)
         }
     }
 }
@@ -80,13 +150,20 @@ struct SubjectView: View {
 #Preview {
     @Previewable @State var model = InputModel.mock.backgrounds
     NavigationView {
-        SubjectView(images: $model, isClickable: true, isDeleting: false)
+        SubjectView(images: $model, editing: false)
     }
 }
 
 #Preview {
     @Previewable @State var model = InputModel.mock.backgrounds
     NavigationView {
-        SubjectView(images: $model, isClickable: true, isDeleting: true)
+        SubjectView(images: $model, editing: true)
+    }
+}
+
+#Preview {
+    @Previewable @State var model = InputModel.mock.backgrounds
+    NavigationView {
+        SubjectView(images: $model, editing: true)
     }
 }

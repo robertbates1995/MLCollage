@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EditSubjectView: View {
     @Binding var subject: Subject
-    @State private var isDeleting = false
+    @State private var editing = false
     @Environment(\.dismiss) var dismiss
 
     private static let initialColumns = 3
@@ -55,8 +55,7 @@ struct EditSubjectView: View {
                 }
             } else {
                 SubjectView(
-                    images: $subject.images, isClickable: true,
-                    isDeleting: isDeleting
+                    images: $subject.images, editing: editing
                 )
             }
             Spacer()
@@ -83,8 +82,8 @@ struct EditSubjectView: View {
                     Text("Edit")
                         .foregroundStyle(.black.opacity(0.5))
                 } else {
-                    Button(isDeleting ? "Done" : "Edit") {
-                        withAnimation { isDeleting.toggle() }
+                    Button(editing ? "Done" : "Edit") {
+                        withAnimation { editing.toggle() }
                     }
                 }
             }
