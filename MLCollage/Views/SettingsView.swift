@@ -18,6 +18,13 @@ struct SettingsView: View {
         NavigationView {
             List {
                 //number of each subject
+                VStack(spacing: 20) {
+                    Text("Number of Each Subject: \(settings.numberOfEachSubject.formatted(.number))")
+                            Stepper(value: $settings.numberOfEachSubject, in: 10...500, step: 10) {
+                                Text("Choose a number")
+                            }
+                        }
+                        .padding()
                 SliderView(
                     title: "number of each subject",
                     value: $settings.numberOfEachSubject,

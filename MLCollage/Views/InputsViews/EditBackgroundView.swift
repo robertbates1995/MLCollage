@@ -4,7 +4,7 @@ import PhotosUI
 
 struct EditBackgroundView: View {
     @Binding var backgrounds: [MLCImage]
-    @State private var isDeleting = false
+    @State private var editing = false
     @Environment(\.dismiss) var dismiss
     @State private var photosPickerItems: [PhotosPickerItem] = []
     
@@ -15,7 +15,7 @@ struct EditBackgroundView: View {
     var body: some View {
         VStack {
             SubjectView(
-                images: $backgrounds, editing: isDeleting
+                images: $backgrounds, editing: editing
             )
             Spacer()
         }
@@ -37,8 +37,8 @@ struct EditBackgroundView: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button(isDeleting ? "Done" : "Edit") {
-                    withAnimation { isDeleting.toggle() }
+                Button(editing ? "Done" : "Edit") {
+                    withAnimation { editing.toggle() }
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {

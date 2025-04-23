@@ -18,7 +18,8 @@ struct PinchGesture: UIGestureRecognizerRepresentable {
     }
 
     func handleUIGestureRecognizerAction(
-        _ recognizer: UIPinchGestureRecognizer, context: Context
+        _ recognizer: UIPinchGestureRecognizer,
+        context: Context
     ) {
         scale = recognizer.scale
         velocity = recognizer.velocity
@@ -39,45 +40,56 @@ struct OutputsView: View {
         let pinch = PinchGesture(
             scale: $scale.animation(.spring(.smooth(extraBounce: 0.2))),
             velocity: $velocity,
-            state: $state.animation(.spring(.smooth(extraBounce: 0.5))))
+            state: $state.animation(.spring(.smooth(extraBounce: 0.5)))
+        )
 
         GeometryReader { size in
             NavigationView {
                 VStack {
-                    ScrollView {
-                        LazyVGrid(
-                            columns: [GridItem(.adaptive(minimum: minSize * scale))],
-                            spacing: 20
-                        ) {
-                            ForEach(model.collages) { collage in
-                                VStack {
-                                    ThumbnailView(collage: collage)
+                    if model.blueprints.isEmpty {
+                        Text("At least one subject and background is required.")
+                            .font(.title)
+                    } else {
+                        ScrollView {
+                            LazyVGrid(
+                                columns: [
+                                    GridItem(
+                                        .adaptive(minimum: minSize * scale)
+                                    )
+                                ],
+                                spacing: 20
+                            ) {
+                                ForEach(model.collages) { collage in
+                                    VStack {
+                                        ThumbnailView(collage: collage)
+                                    }
                                 }
                             }
-                        }
-                    }.gesture(pinch)
-                    .navigationTitle("Output")
-                    if model.canExport {
-                        Button("export") {
-                            showingExporter.toggle()
-                        }.fileExporter(
-                            isPresented: $showingExporter,
-                            document: TrainingDataFile(
-                                collages: model.collages),
-                            defaultFilename: "foo"
-                        ) { _ in
+                        }.gesture(pinch)
+                        if model.canExport {
+                            Button("export") {
+                                showingExporter.toggle()
+                            }.fileExporter(
+                                isPresented: $showingExporter,
+                                document: TrainingDataFile(
+                                    collages: model.collages
+                                ),
+                                defaultFilename: "foo"
+                            ) { _ in
 
-                        }
-                        .padding()
-                    } else {
-                        if let progress = model.progress {
-                            ProgressView(value: progress)
+                            }
+                            .padding()
+                        } else {
+                            if let progress = model.progress {
+                                ProgressView(value: progress)
+                            }
                         }
                     }
                 }.task {
                     model.updateIfNeeded()
                 }
                 .padding()
+                .navigationTitle("Output")
             }
         }
         .foregroundColor(.accent)
@@ -87,5 +99,11 @@ struct OutputsView: View {
 #Preview {
     //replace this with actual output photos
     @Previewable @State var model = OutputModel.mock
+    OutputsView(model: $model)
+}
+
+#Preview {
+    //replace this with actual output photos
+    @Previewable @State var model = OutputModel()
     OutputsView(model: $model)
 }

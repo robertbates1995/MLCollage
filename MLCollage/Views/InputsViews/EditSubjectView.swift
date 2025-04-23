@@ -97,8 +97,12 @@ struct EditSubjectView: View {
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("save") {
-                    dismiss()
+                Button(editing ? "Delete" : "Save") {
+                    if editing {
+                        
+                    } else {
+                        dismiss()
+                    }
                 }
             }
         }
