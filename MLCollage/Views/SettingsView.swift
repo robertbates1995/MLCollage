@@ -16,7 +16,7 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationView {
-            List{ 
+            List{
                 SliderView(
                     title: "number of each subject",
                     value: $settings.numberOfEachSubject,
@@ -49,19 +49,36 @@ struct SliderView: View {
     let title: String
     @Binding var value: Double
     let range: ClosedRange<Double>
+    let step = 10.0
 
     var body: some View {
         HStack {
-            Text(String(format: "%g", value.rounded()))
-            
-            Slider(value: $value, in: range) {
-                Text("population")
-            } onEditingChanged: { _ in
-                value = value.rounded()
-                print("\(value)")
+            VStack {
+                HStack {
+                    Spacer()
+                    Text("Subjects:")
+                    Spacer()
+                    Text(String(format: "%g", value.rounded()))
+                    Spacer()
+                }
+                HStack {
+                    Stepper(
+                                value: $value,
+                                in: range,
+                                step: step
+                            ) {
+                                Slider(value: $value, in: range) {
+                                    Text("population")
+                                } onEditingChanged: { _ in
+                                    value = value.rounded()
+                                    print("\(value)")
+                                }
+                            }
+                            .padding(10)
+                }
+               
             }
         }
-
     }
 }
 
