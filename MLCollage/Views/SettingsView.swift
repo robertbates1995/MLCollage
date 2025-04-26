@@ -17,14 +17,30 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
-                //number of each subject
-                VStack(spacing: 20) {
-                    Text("Number of Each Subject: \(settings.numberOfEachSubject.formatted(.number))")
-                            Stepper(value: $settings.numberOfEachSubject, in: 10...500, step: 10) {
-                                Text("Choose a number")
-                            }
-                        }
-                        .padding()
+                VStack {
+                    Text(
+                        "Number of Each Subject: \(settings.numberOfEachSubject.formatted(.number))"
+                    )
+                    HStack {
+                        Text("\(settings.numberOfEachSubject.formatted(.number))")
+//                        Slider(
+//                            value: $settings.numberOfEachSubject.rounded,
+//                            in: 10...1000
+//                        ) {
+//                            Text("population")
+//                        } onEditingChanged: { _ in
+//                            $settings.numberOfEachSubject.rounded = $settings
+//                                .numberOfEachSubject.rounded.rounded()
+//                        }
+//                        Stepper(
+//                            value: $settings.numberOfEachSubject,
+//                            in: 10...500,
+//                            step: 10
+//                        )
+                    }
+                }
+                .padding()
+
                 SliderView(
                     title: "number of each subject",
                     value: $settings.numberOfEachSubject,
@@ -59,17 +75,16 @@ struct SliderView: View {
     let range: ClosedRange<Double>
 
     var body: some View {
-        Section(title) {
-            HStack {
-                Text(String(format: "%g", value.rounded()))
-            }
-            Slider(value: $value, in: range) {
-                Text("population")
-            } onEditingChanged: { _ in
-                value = value.rounded()
-                print("\(value)")
-            }
+        HStack {
+            Text(String(format: "%g", value.rounded()))
         }
+        Slider(value: $value, in: range) {
+            Text("population")
+        } onEditingChanged: { _ in
+            value = value.rounded()
+            print("\(value)")
+        }
+
     }
 }
 
